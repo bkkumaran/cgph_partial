@@ -1,0 +1,308 @@
+<apex:component controller="PropertyDetailsController" access="global">
+    <apex:attribute assignTo="{!propertyId}" name="strpropertyId" type="String" description="Property Id for which detais need to be sent"/>
+    <apex:attribute assignTo="{!preappId}" name="strpreappId" type="String" description="Preapplicant Id whomm property details need to be sent"/>
+    
+    <div id="Container" style="font-family: Arial, Helvetica, sans-serif;">
+        <!--img src="https://www.affordablehomesnewjersey.com/wp-content/uploads/2016/03/cgph-email-logo1.png" width="270" height="73"/>-->
+        <img src="https://www.affordablehomesnewjersey.com/wp-content/uploads/2016/10/AHNJ-logo.png" />
+        <hr size='2' color='#2970AA'></hr>
+        {!PropertyDetails}
+        <font face='calibri'>
+        <p>Dear {!wrapObj.preApplicant.Applicant_Name__c},</p>
+        
+        <!-- Campaign Header -->
+        <apex:outputText value="{!wrapObj.property.Campaign__r.Text__c}" escape="false"></apex:outputText>
+
+        <p>Please respond by: 
+            <strong>{!wrapObj.strDeadline}</strong><!--
+               <apex:outputText value="{0,date,MM/dd/yyyy}" styleClass="MunicipalityValue">
+                    <apex:param value="{!wrapObj.strDeadline}" />    
+                </apex:outputText> 
+            </strong>.--></p> 
+         </font>   
+        <font face='calibri'>
+        <div style="width:600px; border:1px solid #eee;">
+            <div style="width:580px; Margin:10px;">
+                <!-- Property Listing -->
+                <h2 style="Margin-bottom:0px; display:inline; font-weight:normal;">{!wrapObj.property.Development_address__r.Name}</h2>
+                <a href="{!wrapObj.property.Property_Map__c}" style="color:white; color:#0E6BCA;"><img src="https://cdn2.iconfinder.com/data/icons/webstore/512/map_marker-128.png " style="margin-left:12px;" width="20" height="20" />map</a>
+
+                <br/>
+                <h3 style="Margin:3px 0 0px 0; font-weight:normal;">
+                    <apex:outputText value="{!wrapObj.property.Name}" rendered="{!wrapObj.property.Name != null &&  wrapObj.property.Name != ''}"/>,&nbsp;<apex:outputText value="{!wrapObj.property.HOMEtracker__City__c}" rendered="{!wrapObj.property.HOMEtracker__City__c != null}"/>,&nbsp;<apex:outputText value="{!wrapObj.property.Municipality_County__c}" rendered="{!wrapObj.property.Municipality_County__c != null}"/> County</h3>
+            </div>
+            
+            <!-- Image -->
+            <!-- Display first image -->
+            <apex:image value="{!IF(wrapObj.property.Property_Images__r != null && wrapObj.property.Property_Images__r.size > 0 ,wrapObj.property.Property_Images__r[0].Image_url__c,'')}" style="display:{!IF(wrapObj.property.Property_Images__r != null,'block','none')}; border:0px; outline:none; width:100%; height:auto; max-width:600px; " /> 
+      
+           <!--  <div style="text-align:center; color:grey; padding:50px 0px;display:{!IF(wrapObj.property.Property_Images__r != null,'none','block')}">
+              <h2><span class="glyphicon glyphicon glyphicon-camera" aria-hidden="true" style="margin-right:10px;"></span>No Image Available</h2>
+            </div>
+             -->
+            
+<!--              <apex:outputText value="No Image Available" rendered="{!wrapObj.property.Property_Images__r != null && wrapObj.property.Property_Images__r.size == 0 }"></apex:outputText>-->
+            <apex:outputText value="<h2><span class='glyphicon glyphicon glyphicon-camera' aria-hidden='true' style='margin-right:10px;'></span>No Image Available</h2>" rendered="{!wrapObj.property.Property_Images__r != null && wrapObj.property.Property_Images__r.size == 0 }" escape="false"></apex:outputText>
+            
+
+            <!-- Listing Data -->
+            
+            <table style="width:600px; Margin:0; padding:0;">
+                <tr>
+                    <td style="color:grey;">
+                        
+                        <h2 style=" Margin:5px 10px; "><span style="color:#0E6BCA; "><apex:outputText value="{!wrapObj.property.HOMEtracker__Number_of_Bedrooms__c}"/></span> bed <span style="color:#0E6BCA;"><apex:outputText value="{!wrapObj.property.HOMEtracker__Number_of_Bathrooms__c}"/></span> bath</h2>
+                    </td>
+                    <td width="30 "> </td>
+                    
+                    <td style="color:#0E6BCA; text-align:right;">
+                        <h2 style="Margin:5px 10px; ">
+                            <apex:outputText value="${0, number, ###,###,###,##0}"><apex:param value="{!IF(wrapObj.property.RecordType.Name == 'Homeownership',wrapObj.property.HOMEtracker__List_Price__c,wrapObj.property.HOMEtracker__Monthly_Rent__c)}" /></apex:outputText>                            
+                        </h2>
+                    </td>
+                </tr>
+            </table>
+            
+            <!--<table style="width:600px; Margin:20px 0 30px 0; padding:0;">
+                <tr>
+                    <td width="30 "></td>
+                    <td width="250 ">
+                      <!--[if mso]>
+                      <v:rect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{!wrapObj.strQuestionaireUrl}" style="height:60px;width:220px;padding-top:20px;" strokecolor="#dddedf" fillcolor="#ffffff">
+                      <w:anchorlock/>
+                      <center style="color:#000001;font-family:font-family: sans-serif;font-weight: 300;font-size:25px;">Submit an Interest Form</center>
+                      </v:rect>
+                      <![endif]
+                      <a href="{!wrapObj.strQuestionaireUrl}" style="background-color:#fff; border:1px solid #dddedf; color:#0E6BCA; display:inline-block; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size:25px; line-height:35px;text-align:center; text-decoration:none; height:90px; width:250px; padding-top:20px; -webkit-text-size-adjust:none; mso-hide:all; ">Submit an Interest Form</a>
+                    </td>
+                    <td width="30 "> </td>
+                    
+                    <td width="250 ">
+                      \[if mso]>
+                      <v:rect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{!wrapObj.strSkipUnitUrl}" style="height:60px;width:220px;padding-top:20px;" strokecolor="#dddedf" fillcolor="#ffffff">
+                      <w:anchorlock/>
+                      <center style="color:#000001;font-family:font-family: sans-serif;font-weight: 300;font-size:25px;">Skip this Unit</center>
+                      </v:rect>
+                      <![endif]
+
+                        <a href="{!wrapObj.strSkipUnitUrl}" style="background-color:#fff; border:1px solid #dddedf; color:#0E6BCA; display:inline-block; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size:25px; line-height:35px; text-align:center; text-decoration:none; height:90px; width:250px; padding-top:20px; -webkit-text-size-adjust:none; mso-hide:all; ">Skip this Unit</a>
+                    </td>
+                    <td width="30 "></td>
+                </tr>
+            </table>-->
+            
+            <table style="width:600px; margin:20px 0 30px 0; padding:0;">
+                <tr style="height:15px;"></tr>
+                <tr>
+                    
+                    <td style="width:30px;"></td>
+                    
+                    <td style="width:250px; height:90px; background-color:#ffffff; border:1px solid #dddedf; text-align:center; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size:25px; padding-left:20px; padding-right:20px;">
+                      <a href="{!wrapObj.strQuestionaireUrl}" style="color:#0E6BCA; text-decoration:none;">Submit an Interest Form</a>
+                      <!--
+                      display:inline-block; line-height:35px; -webkit-text-size-adjust:none; mso-hide:all;
+                      --> 
+                    </td>
+                    
+                    <td style="width:30px;"></td>
+                    
+                    <td style="width:250px; height:90px; background-color:#ffffff; border:1px solid #dddedf; text-align:center; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size:25px; padding-left:20px; padding-right:20px;">                      
+                        <a href="{!wrapObj.strSkipUnitUrl}" style="color:#0E6BCA; text-decoration:none;">Skip this Unit</a>                    
+                        <!--
+                        display:inline-block; line-height:35px; -webkit-text-size-adjust:none; mso-hide:all;
+                        -->
+                    </td>
+                    
+                    <td style="width:30px;"></td>
+                
+                </tr>
+                <tr style="height:15px;"></tr>
+            </table>
+            
+           
+            <div style="padding:5px 10px 30px 20px; width:580px;">
+                        
+            
+                <h3 style="margin:0px;">Application Fees and Credit Requirements</h3>
+                <!-- Development Credit Check Required -->
+                <apex:outputText rendered="{!IF(AND(wrapObj.property.Development_address__r.Credit_Check_Required__c=='Yes' && wrapObj.property.RecordType.Name='Homeownership'),true,false)}" value="Credit Check Required<br/>" escape="false"></apex:outputText>
+
+                <apex:outputText value="{!if(wrapObj.property.Development_address__r.Credit_Check_Required__c == 'Yes','Credit Check Required','Credit Check not Required')}<br/>" escape="false" rendered="{!IF(wrapObj.property.RecordType.Name != 'Homeownership',true,false)}"></apex:outputText>
+
+
+                <!-- Background Check --> 
+                <!-- Development Background Check Required -->
+             <!-- commented on 1st feb for suppor req
+                <apex:outputText value="Background Check Required<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__r.Background_Check_Required__c == 'Yes' && wrapObj.property.RecordType.Name == 'Homeownership',true,false)}"></apex:outputText>
+                
+                <apex:outputText value="{!if(wrapObj.property.Development_address__r.Background_Check_Required__c == 'Yes','Background Check Required','Background Check not Required')}<br/>" escape="false" rendered="{!IF(wrapObj.property.RecordType.Name != 'Homeownership',true,false)}"></apex:outputText>
+            -->
+                
+                <!-- Background Check Fee --> 
+                <!-- Development Background Check Fee -->
+                 
+                <apex:outputText value="Credit Check Fee: ${!wrapObj.property.Development_address__r.Credit_Background_Check_Fee__c}<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.Development_address__r.Credit_Background_Check_Fee__c != null && wrapObj.property.RecordType.Name == 'Homeownership',true,false)}"></apex:outputText>
+                <apex:outputText value="{!wrapObj.property.Development_address__r.Credit_Background_Check_Fee_Notes__c}<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.Development_address__r.Credit_Background_Check_Fee__c != null && wrapObj.property.RecordType.Name == 'Homeownership',true,false)}"></apex:outputText>
+                
+                    
+                <apex:outputText value="Credit Check Fee: ${!wrapObj.property.Development_address__r.Credit_Background_Check_Fee__c}<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.Development_address__r.Credit_Background_Check_Fee__c != null && wrapObj.property.RecordType.Name != 'Homeownership',true,false)}"></apex:outputText>
+                
+                
+                <!-- Minimum Credit Score Development Min Credit Score -->
+                <apex:outputText value="Minimum Credit Score to Be Eligible: {!wrapObj.property.Development_address__r.Minimum_Credit_Score_to_be_Eligible__c}<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__r.Credit_Check_Required__c == 'Yes' && wrapObj.property.Development_address__r.Minimum_Credit_Score_to_be_Eligible__c != 0,true,false)}"></apex:outputText>
+ 
+
+
+                <!-- Co-Signers Allowed --> 
+
+                    <!-- Development Co-signers Allowed -->
+                    <apex:outputText value="Co-Signers Allowed<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.RecordType.Name!='Homeownership' && wrapObj.property.Development_address__r.Co_Signers_Allowed__c == 'Yes',true,false)}"></apex:outputText>
+                    
+
+                <apex:outputText value="No Co-Signers Allowed<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.RecordType.Name!='Homeownership' && wrapObj.property.Development_address__r.Co_Signers_Allowed__c == 'No',true,false)}"></apex:outputText>
+
+                <!-- Development Co-Signers Allowed -->
+                <apex:outputText value="Required Deposit: ${!wrapObj.property.Development_address__r.Required_Deposit__c}<br/>" escape="false" rendered="{!IF(wrapObj.property.RecordType.Name=='Homeownership' && wrapObj.property.Development_address__r.Required_Deposit__c != null,true,false)}"></apex:outputText>
+
+                
+                <!-- Credit Background Check Fee Notes -->
+                <!-- Development Credit Background Check Fee Notes -->
+                <apex:outputText value="{!wrapObj.property.Development_address__r.Credit_Background_Check_Fee_Notes__c}<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.Development_address__r.Credit_Background_Check_Fee_Notes__c != null,true,false)}"></apex:outputText>
+               
+                
+                <!-- Development Financing Requirements -->
+                <apex:outputText value=" {!wrapObj.property.Development_address__r.Development_Financing_Requirements__c}<br/>" escape="false" rendered="{!IF(wrapObj.property.RecordType.Name=='Homeownership',true,false)}"></apex:outputText>
+                
+                <!-- Unit Information and Amenities -->
+                <h3 style="margin:10px 0 0 0; ">Unit Information and Amenities</h3>
+                <!-- 5% Down Payment -->
+                <apex:outputText styleClass="cgphPropLabel" rendered="{!wrapObj.property.RecordType.Name=='Homeownership'}" value="5% Down Payment: ${0,number,###,###,###,##0}<br/>" escape="false">
+                    <apex:param value="{!wrapObj.property.X5_Down_Payment_Approximate__c}" />
+                </apex:outputText>
+
+                
+                <!-- Annual Property Taxes -->
+                <apex:outputText styleClass="cgphPropLabel" rendered="{!wrapObj.property.RecordType.Name == 'Homeownership' && wrapObj.property.Development_address__r.HOMEtracker__Property_Type__c != 'Mobile or Manufactured Home'}" value="Annual Property Taxes: ${0,number,###,###,###,##0}<br/>" escape="false">
+                        <apex:param value="{!wrapObj.property.Approximate_Annual_Property_Taxes__c}" />
+                </apex:outputText>
+
+                <!-- HOA Condo Fees-->
+                <apex:outputText styleClass="cgphPropLabel" rendered="{!wrapObj.property.RecordType.Name == 'Homeownership'}" value="{!IF(wrapObj.property.Development_address__r.HOMEtracker__Property_Type__c != 'Mobile or Manufactured Home','HOA/Condo Fee:','Monthly Fee:')}  ${0,number,###,###,###,##0}<br/>" escape="false">
+                    <apex:param value="{!wrapObj.property.HOMEtracker__Current_HOA_Condo_Fees__c}" />
+                </apex:outputText>
+                
+                <!-- Development Utilities Included -->
+                <apex:outputText value="Utilities Included in Rent: {!SUBSTITUTE(wrapObj.property.Development_address__r.Utilities_Included__c,';',', ')}<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.Development_address__r.Utilities_Included__c != null,true,false)}"></apex:outputText>
+  
+                <!-- Income Level -->
+                <apex:outputText value="{!wrapObj.property.Max_Income_Level__c} Income Level<br/>" escape="false" rendered="{!IF(wrapObj.property.Max_Income_Level__c != null,true,false)}"></apex:outputText>
+
+                
+                <!-- Floor -->
+                <apex:outputText value="{!wrapObj.property.Floor_unit_is_located_on__c} Floor<br/>" escape="false" rendered="{!IF(wrapObj.property.HOMEtracker__Property_Type__c != null && (wrapObj.property.HOMEtracker__Property_Type__c != 'Single-Family Home' || wrapObj.property.HOMEtracker__Property_Type__c != 'Mobile or Manufactured Home'),true,false)}"></apex:outputText>
+                
+                <!-- Multi-level Unit -->
+                <apex:outputText value="Multi Level Home<br/>" escape="false" rendered="{!IF(wrapObj.property.Multi_level_unit__c,true,false)}"></apex:outputText>
+                 
+
+                <!-- Development Elevator -->
+                <apex:outputText value="Elevator<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.Development_address__r.Elevator__c == 'Yes',true,false)}"></apex:outputText>
+                    
+                <apex:outputText value="No Elevator<br/>" escape="false" rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.Development_address__r.Elevator__c == 'No',true,false)}"></apex:outputText>
+
+                <!-- Smoking Policy -->
+                <apex:outputText value="No Smoking Allowed<br/>" escape="false" rendered="{!IF((wrapObj.property.Development_address__c != null && wrapObj.property.Development_address__r.Smoking_Allowed__c == 'No'),true,false)}"></apex:outputText>
+                
+                <!-- Amenities -->
+                <apex:outputText value=" Complex Amenities: {!SUBSTITUTE(wrapObj.property.Development_address__r.Amenities__c,';',', ')}<br/>" escape="false"  rendered="{!IF(wrapObj.property.Development_address__c != null && wrapObj.property.Development_address__r.Amenities__c != null,true,false)}"></apex:outputText>
+                
+                <!-- Interior -->
+                <apex:outputText rendered="{!IF(wrapObj.property.HOMEtracker__Interior__c != null,true,false)}" value="Interior Amenities: {!SUBSTITUTE(wrapObj.property.HOMEtracker__Interior__c,';',', ')}<br/>" escape="false"></apex:outputText>
+
+                <!-- Exterior -->
+                <apex:outputText rendered="{!IF(wrapObj.property.HOMEtracker__Exterior__c != null,true,false)}" value="Exterior Amenities: {!SUBSTITUTE(wrapObj.property.HOMEtracker__Exterior__c,';',', ')}<br/>" escape="false"></apex:outputText>
+
+                
+                <!-- Age Restriction -->
+                <apex:outputText rendered="{!if(wrapObj.property.Age_Restriction__c != 'None',true,false)}">
+                  <h3 style="margin:10px 0 0 0;">Age-Restricted Policy</h3> 
+                </apex:outputText>
+                
+                <!-- Age Restriction -->
+                <apex:outputText rendered="{!IF(wrapObj.property.Age_Restriction__c == '55+ Exclusive',true,false)}" value="This is a 55+ community.  All household members must be 55 years old or older.<br/>" escape="false"></apex:outputText>
+                  
+                <apex:outputText rendered="{!IF(wrapObj.property.Age_Restriction__c == 'Over 17',true,false)}" value="This is a 55+ community.  At least one household member must be 55 years or older.  All other household members must be over 17 years old.<br/>" escape="false"></apex:outputText>
+                    
+                <apex:outputText rendered="{!IF(wrapObj.property.Age_Restriction__c == 'Over 18',true,false)}" value="This is a 55+ community.  At least one household member must be 55 years or older.  All other household members must be over 18 years old.<br/>" escape="false"></apex:outputText>
+                 
+                <!-- Pets -->   
+                <h3 style="margin:10px 0 0 0;">Pets</h3>                
+                
+                <!-- Pets Allowed -->
+                <!-- Pet Policy -->
+                <apex:outputText rendered="{!if(wrapObj.property.Pets_allowed__c == 'No',true,false)}" value="No Pets Allowed<br/>" escape="false"></apex:outputText>
+                    
+                <apex:outputText rendered="{!if(wrapObj.property.Pets_allowed__c != 'No',true,false)}" value="{!wrapObj.property.Pet_fee__c}<br/>" escape="false"></apex:outputText>
+                                
+                <!-- Parking -->   
+                <h3 style="margin:10px 0 0 0;">Parking </h3>
+                
+                <!-- Property Parking -->
+                {!wrapObj.property.Additional_Parking_Fee__c}<br/>
+                
+                <!-- Accessibility Features -->
+                <apex:outputText rendered="{!if(wrapObj.property.HOMEtracker__Accessibility_Features__c==true,true,false)}">
+                  <h3 style="margin:10px 0 0 0;">Accessibility Features</h3> 
+                  {!wrapObj.property.HOMEtracker__Description_of_Accessibility_Features__c}
+                </apex:outputText>
+                
+                <!-- Affordability Assistance -->  
+           
+            <div id="divAffAssistance" class="col-lg-12">
+              <apex:outputText style="font-weight: bold;margin: 10px 0 0 0;" rendered="{!wrapObj.property.RecordType.Name == 'Homeownership' && (wrapObj.property.Municipality_Name__r.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != '' || wrapObj.property.Municipality_Name__r.Down_Payment_Assistance_Cert_Text__c != '')}"
+              styleClass="control-label" value=""><h3 style="margin: 10px 0 0 0;">Affordability Assistance</h3></apex:outputText>
+            
+             <apex:outputText style="font-weight: bold;margin: 10px 0 0 0;" rendered="{!wrapObj.property.RecordType.Name == 'Rental Unit' && (wrapObj.property.Municipality_Name__r.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != '' || wrapObj.property.Municipality_Name__r.Rent_Assistance_Cert_Text__c != '')}"
+              styleClass="control-label" value=""><h3 style="margin: 10px 0 0 0;">Affordability Assistance</h3></apex:outputText>
+           </div>
+            
+            
+            <div class="col-lg-12">
+             
+              <apex:outputText styleClass="cgphPropLabel" rendered="{!wrapObj.property.RecordType.Name == 'Homeownership' && wrapObj.property.Municipality_Name__r.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != ''}" >
+                  {!wrapObj.property.Municipality_Name__r.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c} <br/>
+              </apex:outputText>    
+              
+              <apex:outputText styleClass="cgphPropLabel" rendered="{!wrapObj.property.RecordType.Name == 'Homeownership' && wrapObj.property.Municipality_Name__r.Down_Payment_Assistance_Cert_Text__c != ''}" value="{!wrapObj.property.Municipality_Name__r.Down_Payment_Assistance_Cert_Text__c}" />      
+              
+           
+              <apex:outputText styleClass="cgphPropLabel" rendered="{!wrapObj.property.RecordType.Name == 'Rental Unit' && wrapObj.property.Municipality_Name__r.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != ''}">
+                  {!wrapObj.property.Municipality_Name__r.County_Lookup__r.County_Rent_Assistance_Cert_Text__c} <br/>
+              </apex:outputtext>                    
+   
+              <apex:outputText styleClass="cgphPropLabel" rendered="{!wrapObj.property.RecordType.Name == 'Rental Unit' && wrapObj.property.Municipality_Name__r.Rent_Assistance_Cert_Text__c != ''}" value="{!wrapObj.property.Municipality_Name__r.Rent_Assistance_Cert_Text__c}" />                    
+              
+            </div>           
+            
+
+
+                <!-- Description -->
+                <apex:outputText rendered="{!if(wrapObj.property.HOMEtracker__Property_Description__c != null,true,false)}">
+                  <h3 style="margin:10px 0 0 0;">{!wrapObj.property.HOMEtracker__Property_Description__c}</h3> 
+                </apex:outputText>
+            </div>
+        </div>
+      </font>
+   <hr size='2' color='#2970AA'></hr>
+   <font color='#21407B' face='calibri' style="text-align:center;">
+   <div style="text-align:center; color:#21407B; margin-top:30px; width:600px; font-family=calibri">
+      1249 South River Road, Suite 301, Cranbury, NJ 08512-3633<br/>
+      <a href="mailto:homes@cgph.net" style="color:#0E6BCA;">homes@cgph.net</a><br/>
+      <a href="www.affordablehomesnewjersey.com/" style="color:#0E6BCA;">www.affordablehomesnewjersey.com</a><br/>
+      <br/>
+      View my <a href="{!wrapObj.strProfileUrl}" style="color:#0E6BCA;">Affordable Homes New Jersey Profile</a><br/>
+      I am no longer interested in affordable housing: <a href="{!wrapObj.strRemoveMeFromAllUrl}" style="color:#0E6BCA;">Remove me from all Waiting Lists</a><br/>
+    </div> 
+    </font>
+  </div>
+</apex:component>

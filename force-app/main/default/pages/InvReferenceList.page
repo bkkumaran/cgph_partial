@@ -1,0 +1,103 @@
+<apex:page standardController="TS_Contract__c" showHeader="false" extensions="InvReferencesExt" standardStylesheets="true">
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto');
+    
+    body {
+        font-family: Roboto;
+        }
+    table {
+        border-collapse: collapse;
+        border: 0.5px solid #e3e3e3;
+        }
+    th {
+        font-weight: normal;
+        font-size: 11pt;
+        color:#3366cc;
+        padding: 4px 4px 4px 4px;
+        background-color:white !important;
+        border-bottom: 1px solid #3366cc;
+        }
+    td {
+        vertical-align: top;
+        padding: 4px 5px 4px 5px;
+        }
+    tr:hover {
+        background-color: #ffffd7;
+        }
+    a {
+        text-decoration: none !important;
+        background-color:none;
+        opacity: 0.5;
+        }
+    a:hover {
+        opacity: 1;
+        }
+    
+</style>
+
+<apex:form >
+<table border="1" width="100%">
+    <tr height="35px" style="background-color:white !important">
+<!--        <td style="border-right: 1px solid white; text-align: left; vertical-align: middle;">
+            <a href="https://cgph--c.vf.force.com/flow/Invoices_Add_Invoice_Reference?varID={!InvSetupID}&retURL=https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FTS_Contract__c%2F{!InvSetupID}%2Fview" target="_self">
+                <apex:image value="{!$Resource.AddIcon}" height="20px" />
+            </a>
+        </td>
+-->
+        <td colspan="3" style="text-align: center">
+            <apex:commandButton id="saveButton" value="Save" action="{!save}" style="display: none;"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:commandButton id="cancelButton" value="Cancel" style="display: none;"/>
+        </td>
+    </tr>
+    <tr>
+        <th width="50px">
+            Order
+        </th>
+        <th>
+            Invoice Reference &nbsp;
+            
+        </th>
+        <th width="75px">
+            Archive
+        </th>
+    </tr>
+    
+    <apex:repeat var="x" value="{!listIR}">
+    <tr style="{!IF(x.Archive__c = true, 'background-color:#f2f2f2; opacity: 50%;','')}">
+        <td>
+            <apex:actionRegion >
+                  <apex:outputField value="{!x.Order__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton,testButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+        <td>
+            <apex:actionRegion >
+                  <apex:outputField value="{!x.Name}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+        <td>
+            <apex:actionRegion >
+                  <apex:outputField value="{!x.Archive__c}"  >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+    
+    </tr>
+    </apex:repeat>
+
+</table>
+</apex:form>
+
+<a href="https://cgph--c.vf.force.com/apex/InvReferenceList?id={!InvSetupID}" target="_blank" style="{!IF($User.FirstName='John','','display:none;')}">
+VF
+</a>
+
+
+</apex:page>

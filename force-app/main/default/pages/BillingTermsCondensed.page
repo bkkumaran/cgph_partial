@@ -1,0 +1,157 @@
+<apex:page standardController="Contract" showHeader="true" sidebar="true" extensions="extBT" >
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        .HeaderStyle { font-family: 'Open Sans'; font-size: 14pt; font-weight: bold;}
+        .TermStyle { font-family: 'Open Sans'; font-size: 10pt;}
+        .TitleStyle { font-size: 15pt !important; }
+    </style>
+
+<apex:variable id="nameFixed" value="{!SUBSTITUTE(SUBSTITUTE(Contract.Name,'&','%26'),' ','+')}" var="nameFix"/>
+
+    <apex:outputPanel layout="block" rendered="{!hideRefreshBT}" style="width: 750px; background-color: rgb(242, 249, 255); text-align: center; font-size: 20pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold;">
+
+<span style="{!IF(Contract.Contract_PDF_URL__c='','display:none;','')}">
+<a href="{!Contract.Contract_PDF_URL__c}" target="_blank" style="text-decoration:none;">
+<apex:image id="PDF" url="https://upload.wikimedia.org/wikipedia/commons/6/6c/PDF_icon.svg" width="20"/>
+</a>
+</span>
+          <a href="/{!Contract.Id}" target="_top" style="text-decoration:none; color: rgb(37,113,170);">
+          {!Contract.Name}
+          </a>
+          <br />
+          Billing Terms Summary
+<!--         <span style="font-size: 12pt;" >
+           <i> click here to return to contract </i>
+         </span> -->
+         <br />
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!ISBLANK(Contract.Contract_Verified_Date__c)}" layout="block" onClick="window.open('/apex/BillingTerms?Id={!Contract.Id}','_PARENT')" style="width: 740px; background-color: rgb(244, 66, 80); text-align:center; font-family: 'Arial black'; font-size: 16pt; color: white; padding: 5px;" >
+    THESE BILLING TERMS HAVE NOT BEEN VERIFIED <BR />
+    </apex:outputPanel>
+    <apex:outputPanel layout="block" onClick="window.open('https://cgph.lightning.force.com/lightning/r/Report/00OUq000001pZMXMA2/view?queryScope=userFolders&fv0={!Contract.Id}','_PARENT')" style="width: 740px; background-color: rgb(37,113,170); text-align:center; font-family: 'Open Sans'; font-weight: bold; font-size: 14pt; color:white; padding: 5px;" >
+    CLICK HERE TO SEE FULL DESCRIPTIONS OR EDIT BILLING TERMS   
+    </apex:outputPanel>
+    <apex:outputPanel layout="block" style="width: 740px; text-align:center;">
+    <apex:image id="PriorButtonX" url="{!$Resource.PriorButtonX}" rendered="{!IF(Contract.Prior_Contract_Identifier__c = '',true,false)}" />
+&nbsp;
+<apex:image id="PriorButton" url="{!$Resource.PriorButton}" rendered="{!IF(Contract.Prior_Contract_Identifier__c != '',true,false)}" onclick="window.open('BillingTermsCondensed?Id={!Contract.Prior_Contract_Identifier__c}','_parent')"/>
+<apex:image id="NextButtonX" url="{!$Resource.NextButtonX}" rendered="{!IF(Contract.Next_Contract_Identifier__c = '',true,false)}" />
+<apex:image id="NextButton" url="{!$Resource.NextButton}" rendered="{!IF(Contract.Next_Contract_Identifier__c != '',true,false)}" onclick="window.open('BillingTermsCondensed?Id={!Contract.Next_Contract_Identifier__c}','_parent')"/>
+    </apex:outputPanel>
+<br />
+<br />
+<!-- TABLE A -->
+    <apex:outputPanel styleClass="HeaderStyle" rendered="{!listBTA.size != 0}">
+        {!Contract.Table_A__c}
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="TermStyle" rendered="{!listBTA.size != 0}">
+        <apex:dataTable value="{!listBTA}" var="x" border="1">
+<!--            <apex:column value="{!x.List_Order__c}" style="padding: 10px;  font-family: 'Open Sans'; font-weight:bold;"/>   -->
+            <apex:column value="{!x.Name}" width="150" style="padding: 10px; font-weight:bold; font-family: 'Open Sans';" />
+            <apex:column value="{!x.Fee_Text__c}" width="520" style="padding: 10px; font-family: 'Open Sans';" />    
+        </apex:dataTable>
+            <br />
+    <br />
+    </apex:outputPanel>
+
+<!-- TABLE B -->
+    <apex:outputPanel styleClass="HeaderStyle" rendered="{!listBTB.size != 0}">
+        {!Contract.Table_B__c}
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="TermStyle" rendered="{!listBTB.size != 0}">
+        <apex:dataTable value="{!listBTB}" var="x" border="1">
+<!--            <apex:column value="{!x.List_Order__c}" style="padding: 10px;  font-family: 'Open Sans'; font-weight:bold;"/> -->
+            <apex:column value="{!x.Name}" width="150" style="padding: 10px; font-weight:bold; font-family: 'Open Sans';" />
+            <apex:column value="{!x.Fee_Text__c}" width="520" style="padding: 10px; font-family: 'Open Sans';" />    
+        </apex:dataTable>
+            <br />
+    <br />
+    </apex:outputPanel>
+
+<!-- TABLE C -->
+    <apex:outputPanel styleClass="HeaderStyle" rendered="{!listBTC.size != 0}">
+        {!Contract.Table_C__c}
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="TermStyle" rendered="{!listBTC.size != 0}">
+        <apex:dataTable value="{!listBTC}" var="x" border="1">
+ <!--           <apex:column value="{!x.List_Order__c}" style="padding: 10px;  font-family: 'Open Sans'; font-weight:bold;"/> -->
+            <apex:column value="{!x.Name}" width="150" style="padding: 10px; font-weight:bold; font-family: 'Open Sans';" />
+            <apex:column value="{!x.Fee_Text__c}" width="520" style="padding: 10px; font-family: 'Open Sans';" />    
+        </apex:dataTable>
+            <br />
+    <br />
+    </apex:outputPanel>
+
+<!-- TABLE D -->
+    <apex:outputPanel styleClass="HeaderStyle" rendered="{!listBTD.size != 0}">
+        {!Contract.Table_D__c}
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="TermStyle" rendered="{!listBTD.size != 0}">
+        <apex:dataTable value="{!listBTD}" var="x" border="1">
+ <!--           <apex:column value="{!x.List_Order__c}" style="padding: 10px;  font-family: 'Open Sans'; font-weight:bold;"/>    -->
+            <apex:column value="{!x.Name}" width="150" style="padding: 10px; font-weight:bold; font-family: 'Open Sans';" /> 
+            <apex:column value="{!x.Fee_Text__c}" width="520" style="padding: 10px; font-family: 'Open Sans';" />    
+        </apex:dataTable>
+            <br />
+    <br />
+    </apex:outputPanel>
+
+<!-- TABLE E -->
+    <apex:outputPanel styleClass="HeaderStyle" rendered="{!listBTE.size != 0}">
+        {!Contract.Table_E__c}
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="TermStyle" rendered="{!listBTE.size != 0}">
+        <apex:dataTable value="{!listBTE}" var="x" border="1">
+ <!--           <apex:column value="{!x.List_Order__c}" style="padding: 10px;  font-family: 'Open Sans'; font-weight:bold;"/>   -->
+            <apex:column value="{!x.Name}" width="150" style="padding: 10px; font-weight:bold; font-family: 'Open Sans';" />
+            <apex:column value="{!x.Fee_Text__c}" width="520" style="padding: 10px; font-family: 'Open Sans';" />    
+        </apex:dataTable>
+            <br />
+    <br />
+    </apex:outputPanel>
+<!-- NO TABLE-->
+    <apex:outputPanel styleClass="HeaderStyle" rendered="{!listBT.size != 0}">
+        UNCATEGORIZED
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="TermStyle" rendered="{!listBT.size != 0}">
+        <apex:dataTable value="{!listBT}" var="x" border="1">
+<!--            <apex:column value="{!x.BTService__c}" style="padding: 10px;  font-family: 'Open Sans'; font-weight:bold;"/>    -->
+            <apex:column value="{!x.List_Order__c}" style="padding: 10px;  font-family: 'Open Sans'; font-weight:bold;"/>
+            <apex:column value="{!x.Name}" width="150" style="padding: 10px; font-weight:bold; font-family: 'Open Sans';" />
+            <apex:column value="{!x.Fee_Text__c}" width="485" style="padding: 10px; font-family: 'Open Sans';" />    
+        </apex:dataTable>
+            <br />
+    <br />
+    </apex:outputPanel>
+ 
+<!-- Housing Rehabilitation Contingencies -->
+    <apex:outputPanel styleClass="HeaderStyle" rendered="{!listHR1.size != 0}">
+        Housing Rehabilitation Contingencies
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="TermStyle" rendered="{!listHR1.size != 0}">
+        <apex:dataTable value="{!listHR1}" var="x" border="1">
+<!--            <apex:column value="{!x.List_Order__c}" style="padding: 10px;  font-family: 'Open Sans'; font-weight:bold;"/>   -->
+            <apex:column value="{!x.Name}" width="150" style="padding: 10px; font-weight:bold; font-family: 'Open Sans';" />
+            <apex:column value="{!x.Fee_Text__c}" width="520" style="padding: 10px; font-family: 'Open Sans';" />    
+        </apex:dataTable>
+            <br />
+    <br />
+    </apex:outputPanel>
+
+<!-- Housing Rehabilitation Contractor Penalties-->
+    <apex:outputPanel styleClass="HeaderStyle" rendered="{!listHR2.size != 0}">
+        Housing Rehabilitation Contractor Penalties
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="TermStyle" rendered="{!listHR2.size != 0}">
+        <apex:dataTable value="{!listHR2}" var="x" border="1">
+ <!--           <apex:column value="{!x.List_Order__c}" style="padding: 10px;  font-family: 'Open Sans'; font-weight:bold;"/> -->
+            <apex:column value="{!x.Name}" width="150" style="padding: 10px; font-weight:bold; font-family: 'Open Sans';" />
+            <apex:column value="{!x.Fee_Text__c}" width="520" style="padding: 10px; font-family: 'Open Sans';" />     
+        </apex:dataTable>
+            <br />
+    <br /> 
+    </apex:outputPanel>
+                   
+
+
+</apex:page>

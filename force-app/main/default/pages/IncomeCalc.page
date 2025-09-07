@@ -1,0 +1,73 @@
+<apex:page standardController="HOMEtracker__Service_File__c" extensions="IncomeCalcExt" sidebar="false" showheader="false">
+<!-- URL must include "?ID={!service file ID}&ISID={!income source ID}" -->
+
+<style type="text/css">
+body button, body .x-btn, body .btn, body .btnDisabled, body .btnCancel, body .menuButton .menuButtonButton {float: left;}
+.bPageBlock .pbTitle {display: none;}
+</style>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+    .activeB { font-family: 'Open Sans'; 
+               font-size: 15pt; 
+               font-weight: bold;
+               text-decoration:none;
+               background-color: rgb(0, 101, 168); 
+               color: white; 
+               width: 175px; 
+               text-align: center; 
+               padding: 6px; 
+               float: left;
+               }
+               
+    .inactiveB { font-family: 'Open Sans'; 
+                 font-size: 15pt; font-weight: 300;
+                 text-decoration:none; 
+                 background-color: rgb(247, 249, 255); 
+                 color: black; width: 175px; 
+                 text-align: center; 
+                 padding: 6px; 
+                 float: left;
+                 }
+                 
+    .intro     { font-family: 'Open Sans'; 
+                 font-size: 20pt; font-weight: bold; 
+                 color: rgb(0, 101, 168); width: 175px; 
+                 text-align: center; 
+                 padding: 6px;
+                 }
+</style>
+<apex:pageMessages />
+
+<apex:outputpanel id="IncomeCalcPage" >
+
+<apex:form >
+    <apex:commandLink value="SIMPLE CALC" styleclass="{!styleSimple}" action="{!doShowSimple}" rendered="{!showSimpleB}" rerender="IncomeCalcPage" />
+    <apex:commandLink value="YEAR TO DATE" styleclass="{!styleYTD}" action="{!doShowYTD}" rendered="{!showYTDB}" rerender="IncomeCalcPage" />
+    <apex:commandLink value="PAYSTUBS" styleclass="{!stylePaystubs}" action="{!doShowPaystubs}" rendered="{!showPaystubsB}" rerender="IncomeCalcPage" />
+</apex:form>          
+
+<apex:outputPanel id="Intro" rendered="{!showSelect}" styleClass="intro">
+<br style="clear:both" />
+<br />
+&nbsp; &nbsp; <i> SELECT A CALCULATION TYPE ABOVE </i>
+</apex:outputPanel> 
+
+ <flow:interview id="flowSimple" name="IncomeCalc" rendered="{!showSimple}">
+       <apex:param name="SFID" value="{!HOMEtracker__Service_File__c.Id}"/>
+       <apex:param name="ISID" value="{!$CurrentPage.parameters.ISID}" />
+       <apex:param name="CTYPE" value="1" />
+ </flow:interview>
+ <flow:interview id="flowYTD" name="IncomeCalc" rendered="{!showYTD}">
+       <apex:param name="SFID" value="{!HOMEtracker__Service_File__c.Id}"/>
+       <apex:param name="ISID" value="{!$CurrentPage.parameters.ISID}" />
+       <apex:param name="CTYPE" value="2" />
+ </flow:interview>
+ <flow:interview id="flowPaystubs" name="IncomeCalc" rendered="{!showPaystubs}">
+       <apex:param name="SFID" value="{!HOMEtracker__Service_File__c.Id}"/>
+       <apex:param name="ISID" value="{!$CurrentPage.parameters.ISID}" />
+       <apex:param name="CTYPE" value="3" />
+ </flow:interview>
+            </apex:outputpanel>
+</apex:page>

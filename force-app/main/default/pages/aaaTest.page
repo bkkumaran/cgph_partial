@@ -1,0 +1,21 @@
+<apex:page >
+
+<apex:variable value="{!TODAY() + CASE(WEEKDAY(TODAY()),1,-6,2,0,3,-1,4,-2,5,-3,6,-4,7,-5,0)+(7*VALUE($CurrentPage.parameters.w))}" var="Mon" />
+<apex:variable value="{!Mon + 1}" var="Tue" />
+<apex:variable value="{!Mon + 2}" var="Wed" />
+<apex:variable value="{!Mon + 3}" var="Thu" />
+<apex:variable value="{!Mon + 4}" var="Fri" />
+<apex:variable value="{!Mon + 5}" var="Sat" />
+<apex:variable value="{!Mon + 6}" var="Sun" />
+
+<apex:outputText value="{0, date, MMMM d','  yyyy}" >
+<apex:param value="{!Mon}"/>
+</apex:outputtext>
+to
+<apex:outputText value="{0, date, MMMM d','  yyyy}" >
+<apex:param value="{!Sun}"/>
+</apex:outputtext>
+
+
+
+</apex:page>

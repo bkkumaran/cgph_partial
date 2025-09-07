@@ -1,0 +1,404 @@
+<apex:page standardcontroller="Invoice__c" extensions="InvoicePreviewExt" showHeader="true" title="Invoice Preview" standardStylesheets="true">
+
+<apex:variable var="billSent" value="{!IF(ISBLANK(Invoice__c.Sent_Date__c)=true,0,1)}"/>
+<apex:variable var="flagColor" value="RGB(255,136,0)"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto');
+
+    a {
+        text-decoration: none !important;
+        }
+    table{
+        border-collapse: collapse;
+        }
+        
+    td {
+        font-family: Roboto;
+        font-size: 10pt;
+        padding: 5px 5px 5px 5px;
+        vertical-align: top;
+        }
+        
+    th {
+        font-family: Roboto;
+        font-size: 10pt;
+        padding: 5px 5px 2px 5px;
+        }
+        
+    #t1 {
+        border: 1px solid #e3e3e3;
+        }
+
+    #icon {
+        opacity: 0.5;
+        }
+    
+    #icon:hover {
+        opacity: 1;
+        }
+                  
+    .billRow{
+        border-top: 1px solid black;
+        }
+    .recCheck{
+        background-color: RGB(250,230,230);
+        }
+        
+    .dnbRow {
+        background-color: #e6e6e6 !important;
+        opacity: 50%;
+        font-style: italic;
+        {!IF(billSent = 1, 'display:none;','')}
+        }
+        
+    .billTD{
+        border-bottom: 1px solid black;
+        padding-bottom: 15px;
+        }
+        
+    .dnbTD{
+        border-bottom: 1px solid #e6e6e6;
+        background-color: #e6e6e6 !important;
+        opacity: 50%;
+        padding-bottom: 15px;
+        font-style: italic;
+        {!IF(billSent = 1, 'display:none;','')}
+        }
+    .buttons{
+        border-radius: 4px;
+        color: white;
+        padding: 4px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-family:'Roboto';
+        font-weight: bold;
+        }
+    
+    .finalButton{
+        background-color: #0176D3;
+        font-size: 16px;
+        }
+    .finalButton:hover{
+        background-color: #032D60;
+        color: white;
+        cursor:pointer;
+            }
+    .addButton{
+        background-color: #e6e6e6;
+        font-size: 12px;
+        color:#0176D3;
+        width: 130px;
+        }
+    .addButton:hover{
+        background-color: #032D60;
+        color: white;
+        cursor:pointer;
+        }
+    .sentButton{
+        background-color: RGB(0,132,107);
+        font-size: 16px;
+        }
+    .readyButton{
+        background-color: #2df9fc;
+        font-size: 16px;
+        color:#0a5557;
+        }
+    .pendingButton{
+        background-color: yellow;
+        font-size: 12px;
+        color:black;
+        }
+    .pendingButton:hover {
+        background-color: rgb(255,183,93);
+        font-size: 12px;
+        color:black !important;
+        }
+    .lastTD{
+        text-align: center;
+        border-top: 1px solid white;
+        border-right: 1px solid white;
+        border-bottom: 1px solid white;
+        padding-left: 20px;
+        }
+      
+
+
+</style>
+
+<body>
+
+
+
+<table id="t1" border="1" width="1100px">
+    <tr>
+        <td rowspan="3" width="100px">
+           <b>Mailing Address</b>
+           <br/><br/>
+           <a id="icon" target="_self" href="https://cgph--c.vf.force.com/flow/Invoices_Edit_Invoice_Header?varSetupID={!Invoice__c.TimeSlipsContract__r.Id}&varContractID={!Invoice__c.Salesforce_Contract__c}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}">
+               <apex:image url="{!$Resource.EditPencil}" height="15px"/> Edit Header
+           </a>
+        </td>
+        <td rowspan="3" width="250px" style="{!IF(Invoice__c.TimeSlipsContract__r.Invoice_Mailing_Address__c = '', 'background-color: rgb(255,183,93);','')}">
+            
+            <apex:OutputField value="{!Invoice__c.TimeSlipsContract__r.Invoice_Mailing_Address__c}"/>
+        </td>
+        <td width="100px">
+            <b>Invoicing Setup</b>
+        </td>
+        <td width="200px" >
+            <a  id="icon" href="https://cgph.lightning.force.com/lightning/r/TS_Contract__c/{!Invoice__c.TimeSlipsContract__r.Id}/view" target="_blank">
+                    <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/38/Zorin_Icon_Themes_%E2%80%93_document-send-symbolic.svg" height="15px"/>
+            </a>
+            <span style="font-weight: bold; font-size: 10pt; color: purple;">
+                {!Invoice__c.TimeSlipsContract__r.Name}
+            </span>
+        </td>
+          <td style="color:blue;" width="150">
+            <b> BILLED SLIPS: &nbsp;
+            <apex:outputText value="{0, number, currency}">
+                <apex:param value="{!diffAmount}"/>
+            </apex:outputText> </b>
+        </td>
+        <td rowspan="5" class="lastTD">
+
+<!-- FINALIZE BUTTON -->
+            <div style="height:50px;">
+                <a href="https://cgph--c.vf.force.com/flow/Invoices_Finalize_In_Progress_Invoice?varID={!Invoice__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}" 
+                    class="buttons finalButton"
+                     target="_self" 
+                    style="{!IF(AND(billSent = 0, Invoice__c.Inv_In_Progress__c = true), '','display:none;')}">
+                    FINALIZE
+                </a>
+                <div class="buttons readyButton" style="{!IF(AND(billSent = 0, Invoice__c.Inv_In_Progress__c = false), '','display:none;')}">
+                    READY TO SEND
+                </div>
+                <div class="buttons sentButton" style="{!IF(billSent = 0, 'display:none;','')}">
+                    {!IF(Invoice__c.Internal_Invoice__c = true, 'INTERNAL: ', 'SENT: ')} &nbsp;<apex:outputField value="{!Invoice__c.Sent_Date__c}"/>
+                <a href="{!Invoice__c.Invoice_Image_URL__c}" target="_blank" style="{!IF(billSent = 0, 'display:none;','')}">
+                    &nbsp; <apex:image value="{!$Resource.PDF_Icon_Small}" height="15px"/>
+                </a>
+                </div>
+                
+
+            </div>
+            <div id="AddSlips" style="{!IF(Invoice__c.Inv_In_Progress__c = true, '','display:none;')}"> 
+            <div style="height:28px;">
+                <a class="buttons addButton"
+                     target="_self"
+                    href="https://cgph--c.vf.force.com/flow/Invoices_Add_Flat_Fee_Entry?varContractID={!Invoice__c.Salesforce_Contract__r.Id}&varInvoiceID={!Invoice__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}">
+                    + Add Flat Fee Slip
+                </a>
+            </div>
+            <div style="height:28px;">
+                <a class="buttons addButton"
+                     target="_self" 
+                     href="https://cgph--c.vf.force.com/flow/Invoices_Add_Expense_Entry?varContractID={!Invoice__c.Salesforce_Contract__r.Id}&varInvoiceID={!Invoice__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}">
+                    + Add Expense Slip
+                </a>
+            </div>
+            <!--
+            <div style="height:28px; {!IF(listOldSize = 0, 'display:none;','')}">
+                <a class="buttons addButton"
+                     target="_self"
+                     href="https://cgph--c.vf.force.com/flow/Invoices_Grants_Add_Entries_to_Invoice?varInvoiceID={!Invoice__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}">
+                    + Pending Grants Slips
+                </a>
+            </div>
+            -->
+            </div>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Invoice Date</b>
+        </td>
+        <td>
+            <apex:OutputField value="{!Invoice__c.Invoice_Date__c}"/>
+        </td>
+        <td>
+            <span style="font-style: italic; color: gray;">
+                Unbilled Slips: &nbsp;
+                <apex:outputText value="{0, number, currency}">
+                <apex:param value="{!sumDNBamount}"/>
+            </apex:outputText>
+            
+            </span>
+        </td>
+        
+    </tr>
+    <tr>
+        <td>
+            <b>Invoice Number</b>
+        </td>
+        <td>
+            <a  id="icon" href="https://cgph.lightning.force.com/lightning/r/Invoice__c/{!Invoice__c.Id}/view" target="_top">
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="15px"/>
+            </a>
+            <span style="font-size: 12pt;">
+            <apex:OutputField value="{!Invoice__c.Name}"/>
+            </span>
+        </td>
+        <td style="text-align: center;">
+            <div style="{!IF(listOldSize = 0, '','display:none;')}">
+                <i>No Pending Slips</i>
+            </div>
+                <a href="https://cgph--c.vf.force.com/flow/Invoices_Review_Pending_Slips?varInvoiceID={!Invoice__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}"
+                   target="_self"
+                   style="{!IF(AND(listOldSize != 0,Invoice__c.TimeSlipsContract__r.Timeslip_GS__c = false), '','display:none;')}"
+                   class="buttons pendingButton">
+                Pending Slips ({!listOldSize})
+                </a>
+                <a href="https://cgph--c.vf.force.com/flow/Invoices_Grants_Add_Entries_to_Invoice?varInvoiceID={!Invoice__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}"
+                   target="_self"
+                   style="{!IF(AND(listOldSize != 0,Invoice__c.TimeSlipsContract__r.Timeslip_GS__c = true), '','display:none;')}"
+                   class="buttons pendingButton">
+                Pending GS Slips ({!listOldSize})
+                </a>
+            
+        </td>
+    </tr>
+   
+    <tr>
+        <td>
+            <b>In Reference To</b>
+        </td>
+        <td colspan="4" style="{!IF(Invoice__c.TimeSlipsContract__r.In_Reference_To__c = '', 'background-color: rgb(255,183,93);','')}">
+            <apex:OutputField value="{!Invoice__c.TimeSlipsContract__r.In_Reference_To__c}"/>
+        </td>
+        
+    </tr>
+        <tr>
+        <td>
+            <b>Footer Message</b>
+        </td>
+        <td colspan="4"  style="{!IF(Invoice__c.TimeSlipsContract__r.Invoice_Message__c= '', 'background-color: rgb(255,183,93);','')}">
+            <apex:OutputField value="{!Invoice__c.TimeSlipsContract__r.Invoice_Message__c}"/>
+        </td>
+        
+    </tr>
+  
+</table>
+
+
+
+<br/>
+
+<!-- REFRESH -->
+
+    <div style="text-align: center; width: 1100px;">
+    <span id="icon">
+    <apex:outputLink onclick="window.location.reload" id="icon">
+        <apex:image url="https://upload.wikimedia.org/wikipedia/commons/0/05/View-refresh_Gion_simple.svg" height="20px"/>
+    </apex:outputLink>
+    </span>
+    </div>
+
+<br/>
+
+
+<!-- ----------------------------------------------- -->
+<!--            Invoice Slips Table   -------------- -->
+<!-- ----------------------------------------------- -->
+
+<table id="t1" border="1" width="1100px">
+    <thead  style="border-top: 1px solid black;">
+        <th width="">Reference</th>
+        <th width="">Billing Term</th>
+        <th width="">Date</th>
+        <th width="">Staff</th>
+        <th width="" style="text-align: right;">Hours</th>
+        <th width="" style="text-align: right;">Rate</th>
+        <th width="" style="text-align: right;">Amount</th>
+        <th width="90px" style="text-align: center;">Actions</th>
+    </thead>
+
+<!--  REPEAT START -->
+
+<apex:repeat var="x" value="{!listIE}" >
+
+    <tr id="row"  class="{!IF(x.Do_Not_Bill__c = true,'dnbRow',IF(x.Records_Check__c != '', 'recCheck','billRow'))}">
+        <td style="{!IF(AND(x.Do_Not_Bill__c = false, ISBLANK(x.Invoice_Reference__c)) = true, 'background-color: '+flagColor+';','')}">
+            <a id="icon"
+            href="https://cgph--c.vf.force.com/flow/Invoices_Change_Entry_Billing_Term_or_Invoice_Reference?varType=IR&varID={!x.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}"
+            style="{!IF(billSent=1,'display:none;','')}"
+            target="_self">
+                <apex:image value="{!$Resource.EditPencil}" height="13px" />
+            </a>
+            <apex:outputField value="{!x.Invoice_Reference__r.Name}"/>
+        </td>
+        <td style="{!IF(AND(x.Do_Not_Bill__c = false, ISBLANK(x.Billing_Term__c) = true), 'background-color: '+flagColor+';','')}">
+            <a id="icon"
+               href="https://cgph--c.vf.force.com/flow/Invoices_Change_Entry_Billing_Term_or_Invoice_Reference?varType=BT&varID={!x.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}"
+               style="{!IF(billSent=1,'display:none;','')}"
+               target="_self">
+                <apex:image value="{!$Resource.EditPencil}" height="13px" />
+            </a>
+            <apex:outputField value="{!x.Billing_Term__r.Name}"/>
+        </td>
+        <td style="{!IF(x.Date__c > Invoice__c.Invoice_Date__c,'background-color: '+flagColor+';','')}">
+            <apex:outputField value="{!x.Date__c}"/>
+        </td>
+        <td>
+            <apex:outputField value="{!x.Staff__c}"/>
+        </td>
+        <td style="text-align: right;">
+            <apex:outputField value="{!x.Time_Spent__c}"/>
+        </td>
+        <td style="text-align: right;">
+            <apex:outputField value="{!x.Hourly_Rate__c}"/>
+        </td>
+        <td style="text-align: right; {!IF(ISBLANK(x.Amount__c)=true, 'background-color: '+flagColor+';','')}">
+            <apex:outputField value="{!x.Amount__c}"/>
+        </td>
+        <td style="text-align: center;">
+                &nbsp;
+                <a id="icon"
+                   href="https://cgph.lightning.force.com/lightning/r/Invoice_Entry__c/{!x.Id}/edit?count=1&backgroundContext=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}"
+                   target="_self"
+                   style="{!IF(billSent=1,'display:none;','')}"
+                   >
+                    <apex:image url="{!$Resource.EditPencil}" height="15px"/>
+                </a>
+                &nbsp;
+                <a  id="icon" 
+                    href="https://cgph.lightning.force.com/lightning/r/Invoice_Entry__c/{!x.Id}/view"
+                    target="_blank">
+                    <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/38/Zorin_Icon_Themes_%E2%80%93_document-send-symbolic.svg" height="15px"/>
+                </a>
+                &nbsp;
+                <a  id="icon"
+                    href="https://cgph--c.vf.force.com/flow/Invoices_Move_or_Delete_Entry?varID={!x.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoice_Preview%3FId%3D{!Invoice__c.Id}"
+                    style="{!IF(billSent=1,'display:none;','')}"
+                    target="_self">
+                        <apex:image url="{!$Resource.CircleX}" height="15px"/>
+                </a>
+
+            
+        </td>
+    </tr>
+    <tr class="{!IF(x.Do_Not_Bill__c = true,'dnbRow',IF(x.Records_Check__c != '', 'recCheck','billRow'))}" >
+        <td colspan="7" class="{!IF(x.Do_Not_Bill__c = true,'dnbTD','billTD')}" style="{!IF(LEN(x.Description__c)<10,'background-color:yellow','')}">
+             <b>{!IF(x.Do_Not_Bill__c = true,'DO NOT BILL: ','')}</b>
+             <apex:outputField value="{!x.Description__c}"/>
+        </td>
+        <td class="{!IF(x.Do_Not_Bill__c = true,'dnbTD','billTD')}" style="{!IF(x.Records_Check__c = '', '', 'width:150px;')}">
+            <div style="{!IF(x.Records_Check__c='','display:none;','color:red; font-weight: bold;')}">
+            <apex:outputField value="{!x.Records_Check__c}"/>
+            </div>
+        </td>
+    </tr>
+
+</apex:repeat>
+
+</table>
+<br/>
+<br/>
+<br/>
+
+</body>
+
+
+</apex:page>

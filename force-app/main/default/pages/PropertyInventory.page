@@ -1,0 +1,617 @@
+<apex:page controller="PropertyInventoryController" extensions="PropertyInventoryExt,DevTimelineCheckExt2" showheader="false" standardStylesheets="false">
+
+<!-- VARIABLES -->
+<apex:variable id="Font" var="font" value="Roboto" />
+<apex:variable id="FontSize" var="fontSize" value=""/>
+
+
+<apex:variable id="TableWidth" var="tWidth" value="100%"/>
+<apex:variable id="HeaderColor" var="HeadColor" value="#d4d4d4"/>
+<apex:variable id="NoApplicantsNeededYet" var="NoneYet" value="#d4d4d4"/>
+<apex:variable id="ApplicantsNeeded" var="AppNeed" value="yellow"/>
+<apex:variable id="EligibilityInProgress" var="EligProg" value="#D6F4DA"/>
+<apex:variable id="NeedsEligibility" var="EligNeed" value="#ffb75d"/>
+<apex:variable id="NeedsPropertyDetermination" var="PropNeed" value="#fffaeb"/>
+<apex:variable id="Certified" var="Cert" value="#53e09d"/>
+<apex:variable id="Failed" var="Fail" value="RGB(230,76,76)"/>
+<apex:variable id="CGPHblue" var="CGPHblue" value="rgb(0, 101, 168)"/>
+<apex:variable id="SaveGreen" var="SaveGreen" value="#53e09d"/>
+<apex:variable id="SaveGreenDark" var="SaveGreenDark" value="#147045"/>
+<apex:variable id="CancelButtonColor" var="Cancel" value="gray"/>
+<apex:variable id="CancelButtonColorDark" var="CancelDark" value="#666565"/>
+<apex:variable id="EditButtonColor" var="EditDark" value="#9e1515"/>
+<apex:variable id="ShowRental" var="ShowRent" value="{!IF(dev.Rental_or_Sale_Development__c='Rental','','display:none;')}"/>
+<apex:variable id="ShowOwnership" var="ShowOwn" value="{!IF(dev.Rental_or_Sale_Development__c='Sale','','display:none;')}"/>
+
+<apex:variable id="GroupPropertyColor" var="groupColor" value="#9ec4ff"/>
+<apex:variable id="UnitInGroupPropertyColor" var="unitColor" value="#e6f0ff"/>
+<apex:variable id="SingleUnitColor" var="singleColor" value="#fcf9f2"/>
+<apex:variable id="warningColor" var="warnColor" value="#ff5454"/>
+<apex:variable id="doneColor" var="doneColor" value="#c7ebd8"/>
+
+<!-- red = #ff6456 
+    green = #b7e1cd
+-->
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family={!font}');
+    
+    body {
+        max-width: 99%;
+        overflow-x: hidden;
+        width: 99%;
+
+        }
+    a    {
+        text-decoration: none;
+        color:black;
+        }
+    table {
+        border-collapse: collapse;
+        width:99%;
+        }
+    td  {
+        padding: 5px 5px 5px 5px;
+        font-size: 9pt;
+        font-family:{!font};
+        }
+    th {
+        padding: 5px 5px 5px 5px;
+        font-size:11pt;
+        font-family:{!font};
+        background-color:{!HeadColor};
+        }
+    thead {
+        top: 0;
+        Position: sticky;
+        background-color: white;
+        z-index: 20;
+        min-height: 30px;
+        height: 30px;
+    }
+    .topHeader{
+          background-color: white;
+          position: sticky; 
+          top: 0; 
+          width: 100%; 
+            }       
+    .head{
+        padding: 10px 10px 10px 10px;
+        font-size:16pt;
+        font-weight:bold;
+        font-family:{!font};
+        color:{!CGPHblue};
+        }
+    .data{
+        font-size:9pt;
+        font-family:{!font};
+        }
+    .right{
+        text-align:right;
+        }
+    .center{
+        text-align:center;
+        }
+    .left{
+        text-align:left;
+        }
+    .buttonTrack{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: 9pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HeadColor});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid gray; 
+            border-bottom: 1.5px solid gray; 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonTrack:hover{
+            color:white;
+            background-image: linear-gradient(gray,gray);
+            text-decoration:none;
+                }
+     .buttonSave{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: 12pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!SaveGreen});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonSave:hover{
+            color:white;
+            background-image: linear-gradient({!SaveGreenDark},{!SaveGreenDark});
+                }
+    .buttonCancel{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: 12pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,Cancel);
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonCancel:hover{
+            color:white;
+            background-image: linear-gradient({!CancelDark},{!CancelDark});
+            }
+     .mainRow:hover{
+         font-weight:bold;
+         background-color:yellow !important;
+         }
+    .tooltip {
+          position: relative;
+          display: inline-block;
+            }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: yellow;
+        color: black;
+        text-align: center;
+        padding: 5px 5px 5px 5px;
+        border-radius: 6px;
+        border:1px solid black;
+        position: absolute;
+        top: 0px;
+        left:0px;
+        z-index: 1;
+        font-size:9pt;
+            }
+    .tooltiptext2 {
+        visibility: hidden;
+        background-color: white;
+        width:150px;
+        color: black;
+        text-align: center;
+        padding: 5px 5px 5px 5px;
+        border-radius: 6px;
+        border:1px solid black;
+        position: absolute;
+        top: 0px;
+        left:0px;
+        z-index: 1;
+        font-size:9pt;
+            }
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        }
+    .tooltip:hover .tooltiptext2 {
+        visibility: visible;
+        }
+    .red {
+        color:{!warnColor};
+        font-weight:bold;
+    }
+    .done {
+        background-color:{!doneColor};
+        }
+
+</style>
+<apex:form >
+
+<!-- COLUMN WIDTHS -->
+
+<apex:variable var="ColWidthInclude" value="40"/>
+<apex:variable var="ColWidthAddy" value="200"/>
+<apex:variable var="ColWidthUnit" value="30"/>
+<apex:variable var="ColWidthStatus" value="190"/>
+<apex:variable var="ColWidthGroup" value="160"/>
+<apex:variable var="ColWidthPrice" value="100"/>
+<apex:variable var="ColWidthIncome" value="70"/>
+<apex:variable var="ColWidthBeds" value="35"/>
+<apex:variable var="ColWidthBldg" value="35"/>
+<apex:variable var="ColWidthFloor" value="35"/>
+<apex:variable var="ColWidthTarget" value="90"/>
+<apex:variable var="ColWidthNextStep" value="190"/>
+<apex:variable var="ColWidthNextStepDate" value="100"/>
+<apex:variable var="ColWidthApplicants" value="160"/>
+<apex:variable var="ColWidthCurrent" value="100"/>
+
+<table border="1" width="100%">
+
+    <thead>
+        <tr>
+        <td colspan="16">
+            <div style="height:50px; vertical-align:middle;" class="topHeader">
+        <a style="text-decoration:none;" href="{!dev.Google_Tracker_Link__c}" target="_blank">
+                <apex:image url="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Google_Sheets_logo_%282014-2020%29.svg/800px-Google_Sheets_logo_%282014-2020%29.svg.png" height="20"/>
+            </a>
+        <a style="text-decoration:none;" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008SdVQUA0/view?queryScope=userFolders&fv0={!dev.Name}" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="20"/>
+        </a>
+        
+        <a class="head" href="/{!devID}" target="_blank">
+            <u>{!dev.Name} {!dev.Rental_or_Sale_Development__c} Inventory List</u>
+            &nbsp;&nbsp;
+        </a>
+            
+            <a href="https://cgph--c.vf.force.com/apex/PropertyInventory?d={!devID}&g=1&f=1&core.apexpages.devmode.url=0" class="buttonTrack" target="_top" style="{!IF(showFilled= '1', 'display:none;','')}">
+                SHOW FILLED UNITS
+            </a>
+            <a href="https://cgph--c.vf.force.com/apex/PropertyInventory?d={!devID}&g=1&f=0&core.apexpages.devmode.url=0" class="buttonTrack" target="_top" style="{!IF(showFilled= '1', '','display:none;')}">
+                HIDE FILLED UNITS
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://cgph--c.vf.force.com/apex/OutreachTrackerStaff?id={!devID}" class="buttonTrack" target="_top">
+                APPLICANT TRACKER
+            </a>
+            <span width="100%" style="text-align:center">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:commandButton id="saveButton" value="SAVE" action="{!save}" styleClass="buttonSave" style="display: none;"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:commandButton id="cancelButton" value="CANCEL" styleClass="buttonCancel" style="display: none"/>
+            </span>
+            <apex:variable var="TLcheck" value="{!IF(countUnits=0,'no','yes')}"/>
+                <span style="{!IF(TLcheck='no','display: none','')}">
+                    <a class="buttonTrack red" href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Add_Timeline_by_Development?varDevID={!devID}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FPropertyInventory%3Fd%3D{!devID}%26core.apexpages.devmode.url%3D0%26g%3D1" target="_top">
+                        ADD TIMELINES ({!countUnits})
+                    </a>
+                </span>
+            <div>
+    </div>
+    </div>
+        </td>
+        </tr>
+        <tr>
+        
+        <th class="center" width="{!ColWidthInclude}">
+            <a href="https://cgph--c.vf.force.com/flow/OT_Mark_All_Properties_as_Include_On_Tracker?varPropID={!Dev.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FPropertyInventory%3Fd%3D{!devID}%26g%3D1" target="_top" style="text-decoration:none;">
+                   ☑ </a>
+        </th>
+        <th class="left" width="{!ColWidthAddy}">
+            Address
+        </th>
+        <th class="center" style="{!ShowRent}" width="{!ColWidthUnit}">
+            Unit
+        </th>
+        <th class="center" style="{!ShowOwn}" width="{!ColWidthUnit}">
+            #
+        </th>
+        <th class="left" width="{!ColWidthStatus}">
+            Status
+        </th>
+        <th class="center" width="{!ColWidthGroup}">
+        Group <br/>Property
+        </th>
+        <th class="center" style="{!ShowOwn}" width="{!ColWidthPrice}">
+            Price
+        </th>
+        <th class="center" style="{!ShowOwn}">
+           HOA
+           <a href="https://cgph--c.vf.force.com/flow/OT_Update_HOA_Fees?varPropID={!devID}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FPropertyInventory%3Fd%3D{!devID}%26g%3D1" target="_top">
+               <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/34/Home-icon.svg" height="14px"/>
+           </a>
+        </th>
+        <th class="center" style="{!ShowRent}" width="{!ColWidthPrice}">
+            Rent
+        </th>
+        <th class="center" width="{!ColWidthIncome}">
+            Income
+        </th>
+        <th class="center" width="{!ColWidthBeds}">
+            Beds
+        </th>
+        <th class="center" style="{!ShowRent}" width="{!ColWidthBldg}">
+            Bldg.
+        </th>
+        <th class="center" style="{!ShowRent}" width="{!ColWidthFloor}">
+            Floor
+        </th>
+        <th class="center" width="{!ColWidthTarget}">
+        Target <br/>Date
+        </th>
+        <th class="center" width="{!ColWidthNextStep}">
+            Next <br/>Step
+        </th>
+        <th class="center" width="{!ColWidthNextStepDate}">
+            Date
+        </th>
+        <th width="{!ColWidthApplicants}">
+            Applicants
+        </th>
+        <th class="center" style="{!ShowRent}" width="{!ColWidthCurrent}">
+            Current <br/>Renter
+        </th>
+        <th class="center" style="{!ShowRent}" width="{!ColWidthCurrent}">
+            Lease
+        </th>
+    </tr>
+    </thead>
+    
+    
+    <tr>    
+        <th class="center" style="{!ShowOwn}" width="{!ColWidthCurrent}">
+            Current <br/>Owner
+        </th>
+</tr>
+<apex:repeat var="x" value="{!unitList}">
+
+
+<!-- -------------------------------------ROW FORMULA -------------------------------- -->
+    <tr class="mainRow"
+        style="{!IF(AND(x.Current_Outreach_Timeline__r.Next_Step__c = 'DONE',showFilled!='1'),'display:none;','')}
+        {!IF(OR(x.Current_Outreach_Timeline__r.Unit_Type__c='Group Property',x.Current_Outreach_Timeline__r.Unit_Type__c='Single Unit'),'border-top:2px solid black;','')}
+        background-color:{!IF(x.Current_Outreach_Timeline__r.Next_Step__c = 'DONE',doneColor,CASE(x.Current_Outreach_Timeline__r.Unit_Type__c,'Group Property',groupColor,'Unit in Group',unitColor,'Single Unit',singleColor,''))}"
+         >
+
+<!-- Include On Tracker -->
+        <td class="center" width="{!ColWidthInclude}">
+             <apex:actionRegion >
+                  <apex:outputField value="{!x.Include_on_Tracker__c}" >
+                      <apex:inlineEditSupport event="onClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+        
+<!-- Address -->
+        <td class="left" width="{!ColWidthAddy}">
+            <a href="/{!x.Id}" target="_blank">{!x.Name}</a>
+        </td>
+
+<!-- Unit -->
+        <td class="center" width="{!ColWidthUnit}">
+            <apex:actionRegion >
+                  <apex:outputField value="{!x.Unit_Number__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+
+<!-- STATUS -->
+        <td class="left" width="{!ColWidthStatus}">
+            <apex:actionRegion >
+                  <apex:outputField value="{!x.HOMEtracker__Status__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+                
+<!-- Group Property -->
+        <td class="Left" style="font-size:8pt;" width="{!ColWidthGroup}">
+            <div id="If_NOT_Group_Property" style="{!IF(x.Group_Property__c=true,'display:none','')}">
+                <a href="https://cgph--c.vf.force.com/flow/OT_Find_Available_Properties_By_Development?varType=g&varDevID={!DevId}&varID={!x.Id}&retURL=%2Fapex%2FPropertyInventory%3Fd%3D{!DevId}%26g%3D1" target="_top" style="text-decoration:none;">
+                  <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/34/Home-icon.svg" height="14px"/>
+                </a>
+            <apex:outputField value="{!x.Group_Property_Parent__c}" />
+            </div>
+            <div id="If_YES_Group_Property" style="{!IF(x.Group_Property__c=false,'display:none','')}">
+                <a href="https://cgph--c.vf.force.com/flow/Outreach_Find_Property_Matches_to_Group_Property?varDevID={!DevId}&varID={!x.Id}&retURL=%2Fapex%2FPropertyInventory%3Fd%3D{!DevId}%26g%3D1" target="_top" style="text-decoration:none;">
+                  <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/34/Home-icon.svg" height="14px"/>
+                  <i>Find Matching Units</i>
+                </a>
+            </div>
+        </td>
+<!-- OWNERSHIP: List Price -->
+        <td class="right" style="{!ShowOwn}" width="{!ColWidthPrice}">
+        <span style="padding: 5px 5px 5px 5px; background-color:{!warnColor}; color:white;font-weight:bold;{!IF(AND(x.Current_Outreach_Timeline__r.Next_Step__c != 'DONE',ISBLANK(x.HOMEtracker__List_Price__c)=true),'','display:none;')}">
+            LIST PRICE
+            </span>
+             <span style="{!IF(ISBLANK(x.HOMEtracker__List_Price__c)=true,'display:none;','')}">
+             <apex:actionRegion >
+                  <apex:outputField value="{!x.HOMEtracker__List_Price__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+              </span>
+              <div style="background-color:{!warnColor}; {!IF(OR(x.Group_Property_Parent__r.HOMEtracker__List_Price__c=x.HOMEtracker__List_Price__c,ISBLANK(x.Group_Property_Parent__c)=true),'display:none;','')}">
+                  GROUP: 
+                  <apex:outputField value="{!x.Group_Property_Parent__r.HOMEtracker__List_Price__c}" rendered="{!IF(ISBLANK(x.Group_Property_Parent__r.HOMEtracker__List_Price__c)=true,'false','true')}"/>
+                  <span style="{!IF(ISBLANK(x.Group_Property_Parent__r.HOMEtracker__List_Price__c)=true,'','display:none;')}">BLANK</span>
+              </div>
+        </td>
+
+<!-- OWNERSHIP: HOA Condo Fees-->        
+        <td class="right" style="{!IF(ISBLANK(x.HOMEtracker__Current_HOA_Condo_Fees__c)=true,'background-color:'+warnColor+';','')}{!ShowOwn}">
+             <apex:actionRegion >
+                  <apex:outputField value="{!x.HOMEtracker__Current_HOA_Condo_Fees__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+              <div style="background-color:{!warnColor}; {!IF(OR(x.Group_Property_Parent__r.HOMEtracker__Current_HOA_Condo_Fees__c=x.HOMEtracker__Current_HOA_Condo_Fees__c,ISBLANK(x.Group_Property_Parent__c)=true),'display:none;','')}">
+                  GROUP: 
+                  <apex:outputField value="{!x.Group_Property_Parent__r.HOMEtracker__Current_HOA_Condo_Fees__c}" rendered="{!IF(ISBLANK(x.Group_Property_Parent__r.HOMEtracker__Current_HOA_Condo_Fees__c)=true,'false','true')}"/>
+                  <span style="{!IF(ISBLANK(x.Group_Property_Parent__r.HOMEtracker__Current_HOA_Condo_Fees__c)=true,'','display:none;')}">BLANK</span>
+              </div>
+        </td>
+<!-- RENTAL: Monthly Rent-->
+        <td class="right" style="{!ShowRent}" width="{!ColWidthPrice}">
+            <span style="padding: 5px 5px 5px 5px; background-color:{!warnColor}; color:white;font-weight:bold;{!IF(AND(x.Current_Outreach_Timeline__r.Next_Step__c != 'DONE',ISBLANK(x.HOMEtracker__Monthly_Rent__c)=true),'','display:none;')}">
+            MONTHLY RENT
+            </span>
+             <span style="{!IF(ISBLANK(x.HOMEtracker__Monthly_Rent__c)=true,'display:none;','')}">
+             <apex:actionRegion >
+                  <apex:outputField value="{!x.HOMEtracker__Monthly_Rent__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+              </span>
+              <div style="background-color:{!warnColor}; {!IF(OR(x.Group_Property_Parent__r.HOMEtracker__Monthly_Rent__c=x.HOMEtracker__Monthly_Rent__c,ISBLANK(x.Group_Property_Parent__c)=true),'display:none;','')}">
+                  GROUP: 
+                  <apex:outputField value="{!x.Group_Property_Parent__r.HOMEtracker__Monthly_Rent__c}" rendered="{!IF(ISBLANK(x.Group_Property_Parent__r.HOMEtracker__Monthly_Rent__c)=true,'false','true')}"/>
+                  <span style="{!IF(ISBLANK(x.Group_Property_Parent__r.HOMEtracker__Monthly_Rent__c)=true,'','display:none;')}">BLANK</span>
+              </div>
+        </td>
+        
+<!-- Income Level-->
+        <td class="center" style="{!IF(ISBLANK(x.Income_Level__c)=true,'background-color:'+warnColor+';','')}" width="{!ColWidthIncome}">
+             <apex:actionRegion >
+                  <apex:outputField value="{!x.Income_Level__c}">
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+              <div style="background-color:{!warnColor}; {!IF(OR(x.Group_Property_Parent__r.Income_Level__c=x.Income_Level__c,ISBLANK(x.Group_Property_Parent__c)=true),'display:none;','')}">
+                  GROUP: 
+                  <apex:outputField value="{!x.Group_Property_Parent__r.Income_Level__c}" rendered="{!IF(ISBLANK(x.Group_Property_Parent__r.Income_Level__c)=true,'false','true')}"/>
+                  <span style="{!IF(ISBLANK(x.Group_Property_Parent__r.Income_Level__c)=true,'','display:none;')}">BLANK</span>
+              </div>
+        </td>
+
+<!-- Bedrooms -->
+        <td class="center" style="{!IF(ISBLANK(x.HOMEtracker__Number_of_Bedrooms__c)=true,'background-color:'+warnColor+';','')}" width="{!ColWidthBeds}">
+             <apex:actionRegion >
+                  <apex:outputField value="{!x.HOMEtracker__Number_of_Bedrooms__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+              <div style="background-color:{!warnColor}; {!IF(OR(x.Group_Property_Parent__r.HOMEtracker__Number_of_Bedrooms__c=x.HOMEtracker__Number_of_Bedrooms__c,ISBLANK(x.Group_Property_Parent__c)=true),'display:none;','')}">
+                  GROUP: 
+                  <apex:outputField value="{!x.Group_Property_Parent__r.HOMEtracker__Number_of_Bedrooms__c}" rendered="{!IF(ISBLANK(x.Group_Property_Parent__r.HOMEtracker__Number_of_Bedrooms__c)=true,'false','true')}"/>
+                  <span style="{!IF(ISBLANK(x.Group_Property_Parent__r.HOMEtracker__Number_of_Bedrooms__c)=true,'','display:none;')}">BLANK</span>
+              </div>
+        </td>
+<!-- Building -->
+        <td class="center" style="{!ShowRent}" width="{!ColWidthBldg}">
+             <apex:actionRegion >
+                  <apex:outputField value="{!x.Building_Number__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+        
+<!-- Floor -->
+        <td class="center" style="{!ShowRent}" width="{!ColWidthFloor}">
+             <apex:actionRegion >
+                  <apex:outputField value="{!x.Floor_unit_is_located_on__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+
+<!-- Target Certification Date -->
+        <td class="center" width="{!ColWidthTarget}">
+        <span style="padding: 5px 5px 5px 5px; background-color:{!warnColor}; color:white;font-weight:bold;{!IF(AND(x.Current_Outreach_Timeline__r.Next_Step__c != 'DONE',x.Group_Property__c=false,ISBLANK(x.Current_Outreach_Timeline__r.Target_Outreach_Date__c)=true),'','display:none;')}">
+            TARGET DATE
+        </span>
+        <apex:outputfield value="{!x.Current_Outreach_Timeline__r.Target_Outreach_Date__c}"/>
+        </td>
+<!-- OLD Target Cert Date        
+        <td class="center">
+              <apex:actionRegion >
+                  <apex:outputField value="{!x.Date_unit_will_be_availalbe__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+--> 
+<!-- Outreach Stage 
+        <td class="left">
+            <apex:actionRegion >
+                  <apex:outputField value="{!x.Outreach_Stage__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>-->
+<!-- NEXT STEP TEXT -->        
+        <td class="left" width="{!ColWidthNextStep}">
+        <div class="red" style="{!IF(x.Outreach_Timelines_Count__c=0,'','display:none;')}">TIMELINE ERROR NOTIFY TECH</div>
+        {!x.Current_Outreach_Timeline__r.Next_Step__c}
+        </td>
+        
+<!-- NEXT STEP DATE -->        
+        <td class="center" width="{!ColWidthNextStepDate}">
+        <span style="padding:5px 5px 5px 5px; {!IF(AND(x.Current_Outreach_Timeline__r.Next_Step__c!='DONE',ISBLANK(x.Current_Outreach_Timeline__r.Next_Step_Date__c)=true),'',IF(AND(ISBLANK(x.Current_Outreach_Timeline__r.Next_Step_Date__c)=false,x.Current_Outreach_Timeline__r.Next_Step_Date__c<TODAY()),'color:white;font-weight:bold;background-color:'+warnColor+'!important;',''))}">
+        <apex:outputField value="{!x.Current_Outreach_Timeline__r.Next_Step_Date__c}"/>
+        </span>
+        </td>
+<!-- Applicants Count -->        
+        <td class="center" width="{!ColWidthApplicants}">
+        <nobr>
+        <span style="{!IF(OR(x.Current_Outreach_Timeline__r.Unit_Type__c='Unit in Group',x.Current_Outreach_Timeline__r.Next_Step__c = 'DONE'),'display:none;','')}">
+            <apex:iframe src="https://cgph--c.vf.force.com/apex/AvailableApplicants?id={!x.id}&t={!IF(x.Group_Property__c=true,'g',IF(ISBLANK(x.Group_Property_Parent__c),'s','p'))}&core.apexpages.devmode.url=0" scrolling="false" id="theIframe" width="100px" height="20px" frameborder="true"/>
+
+        <a href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005tmtGUAQ/view?queryScope=userFolders&fv0={!LEFT(x.Id,15)}" target="_blank" style="text-decoration:none;">
+            <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+        </a>
+        
+        <span style="{!IF($User.lastName='Burton','','display:none;')}">
+        <a href="https://cgph--c.vf.force.com/apex/AvailableApplicants?id={!x.id}&t={!IF(x.Group_Property__c=true,'g',IF(ISBLANK(x.Group_Property_Parent__c),'s','p'))}" target="_blank">[X]</a>
+        </span>
+
+        </span>
+        </nobr>
+        </td>
+<!-- Current Renter -->        
+        <td class="left" style="{!ShowRent}" width="{!ColWidthCurrent}">
+            <a href="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Service_File__c/{!x.HOMEtracker__Current_Owner_Service_File__r.Id}/view" target="_blank" style="text-decoration:underline;">
+            {!x.Current_renter__r.Name}
+            </a>
+        </td>
+<!-- Current Owner-->        
+        <td class="left" style="{!ShowOwn}" width="{!ColWidthCurrent}">
+            {!x.HOMEtracker__Owner__r.Name}
+        </td>
+<!-- Lease -->
+        <td class="left" style="{!ShowRent}" width="{!ColWidthCurrent}">
+            <table border="0">
+                <tr>
+                    <td width="17">
+                        <a href="{!x.HOMEtracker__Current_Owner_Service_File__r.Current_Lease__r.Lease_Image_URL__c}" target="_blank" style="{!IF(x.HOMEtracker__Current_Owner_Service_File__r.Current_Lease__r.Lease_PDF__c=true,'','display:none;')}">
+                            <apex:image URL="{!$Resource.icon_PDF}"/>
+                        </a>
+                    </td>
+                    <td>
+                        <apex:outputfield value="{!x.HOMEtracker__Current_Owner_Service_File__r.Current_Lease__r.Lease_Begin__c}"
+                            rendered="{!IF(ISNULL(x.HOMEtracker__Current_Owner_Service_File__c)=true,false,true)}"/>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+<!-- Primary Applicant 
+        <td class="left" style="{!IF(ISNULL(x.Current_Primary_Applicant__r.Applicant_Name__c)=true,'display:none;','')}">
+            {!x.Current_Primary_Applicant__r.Applicant_Name__c}
+        </td>
+        <td class="left" style="{!IF(ISNULL(x.Current_Primary_Applicant__r.Applicant_Name__c)=false,'display:none;','')}">
+            &nbsp;
+        </td>
+-->
+<!-- Applicant Stage 
+        <td class="left" style="{!IF(ISNULL(x.Current_Primary_Applicant__r.Applicant_Name__c)=true,'display:none;','')}">
+            {!x.Current_Primary_Applicant__r.Applicant_Stage__c}
+        </td>
+        <td class="left" style="{!IF(ISNULL(x.Current_Primary_Applicant__r.Applicant_Name__c)=false,'display:none;','')}">
+            <i>{!IF(x.Outreach_Stage__c='','','APPLICANTS NEEDED')}</i>
+        </td>
+ -->       
+<!-- CERT DATE 
+        <td class="center" style="{!IF(ISNULL(x.Current_Primary_Applicant__r.Applicant_Name__c)=false,'','display:none;')}">
+            <apex:outputField value="{!x.Current_Primary_Applicant__r.CGPH_Approval_Denial_Date__c}"/>
+        </td>
+        <td class="center" style="{!IF(ISNULL(x.Current_Primary_Applicant__r.Applicant_Name__c)=false,'display:none;','')}">
+            n/a
+        </td>
+-->        
+    </tr>
+</apex:repeat>
+</table>
+
+</apex:form>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+</apex:page>

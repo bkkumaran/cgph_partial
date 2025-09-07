@@ -1,0 +1,364 @@
+<apex:page StandardController="Opportunity" extensions="ProposalTrackExt" sidebar="false">
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+.column { font-family: Montserrat; font-size: 9pt;color: black; }
+.renewal { font-family: Montserrat; font-size: 9pt;color: black; }
+.renewDone { font-family: Montserrat; font-size: 9pt;color: black; background-color:#ccffd4;}
+
+        
+</style>
+    
+<div style="font-size: 30pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px;">
+Proposals ({!OppCount}/{!OverCount}) And Renewals ({!RenCount})
+<br />
+</div>
+       
+
+<!-- ----------------------OVERDUE in Progress ------------OVERDUE in Progress ----------------------OVERDUE  in Progress--------------------------------------------- -->
+<!-- ----------------------OVERDUE in Progress ------------OVERDUE in Progress ----------------------OVERDUE in Progress--------------------------------------------- -->
+<!-- ----------------------OVERDUE in Progress ------------OVERDUE in Progress ----------------------OVERDUE  in Progress--------------------------------------------- -->
+
+<apex:form >
+
+<apex:pageblock title="OVERDUE">
+
+<apex:pageblockTable value="{!OverList}" var="o" styleClass="column" > 
+               
+<!--    
+<apex:column headerValue="Primary" width="100" styleClass="column" style="background-color:rgb(209, 231, 255)">
+<apex:actionRegion >
+<apex:outputField value="{!o.Primary_CGPH_Staffer_Involved__c}" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField> 
+</apex:actionRegion>
+</apex:column>
+-->
+
+<apex:column headerValue="Proposal Name (click to open Opp)" onClick="window.open('/{!o.Id}')" styleClass="column" style="background-color:rgb(209, 231, 255); font-weight: bold;" width="250">
+<apex:outputField value="{!o.Name}" />
+</apex:column>   
+
+<apex:column headerValue="Close Date" styleClass="column" style="background-color:rgb(209, 231, 255); font-weight: bold;" width="80" >
+<apex:outputField value="{!o.CloseDate}" />
+</apex:column>
+
+<apex:column headerValue="Deadline" styleClass="column" style="background-color:rgb(209, 231, 255); font-weight: bold;" width="80" >
+<apex:outputField value="{!o.Completion_Deadline__c}" />
+</apex:column>
+
+<apex:column headerValue="Bid Time" styleClass="column"  style="background-color:rgb(209, 231, 255); font-weight: bold;" width="80" >
+<apex:outputField value="{!o.Bid_Due_Time__c}" />
+</apex:column>
+                
+<apex:column headerValue="RFP?" styleClass="column" width="55"  style="background-color:rgb(209, 231, 255)">
+<apex:actionRegion >
+<apex:outputField value="{!o.RFP_Bid__c}" style="align:center;" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+                    
+<apex:column headerValue="RFP Docs" styleClass="column" width="85"  style="background-color:rgb(209, 231, 255)">
+<apex:actionRegion >
+<apex:outputField value="{!o.RFP_Docs__c}" style="align:center;" >
+<apex:inlineEditSupport event="onDblClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+                    
+<apex:column headerValue="Draft Ready" styleClass="column" width="85"  style="background-color:rgb(209, 231, 255)">
+<apex:actionRegion >
+<apex:outputField value="{!o.Proposal_Draft__c}" style="align:center;" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Pricing Finalized" styleClass="column" width="95"  style="background-color:rgb(209, 231, 255)">
+<apex:actionRegion >
+<apex:outputField value="{!o.Pricing_Finalized__c}" style="align:center;" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<!--
+<apex:column headerValue="Pricing Notes" width="250" styleClass="column" style="font-size: 9pt; background-color:rgb(209, 231, 255);" >
+<apex:actionRegion >
+<apex:outputField value="{!o.Pricing_Notes__c}" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+-->
+
+<apex:column headerValue="Next Step Staff" width="100" styleClass="column" style="font-size: 9pt; background-color:rgb(209, 231, 255);" >
+<apex:actionRegion >
+<apex:outputField value="{!o.Next_Step_Staff__c}" >
+<apex:inlineEditSupport event="onDblClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Next Step Date" width="100" styleClass="column" style="font-size: 9pt; background-color:rgb(209, 231, 255);" >
+<apex:actionRegion >
+<apex:outputField value="{!o.Next_Follow_Up_Date__c}" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Next Step" styleClass="column" style="background-color:rgb(209, 231, 255)">
+<apex:actionRegion >
+<apex:outputField value="{!o.NextStep}"  >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField> 
+</apex:actionRegion>  
+</apex:column>
+                    
+</apex:pageblockTable>
+
+<apex:pageblockButtons location="top" >
+<apex:commandButton action="{!save}" id="save" value="Save" style="display: none;"/>
+<apex:commandButton onClick="resetInlineEdit()" id="cancel" value="Cancel" style="display: none;"/>
+</apex:pageblockButtons>
+
+</apex:pageblock>
+</apex:form>
+
+<!-- ----------------------Proposals in Progress ------------Proposals in Progress ----------------------Proposals in Progress--------------------------------------------- -->
+<!-- ----------------------Proposals in Progress ------------Proposals in Progress ----------------------Proposals in Progress--------------------------------------------- -->
+<!-- ----------------------Proposals in Progress ------------Proposals in Progress ----------------------Proposals in Progress--------------------------------------------- -->
+                 
+<apex:form >
+
+<apex:pageblock title="Proposals in Progress">
+
+<table width="600" border="1" >
+<tr>
+<td style="background-color:rgb(255, 217, 186); text-align: center; font-family: 'Montserrat'; font-size: 10pt; font-weight: 600; width: 100px;">
+Due Within 7 Days
+</td>
+<td style="background-color: rgb(254, 255, 226); text-align: center; font-family: 'Montserrat'; font-size: 10pt; font-weight: 600; width: 100px;">
+Due Within 17 Days
+</td>
+<td style="background-color: white; text-align: center; font-family: 'Montserrat'; font-size: 10pt; font-weight: 600; width: 100px;">
+Due 18 Days or More
+</td>
+</tr>
+</table>
+<br />
+
+<apex:pageblockTable value="{!OppList}" var="o" styleClass="column" > 
+
+<!--
+<apex:column headerValue="Primary" width="100" styleClass="column" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186);",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226);",""))}">
+<apex:actionRegion >
+<apex:outputField value="{!o.Primary_CGPH_Staffer_Involved__c}" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField> 
+</apex:actionRegion>
+</apex:column>
+-->
+
+<apex:column headerValue="Proposal Name (click to open Opp)" onClick="window.open('/{!o.Id}')" styleClass="column" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186); font-weight: bold;",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226); font-weight: bold;","font-weight: bold;"))}" width="250">
+<apex:outputField value="{!o.Name}" />
+</apex:column>   
+
+<apex:column headerValue="Close Date" styleClass="column" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186); font-weight: bold;",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226); font-weight: bold;","font-weight: bold;"))}" width="80" >
+<apex:outputField value="{!o.CloseDate}" />
+</apex:column>
+
+<apex:column headerValue="Deadline" styleClass="column" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186); font-weight: bold;",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226); font-weight: bold;","font-weight: bold;"))}" width="80" >
+<apex:outputField value="{!o.Completion_Deadline__c}" />
+</apex:column>
+
+<apex:column headerValue="Bid Time" styleClass="column" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186); font-weight: bold;",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226); font-weight: bold;","font-weight: bold;"))}" width="80" >
+<apex:outputField value="{!o.Bid_Due_Time__c}" />
+</apex:column>
+                
+<apex:column headerValue="RFP?" styleClass="column" width="55" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186);",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226);",""))}">
+<apex:actionRegion >
+<apex:outputField value="{!o.RFP_Bid__c}" style="align:center;" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+                    
+<apex:column headerValue="RFP Docs" styleClass="column" width="85" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186);",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226);",""))}">
+<apex:actionRegion >
+<apex:outputField value="{!o.RFP_Docs__c}" style="align:center;" >
+<apex:inlineEditSupport event="onDblClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+                    
+<apex:column headerValue="Draft Ready" styleClass="column" width="85" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186);",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226);",""))}">
+<apex:actionRegion >
+<apex:outputField value="{!o.Proposal_Draft__c}" style="align:center;" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Pricing Finalized" styleClass="column" width="95" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186);",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226);",""))}">
+<apex:actionRegion >
+<apex:outputField value="{!o.Pricing_Finalized__c}" style="align:center;" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<!--
+<apex:column headerValue="Pricing Notes" width="250" styleClass="column" style="font-size: 9pt; {!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186);",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226);",""))}" >
+<apex:actionRegion >
+<apex:outputField value="{!o.Pricing_Notes__c}" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+-->
+
+<apex:column headerValue="Next Step Staff" width="100" styleClass="column" style="font-size: 9pt; {!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186);",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226);",""))}" >
+<apex:actionRegion >
+<apex:outputField value="{!o.Next_Step_Staff__c}" >
+<apex:inlineEditSupport event="onDblClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Next Step Date" width="100" styleClass="column" style="font-size: 9pt; {!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186);",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226);",""))}" >
+<apex:actionRegion >
+<apex:outputField value="{!o.Next_Follow_Up_Date__c}" >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Next Step" styleClass="column" style="{!IF(o.Days_Until_Close_Date__c <= 7, "background-color:rgb(255, 217, 186);",IF(o.Days_Until_Close_Date__c <= 17, "background-color:rgb(254, 255, 226);",""))}">
+<apex:actionRegion >
+<apex:outputField value="{!o.NextStep}"  >
+<apex:inlineEditSupport event="onClick" showOnEdit="save,cancel" />
+</apex:outputField> 
+</apex:actionRegion>  
+</apex:column>
+                    
+</apex:pageblockTable>
+
+<apex:pageblockButtons location="top" >
+<apex:commandButton action="{!save}" id="save" value="Save" style="display: none;"/>
+<apex:commandButton onClick="resetInlineEdit()" id="cancel" value="Cancel" style="display: none;"/>
+</apex:pageblockButtons>
+
+</apex:pageblock>
+</apex:form>
+
+
+<!-- ----------------------Renewals in advance ------------Renewals in advance ----------------------Renewals in advance --------------------------------------------- -->
+<!-- ----------------------Renewals in advance ------------Renewals in advance ----------------------Renewals in advance --------------------------------------------- -->
+<!-- ----------------------Renewals in advance ------------Renewals in advance ----------------------Renewals in advance --------------------------------------------- -->
+
+<apex:form >
+
+<apex:pageblock title="Renewals in Advance">
+
+<apex:pageblockTable value="{!RenList}" var="o" styleClass="renewal" > 
+
+<!--                  
+<apex:column headerValue="Primary" width="100" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}" >
+<apex:actionRegion >
+<apex:outputField value="{!o.Primary_CGPH_Staffer_Involved__c}" >
+<apex:inlineEditSupport event="onClick" showOnEdit="saveR,cancelR" />
+</apex:outputField> 
+</apex:actionRegion>
+</apex:column>
+-->
+
+<apex:column headerValue="Proposal Name (click to open Opp)" onClick="window.open('/{!o.Id}')" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}"  width="250">
+<apex:outputField value="{!o.Name}" />
+</apex:column>   
+
+<apex:column headerValue="Close Date" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}"  width="80" >
+<apex:outputField value="{!o.CloseDate}" />
+</apex:column>
+
+<apex:column headerValue="Deadline" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}"  width="80" >
+<apex:outputField value="{!o.Completion_Deadline__c}" />
+</apex:column>
+    
+<apex:column headerValue="Bid Time" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}"  width="80" >
+<apex:outputField value="{!o.Bid_Due_Time__c}" />
+</apex:column>                                        
+                   
+<apex:column headerValue="RFP Docs" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}" width="125" >
+<apex:actionRegion >
+<apex:outputField value="{!o.RFP_Docs__c}" style="align:center;" >
+<apex:inlineEditSupport event="onDblClick" showOnEdit="saveR,cancelR" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+                    
+<apex:column headerValue="Draft Ready" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}" width="85" >
+<apex:actionRegion >
+<apex:outputField value="{!o.Proposal_Draft__c}" style="align:center;" >
+<apex:inlineEditSupport event="onClick" showOnEdit="saveR,cancelR" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Pricing Finalized" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}" width="95" >
+<apex:actionRegion >
+<apex:outputField value="{!o.Pricing_Finalized__c}" style="align:center;" >
+<apex:inlineEditSupport event="onClick" showOnEdit="saveR,cancelR" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<!--
+<apex:column headerValue="Pricing Notes" width="250" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}" style="font-size: 9pt;">
+<apex:actionRegion >
+<apex:outputField value="{!o.Pricing_Notes__c}">
+<apex:inlineEditSupport event="onClick" showOnEdit="saveR,cancelR" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+-->
+
+<apex:column headerValue="Next Step Staff" width="100" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}" style="font-size: 9pt;">
+<apex:actionRegion >
+<apex:outputField value="{!o.Next_Step_Staff__c}">
+<apex:inlineEditSupport event="onDblClick" showOnEdit="saveR,cancelR" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Next Step Date" width="100" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}" style="font-size: 9pt;">
+<apex:actionRegion >
+<apex:outputField value="{!o.Next_Follow_Up_Date__c}">
+<apex:inlineEditSupport event="onClick" showOnEdit="saveR,cancelR" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Next Step" styleClass="{!if(o.Proposal_Draft__c=true,'renewDone','renewal')}" >
+<apex:actionRegion >
+<apex:outputField value="{!o.NextStep}" >
+<apex:inlineEditSupport event="onClick" showOnEdit="saveR,cancelR" />
+</apex:outputField> 
+</apex:actionRegion>  
+</apex:column>
+                    
+</apex:pageblockTable>
+
+<apex:pageblockButtons location="top" >
+<apex:commandButton action="{!saveR}" id="saveR" value="Save" style="display: none;"/>
+<apex:commandButton onClick="resetInlineEdit()" id="cancelR" value="Cancel" style="display: none;"/>
+</apex:pageblockButtons>
+
+</apex:pageblock>
+</apex:form>
+
+
+
+</apex:page>

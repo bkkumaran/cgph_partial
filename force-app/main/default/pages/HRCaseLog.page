@@ -1,0 +1,175 @@
+<apex:page standardcontroller="HR_Case_File__c" extensions="HRCaseFileExt" sidebar="false">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        .tableStyle { font-family: 'Open Sans'; font-size: 10pt;}
+        #b {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px;}
+        #bA {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px; background-color: rgb(222, 255, 254);}
+        #bC {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px; background-color: rgb(222, 255, 236);}
+        #bT {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px; background-color: rgb(255, 222, 222);}
+        #bTr {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px; background-color: rgb(217, 249, 144);}
+        #bO {white-space: nowrap; text-decoration:none; font-size: 12pt; color: gray; font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px; background-color: rgb(237,237,237);}
+    </style>
+<apex:variable var="color1" value="rgb(247, 255, 248)" />
+<apex:variable var="color2" value="rgb(232, 247, 255)" />
+<apex:variable var="color3" value="rgb(239, 232, 255)" />
+<apex:variable var="color4" value="rgb(255, 235, 240)" />
+<apex:variable var="color5" value="rgb(255, 255, 138)" />
+<apex:variable var="TextColor" value="{!CASE(dataSet,'A','rgb(37,113,170)','C','rgb(38, 173, 96)','O','gray','T','rgb(173, 38, 38)','Tr','rgb(38, 173, 55)','rgb(37,113,170)')}" />
+<apex:variable var="hideTERM" value="{!IF(dataSet='T',false,true)}" />
+<apex:variable var="showTERM" value="{!IF(dataSet='T',true,false)}" />
+
+<table>
+<tr>
+    <td>
+    <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />
+    </td>
+    <td>
+    <div style="font-size: 30pt; color: {!TextColor}; font-family: 'Open Sans'; font-weight: bold; padding: 0px 0px 0px 100px;">
+        {!logName} Case Log <br/>
+        <i>{!CASE(dataSet,'T','Terminated Cases ('+TEXT(countHRCFt)+')','Tr','Transferred Cases ('+TEXT(countHRCFtr)+')','C','Completed Cases ('+TEXT(countHRCFc)+')','O','ON HOLD Cases ('+TEXT(countHRCFo)+')','Active Cases ('+TEXT(countHRCF)+')')}</i>
+        <br />
+    </div>
+    
+    </td>
+    
+        <td width="500" style="text-align: right; vertical-align: top;">
+    <apex:outputLink rendered="true" target="_blank" value="https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&Id={!listHRCF[0].Id}&TemplateId=a293m000004m9b9&QueryId=[HRCF]a213m000003YOtf?pv0={!logName}&OFN=CASE+LOG+{!logName}+{!TODAY()}&ExcelAutoFitRows=1&DS7=3">
+        <apex:image url="{!$Resource.ExcelDownloadIcon}" width="80px" />
+    </apex:outputLink>
+     </td>
+    
+    
+    </tr>
+    </table>
+
+<a id="b" target="_top" href="/apex/HRCaseLog?d=A&name={!logName}" style="{!if(dataSet='A','display: none','')};" >ACTIVE</a>
+<span id="bA" style="{!if(dataSet='A','','display: none')};">ACTIVE</span>
+<a id="b" target="_top" href="/apex/HRCaseLog?d=C&name={!logName}" style="{!if(dataSet='C','display: none','')};">COMPLETED</a>
+<span id="bC" style="{!if(dataSet='C','','display: none')};">COMPLETED</span>
+<a id="b" target="_top" href="/apex/HRCaseLog?d=O&name={!logName}" style="{!if(dataSet='O','display: none','')};">ON HOLD</a>
+<span id="bO" style="{!if(dataSet='O','','display: none')};">ON HOLD</span>
+<a id="b" target="_top" href="/apex/HRCaseLog?d=T&name={!logName}" style="{!if(dataSet='T','display: none','')};">TERMINATED</a>
+<span id="bT" style="{!if(dataSet='T','','display: none')};">TERMINATED</span>
+<a id="b" target="_top" href="/apex/HRCaseLog?d=Tr&name={!logName}" style="{!if(dataSet='Tr','display: none','')};">TRANSFERRED</a>
+<span id="bTr" style="{!if(dataSet='Tr','','display: none')};">TRANSFERRED</span>
+<br/>
+
+<apex:form >
+    <apex:pageBlock > 
+        <apex:pageBlockTable value="{!CASE(dataSet,'T',listHRCFt,'C',listHRCFc,'O',listHRCFO,'Tr',listHRCFtr,listHRCF)}" var="a" id="table">
+
+            <apex:column value="{!a.Municipality__c}" headerValue="Municipality/County" width="125" style="font-weight: bold;"/>        
+            <apex:column width="150px" styleClass="column" headerValue="Case File" style="font-weight: bold;">
+               <apex:actionRegion >
+                   <apex:outputPanel onDblClick="window.open('/{!a.Id}',target='_blank')" >
+                       <!--         <apex:image url="{!$Resource.blueFileIcon}" width="15px" />   -->
+                        {!a.name}
+                     </apex:outputPanel>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Files">
+                <apex:outputLink value="/apex/AttachList?p={!a.Id}&n={!a.Name}" target="_blank"><apex:image url="{!$Resource.icon_PDF}" /></apex:outputLink>
+                </apex:column>           
+                              
+                <apex:column headerValue="Homeowners"  width="200">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.HR_Homeowners__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column width="150px" styleClass="column" headerValue="Street Address" style="font-weight: bold;">
+               <apex:actionRegion >
+                   <apex:outputPanel onDblClick="window.open('/{!a.Id}',target='_blank')" >
+                       <!--         <apex:image url="{!$Resource.blueFileIcon}" width="15px" />   -->
+                        {!a.Property__r.Name}
+                     </apex:outputPanel>
+                    </apex:actionRegion>  
+                </apex:column>
+                
+            <apex:column headerValue="Case Log Status"  width="200" style="background-color:{!CASE(LEFT(a.Case_Log_Status__c,1), '1',color1,'2',color2,'3',color3,'4',color4,'5',color5,'')}">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Case_Log_Status__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                
+                <apex:column headerValue="App Rec'd Date"  width="75" rendered="{!hideTERM}" >
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Application_Received__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Eligibility Date"  width="75" rendered="{!hideTERM}" >
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Cert_of_Eligibility__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                
+                <apex:column headerValue="Contract Date"  width="75" rendered="{!hideTERM}" >
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Contract_Date__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Terminated Date"  width="75" rendered="{!showTERM}" >
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.HR_Case_Terminated_Date__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+            <apex:column headerValue="Contractor"  width="200" rendered="{!hideTERM}" >
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Contractor_Biz_Name__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+            <apex:column headerValue="Reason for Termination" rendered="{!showTERM}" >
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Reason_for_Termination__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+            <apex:column headerValue="Final Inspection" rendered="{!if(dataSet='C',true,false)}" width="75px" >
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Reason_for_Termination__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>    
+            <apex:column headerValue="Case Log Notes" rendered="false">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Case_Log_Notes__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+
+<!-- NEW CASE LOG ENTRIES -->
+
+                <apex:column headerValue="Last Case Log Entry">
+                        <apex:outputField value="{!a.Last_Case_Log_Entry_Record__r.Entry_Text__c}"/>
+                </apex:column>
+                <apex:column headerValue="Last Insp Log Entry">
+                        <apex:outputField value="{!a.Last_Insp_Log_Entry_Record__r.Entry_Text__c}"/>
+                </apex:column>
+                
+                
+
+         </apex:pageBlockTable>
+         <apex:pageBlockButtons > 
+                <apex:commandButton value="Save" action="{!save}" id="Save" style="display: none;"/>
+                <apex:commandButton value="Cancel" id="Cancel" immediate="true" style="display: none;"/>
+            </apex:pageBlockButtons> 
+    </apex:pageBlock>
+</apex:form>
+
+</apex:page>

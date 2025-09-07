@@ -1,0 +1,286 @@
+<apex:page standardController="HR_Case_File__c" showHeader="false">
+<style>
+    table   {border-collapse:collapse;}
+    td      {padding: 5px 5px 5px 5px;}
+    .left   {text-align:left;}
+    .center {text-align:center;}
+    .right  {text-align:right;}
+    .last   {font-weight:bold;background-color:#d1e8ff;}
+    .next   {font-weight:bold;background-color:yellow;}
+</style>
+
+<!-- VARIABLE TO SHOW (1) OR HIDE (0) THE DAYS COLUMN -- -->
+<apex:variable var="showDays" value="display:none;"/>
+
+<div style="{!IF($User.LastName='Burton','','display:none;')}">
+<a href="https://cgph--c.vf.force.com/apex/HR_Timeline?id={!HR_Case_File__c.id}" target="_blank">{!HR_Case_File__c.Name}</a>
+
+
+<table border="1" style="border-color:red;">  <!-- OUTSIDE TABLE -->
+<tr>
+<td>
+
+
+<!-- ------------------------------------------------------------ -->
+<!--                   ELIGIBILITY TABLE                          -->
+<!-- ------------------------------------------------------------ -->
+
+
+<table border="1">
+<tr><th colspan="5" class="center">ELIGIBILITY</th></tr>
+<tr><th width="275" class="center">Date Field</th>
+    <th width="100" class="center">Date Occurred</th>
+    <th width="100" class="center">Due Date</th>
+    <th width="125" class="center">Staff</th>
+    <th style="{!showDays}">Days</th>
+    </tr>
+
+<tr><td class="left">Application Received</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Application_Received__c}"/></td>
+    <td class="right"></td>
+    <td class="left"></td>
+    <td class="right" style="{!showDays}"></td>
+</tr>
+<tr><td class="left">Additional Docs Letter Sent</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Additional_Docs_Letter_Sent__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Additional_Docs_Letter_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Additional_Docs_Letter_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Additional_Docs_Letter_Due__c-HR_Case_File__c.Additional_Docs_Letter_Sent__c}</td>
+</tr>
+<tr><td class="left">Next Eligibility Followup Date</td>
+    <td class="right">N/A</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Next_Eligibility_Followup_Date__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Next_Eligibility_Followup_Staff__c}</td>
+    <td class="right" style="{!showDays}">N/A</td>
+</tr>
+<tr><td class="left">Peer Review Requested</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Peer_Review_Requested__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Peer_Review_Request_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Peer_Review_Requested_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Peer_Review_Request_Due__c-HR_Case_File__c.Peer_Review_Requested__c}</td>
+</tr>
+<tr><td class="left">Title Search Requested</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Title_Search_Requested__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Title_Search_Request_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Title_Search_Requested_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Title_Search_Request_Due__c-HR_Case_File__c.Title_Search_Requested__c}</td>
+</tr>
+<tr><td class="left">Title Search Received</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Title_Search_Received__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Title_Search_Followup__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Title_Search_Received_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Title_Search_Followup__c-HR_Case_File__c.Title_Search_Received__c}</td>
+</tr>
+<tr><td class="left">Determination Approval</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Determination_Approval__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Determination_Approval_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Determination_Approval_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Determination_of_Approval_Due__c-HR_Case_File__c.Determination_Approval__c}</td>
+</tr>
+<tr><td><b>ELIGIBILITY ACTION</b></td><td colspan="4">{!HR_Case_File__c.KPI_1_Eligibility_Status__c}<b></b></td></tr>
+</table>
+<br/>
+<br/>
+<br/>
+
+
+<!-- ------------------------------------------------------------ -->
+<!--                   ALL THE REST TABLE                         -->
+<!-- ------------------------------------------------------------ -->
+
+
+<table border="1">
+<tr><th colspan="5" class="center">PRECONSTRUCTION and more</th></tr>
+<tr><th width="275" class="center">Date Field</th>
+    <th width="100" class="center">Date Occurred</th>
+    <th width="100" class="center">Due Date</th>
+    <th width="125" class="center">Staff</th>
+    <th style="{!showDays}">Days</th>
+    </tr>
+<tr><td class="left">Comp Insp/COS/WWU Request to Inspector</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Date_Request_Sent_to_Inspector__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Comp_COS_WWU_Request_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Comp_COS_WWU_Request_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Comp_COS_WWU_Request_Due__c-HR_Case_File__c.Date_Request_Sent_to_Inspector__c}</td>
+</tr>
+<tr><td class="left">Comp Inspection Date</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Comp_Inspection_Date__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Comp_Inspection_Scheduled_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Comp_Inspection_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Comp_Inspection_Scheduled_Due__c-HR_Case_File__c.Comp_Inspection_Date__c}</td>
+</tr>
+<tr><td class="left">HMR/Muni Agreement to HMR</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.HMR_Muni_Agreement_to_HMR__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.HMR_Muni_Agreement_to_HMR_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.HMR_Muni_Agreement_to_HMR_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.HMR_Muni_Agreement_to_HMR_Due__c-HR_Case_File__c.HMR_Muni_Agreement_to_HMR__c}</td>
+</tr>
+<tr><td class="left">HMR/Muni Agreement to Muni</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.HMR_Muni_Agreement_to_Muni__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.HMR_Muni_Agreement_to_Muni_Followup__c}"/></td>
+    <td class="left">{!HR_Case_File__c.HMR_Muni_Agreement_to_Muni_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.HMR_Muni_Agreement_to_Muni_Followup__c-HR_Case_File__c.HMR_Muni_Agreement_to_Muni__c}</td>
+</tr>
+<tr><td class="left">HMR/Muni Executed to HMR</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.HMR_Muni_Executed_to_HMR__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.HMR_Muni_Executed_to_HMR_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.HMR_Muni_Executed_to_HMR_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.HMR_Muni_Executed_to_HMR_Due__c-HR_Case_File__c.HMR_Muni_Executed_to_HMR__c}</td>
+</tr>
+<tr><td class="left">WWU Received</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.WWU_Received__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.WWU_to_HRS_from_INSP_due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.WWU_Received_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.WWU_to_HRS_from_INSP_due__c-HR_Case_File__c.WWU_Received__c}</td>
+</tr>
+<tr><td class="left">WWU HMR Review Requested</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.WWU_HMR_Review_Requested__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.WWU_to_HMR_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.WWU_HMR_Review_Requested_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.WWU_to_HMR_Due__c-HR_Case_File__c.WWU_HMR_Review_Requested__c}</td>
+</tr>
+<tr class="{!IF(HR_Case_File__c.Last_Action_Step__c='WWU HMR Review Received','last',IF(HR_Case_File__c.Case_File_Next_Step_Due__c='WWU HMR Review Received','next',''))}">
+    <td class="left">WWU HMR Review Received</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.WWU_HMR_Review_Received__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.WWU_Followup_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.WWU_HMR_Review_Received_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.WWU_Followup_Due__c-HR_Case_File__c.WWU_HMR_Review_Received__c}</td>
+</tr>
+<tr class="{!IF(HR_Case_File__c.Last_Action_Step__c='Bid Notice Sent','last',IF(CONTAINS(HR_Case_File__c.Case_File_Next_Step_Due__c,'Bid Notice Due'),'next',''))}">
+    <td class="left">Bid Notice Sent</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Bid_Notice_Sent__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Bid_Notice_Deadline__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Bid_Notice_Sent_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Bid_Notice_Deadline__c-HR_Case_File__c.Bid_Notice_Sent__c}</td>
+</tr>
+<tr><td class="left">Bid Opening</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Bid_Opening__c}"/></td>
+    <td class="right">N/A</td>
+    <td class="left">N/A</td>
+    <td class="right" style="{!showDays}">N/A</td>
+</tr>
+<tr><td class="left">Bid Tab to Cost Estimator</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Bid_Tab_to_Cost_Estimator__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Bid_Tab_to_INSP_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Bid_Tab_to_Cost_Estimator_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Bid_Tab_to_INSP_Due__c-HR_Case_File__c.Bid_Tab_to_Cost_Estimator__c}</td>
+</tr>
+<tr><td class="left">Bid Award Date</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Bid_Tab_Form_to_HMR__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Bid_Award_Deadline__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Bid_Award_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Bid_Award_Deadline__c-HR_Case_File__c.Bid_Tab_Form_to_HMR__c}</td>
+</tr>
+<tr><td class="left">Contractor Checklist Requested</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Contractor_Checklist_Requested__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Contractor_Checklist_Request_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Contractor_Checklist_Requested_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Contractor_Checklist_Request_Due__c-HR_Case_File__c.Contractor_Checklist_Requested__c}</td>
+</tr>
+<tr><td class="left">Contractor Checklist Completed</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Contractor_Checklist_Completed__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Contractor_Checklist_Deadline__c}"/></td>
+    <td class="right">{!HR_Case_File__c.Contractor_Checklist_Completed_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Contractor_Checklist_Deadline__c-HR_Case_File__c.Contractor_Checklist_Completed__c}</td>
+</tr>
+<tr><td class="left">Contract Date</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Contract_Date__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Contract_Date_Scheduled_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Contract_Date_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Contract_Date_Scheduled_Due__c-HR_Case_File__c.Contract_Date__c}</td>
+</tr>
+<tr><td class="left">Closing Docs Sent to HMR</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Closing_Docs_Sent_to_HMR__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Closing_Docs_Deadline__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Closing_Docs_Sent_to_HMR_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Closing_Docs_Deadline__c-HR_Case_File__c.Closing_Docs_Sent_to_HMR__c}</td>
+</tr>
+<tr><td class="left">Muni add Mortg. on HMR Ins.</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Muni_add_Mortg_on_HMR_Ins__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Muni_add_Mortg_on_HMR_Ins_Followup__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Muni_add_Mortg_on_HMR_Ins_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Muni_add_Mortg_on_HMR_Ins_Followup__c-HR_Case_File__c.Muni_add_Mortg_on_HMR_Ins__c}</td>
+</tr>
+<tr><td class="left">Final Inspection</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Final_Inspection__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Completion_Date_90_days__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Final_Inspection_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Completion_Date_90_days__c-HR_Case_File__c.Final_Inspection__c}</td>
+</tr>
+<tr><td class="left">Mortgage Forwarding Date</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Mortgage_Forwarding_Date__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Mortgage_Forwarding_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Mortgage_Forwarding_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Mortgage_Forwarding_Due__c-HR_Case_File__c.Mortgage_Forwarding_Date__c}</td>
+</tr>
+<tr><td class="left">HMR Close Case Letter Date</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.HMR_Close_Case_Letter_Date__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.HMR_Close_Case_Letter_Due__c}"/></td>
+    <td class="left">{!HR_Case_File__c.HMR_Close_Case_Letter_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.HMR_Close_Case_Letter_Due__c-HR_Case_File__c.HMR_Close_Case_Letter_Date__c}</td>
+</tr>
+<tr><td class="left">Testimonial Date Recd</td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Testimonial_Date_Rec_d__c}"/></td>
+    <td class="right"><apex:outputField value="{!HR_Case_File__c.Testimonial_Followup__c}"/></td>
+    <td class="left">{!HR_Case_File__c.Testimonial_Staff__c}</td>
+    <td class="right" style="{!showDays}">{!HR_Case_File__c.Testimonial_Followup__c-HR_Case_File__c.Testimonial_Date_Rec_d__c}</td>
+</tr>
+
+</table>
+</td>
+<td style="vertical-align:top;">
+    <table border="1" style="border-color:blue;">
+        <tr>
+            <td>
+                <b>Last Action</b>
+            </td>
+            <td>
+                {!HR_Case_File__c.Last_Action_Step__c}
+            </td>
+            <td>
+                 <apex:outputfield value="{!HR_Case_File__c.Last_Action_Date__c}"/>
+            </td>
+            <td>
+                {!HR_Case_File__c.Last_Action_Staff__c}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Next Step</b>
+            </td>
+            <td>
+                {!HR_Case_File__c.Case_File_Next_Step_Due__c}
+            </td>
+
+<apex:variable var="NextDue" value="
+    {!IF(ISBLANK(HR_Case_File__c.Eligibility_Next_Due_Date__c)=false,HR_Case_File__c.Eligibility_Next_Due_Date__c,
+      IF(ISBLANK(HR_Case_File__c.Preconstruction_Next_Due_Date__c)=false,HR_Case_File__c.Preconstruction_Next_Due_Date__c,
+      IF(ISBLANK(HR_Case_File__c.Construction_Next_Due_Date__c)=false,HR_Case_File__c.Construction_Next_Due_Date__c,
+      IF(ISBLANK(HR_Case_File__c.Closeout_Next_Due_Date__c)=false,HR_Case_File__c.Closeout_Next_Due_Date__c,''))))}
+    "/>
+            <td>
+                {!NextDue}
+                <div style="{!IF(NextDue='1','','display:none;')}">
+                    <apex:outputfield value="{!HR_Case_File__c.Eligibility_Next_Due_Date__c}"/>
+                </div>
+                <div style="{!IF(NextDue='2','','display:none;')}">
+                2-<apex:outputfield value="{!HR_Case_File__c.Preconstruction_Next_Due_Date__c}"/>
+                </div>
+                <div style="{!IF(NextDue='3','','display:none;')}">
+                3-<apex:outputfield value="{!HR_Case_File__c.Construction_Next_Due_Date__c}"/>
+                </div>
+                <div style="{!IF(NextDue='4','','display:none;')}">
+                4-<apex:outputfield value="{!HR_Case_File__c.Closeout_Next_Due_Date__c}"/>
+                </div>
+            </td>
+            <td>
+                {!HR_Case_File__c.Case_File_Next_Step_Staff_by_Date__c}
+            </td>
+        </tr>
+        
+    </table>
+</td>
+</tr>
+</table>
+</div>
+</apex:page>

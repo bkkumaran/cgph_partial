@@ -1,0 +1,29 @@
+<apex:page standardController="case" extensions="TechStatusExt" lightningstylesheets="true">
+<style>
+#link {color: red;}
+</style>
+
+<div style="font-size: 15pt; font-weight: bold; color: #032d60; padding:0px 0px 10px 0px"><u>TECH STATUS:</u></div>
+
+<!-- ------------ ALL SYSTEMS OPERATIONAL -------------------- -->
+
+<div style="font-size: 12pt; font-weight: bold; display: {!IF(techList[0].Tech_Status_Notes__c='ALL SYSTEMS OPERATIONAL','','none')};">
+
+{!techList[0].Flag__c}
+{!techList[0].Tech_Status_Notes__c}
+</div>
+
+<!-- ------------OTHER -------------------------- -->
+
+<br/>
+<div style="font-size: 12pt; color: red; font-weight: bold; display:{!IF(techList[0].Tech_Status_Notes__c='ALL SYSTEMS OPERATIONAL','none','')};">
+{!techList[0].Flag__c}
+{!techList[0].Tech_Status_Notes__c}
+<br/>
+<br/>
+<a id="link" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008ndxPUAQ/view?queryScope=userFolders">
+<u><b>CLICK HERE FOR TECH STATUS REPORT</b></u>
+</a>
+</div>
+
+</apex:page>

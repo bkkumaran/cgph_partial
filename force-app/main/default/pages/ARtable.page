@@ -1,0 +1,10 @@
+<apex:page standardController="Contract">
+   <apex:pageBlock title="Hello {!$User.FirstName}!">
+      You are viewing the {!Contract.name} contract.
+   </apex:pageBlock>
+   <apex:pageBlock title="Invoices">
+      <apex:pageBlockTable value="{!contract.invoices__r}" var="contact">
+         <apex:column value="{!contact.Name}"/>
+      </apex:pageBlockTable>
+   </apex:pageBlock>
+</apex:page>

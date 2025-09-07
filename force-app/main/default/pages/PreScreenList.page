@@ -1,0 +1,41 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="PreScreenExt" standardStylesheets="true">
+
+<style>
+        .iTable {
+             counter-reset: rowCounter;
+                }
+        .iTable .row {
+            counter-increment: rowCounter;
+                }
+        .iTable .row .counter::before {
+            content: counter(rowCounter);
+                }
+        .head {
+            font-size: 16pt;
+            padding: 10px 0px 10px 5px;
+                }
+</style>
+
+<div class="head" width="100%">
+Applicants Passed Due Date, Ready For Submission Check / Pre Screen
+</div>
+
+<apex:pageBlock >
+        <apex:pageBlockTable styleClass="iTable" rowClasses="row" value="{!PreScreenListFinal}" var="x">
+            <!-- <apex:column value="{!x.Id}"/> -->
+            <apex:column headerValue="#">
+                    <span class="counter"></span>
+            </apex:column>
+            <!-- <apex:column value="{!x.EA_Sort__c}"/> -->
+            <apex:column value="{!x.Campaign_Preliminary_Submission__r.Name}"/>
+            <apex:column value="{!x.Outreach_Applicant_Process__c}"/>
+            <apex:column value="{!x.Deadline_Date__c}"/>
+            <apex:column value="{!x.Campaign_Preliminary_Submission__r.Application_Due__c}"/>
+            <apex:column value="{!x.Campaign_Preliminary_Submission__r.Status__c}"/>
+            <apex:column value="{!x.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Status__c}"/>
+            <apex:column value="{!x.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Status__c}"/>
+            <apex:column value="{!x.Outreach_Notes__c}" width="400px"/>
+        </apex:pageBlockTable>
+</apex:pageBlock>
+
+</apex:page>

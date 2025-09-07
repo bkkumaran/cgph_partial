@@ -1,0 +1,23 @@
+<aura:component extends="c:LCC_GenericLightningComponent" >
+    <aura:set attribute="partially" value="false"></aura:set>
+    <aura:set attribute="isAdditionalObject" value="false"></aura:set>
+
+    <!-- User Interface -->
+    <aura:if isTrue="{!c.Confirmation_to_Delete__c}">
+    False
+    <div>
+        <div class="slds-scrollable slds-p-around_medium slds-text-heading_small" id="modal-content-id-1">
+            <p class="slds-hyphenate"><a style="outline: 0;" href="https://github.com/developerforce/LEXComponentsBundle" target="_blank">Sample Lightning Component Action</a></p>
+            <br/>
+        </div>
+        <footer class="slds-modal__footer">
+            <lightning:button class="slds-button_brand" onclick="{!c.accept}" label="Accept"/>
+        </footer>
+    </div>
+    <aura:set attribute="else">
+	True
+    "..."
+    </aura:set>
+    </aura:if>>
+    	
+</aura:component>

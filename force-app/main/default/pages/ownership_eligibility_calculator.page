@@ -1,0 +1,31 @@
+<apex:page standardController="HOMEtracker__Service_File__c" showHeader="false" sidebar="false">
+    <p>Temp</p>
+    <!-- Style Code -->
+    <!--<style>
+    div#applicantinformation, div#applicantincomesources, div#applicanteligibility {float:left; width:250%; padding:15px; height:100px; background:#F5E4A9;}
+        </style>-->
+    
+    <!-- Applicant Information Section -->       
+     <!--<apex:pageBlock >       
+        <apex:pageBlockSection title="Applicant Information">
+            <div id="applicantinformation">           
+            <h2>Test</h2>
+            </div>           
+        </apex:pageBlockSection>              
+    </apex:pageBlock> -->
+    
+    <!-- Applicant Income Sources Section -->
+    <!--<apex:pageBlock >
+        <apex:pageBlockSection title="Applicant Income Sources">
+            <b>Income Sources</b>
+        </apex:pageBlockSection>
+    </apex:pageBlock>-->
+
+    <!-- Applicant Eligibility Section -->
+    <!--<apex:pageBlock >
+        <apex:pageBlockSection title="Applicant Eligibility">
+            <b>Eligibility Information</b>
+        </apex:pageBlockSection>
+    </apex:pageBlock>-->
+
+</apex:page>

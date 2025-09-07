@@ -1,0 +1,117 @@
+<apex:page standardcontroller="HOMEtracker__Property__c" extensions="AvailableApplicantsExt" showHeader="false">
+
+<apex:variable var="font" value="Open Sans"/>
+<apex:variable var="size" value="9"/>
+<apex:variable var="warnColor" value="yellow;"/>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family={!font}');
+    .total      {font-weight:bold; font-family:'{!font}'; font-size:{!size}pt; color:blue;}
+    .invited    {font-weight:bold; font-family:'{!font}'; font-size:{!size}pt;color:red;}
+    .submitted  {font-weight:bold; font-family:'{!font}'; font-size:{!size}pt;color:green;}
+    .zero       {font-weight:bold; font-family:'{!font}'; font-size:{!size}pt;color:white;}
+
+</style>
+
+
+
+<apex:variable var="style" value="
+{!IF(AND(uType='g',countUnits=0),'background-color:green;',
+IF(countApplicants=0,'background-color:#ff5454;',
+IF(uType='g',
+CASE(countUnits,
+0,'',
+1,IF(countApplicants<10,'background-color:'+warnColor,''),
+2,IF(countApplicants<12,'background-color:'+warnColor,''),
+3,IF(countApplicants<15,'background-color:'+warnColor,''),
+4,IF(countApplicants<20,'background-color:'+warnColor,''),
+5,IF(countApplicants<20,'background-color:'+warnColor,''),
+6,IF(countApplicants<20,'background-color:'+warnColor,''),
+7,IF(countApplicants<25,'background-color:'+warnColor,''),
+8,IF(countApplicants<25,'background-color:'+warnColor,''),
+9,IF(countApplicants<25,'background-color:'+warnColor,''),
+10,IF(countApplicants<25,'background-color:'+warnColor,''),
+IF(countApplicants<30,'background-color:'+warnColor,'')
+),
+IF(countApplicants<10,'background-color:'+warnColor,'')
+)
+
+)
+)
+}
+"/>
+
+<body style="{!style}">
+
+<!-- ------------------GROUP PROPERTY --------------------------- -->
+<div id="GroupProperty" style="width=100%;text-align:left;{!IF(uType='g','','display:none;')}">
+    &nbsp;
+    <span style="{!if(countApplicants=0,'display:none;','')}">
+        <span class="total">{!countApplicants}:</span><span class="submitted">{!countSubmitted}</span><b>/</b><span class="invited">{!countInvited}</span>
+    </span>
+    <span style="{!if(AND(countUnits>0,countApplicants=0),'','display:none;')}" class="zero">
+        &nbsp;0
+    </span>
+    <span style="{!IF(countUnits>0,'','display:none;')}">
+        ({!countUnits} u.)
+    </span>
+    <span style="{!IF(countUnits=0,'','display:none;')}" class="zero">
+        no units
+    </span>
+</div>
+
+
+
+<!-- ------------------UNIT IN GROUP --------------------------- -->
+<div id="UnitInGroup" style="width=100%;text-align:left;{!IF(uType='pg','','display:none;')}">
+<i>see group</i>
+</div>
+
+
+<!-- ------------------ SINGLE UNIT --------------------------- -->
+<div id="SingleUnit" style="width=100%;text-align:left;{!IF(uType='s','','display:none;')}">
+&nbsp;
+    <span style="{!if(countApplicants=0,'display:none;','')}">
+        <span class="total">{!countApplicants}:</span><span class="submitted">{!countSubmitted}</span><b>/</b><span class="invited">{!countInvited}</span>
+    </span>
+    <span style="{!if(countApplicants=0,'','display:none;')}" class="zero">
+        &nbsp;0
+    </span>
+
+</div>
+
+
+
+
+
+
+<!--
+
+<div style="width=100%;text-align:left;">
+&nbsp;
+<span style="{!if(countApplicants=0,'display:none;','')}">
+<span class="total">{!countApplicants}:</span>
+<span class="submitted">{!countSubmitted}</span>
+<b>/</b>
+<span class="invited">{!countInvited}</span>
+</span>
+
+<span style="{!if(AND(countUnits>0,countApplicants=0),'','display:none;')}" class="zero">
+&nbsp;0
+</span>
+<span style="{!IF(AND(uType='g',countUnits>0),'','display:none;')}">
+({!countUnits} u.)
+</span>
+<span style="{!IF(AND(uType='g',countUnits=0),'','display:none;')}" class="zero">
+no units
+</span>
+
+</div>
+
+-->
+
+
+
+</body>
+
+</apex:page>

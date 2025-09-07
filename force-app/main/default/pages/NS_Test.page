@@ -1,0 +1,29 @@
+<apex:page sidebar="false" showHeader="false">
+  
+  <h1>Pre-Application for [MUNICIPALITY NAME]</h1>
+  
+  <br></br>
+   
+  <p>Below are a few questions to direct you to the appropriate pre-application. Please read carefully.
+  <br></br>Thank you for your interest.</p>
+  
+  <b>I am interested in:</b>
+  <apex:form >
+      <apex:selectRadio layout="pageDirection">
+          <apex:selectOption itemLabel="Renting & Purchasing" itemValue="1"></apex:selectOption>
+          <apex:selectOption itemLabel="Only Renting" itemValue="2"></apex:selectOption>
+          <apex:selectOption itemLabel="Only Purchasing" itemValue="3"></apex:selectOption>
+      </apex:selectRadio>
+  </apex:form>
+  
+  <b>I am interested in affordable housing::</b>
+  <apex:form >
+      <apex:selectRadio layout="pageDirection">
+          <apex:selectOption itemLabel="Only in [MUNICIPALITY NAME]" itemValue="1"></apex:selectOption>
+          <apex:selectOption itemLabel="In Multiple Municipalites" itemValue="2"></apex:selectOption>
+      </apex:selectRadio>
+  </apex:form>
+  
+  
+  
+</apex:page>

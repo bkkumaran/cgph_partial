@@ -1,0 +1,150 @@
+<apex:page standardController="Case"  lightningstylesheets="true" >
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+#b {white-space: nowrap; text-decoration:none; font-size: 10pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid rgb(37,113,170); border-bottom: 1.5px solid rgb(37,113,170); border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#b:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+#bb {white-space: nowrap; text-decoration:none; font-size: 10pt; color: green; font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid green; border-bottom: 1.5px solid green; border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#bb:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: green; font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+#bbb {white-space: nowrap; text-decoration:none; font-size: 10pt; color: purple; font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid purple; border-bottom: 1.5px solid purple; border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#bbb:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: purple; font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+#TopHead {white-space: nowrap; font-size: 25pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px; }
+#BlockHead {white-space: nowrap; font-size: 13pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+#BlockHead2 {white-space: nowrap; font-size: 13pt; color: green; font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+#BlockHead3 {white-space: nowrap; font-size: 13pt; color: purple; font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+</style>
+
+
+<apex:outputPanel rendered="{!IF($CurrentPage.parameters.s='1',false,true)}">
+<TABLE>
+<TR>
+<TD>
+<div id="BlockHead">
+<br/>
+TECH STAFF NEW CASE
+</div>
+
+<a id="b" target="_blank" href="/apex/NSLinks?s=1&owner=Nick+Sciortino&type=0123m000000UAZk&origin=Staff">NICK</a>
+<a id="b" target="_blank" href="/apex/NSLinks?s=1&owner=Bryan+Pena&type=0123m000000UAZk&origin=Staff">BRYAN</a>
+<a id="b" target="_blank" href="/apex/NSLinks?s=1&owner=David+Bopp&type=0123m000000UAZk&origin=Staff">DAVID B</a>
+<a id="b" target="_blank" href="/apex/NSLinks?s=1&owner=Emily+Stiles&type=0123m000000UAZk&origin=Staff">EMILY</a>
+
+</TD>
+<td width="100px">
+</td>
+
+
+
+
+<TD>
+
+<div id="BlockHead2">
+<br/>
+TECH STAFF CASE REPORTS
+</div>
+
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009Lpdj">NICK</a>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009Lpn0">BRYAN</a>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009Lpmv">DAVID B</a>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O6O000008ng4w">EMILY</a>
+
+
+</TD>
+</TR>
+<tr>
+<td>
+<div id="BlockHead">
+<br/>
+GENERIC CASES
+</div>
+<a id="b"  target="_blank" href="/apex/NSLinks?s=1&type=0123m000000UAZk&origin=Staff">OFFICE INTERNAL</a>
+<a id="b" target="_blank" href="/apex/NSLinks?s=1&type=0121N000000ybeI&origin=Staff">IMPROVEMENT TICKET</a>
+<br/>
+
+</td>
+<td>
+</td>
+<td>
+<div id="BlockHead2">
+<br/>
+ADDITIONAL REPORTS
+</div>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LqfC">TECH TEAM CASES</a>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009Lpmq">NEEDS DECISION</a>
+<br/> <br/>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000005N3gL">PROCESS IMPROVEMENTS</a>
+
+</td>
+</tr>
+<tr>
+<td>
+<div id="BlockHead3">
+<br/>
+ADDITIONAL LINKS
+</div>
+<a id="bbb" target="_blank" href="https://cgph.my.salesforce.com/01Z6O000001Qq4R">ALL TECH CASES</a>
+<a id="bbb" target="_blank" href="https://cgph.my.salesforce.com/01Z6O000001QpWy">TECH DASHBOARD</a><br/><br/>
+<a id="bbb" target="_blank" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008ndxPUAQ/view">TECH STATUS</a>
+<a id="bbb" target="_blank" href="https://cgph.lightning.force.com/lightning/n/Tech_Improvement_Calendar">IMPROVEMENT CALENDAR</a>
+</td>
+
+<td>
+</td>
+
+<td>
+<div id="BlockHead2">
+<br/>
+LIGHTNING TRANSITION REPORTS &amp; LINKS
+</div>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O6O000008SaUy">LT CASES</a>
+<a id="bb" target="_blank" href="https://cgph-my.sharepoint.com/:x:/g/personal/nick_cgph_net/EYGNwCnnab1NpphulWKnPggB7Y_Tbx134rh0QFgvGbfTmQ?e=ouN4vC">ARTICLE TRANSITION TRACKER</a><br/><br/>
+<a id="bb" target="_blank" href="https://trailhead.salesforce.com/en/content/learn/trails/lex_admin_migration">LT TRAILHEAD</a>
+</td>
+
+
+
+</tr>
+
+
+</TABLE>
+ </apex:outputPanel>
+ 
+
+<script>
+        window.onload=function()
+        {
+
+         document.getElementById(type).value = "{!$CurrentPage.parameters.type}";
+         document.getElementById(owner).value = "{!$CurrentPage.parameters.owner}";
+         document.getElementById(origin).value = "{!$CurrentPage.parameters.origin}";
+        };
+    </script>    
+
+<apex:form > 
+        <apex:pageBlock Title="Case Edit" rendered="{!IF($CurrentPage.parameters.s='1',true,false)}"> 
+            <apex:pageBlockSection > 
+                <apex:inputField value="{!case.Ownerid}" id="owner"/><br/>
+                <apex:inputField value="{!case.Subject}" /> <br/>
+                <apex:inputField value="{!case.Description}" /> <br/>
+                <apex:inputField value="{!case.Priority_Num__c}" /> <br/>
+                <apex:inputField value="{!case.Agenda_Category__c}" /> <br/>
+                <apex:inputField value="{!case.Case_Category__c}" /> <br/>
+                <apex:inputField value="{!case.Origin}" id="origin" /> <br/>
+                <apex:inputField value="{!case.RecordTypeId}" id="type"/> <br/>
+
+ <script>
+            var type= "{!$Component.type}";
+            var owner= "{!$Component.owner}";
+            var origin= "{!$Component.origin}";
+        </script>
+                <apex:commandButton value="Save" action="{!Save}"/> 
+            </apex:pageBlockSection> 
+        </apex:pageBlock> 
+    </apex:form> 
+</apex:page>

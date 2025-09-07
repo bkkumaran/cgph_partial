@@ -1,0 +1,55 @@
+<apex:page standardController="HR_Case_File__c" sidebar="false" showHeader="false">
+<style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        
+        h1 { font-family: 'Open Sans'; font-size: 15pt; font-weight: bold; color: rgb(0, 101, 168); padding: 10px 0px 0px 20px;}
+        div { font-family: 'Open Sans'; font-size: 11pt; text-align: left; padding: 0px 0px 0px 20px;"}
+    </style>
+<br/>
+<br/>
+<h1> ELIGIBILITY MERGE CHECK </h1>
+<br/>
+<div><b> If any names of fields are shown below, the information is missing and must be entered before merging any Eligibilty forms.</b></div>
+<br/>    
+<div>{!IF(ISBLANK(HR_Case_File__c.PROGRAM_NAME__r.Name),'Program Name - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Municipality__r.Name),'Municipality Name - Municipality','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Municipality__r.AA_Manual_Muniname__c),'Full Muni Name - Municipality','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Municipality__r.Muni_Account_Address__c),'Municipal Address LINE - Municipality','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Municipality__r.HR_Signator_CALC__c),'Program Agreement Signator - Municipality','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Municipality__r.HR_Attestor_CALC__c),'Program Agreement Attestor - Municipality','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Municipality__r.County__c),'COUNTY - Municipality','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Program_Name__r.Lead_Program__c),'Lead Program? - HR Program','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.NAME),'Case File # - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.PROPERTY__r.Name),'Street Address - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.City__c),'City - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.State__c),'State - HR Case File','')}  </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.ZIP_code__c),'Zip - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Block__c),'Block - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Lot__c),'Lot - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.HR_Homeowners__c),'Homeowners - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.HOMEOWNER__r.NAME),'Homeowner Name - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.CO_OWNER__r.NAME),'Co-Owner Name - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Primary_Phone__c),'Primary Phone - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Homeowner_Email__c),'Homeowner Email - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.HR_CASE_MANAGER__r.NAME),'Case Manager Name - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Case_Manager_Title__c),'Case Manager Title - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Case_Manager_Phone__c),'Case Manager Phone - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.HR_Coordinator_Email__c),'Case Manager Email - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.HR_Case_Manager_Initials__c),'Case Manager Initials - HR Case File','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Single_Family_Limit__c),'Single Family Limit - HR Program','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Multi_Family_Limit__c),'Multi Family Limit - HR Program','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Investor_Owned_Limit__c),'Investor Limit - HR Program','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Primary_Service_File__r.Moderate_Income_Limit__c),'Moderate Income Limit - Income Worksheet','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Primary_Service_File__r.Low_Income_Limit__c),'Low Income Limit - Income Worksheet','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Primary_Service_File__r.HOMEtracker__Annual_Income_Eligibility__c),'Applicant Income - Income Worksheet','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Eligibility_Calculated__c),'Eligibility - Income Worksheet','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Cert_of_Eligibility__c),'Cert of Eligibility - Income Worksheet','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Primary_Service_File__r.Application_Case_Manager_New__r.Name),'Primary Reviewer - Income Worksheet','')} </div>
+<div>{!IF(ISBLANK(HR_Case_File__c.Primary_Service_File__r.Peer_Reviewer_User__r.Name),'Peer Reviewer - Income Worksheet','')} </div>
+
+
+
+
+<!-- -->
+</apex:page>

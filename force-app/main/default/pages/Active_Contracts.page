@@ -1,0 +1,64 @@
+<apex:page standardController="Contract" extensions="ContractListExt" lightningstylesheets="true">
+
+<apex:variable var="Button" value="white-space: nowrap; text-decoration:none; font-size: 15pt; font-family: 'Fira Code'; border-top: 2px solid #CCCCCC; border-left: 2px solid #CCCCCC; border-right: 2px solid #333333; border-bottom: 2px solid #333333; border-radius: 5px; padding: 5px 10px 3px 10px;"/>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        @import url('https://fonts.googleapis.com/css?family=Fira+Code');
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900');
+        .buttonClickArea { white-space: nowrap; background-color: #d1e3ff; font-family: Montserrat; font-size: 10pt;color: black; width: 875 px; padding: 2px 20px 2px 20px;}
+        .activeTab { white-space: nowrap; background-color: rgb(44, 73, 129); color:white; background-image: none; font-size: 14pt; font-family: 'Montserrat'; font-weight: bold; }
+        .inactiveTab { white-space: nowrap; background-color: rgb(234, 238, 247); color:black; background-image: none; font-size: 12pt; font-family: 'Montserrat'; font-weight: 400;}
+        #button {{!Button} background-color: rgb(37,113,170); color: white; font-weight: bold; text-align:center;}
+
+    .button {
+        background-color: #0176D3;
+        border-radius: 4px;
+        color: white;
+        padding: 3px 8px;
+        text-align: center;
+        text-decoration: none !important;
+        display: inline-block;
+        font-size: 18px;
+        font-family:'Inconsolata';
+        font-weight: 900;
+            }
+                
+    .button:hover{
+        background-color: #032D60;
+        color: white;
+        cursor:pointer;
+            }
+
+        
+    </style>
+
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=A">A</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=B">B</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=C">C</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=D">D</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=E">E</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=F">F</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=G">G</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=H">H</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=I">I</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=J">J</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=K">K</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=L">L</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=M">M</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=N">N</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=O">O</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=P">P</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=Q">Q</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=R">R</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=S">S</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=T">T</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=U">U</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=V">V</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=W">W</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=X">X</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=Y">Y</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=Z">Z</a>&nbsp;
+
+</apex:page>

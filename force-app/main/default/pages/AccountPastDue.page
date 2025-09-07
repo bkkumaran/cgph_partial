@@ -1,0 +1,5 @@
+<apex:page standardcontroller="Account">
+
+{!account.Name}
+
+</apex:page>

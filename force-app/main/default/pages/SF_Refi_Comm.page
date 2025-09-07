@@ -1,0 +1,169 @@
+<apex:page standardController="HOMEtracker__Service_File__c" showHeader="false">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    table {border-collapse:collapse;}
+    td    {height:30px; padding-left:10px; font-size:10.5pt; font-family:Open Sans; border-bottom: 1px solid #c9c9c9;}
+    a     {color:#0b5cab;}
+    .head {background-color:#f3f3f3;display:none;}
+    .missing {color:red; font-weight:bold;}
+    .noBottom {border-bottom: 0px solid white;}
+    .XX {background-color:RGB(255,183,93);}
+</style>
+<apex:variable var="width1" value="6%"/>
+<apex:variable var="width2" value="36%"/>
+<apex:variable var="width3" value="2%"/>
+<apex:variable var="width4" value="10%"/>
+<apex:variable var="width5" value="32%"/>
+<apex:variable var="match" value="!IF(HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = TRUE, '1','0')}"/>
+
+
+<!-- -----------------------LINK FORMULAS------------------------- -->
+
+<!-- Refinance Request Instructions Article  -->
+<apex:variable var="article" value="https://cgph.my.salesforce.com/kA13m000000CvFr"/>
+
+<!-- Step 1 (G) Begin Refinance Request Email Setup -->
+<apex:variable var="EmailSetup" value="mailto:{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}?bcc=noreply@cgph.net;
+&subject=Refinance Request / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name} / 
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Name}
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c} Affordable Housing Program"/>
+
+<!-- Step 2 (C) Generate Refinance Request Email Text Based on Picklist  -->
+<apex:variable var="RefiEmail" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a293m000004m7ch
+&DS7=3
+&OFN=Refinance+Request+Email+Text+{!SUBSTITUTE(SUBSTITUTE(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name,' ','+'),'#','')}
+"/>
+
+<!-- Step 3 (C) Generate Refinance Request Email Document Attachment  -->
+<apex:variable var="RefiDoc" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a293m000004m79S
+&DS7=3
+&OFN=Refinance+Request+Document+{!SUBSTITUTE(SUBSTITUTE(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name,' ','+'),'#','')}
+"/>
+
+<!-- Final Approval Letter  --> 
+<apex:variable var="ApprovalLetter" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a293m000004m9dZ
+&DS7=3
+&OFN=Final+Approval+Letter+{!SUBSTITUTE(SUBSTITUTE(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name,' ','+'),'#','')}
+"/>
+
+
+
+
+
+<!-- -----------------------TABLE BEGINS------------------------- -->
+
+
+<table border="0" width="100%">
+        <tr>
+        <td colspan="5" class="head">
+            Refinance Communications
+                <a href="https://cgph--c.vf.force.com/apex/SF_Refi_Comm?id={!HOMEtracker__Service_File__c.Id}" target="_blank" style="{!IF($User.LastName='Burton','','display:none;')}">
+                    VF PAGE
+                </a>
+        </td>
+    </tr>
+    <tr>
+        <td width="{!width1}">
+<!-- Step 1 (G) Begin Refinance Request Email Setup --> 
+            Step 1
+        </td>
+        <td width="{!width2}">  
+            <apex:outputLink value="{!EmailSetup}">
+                Begin Refinance Request Email Setup
+            </apex:outputLink>
+            <span class="missing" style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__c),'','display:none')}">[ MUNI ]</span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c='','','display:none')}">[ MUNI TYPE ] </span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name='','','display:none')}">[ PROPERTY ]</span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name='','','display:none')}">[ DEVELOPMENT]</span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName='','','display:none')}">[ APPLICANT ]</span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.Case_Number__c='','','display:none')}">[ CASE# ]</span>
+        
+        </td>
+        <td class="noBottom" width="{!width3}">
+        </td>
+<!-- Refinance Request Instructions Article  -->
+        <td width="{!width4}">
+            Refinance Request Instructions
+        </td>
+        <td width="{!width5}">
+            <a href="{!article}" target="_blank">
+                Refinance Request Instructions Article
+            </a>
+        </td>
+    </tr>
+    <tr>
+<!-- Step 2 (C) Generate Refinance Request Email Text Based on Picklist  --> 
+        <td>
+            Step 2
+        </td>
+        <td>
+            <div style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Refinance_Request_Email_Type__c)=true,'','display:none;')}" class="missing">
+                CHOOSE EMAIL TYPE FROM PICKLIST
+            </div>
+            <div style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Refinance_Request_Email_Type__c)=false,'','display:none;')}">        
+                <a target="_blank" href="{!SUBSTITUTE(RefiEmail,' ','')}">
+                    Generate {!SUBSTITUTE(HOMEtracker__Service_File__c.Refinance_Request_Email_Type__c,' Text','')} Text
+                </a>
+            </div>       
+        </td>
+        <td width="2%" class="noBottom">
+        </td>
+        <td class="noBottom">
+        </td>
+        <td class="noBottom">
+        </td>
+        
+    </tr>
+    <tr>
+        <td>
+<!-- Step 3 (C) Generate Refinance Request Email Document Attachment  --> 
+            Step 3
+        </td>
+        <td>
+            <a target="_blank" href="{!SUBSTITUTE(RefiDoc,' ','')}">
+                Generate Refinance Request Email Document Attachment
+            </a>
+        </td>
+        <td width="2%" class="noBottom">
+        </td>
+        <td>
+            Final Approval Letter
+        </td>
+        <td>
+            <a target="_blank" href="{!SUBSTITUTE(ApprovalLetter,' ','')}">
+                Subordination Approval Letter
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+
+<div style="display:none"> <!-- for SOQL purposes -->
+{!HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_contact_email__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Email_Recipients_for_Certs__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Municipal_Type__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+{!HOMEtracker__Service_File__c.Case_Number__c}
+</div>
+
+</apex:page>

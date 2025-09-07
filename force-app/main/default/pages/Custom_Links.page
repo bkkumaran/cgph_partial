@@ -1,0 +1,124 @@
+<apex:page >
+
+<!-- VARIABLES -->
+<apex:variable var="ColorBlue" value="#0176d3"/>
+<apex:variable var="ColorBlueDark" value="#355d96"/>
+<apex:variable var="Width" value="275 px"/>
+
+
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Open Sans');
+    a {text-decoration:none;}
+    a:hover {text-decoration:none;}
+    td {width: 100%; text-align:center;}
+    #b {
+        white-space: nowrap;
+        text-decoration:none;
+        font-size: 10.5pt;
+        color: {!ColorBlue};
+        font-family: Open Sans;
+        font-weight: bold;
+        background-image: linear-gradient(white,#f3f3f3);
+        border-radius: 5px;
+        border: 1px solid #747474;
+        padding: 5px 10px 5px 10px;
+        }
+    #b:hover {
+        color: white;
+        background-image: linear-gradient({!ColorBlue},{!ColorBlue});
+        }
+
+  </style>
+  
+ <left>
+  
+  <table width="{!Width}">
+    <tr>
+      <td>
+          <a target="_blank"  style="text-decoration:none;" href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/Employee_Handbook?id=a2f6O000000tpyJQAQ">
+              <div id="b">
+                  EMPLOYEE HANDBOOK
+              </div>
+          </a>
+      </td>
+  <!--    
+      <td style="display:{!IF(OR($User.LastName='Burton',$User.LastName='Hamlett'),'','none')}" width="10px">
+      <a target="_blank"  style="text-decoration:none;" href="https://cgph.lightning.force.com/one/one.app#eyJjb21wb25lbnREZWYiOiJvbmU6YWxvaGFQYWdlIiwiYXR0cmlidXRlcyI6eyJhZGRyZXNzIjoiaHR0cHM6Ly9jZ3BoLmxpZ2h0bmluZy5mb3JjZS5jb20vYXBleC9UcmFpblBlcnNvbm5lbD9tPVRyYWluUGVyc29ubmVsJmlkPWEyZlVxMDAwMDAwbElQaElBTSJ9LCJzdGF0ZSI6e319">
+              <div id="b">
+                  Personnel
+              </div>
+          </a>
+      </td>
+  -->  
+    </tr>
+    
+    <tr>
+      <td>
+          <a target="_blank"  style="text-decoration:none;" href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/TrainSupervisors?id=a2fUq000000kNMbIAM">
+              <div id="b">
+                  Supervisor Training
+              </div>
+          </a>
+      </td>
+    </tr>
+    
+    <tr>
+      <td>
+          <a target="_blank" style="text-decoration:none;" href="http://www.tfaforms.com/4871766?tfa_470=False">
+              <div id="b">
+                  Pre-Application Internal
+              </div>
+          </a>
+      </td>
+    </tr>
+    
+    <tr>
+      <td>
+          <a target="_blank" style="text-decoration:none;" href="/flow/VoicemailCaseNew">
+              <div id="b">
+                  Voicemail Case
+              </div>
+          </a>
+      </td>
+    </tr>
+
+    
+    <tr style="{!IF($User.Supervises_Staff__c = true,'','display:none;')}">
+      <td>
+          <a target="_blank" style="text-decoration:none;" href="/flow/Cases_Escalated_AA_Tech_Cases">
+              <div id="b">
+                  Escalated Tech Case
+              </div>
+          </a>
+      </td>
+    </tr>
+    
+        <tr>
+      <td>
+          <a target="_blank" style="text-decoration:none;" href="/flow/NewImprovementTicket">
+              <div id="b">
+                  Internal Improvement Ticket
+              </div>
+          </a>
+      </td>
+    </tr>
+    
+    <tr>
+      <td>
+          <a target="_blank" style="text-decoration:none;" href="/lightning/n/Current_Active_Contracts">
+              <div id="b">
+                  Current Active Contracts
+              </div>
+          </a>
+      </td>
+    </tr>
+    
+  </table>
+  
+  <br/>
+  <br/>
+  <lightning-icon icon-name="action:approval" alternative-text="Approved" title="Approved"></lightning-icon>
+
+ </left> 
+  
+</apex:page>

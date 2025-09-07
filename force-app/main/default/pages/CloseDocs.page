@@ -1,0 +1,579 @@
+<apex:page standardController="HOMEtracker__Service_File__c">
+<style>
+#text {font-size: 12pt; padding: 0px 0px 6px 0px;}
+#miss {font-size: 12pt; color: red; font-weight: bold; padding: 0px 0px 6px 0px;}
+td {font-size: 12pt; padding: 5px 5px 5px 5px;}
+</style>
+
+<apex:variable id="dpacolor" value="{!IF(HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_available_in_muni__c='NO','','#fcf8c0')}" var="dpacolor"/>
+<apex:variable id="dpa" value="{!IF(HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_available_in_muni__c='NO','none','')}" var="dpa"/>
+
+<br/>
+<div id="text">Check below.  If any information is missing, it will be highlighted in <span style="font-weight: bold; color:red;">RED</span>.</div>
+<div id="text">Check below.  Missing information in <span style="font-weight: bold; color:pink;">PINK</span>, may not be needed.</div>
+<div id="text"><b>DO NOT</b> export the closing docs before entering this missing information.</div>
+<div>
+<span id="text" style="background-color:{!dpacolor};display:{!dpa}">Highlighted Fields are applicable for <b>DPA docs</b>.</span>
+</div>
+<br/>
+<br/>
+<div id="nomerge" style="font-size: 15pt; color: red; font-weight: bold; display: {!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Closing_Instructions_Conga_Done__c),'','none')}">CLOSING INSTRUCTIONS NOT AVAILABLE</div>
+<div id="merge" style="font-size: 15pt; color: green; font-weight: bold; display: {!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Closing_Instructions_Conga_Done__c),'none','')}">CLOSING INSTRUCTIONS CONGA MERGE AVAILABLE</div>
+<div id="text"></div>
+<div id="nomerge" style="font-size: 15pt; color: red; font-weight: bold; display: {!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Closing_Docs_Conga_Done__c),'','none')}">CLOSING DOCUMENTS NOT AVAILABLE</div>
+<div id="merge" style="font-size: 15pt; color: green; font-weight: bold; display: {!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Closing_Docs_Conga_Done__c),'none','')}">CLOSING DOCUMENTS CONGA MERGE AVAILABLE</div>
+<div id="text"></div>
+
+
+<div id="nomerge" style="font-size: 15pt; color: red; font-weight: bold; display: {!IF(HOMEtracker__Service_File__c.Municipality_Lookup__r.DPA_Docs_Done__c='N/A','','none')}">NO DPA IN MUNI</div>
+<div id="nomerge" style="font-size: 15pt; color: red; font-weight: bold; display: {!IF(OR(HOMEtracker__Service_File__c.Municipality_Lookup__r.DPA_Docs_Done__c='Yes',HOMEtracker__Service_File__c.Municipality_Lookup__r.DPA_Docs_Done__c='N/A'),'none','')}">DPA DOCS NOT AVAILABLE</div>
+<div id="merge" style="font-size: 15pt; color: green; font-weight: bold; display: {!IF(HOMEtracker__Service_File__c.Municipality_Lookup__r.DPA_Docs_Done__c='Yes','','none')}">DPA DOCS AVAILABLE, USE DPA or CLOSING DOCUMENTS LINK</div>
+
+<div id="merge" style="font-size: 15pt; color: green; font-weight: bold; display: {!IF(HOMEtracker__Service_File__c.Closing_Workflow__r.Conga_Links__c=true,'','none')}">CONGA LINKS UNHIDDEN</div>
+
+
+<div id="text"></div>
+<br/>
+<br/>
+<table border="1">
+
+<tr>
+<td><b>Service File</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Name), 'red','')}">
+<a href="https://cgph.my.salesforce.com/{!HOMEtracker__Service_File__c.Id}">{!HOMEtracker__Service_File__c.Name}</a></td>
+</tr>
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>Closing Coordinator</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Coordinator__c), 'red','')}">
+{!HOMEtracker__Service_File__c.Closing_Coordinator__r.FirstName} {!HOMEtracker__Service_File__c.Closing_Coordinator__r.LastName}</td>
+</tr>
+
+
+
+
+<!-- ---SPACER----- -->   <tr><td style="background-color:#e3e3e3" colspan="2"></td></tr>
+
+<!-- ---------------------------------BUYER ------------------------------------------------ -->
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>BUYER Applicant Manual Entry</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Buyer_Applicant_Manual_Entry__c), 'red','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Buyer_Applicant_Manual_Entry__c}</td>
+</tr>
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>BUYER Co-Applicant Manual Entry</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Buyer_Co_Applicant_Manual_Entry__c), 'pink','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Buyer_Co_Applicant_Manual_Entry__c}</td>
+</tr>
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>BUYERS Name(s) Calculated</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Buyer_Applicants_Names_Merge__c), 'red','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Buyer_Applicants_Names_Merge__c}</td>
+</tr>
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>BUYERS Marital Status Text</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Buyer_Marital_Status_Text__c), 'red','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Buyer_Marital_Status_Text__c}</td>
+</tr>
+
+<!-- ---SPACER----- -->   <tr><td style="background-color:#e3e3e3" colspan="2"></td></tr>
+
+<!-- -------------------------------SELLER -------------------------------- -->
+
+<tr>
+<td><b>SELLER Applicant Manual Entry</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Seller_Applicant_Manual_Entry__c), 'red','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Seller_Applicant_Manual_Entry__c}</td>
+</tr>
+
+<tr>
+<td><b>SELLER Co-Applicant Manual Entry</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Seller_Co_Applicant_Manual_Entry__c), 'pink','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Seller_Co_Applicant_Manual_Entry__c}</td>
+</tr>
+
+<tr>
+<td><b>SELLER Marital Status Text</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Seller_Marital_Status_Text__c), 'pink','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Seller_Marital_Status_Text__c}</td>
+</tr>
+
+<tr>
+<td><b>SELLER Name(s) Calculated</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Seller_Applicants_Names_Merge__c), 'red','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Seller_Applicants_Names_Merge__c}</td>
+
+</tr>
+
+<!-- ---SPACER----- -->   <tr><td style="background-color:#e3e3e3" colspan="2"></td></tr>
+<!-- --------------------------------ADDRESS ----------------------------- -->
+
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>Address</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Full_Address__c), 'red','')}">
+{!SUBSTITUTE(HOMEtracker__Service_File__c.Full_Address__c,'<br>',', ')}</td>
+</tr>
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>Block</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Block__c), 'red','')}">
+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Block__c}</td>
+</tr>
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>Lot</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Lot__c), 'red','')}">
+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Lot__c}</td>
+</tr>
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>Qualifier</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Qualifier__c), 'red','')}">
+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Qualifier__c}</td>
+</tr>
+
+<tr>
+<td><b>Date Placed in Program</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Property__r.HOMEtracker__Date_Placed_in_Program__c), 'pink','')}">
+<apex:outputText value="{0, date, M/d/yyyy}">
+<apex:param value="{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.HOMEtracker__Date_Placed_in_Program__c }" />
+</apex:outputText>
+</td>
+</tr>
+
+<tr>
+<td><b>Number of Bedrooms</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.HOMETRACKER__Number_of_Bedrooms__c), 'red','')}">
+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.HOMETRACKER__Number_of_Bedrooms__c}</td>
+</tr>
+
+
+<tr>
+<td><b>Income Level</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Max_Income_Level__c), 'red','')}">
+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Max_Income_Level__c}</td>
+</tr>
+
+
+
+<!-- ---SPACER----- -->   <tr><td style="background-color:#e3e3e3" colspan="2"></td></tr>
+
+<!-- -------------------------FINANCIALS ------------------------------- -->
+<tr>
+<td><b>Property List Price</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.HOMEtracker__List_Price__c), 'red','')}">
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.HOMEtracker__List_Price__c}" />
+</apex:outputText>
+</td>
+</tr>
+
+<tr>
+<td><b>Service File Purchase Price</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Purchase_Price__c), 'red','')}">
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.HOMEtracker__Purchase_Price__c}" />
+</apex:outputText>
+</td>
+</tr>
+
+<apex:variable id="priceCheck" value="{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Purchase_Price__c-HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.HOMEtracker__List_Price__c),0,HOMEtracker__Service_File__c.HOMEtracker__Purchase_Price__c-HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.HOMEtracker__List_Price__c)}" var="priceCheck"/>
+
+<tr>
+<td><b>Property / Service File Price Check</b></td>
+<td style="background-color:{!IF(ABS(priceCheck)>0, 'red','')}">
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!ABS(priceCheck)}" />
+</apex:outputText>
+</td>
+</tr>
+
+
+<tr>
+<td><b>Price as Text</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Purchase_Price_as_Text__c), 'red','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Purchase_Price_as_Text__c}</td>
+</tr>
+
+
+<tr>
+<td><b>Appraised Market Value</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Property__r.HOMEtracker__Original_Unrestricted_Market_Value__c), 'red','')}">
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.HOMEtracker__Original_Unrestricted_Market_Value__c}" />
+</apex:outputText>
+</td>
+</tr>
+
+
+
+
+<tr>
+<td><b>Affordable Mortgage Amount</b></td>
+<td style="background-color:{!IF(HOMEtracker__Service_File__c.Initial_Sale_Aff_Mortgage_Amount__c < 1, 'red','')}">
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.Initial_Sale_Aff_Mortgage_Amount__c }" />
+</apex:outputText>
+</td>
+</tr>
+
+
+
+
+<tr style="display: {!dpa}">
+<td style="background-color:{!dpacolor}"><b>DPA Amount</b></td>
+<td style="background-color:{!IF(ISNULL(HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Funding_Source_Amount__c), 'red','')}">
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Funding_Source_Amount__c }" />
+</apex:outputText>
+</td>
+</tr>
+
+
+
+<tr style="display: {!dpa}">
+<td style="background-color:{!dpacolor}"><b>DPA Amount as Text</b></td>
+<td style="background-color:{!IF(HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Assistance_Amount_as_Text__c = '', 'red','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Assistance_Amount_as_Text__c}
+</td>
+</tr>
+
+
+
+<tr>
+<td style="background-color:{!dpacolor}"><b>Close Date</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c), 'pink','')}">
+<apex:outputText value="{0, date, M/d/yyyy}">
+<apex:param value="{!HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c }" />
+</apex:outputText>
+</td>
+</tr>
+
+
+<!-- ---SPACER----- -->   <tr><td style="background-color:#e3e3e3" colspan="2"></td></tr>
+
+<!-- -------------------------SALE FEE / CLOSING INVOICE ------------------------------- -->
+
+<tr>
+<td colspan="2" style="color: blue">
+<b>CLOSING SALE FEE INVOICE INFORMATION</b>
+</td>
+</tr>
+
+<tr>
+<td><b>Service File Purchase Price</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Purchase_Price__c), 'red','')}">
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.HOMEtracker__Purchase_Price__c}" />
+</apex:outputText>
+</td>
+</tr>
+
+
+<tr>
+<td><b>Sale Fee</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Sale_Fee__c), 'red','')}">
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.Closing_Workflow__r.Sale_Fee__c}" />
+</apex:outputText>
+</td>
+</tr>
+
+<tr>
+<td><b>Sale Fee Text (from Municipality)</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Closing_Invoice_Text__c), 'red','')}">
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Closing_Invoice_Text__c}
+</td>
+</tr>
+
+<tr>
+<td><b>Sale Fee Invoice Seller Name</b></td>
+<td style="background-color:{!IF(ISBLANK(HOMEtracker__Service_File__c.Closing_Workflow__r.Sale_Fee_Invoice_Seller_Name__c), 'red','')}">
+{!HOMEtracker__Service_File__c.Closing_Workflow__r.Sale_Fee_Invoice_Seller_Name__c}
+</td>
+</tr>
+
+
+
+
+</table>
+
+<br/>
+
+<div id="text">
+If all the information above is filled in and accurate, export the following documents:</div>
+
+<div id="text" style="font-size: 16pt; padding-left: 10pt;">
+<a href="
+https://composer.congamerge.com?SessionId={!$API.Session_ID}&ServerUrl={!$API.Partner_Server_URL_290}&Id={!HOMEtracker__Service_File__c.Id}&TemplateGroup=AA%20Closing%20STANDARD&QueryId=[CC]a216O00000Ln7Z4QAJ?pv0={!HOMEtracker__Service_File__c.Closing_Coordinator__r.Id},[PROP]a213m000003YUUZ?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__c},[PW]a216O00000M6SDYQA3?pv0={!HOMEtracker__Service_File__c.Closing_Workflow__r.Id},[APP]a216O00000M6SH1QAN?pv0={!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Id}&OFN=Closing+Instructions+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Name}+-+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+">
+CLOSING-RELATED STANDARD DOCS</a>
+</div>
+
+
+<div id="text" style="font-size: 16pt; padding-left: 10pt; display:{!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Closing_Instructions_Conga_Done__c),'none','')}">
+<a href="
+https://composer.congamerge.com?SessionId={!$API.Session_ID}&ServerUrl={!$API.Partner_Server_URL_290}&Id={!HOMEtracker__Service_File__c.Id}&TemplateGroup=AA%20Closing%20Instructions%20{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Name}&QueryId=[CC]a216O00000Ln7Z4QAJ?pv0={!HOMEtracker__Service_File__c.Closing_Coordinator__r.Id},[PROP]a213m000003YUUZ?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__c},[PW]a216O00000M6SDYQA3?pv0={!HOMEtracker__Service_File__c.Closing_Workflow__r.Id},[APP]a216O00000M6SH1QAN?pv0={!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Id}&OFN=Closing+Instructions+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Name}+-+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+">
+CLOSING INSTRUCTIONS</a>
+</div>
+
+<div id="text" style="font-size: 16pt; padding-left: 10pt;">
+<a href="
+https://composer.congamerge.com?SessionId={!$API.Session_ID}&ServerUrl={!$API.Partner_Server_URL_290}&Id={!HOMEtracker__Service_File__c.Id}&TemplateID=a296O000005tixLQAQ&QueryId=[CC]a216O00000Ln7Z4QAJ?pv0={!HOMEtracker__Service_File__c.Closing_Coordinator__r.Id},[PROP]a213m000003YUUZ?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__c},[PW]a216O00000M6SDYQA3?pv0={!HOMEtracker__Service_File__c.Closing_Workflow__r.Id}&OFN=Closing+Invoice+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Name}+-+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}&ds7=3
+">
+CLOSING INVOICE</a>
+</div>
+
+<div id="text" style="font-size: 16pt; padding-left: 10pt; display:{!IF(HOMEtracker__Service_File__c.Closing_Workflow__r.Conga_Links__c=true,'',IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Closing_Docs_Conga_Done__c),'none',''))}">
+<a href="
+https://composer.congamerge.com?SessionId={!$API.Session_ID}&ServerUrl={!$API.Partner_Server_URL_290}&Id={!HOMEtracker__Service_File__c.Id}&TemplateGroup=AA%20Closing%20Docs%20{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Name}&QueryId=[CC]a216O00000Ln7Z4QAJ?pv0={!HOMEtracker__Service_File__c.Closing_Coordinator__r.Id},[PROP]a213m000003YUUZ?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__c},[PW]a216O00000M6SDYQA3?pv0={!HOMEtracker__Service_File__c.Closing_Workflow__r.Id},[APP]a216O00000M6SH1QAN?pv0={!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Id}&OFN=Closing+Docs+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Name}+-+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+">
+CLOSING DOCUMENTS</a>
+</div>
+
+<div id="text" style="font-size: 16pt; padding-left: 10pt; display:{!IF(HOMEtracker__Service_File__c.Closing_Workflow__r.Conga_Links__c=true,'',IF(AND(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Closing_Docs_Conga_Done__c),HOMEtracker__Service_File__c.Municipality_Lookup__r.DPA_Docs_Done__c='Yes'),'','none'))}">
+<a href="
+https://composer.congamerge.com?SessionId={!$API.Session_ID}&ServerUrl={!$API.Partner_Server_URL_290}&Id={!HOMEtracker__Service_File__c.Id}&TemplateGroup=AA%20Closing%20Docs%20{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Name}&QueryId=[PROP]a213m000003YUUZ?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__c},[PW]a216O00000M6SDYQA3?pv0={!HOMEtracker__Service_File__c.Closing_Workflow__r.Id},[APP]a216O00000M6SH1QAN?pv0={!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Id}&OFN=Closing+Docs+{!HOMEtracker__Service_File__c.HOMETRACKER__PROPERTY__r.Name}+-+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+">
+DPA DOCUMENTS</a>
+</div>
+<br/>
+<br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- -----------------stafford ------------------------ -->
+
+
+<table border="1" style="display: {!IF(HOMEtracker__Service_File__c.Municipality_Lookup__r.Name='Stafford','','none')}">
+<tr>
+<td colspan="2">
+<b>STAFFORD DPA SPECIAL FIELDS</b>
+</td>
+</tr>
+
+<!-- -----------------80% --------------------- -->
+
+<tr>
+<td>
+FIELD-A1
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+6}
+</td>
+</tr>
+
+<tr>
+<td  style="padding: 6px 0px 0px 0px;" colspan="2"></td>
+</tr>
+
+
+<tr>
+<td>
+FIELD-B1
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+1}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+6}
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-B2
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+7}
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-B3
+</td>
+<td>
+ENTER FIELD-B4 AS TEXT
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-B4
+</td>
+<td>
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Funding_Source_Amount__c * 0.8 }" />
+</apex:outputText>
+</td>
+</tr>
+
+<!-- -----------------60% --------------------- -->
+<tr>
+<td  style="padding: 6px 0px 0px 0px;" colspan="2"></td>
+</tr>
+<tr>
+<td>
+FIELD-C1
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+1}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+7}
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-C2
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+8}
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-C3
+</td>
+<td>
+ENTER FIELD-C4 AS TEXT
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-C4
+</td>
+<td>
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Funding_Source_Amount__c * 0.6 }" />
+</apex:outputText>
+</td>
+</tr>
+
+
+<!-- -----------------40% --------------------- -->
+<tr>
+<td  style="padding: 6px 0px 0px 0px;" colspan="2"></td>
+</tr>
+<tr>
+<td>
+FIELD-D1
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+1}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+8}
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-D2
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+9}
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-D3
+</td>
+<td>
+ENTER FIELD-D4 AS TEXT
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-D4
+</td>
+<td>
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Funding_Source_Amount__c * 0.4 }" />
+</apex:outputText>
+</td>
+</tr>
+
+
+
+<!-- -----------------20% --------------------- -->
+<tr>
+<td  style="padding: 6px 0px 0px 0px;" colspan="2"></td>
+</tr>
+<tr>
+<td>
+FIELD-E1
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+1}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+9}
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-E2
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+10}
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-E3
+</td>
+<td>
+ENTER FIELD-E4 AS TEXT
+</td>
+</tr>
+
+<tr>
+<td>
+FIELD-E4
+</td>
+<td>
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.Closing_Workflow__r.DPA_Application__r.Funding_Source_Amount__c * 0.2 }" />
+</apex:outputText>
+</td>
+</tr>
+
+<!-- -----------------FORGIVEN --------------------- -->
+<tr>
+<td  style="padding: 6px 0px 0px 0px;" colspan="2"></td>
+</tr>
+<tr>
+<td>
+FIELD-F1
+</td>
+<td>
+{!MONTH(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)}/{!DAY(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+1}/{!YEAR(HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c)+10}
+</td>
+</tr>
+
+
+
+
+</table>
+
+<br/>
+<br/>
+<br/>
+</apex:page>

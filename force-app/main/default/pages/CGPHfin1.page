@@ -1,0 +1,85 @@
+<apex:page id="CGPHfin1" standardcontroller="TS_Contract__c">
+
+<head>
+<script src="/soap/ajax/52.0/connection.js" type="text/javascript"></script>
+
+<style>
+
+    .txt { font-size: 15pt;}
+    label {font-size: 15pt;}
+    input {font-size: 15pt;}
+
+</style>
+</head>
+<body>
+
+                    <br/>
+<div class="txt">                    
+<b>START DATE:</b> {!$CurrentPage.parameters.start}
+</div>
+<div class="txt">
+<b>END DATE:</b> {!$CurrentPage.parameters.end}
+</div>
+<br/>
+<div class="txt">
+Enter dates below using this format: YYYY-MM-DD, then click "Submit"
+</div>
+
+
+
+<br/><br/>
+
+<form action="/action_page.php">
+  <label for="startDate">Start Date:</label>
+  <input type="text" id="startDate" name="startDate"/><br/><br/>
+  <label for="endDate">End Date:</label>
+  <input type="text" id="endDate" name="endDate"/><br/><br/>
+  <input type="button" value="SUBMIT" onclick="clickButton()" />
+ 
+ <script>
+                        function clickButton()
+                        {
+                            var s = document.getElementById("startDate").value;
+                            var e = document.getElementById("endDate").value;
+                            var w = window.open('https://cgph.my.salesforce.com/apex/CGPHfin1?start=' + s + '&end=' + e,target='_parent');
+                            return w;      
+                        }
+                        </script>  
+                        
+                        
+<br/> 
+<br/> 
+<br/>                        
+<apex:outputpanel rendered="{!IF(OR($CurrentPage.parameters.start = '',$CurrentPage.parameters.end = ''),'false','true')}"  onDblClick="window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&id=a1Xo000000926nt&TemplateId=a296O00000IXhQF&QueryId=[INV]a216O00000Ln6ls?pv0={!$CurrentPage.parameters.start}~pv1={!$CurrentPage.parameters.end},[ALL]a216O00000Ln6ln,[AA]a216O00000Ln6lY,[GS]a216O00000Ln6ld,[HR]a216O00000Ln6li,[AAM]a216O00000Ln6mv,[AAPR]a216O00000Ln6n0,[AAPS]a216O00000Ln6n5&OFN=Productivity+{!TODAY()}&ds7=3','','MsgWindow')" >
+             <apex:image url="{!$Resource.BlueQFile}" width="200px" />
+                    </apex:outputpanel>
+                    <br/>
+
+<!--
+                        <apex:pageBlockButtons location="bottom">
+                            <apex:commandButton id="saveButtonIS" value="Save" onClick="document.getElementById('warnIS').style.display = 'inline'" action="{!saveIS}" styleClass="button" style="display: none;"/>  
+                            <apex:commandButton id="cancelButtonIS" value="Cancel" styleClass="button" style="display: none"/>
+                            <apex:commandButton id="newButtonISb" value="New Income Source" onClick="newISf(); return false;" styleClass="button" /> 
+                        </apex:pageBlockButtons> 
+<script>
+    document.getElementsByClassName('t1')[0].innerHTML = '{!total}';
+</script>
+                        <script>
+                        function newISf()
+                        {
+                            var w = window.open('/flow/HRNewIS?varID={!HOMEtracker__Service_File__c.Id}&retURL=%2Fapex%2FIncomeWorksheetHR%3Fid%3D{!HOMEtracker__Service_File__c.Id}',target='_parent')
+                            return w;      
+                        }
+                        </script> 
+
+-->
+
+
+
+
+</form>
+
+</body>
+
+
+</apex:page>

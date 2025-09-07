@@ -1,0 +1,110 @@
+<apex:page standardController="HR_Case_File__c" standardStylesheets="false" extensions="HR_Case_Log_Ext">
+
+
+<!-- ---------------------- -->
+<!--        VARIABLES       -->
+<!-- ---------------------- -->
+
+<apex:variable var="colorHover" value="#e3f3ff" />
+<apex:variable var="colorHRS" value="#ffffd7" />
+<apex:variable var="colorInsp" value="#ffe8d7" />
+
+<apex:variable var="colorBorder" value="#e3e3e3" />
+<apex:variable var="widthDate" value="65" />
+<apex:variable var="widthStaff" value="30" />
+
+<!-- ---------------------- -->
+<!--        STYLE           -->
+<!-- ---------------------- -->
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    
+    body      {{!if(OR($User.LastName='Burton',$User.LastName='Peterson'),'','')}} <!-- -------------------------------------------------------------------SHOW/HIDE page from staff -->
+    table     {border-collapse:collapse;}
+    th        {padding-left:5px; padding-right:5px; font-size:10pt; font-family:Open Sans; font-weight: bold;}
+    td        {padding-left:5px; padding-right:5px; font-size:9pt; font-family:Open Sans; border-bottom: 1px solid {!colorBorder};}
+    a         {color:#0b5cab;}
+    tr        {border: 1px solid {!colorBorder};}
+    div       {font-family: 'Open Sans';}
+    
+
+    .left     {text-align:left;}
+    .center   {text-align:center;}
+    .right    {text-align:right;}
+    .OldNotes {padding-left:5px; padding-right:5px; font-size:9pt; font-family:Open Sans;}
+    
+    #Entry:hover {cursor:pointer !important;}
+    
+        
+</style>
+
+<body>
+
+
+<div style="font-size: 14pt; font-weight:bold;">
+{!HR_Case_File__c.Program_Name__r.Name} - {!HR_Case_File__c.Name}
+</div>
+<br/>
+<br/>
+
+
+<table border="0" width="100%" style="{!IF(logList=NULL, 'display:none;','')}">
+        <tr>
+            <th class="left" colspan="3" style="font-size:12pt;"> CASE MANAGEMENT LOG</th>
+ 
+        </tr>
+
+    <apex:repeat value="{!logList}" var="x">
+        <tr>
+            <td  id="Entry" class="left" style="width: {!widthDate}px;">
+                <apex:outputPanel >
+                    <apex:outputfield value="{!x.Entry_Date__c }"  style="width: {!widthStaff}px;"/>
+                </apex:outputPanel>
+            </td>
+            <td  id="Entry" class="left">
+                <apex:outputPanel >
+                    {!x.Staff_Member__r.Staff_Initials__c}
+                </apex:outputPanel>
+            </td>
+            <td id="Entry" class="left">
+                <apex:outputPanel dir="">
+                    {!x.Description__c}
+                </apex:outputPanel>
+            </td>
+
+        </tr>
+    </apex:repeat>
+</table>
+
+<!-- ---------------------- -->
+<!--  PREVIOUS HRS NOTES    -->
+<!-- ---------------------- -->
+
+<div style="{!IF(HR_Case_File__c.Hide_Old_Case_Log_Notes__c=true,'','display: none;')}">
+<br/>
+<b>PREVIOUS CASE LOG NOTES:</b>
+<br/>
+<div class="OldNotes">
+<apex:outputfield value="{!HR_Case_File__c.Case_Log_Notes__c}" />
+</div>
+</div>
+    
+<!-- ---------------------- -->
+<!--  PREVIOUS INSP NOTES   -->
+<!-- ---------------------- -->
+
+<div style="{!IF(HR_Case_File__c.Hide_Old_Case_Log_Notes__c=true,'','display: none;')}">
+<br/>
+<b>PREVIOUS INSPECTOR LOG NOTES:</b>
+<br/>
+<div class="OldNotes">
+<apex:outputfield value="{!HR_Case_File__c.Inspector_Log_Notes__c}" />
+</div>
+</div>
+
+
+
+</body>
+
+</apex:page>

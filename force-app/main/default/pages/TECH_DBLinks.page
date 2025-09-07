@@ -1,0 +1,104 @@
+<apex:page standardController="Case"  lightningstylesheets="true" >
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {height: 75px !important; background-color: #212657 !important;}
+
+#r {white-space: nowrap; text-decoration:none; font-size: 10pt; color: #212657; font-family: 'Montserrat'; font-weight: bold; background-color: white; border-radius: 10px;
+    border-top: 2px solid #ff5e5e; border-right: 2px solid #ff5e5e; border-bottom: 2px solid #ff5e5e; border-left: 2px solid #ff5e5e; padding: 3px 10px 3px 10px; }
+#r:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: #ff5e5e; font-family: 'Montserrat'; font-weight: bold; color: #212657;
+    border-top: 1px solid #ff5e5e; border-right: 1px solid #ff5e5e; border-bottom: 1px solid #ff5e5e; border-left: 1px solid #ff5e5e; border-radius: 5px; padding: 3px 10px 3px 10px; }
+    
+#o {white-space: nowrap; text-decoration:none; font-size: 10pt; color: #212657; font-family: 'Montserrat'; font-weight: bold; background-color: white; border-radius: 10px;
+    border-top: 2px solid #ffa45e; border-right: 2px solid #ffa45e; border-bottom: 2px solid #ffa45e; border-left: 2px solid #ffa45e; padding: 3px 10px 3px 10px; }
+#o:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: #ffa45e; font-family: 'Montserrat'; font-weight: bold; color: #212657;
+    border-top: 1px solid #ffa45e; border-right: 1px solid #ffa45e; border-bottom: 1px solid #ffa45e; border-left: 1px solid #ffa45e; border-radius: 5px; padding: 3px 10px 3px 10px; }
+
+#y {white-space: nowrap; text-decoration:none; font-size: 10pt; color: #212657; font-family: 'Montserrat'; font-weight: bold; background-color: white; border-radius: 10px;
+    border-top: 2px solid #ffe15e; border-right: 2px solid #ffe15e; border-bottom: 2px solid #ffe15e; border-left: 2px solid #ffe15e; padding: 3px 10px 3px 10px; }
+#y:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: #ffe15e; font-family: 'Montserrat'; font-weight: bold; color: #212657;
+    border-top: 1px solid #ffe15e; border-right: 1px solid #ffe15e; border-bottom: 1px solid #ffe15e; border-left: 1px solid #ffe15e; border-radius: 5px; padding: 3px 10px 3px 10px; }
+    
+#g {white-space: nowrap; text-decoration:none; font-size: 10pt; color: #212657; font-family: 'Montserrat'; font-weight: bold; background-color: white; border-radius: 10px;
+    border-top: 2px solid #5eff71; border-right: 2px solid #5eff71; border-bottom: 2px solid #5eff71; border-left: 2px solid #5eff71; padding: 3px 10px 3px 10px; }
+#g:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: #5eff71; font-family: 'Montserrat'; font-weight: bold; color: #212657;
+    border-top: 1px solid #5eff71; border-right: 1px solid #5eff71; border-bottom: 1px solid #5eff71; border-left: 1px solid #5eff71; border-radius: 5px; padding: 3px 10px 3px 10px; }
+
+#b {white-space: nowrap; text-decoration:none; font-size: 10pt; color: #212657; font-family: 'Montserrat'; font-weight: bold; background-color: white; border-radius: 10px;
+    border-top: 2px solid #5edfff; border-right: 2px solid #5edfff; border-bottom: 2px solid #5edfff; border-left: 2px solid #5edfff; padding: 3px 10px 3px 10px; }
+#b:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: #5edfff; font-family: 'Montserrat'; font-weight: bold; color: #212657;
+    border-top: 1px solid #5edfff; border-right: 1px solid #5edfff; border-bottom: 1px solid #5edfff; border-left: 1px solid #5edfff; border-radius: 5px; padding: 3px 10px 3px 10px; }
+    
+#i {white-space: nowrap; text-decoration:none; font-size: 10pt; color: #212657; font-family: 'Montserrat'; font-weight: bold; background-color: white; border-radius: 10px;
+    border-top: 2px solid #5e79ff; border-right: 2px solid #5e79ff; border-bottom: 2px solid #5e79ff; border-left: 2px solid #5e79ff; padding: 3px 10px 3px 10px; }
+#i:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: #5e79ff; font-family: 'Montserrat'; font-weight: bold; color: #212657;
+    border-top: 1px solid #5e79ff; border-right: 1px solid #5e79ff; border-bottom: 1px solid #5e79ff; border-left: 1px solid #5e79ff; border-radius: 5px; padding: 3px 10px 3px 10px; }
+
+#v {white-space: nowrap; text-decoration:none; font-size: 10pt; color: #212657; font-family: 'Montserrat'; font-weight: bold; background-color: white; border-radius: 10px;
+    border-top: 2px solid #a65eff; border-right: 2px solid #a65eff; border-bottom: 2px solid #a65eff; border-left: 2px solid #a65eff; padding: 3px 10px 3px 10px; }
+#v:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: #a65eff; font-family: 'Montserrat'; font-weight: bold; color: #212657;
+    border-top: 1px solid #a65eff; border-right: 1px solid #a65eff; border-bottom: 1px solid #a65eff; border-left: 1px solid #a65eff; border-radius: 5px; padding: 3px 10px 3px 10px; }
+
+#TopHead {white-space: nowrap; font-size: 25pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px; }
+#BlockHead {white-space: nowrap; font-size: 13pt; color: white; font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+#BlockHead2 {white-space: nowrap; font-size: 13pt; color: green; font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+#BlockHead3 {white-space: nowrap; font-size: 13pt; color: purple; font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+</style>
+
+
+<apex:outputPanel rendered="{!IF($CurrentPage.parameters.s='1',false,true)}">
+
+<TABLE>
+
+<TR>
+
+<div id="BlockHead">
+DAVID B'S LINKS
+<br/>
+</div>
+
+<TD>
+<a id="r" target="_blank" href="/apex/NSLinks?s=1&owner=David+Bopp&type=0123m000000UAZk&origin=Staff">NEW TECH CASE</a>
+<a id="o" target="_blank" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008nhioUAA/view">CLOSED TECH CASES</a>
+<a id="y" target="_blank" href="https://cgph.lightning.force.com/lightning/n/Tech_Improvement_Calendar">IMPROVEMENT CALENDAR</a>
+</TD>
+
+</TR>
+
+</TABLE>
+
+
+ </apex:outputPanel>
+ 
+
+<script>
+        window.onload=function()
+        {
+
+         document.getElementById(type).value = "{!$CurrentPage.parameters.type}";
+         document.getElementById(owner).value = "{!$CurrentPage.parameters.owner}";
+         document.getElementById(origin).value = "{!$CurrentPage.parameters.origin}";
+        };
+    </script>    
+
+<apex:form > 
+        <apex:pageBlock Title="Case Edit" rendered="{!IF($CurrentPage.parameters.s='1',true,false)}"> 
+            <apex:pageBlockSection > 
+                <apex:inputField value="{!case.Ownerid}" id="owner"/><br/>
+                <apex:inputField value="{!case.Subject}" /> <br/>
+                <apex:inputField value="{!case.Agenda_Category__c}" /> <br/>
+                <apex:inputField value="{!case.Case_Category__c}" /> <br/>
+                <apex:inputField value="{!case.Origin}" id="origin" /> <br/>
+                <apex:inputField value="{!case.RecordTypeId}" id="type"/> <br/>
+
+ <script>
+            var type= "{!$Component.type}";
+            var owner= "{!$Component.owner}";
+            var origin= "{!$Component.origin}";
+        </script>
+                <apex:commandButton value="Save" action="{!Save}"/> 
+            </apex:pageBlockSection> 
+        </apex:pageBlock> 
+    </apex:form> 
+</apex:page>

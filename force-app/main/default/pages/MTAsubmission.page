@@ -1,0 +1,416 @@
+<apex:page standardController="Program_Application__c" extensions="MTAsubmissionEXT">
+
+<style>
+    table     {border-collapse: collapse;}
+    td        {font-size: 10pt; height:20px;}
+    .head     {font-weight: bold; font-size: 12pt; padding: 10px 50px 2px 2px;}
+    .edit     {background-color:#fff499;}
+    .calc     {background-color:#bbedd8;}
+    .preApp   {background-color:rgb(255,183,93);}
+    .buttonTD {border-bottom-style: hidden;border-left-style: hidden;border-right-style: hidden;text-align:center;}
+    .info     {font-size:8pt;}
+</style>
+
+<apex:form >
+<!--
+<apex:pageblock>
+-->
+<table>
+<tr>
+<td>
+<table border="1">
+    <tr>
+        <td colspan="3" class="head">
+            Applicant Information
+        </td>
+    </tr>
+    <tr>
+        <td width="200px">
+            Name (Pre-App)
+        </td>
+        <td class="preApp" width="200px">
+            <a href="/{!Program_Application__c.Pre_Applicant__r.Id}" target="_blank">
+                <b>{!Program_Application__c.Submitted_Applicant_Name__c}</b>
+            </a>
+        </td>
+        <td class="info">
+            Submitted
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Annual Income (Pre-App)
+        </td>
+        <td class="preApp">
+            <apex:outputfield value="{!Program_Application__c.Pre_Applicant_Annual_Income__c}"/>
+        </td>
+        <td class="info">
+            From Pre-App
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Household Size (Pre-App)
+        </td>
+        <td class="preApp">
+            <apex:outputfield value="{!Program_Application__c.Pre_Applicant_Household_Size__c}"/>
+        </td>
+        <td class="info">
+            From Pre-App
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Credit Score
+        </td>
+        <td class="edit">
+            <apex:actionRegion >
+                <apex:outputfield value="{!Program_Application__c.Submitted_Credit_Score__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                </apex:OutputField>
+            </apex:actionRegion>
+        </td>
+        <td class="info">
+            Submitted
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Down Payment
+        </td>
+        <td class="edit">
+            <apex:actionRegion >
+                <apex:outputfield value="{!Program_Application__c.Submitted_Down_Payment__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                </apex:OutputField>
+            </apex:actionRegion>
+        </td>
+        <td class="info">
+            Submitted
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="head">
+            Property Information
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Address
+        </td>
+        <td class="edit">
+            <apex:actionRegion >
+                <apex:outputfield value="{!Program_Application__c.Submitted_Property_Address__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                </apex:OutputField>
+            </apex:actionRegion>
+        </td>
+        <td class="info">
+            Submitted
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Bedrooms
+        </td>
+        <td class="edit">
+            <apex:actionRegion >
+                <apex:outputfield value="{!Program_Application__c.Submitted_Bedrooms__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                </apex:OutputField>
+            </apex:actionRegion>
+        </td>
+        <td class="info">
+            Submitted
+        </td>
+    </tr>
+    <tr>
+        <td>
+            List Price
+        </td>
+        <td class="edit">
+            <apex:actionRegion >
+                <apex:outputfield value="{!Program_Application__c.Submitted_List_Price__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                </apex:OutputField>
+            </apex:actionRegion>
+        </td>
+        <td class="info">
+            Submitted
+        </td>
+    </tr>
+    <tr>
+        <td>
+            HOA/Condo Fee
+        </td>
+        <td class="edit">
+            <apex:actionRegion >
+                <apex:outputfield value="{!Program_Application__c.Submitted_HOA_Condo_Fee__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                </apex:OutputField>
+            </apex:actionRegion>
+        </td>
+        <td class="info">
+            Submitted
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="head">
+            Property Eligibility
+        </td>
+    </tr>
+    <tr>
+    
+
+
+    
+        <td>
+            Theoretical Mod Income
+        </td>
+        <td class="calc">
+            <apex:outputfield value="{!Program_Application__c.Theoretical_Mod_Income__c}"/>
+        </td>
+        <td class="info">
+            <apex:outputText value="{0, Number, Currency}">
+                <apex:param value="{!        
+CASE( VALUE( Program_Application__c.Submitted_Bedrooms__c ) ,
+1, (Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *(0.7+0.8))/2,
+2,Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *0.9,
+3,(Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *(1+1.08))/2,
+4,Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *1.16,
+5,Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *1.16,
+0)*0.7
+}" />
+            </apex:outputText>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Theoretical Max Monthly Cost
+        </td>
+        <td class="calc">
+            <apex:outputfield value="{!Program_Application__c.Theoretical_Mod_Max_Monthly__c}"/>
+        </td>
+        <td class="info">
+            <apex:outputText value="{0, Number, Currency}">
+                <apex:param value="{!        
+(IF( Program_Application__c.Program_Category__c = "Market to Affordable",
+CASE( VALUE( Program_Application__c.Submitted_Bedrooms__c ) ,
+1, (Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *(0.7+0.8))/2,
+2,Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *0.9,
+3,(Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *(1+1.08))/2,
+4,Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *1.16,
+5,Program_Application__c.Program__r.Municipality__r.Income_Limit__r.X4_Person__c *1.16,
+0)*0.7
+,0)) *0.28/12
+}" />
+            </apex:outputText>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Theoretical Monthly Costs
+        </td>
+        <td class="calc">
+            <apex:outputfield value="{!Program_Application__c.Theoretical_Mod_Monthly_Costs__c}"/>
+        </td>
+        <td class="info">
+            <apex:outputText value="{0, Number, Currency}">
+                <apex:param value="{!        
+(((Program_Application__c.Submitted_List_Price__c  *0.95) * ($Setup.CGPH_Profile_Custom_Settings__c.Mortgage_Rate__c/12)) / (1 - ((1 + ($Setup.CGPH_Profile_Custom_Settings__c.Mortgage_Rate__c /12))^(-1 * 30 * 12))))
++ Program_Application__c.Submitted_HOA_Condo_Fee__c   
++ $Setup.CGPH_Profile_Custom_Settings__c.Insurance_4_Bedroom__c
++ ((((Program_Application__c.Submitted_List_Price__c)*( Program_Application__c.Program__r.Municipality__r.Equalization_Ratio__c ))/10000)*((Program_Application__c.Program__r.Municipality__r.General_Tax_Rate__c)/12))
++ ((Program_Application__c.Submitted_List_Price__c*0.95)/1000*(( $Setup.CGPH_Profile_Custom_Settings__c.PMI_Rate_for_LTV_90__c *1000 /12)))
+}" />
+            </apex:outputText>
+        </td>        
+    </tr>
+    <tr>
+        <td>
+            Theoretically Already Affordable?
+        </td>
+        <td class="calc">
+            {!IF(Program_Application__c.Theoretical_Mod_Monthly_Costs__c > Program_Application__c.Theoretical_Mod_Max_Monthly__c, "No, potentially eligible", "YES, NOT ELIGIBILE")}
+        </td>
+        <td class="info">
+            calculated
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Theoretical Costs w Subsidy
+        </td>
+        <td class="calc">
+            <apex:outputfield value="{!Program_Application__c.Theoretical_Mod_Monthly_Costs_w_Subsidy__c}"/>
+        </td>
+        <td class="info">
+            <apex:outputText value="{0, Number, Currency}">
+                <apex:param value="{!        
+((( ( Program_Application__c.Submitted_List_Price__c  -   Program_Application__c.Amount_of_Request__c  ) *0.95) * ( $Setup.CGPH_Profile_Custom_Settings__c.Mortgage_Rate__c /12)) / (1 - ((1 + ($Setup.CGPH_Profile_Custom_Settings__c.Mortgage_Rate__c /12))^(-1 * 30 * 12))))
++  Program_Application__c.Submitted_HOA_Condo_Fee__c 
++ $Setup.CGPH_Profile_Custom_Settings__c.Insurance_4_Bedroom__c
++ ((((Program_Application__c.Submitted_List_Price__c  -  Program_Application__c.Amount_of_Request__c  )*( Program_Application__c.Program__r.Municipality__r.Equalization_Ratio__c ))/10000)*(( Program_Application__c.Program__r.Municipality__r.General_Tax_Rate__c )/12))
++ ((Program_Application__c.Submitted_List_Price__c  -  Program_Application__c.Amount_of_Request__c  )*0.95/1000*( $Setup.CGPH_Profile_Custom_Settings__c.PMI_Rate_for_LTV_90__c *1000 /12))
+}" />
+            </apex:outputText>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Affordable with Subsidy?
+        </td>
+        <td class="calc">
+            {!IF(Program_Application__c.Theoretical_Mod_Monthly_Costs_w_Subsidy__c < Program_Application__c.Theoretical_Mod_Max_Monthly__c, "Yes, potentially eligible", "NO, NOT ELIGIBILE")}
+        </td>
+        <td class="info">
+            calculated
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="head">
+            Market to Affordable Calculations
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Reduced Sale Price
+        </td>
+        <td class="calc">
+            <apex:outputfield value="{!Program_Application__c.MTA_Sale_Price__c}"/>
+        </td>
+        <td class="info">
+            <apex:outputText value="{0, Number, Currency}">
+                <apex:param value="{!Program_Application__c.Submitted_List_Price__c - Program_Application__c.Amount_of_Request__c}"/>
+            </apex:outputText>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Down Payment Assistance
+        </td>
+        <td class="edit">
+            <apex:actionRegion >
+                <apex:outputfield value="{!Program_Application__c.MTA_Down_Payment_Assistance__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                </apex:OutputField>
+            </apex:actionRegion>
+        </td>
+        <td class="info">
+            editable, default $15K
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Mortgage Amount
+        </td>
+        <td class="calc">
+            <apex:outputfield value="{!Program_Application__c.MTA_Mortgage_Amount__c}"/>
+        </td>
+        <td class="info">
+            <apex:outputText value="{0, Number, Currency}">
+                <apex:param value="{!
+                Program_Application__c.Submitted_List_Price__c -  
+                Program_Application__c.Amount_of_Request__c - 
+                Program_Application__c.Submitted_Down_Payment__c -  
+                Program_Application__c.MTA_Down_Payment_Assistance__c
+                }"/>
+            </apex:outputText>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Estimated Monthly Costs
+        </td>
+        <td class="calc">
+            {!Program_Application__c.MTA_Estimated_Monthly_Costs__c}
+        </td>
+        <td class="info">
+            <apex:outputText value="{0, Number, Currency}">
+                <apex:param value="{!
+(( Program_Application__c.MTA_Mortgage_Amount__c  * ($Setup.CGPH_Profile_Custom_Settings__c.Mortgage_Rate__c/12)) / (1 - ((1 + ($Setup.CGPH_Profile_Custom_Settings__c.Mortgage_Rate__c/12))^(-1 * 30 * 12))))
++Program_Application__c.Submitted_HOA_Condo_Fee__c 
++$Setup.CGPH_Profile_Custom_Settings__c.Insurance_4_Bedroom__c
++IF(Program_Application__c.MTA_Mortgage_Amount__c/ Program_Application__c.MTA_Sale_Price__c >0.9501,Program_Application__c.MTA_Mortgage_Amount__c*0.009/12,
+IF(Program_Application__c.MTA_Mortgage_Amount__c/ Program_Application__c.MTA_Sale_Price__c >0.9001,Program_Application__c.MTA_Mortgage_Amount__c*0.0078/12,
+IF(Program_Application__c.MTA_Mortgage_Amount__c/ Program_Application__c.MTA_Sale_Price__c >0.8501,Program_Application__c.MTA_Mortgage_Amount__c*0.0052/12,
+IF(Program_Application__c.MTA_Mortgage_Amount__c/ Program_Application__c.MTA_Sale_Price__c >0.8001,Program_Application__c.MTA_Mortgage_Amount__c*0.0032/12,0))))
++((Program_Application__c.MTA_Sale_Price__c *Program_Application__c.Program__r.Municipality__r.Equalization_Ratio__c/100 * Program_Application__c.Program__r.Municipality__r.General_Tax_Rate__c/100 )/12)
+                }"/>
+            </apex:outputText>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Percent of Monthly Income
+        </td>
+        <td class="calc">
+            {!Program_Application__c.MTA_Housing_Costs_of_Income__c}%
+        </td>
+        <td class="info">
+            <apex:outputText value="{0, Number, #.##%}">
+                <apex:param value="{!
+(((( Program_Application__c.MTA_Mortgage_Amount__c  * ($Setup.CGPH_Profile_Custom_Settings__c.Mortgage_Rate__c/12)) / (1 - ((1 + ($Setup.CGPH_Profile_Custom_Settings__c.Mortgage_Rate__c/12))^(-1 * 30 * 12))))
++Program_Application__c.Submitted_HOA_Condo_Fee__c 
++$Setup.CGPH_Profile_Custom_Settings__c.Insurance_4_Bedroom__c
++IF(Program_Application__c.MTA_Mortgage_Amount__c/ Program_Application__c.MTA_Sale_Price__c >0.9501,Program_Application__c.MTA_Mortgage_Amount__c*0.009/12,
+IF(Program_Application__c.MTA_Mortgage_Amount__c/ Program_Application__c.MTA_Sale_Price__c >0.9001,Program_Application__c.MTA_Mortgage_Amount__c*0.0078/12,
+IF(Program_Application__c.MTA_Mortgage_Amount__c/ Program_Application__c.MTA_Sale_Price__c >0.8501,Program_Application__c.MTA_Mortgage_Amount__c*0.0052/12,
+IF(Program_Application__c.MTA_Mortgage_Amount__c/ Program_Application__c.MTA_Sale_Price__c >0.8001,Program_Application__c.MTA_Mortgage_Amount__c*0.0032/12,0))))
++((Program_Application__c.MTA_Sale_Price__c *Program_Application__c.Program__r.Municipality__r.Equalization_Ratio__c/100 * Program_Application__c.Program__r.Municipality__r.General_Tax_Rate__c/100 )/12))
+/(Program_Application__c.Pre_Applicant_Annual_Income__c/12))
+                }"/>
+            </apex:outputtext>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            MTA Pre-Applicant Affordability
+        </td>
+        <td class="calc">
+            {!Program_Application__c.MTA_Pre_Applicant_Affordability__c}
+        </td>
+        <td class="info">
+            calculated
+        </td>
+   </tr>
+   <tr>
+        <td class="head" colspan="3">
+            FINAL RESULT
+        </td>
+        </tr>
+        <tr>
+        <td colspan="3" width="500px">
+            <i>{!Program_Application__c.MTA_Final_Result__c}</i>
+        </td>
+    </tr>
+    <tr>
+        <td class="buttonTD" colspan="3">
+            <apex:commandButton id="saveButton" action="{!save}" value="SAVE" style="display: none;"/>
+            <apex:commandButton id="cancelButton" action="{!Cancel}" value="CANCEL" style="display: none;"/>
+        </td>
+    </tr>
+</table>
+</td>
+<!--
+<td style="vertical-align: top;">
+<table>
+    <tr>
+        <td class="head" width="350px">
+            FINAL RESULTS
+        </td>
+    </tr>
+    <tr>
+        <td width="350px">
+            {!Program_Application__c.MTA_Final_Result__c}
+        </td>
+    </tr>
+</table>
+</td>
+-->
+</tr>
+</table>
+
+</apex:form>
+
+</apex:page>

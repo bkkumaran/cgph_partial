@@ -1,0 +1,170 @@
+<apex:page id="pageId" standardcontroller="CGPH_Info__c">
+<head>
+<script src="/soap/ajax/20.0/connection.js" type="text/javascript"></script>
+    <script>
+        window.onload = function() {
+            var output = document.getElementById("output");
+            sforce.connection.sessionId = "{!$Api.Session_ID}";
+                var queryResult = sforce.connection.query("SELECT Name, Purchase_Units__c, Rental_Units__c, Total_AA_Units__c FROM Municipality__c  WHERE Total_AA_Units__c != 0 AND Name != 'Test Muni'" );
+                var queryResult2 = sforce.connection.query("SELECT HR_Active_Program__c, HR_Total_Case_Files__c, Name FROM Municipality__c WHERE HR_Active_Program__c = true AND Name != 'Test Muni'" );
+                var queryResult3 = sforce.connection.query("SELECT HR_Active_Program__c, Name, Total_AA_Units__c FROM Municipality__c WHERE Name != 'Test Muni' AND (HR_Active_Program__c = true OR Total_AA_Units__c != 0)" );
+                var queryResult4 = sforce.connection.query("SELECT Name FROM Resume__c WHERE Current_Employee__c = true" );
+                var queryResult5 = sforce.connection.query("SELECT SUM(Total_AA_Units__c)sumunits FROM Municipality__c  WHERE Total_AA_Units__c != 0 AND Name != 'Test Muni'" );
+                layoutResults(queryResult, output);
+                layoutResults2(queryResult2, output2);
+                layoutResults3(queryResult3, output3);
+                layoutResults4(queryResult4, output4);
+                layoutResults5(queryResult5, output5);
+        }
+        
+        function layoutResults(queryResult, out) {
+                var output = "";
+                var records = queryResult.getArray('records');
+                output += queryResult.size;  
+                out.innerHTML = output ;
+        }
+                function layoutResults2(queryResult2, out2) {
+                var output2 = "";
+                var records2 = queryResult2.getArray('records2');
+                output2 += queryResult2.size;  
+                out2.innerHTML = output2 ;
+        }  
+                function layoutResults3(queryResult3, out3) {
+                var output3 = "";
+                var records3 = queryResult3.getArray('records3');
+                output3 += queryResult3.size;  
+                out3.innerHTML = output3 ;
+        }    
+                function layoutResults4(queryResult4, out4) {
+                var output4 = "";
+                var records4 = queryResult4.getArray('records4');
+                output4 += queryResult4.size;  
+                out4.innerHTML = output4 ;
+        }
+                function layoutResults5(queryResult5, out5) {
+                var output5 = "";
+                var records5 = queryResult5.get('records').get('sumunits');
+                output5 = Number(records5).toLocaleString();
+                out5.innerHTML = output5 ;
+        }  
+</script>
+
+</head>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        .general { font-family: Montserrat; font-size: 12pt;color: black;}
+
+        a:link {
+            color: blue;
+            font-weight:bold;
+            background-color: transparent; 
+            text-decoration: none;            
+            }
+
+        a:visited {
+            color: blue;
+            font-weight:bold;
+            background-color: transparent;
+            text-decoration: none;
+            }
+
+        a:hover {
+            color: red;
+            font-weight: bold;
+            background-color: rgb(224, 234, 252);
+            text-decoration: underline;
+                }
+    </style>
+    
+    <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />
+    <br />
+    <div style="font-size: 30pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px;">
+        Current Company Information
+        <br />
+    </div>
+
+    
+<table style="font-family: Montserrat; font-size: 12pt;color: black;" border="1">
+
+<tr>
+<td colspan="2" style="text-align:center; font-weight:bold;">
+<apex:outputPanel layout="block" style="background-color:rgb(224, 234, 252); padding: 15px;" onclick="window.open('/a2F1N000000jkrh','MsgWindow',target='_blank')">CLICK HERE OPEN CGPH INFO OBJECT</apex:outputPanel>
+
+</td>
+</tr>
+
+
+    <tr>
+        <td>
+            Number of Employees
+        </td>
+        <td style="background-color:yellow;">
+            <div id="output4" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Number of Municipalities (AA &amp; HR)
+        </td>
+        <td style="background-color:yellow;">
+            <div id="output3" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Number of AA Municipalities
+        </td>
+        <td  style="background-color:yellow;">
+            <div id="output" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Number of HR Municipalities
+        </td>
+        <td  style="background-color:blue;">
+            <div id="output2" />
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Number of Years in Business
+        </td>
+        <td  style="background-color:yellow;">
+</td>
+    </tr>
+    <tr>
+        <td>
+            Number of AHNJ <a href="javascript:window.open('https://www.facebook.com/AffordableHomesNewJersey','MsgWindow','_blank');">Facebook</a> Followers
+        </td>
+        <td>
+            
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            Number of Affordable Units Administered
+        </td>
+        <td  style="background-color:yellow;">
+            <div id="output5" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Number of Rehabilitation Units
+        </td>
+        <td>
+            Over 2,000
+        </td>
+    </tr>
+    <tr>
+    <td style="background-color:yellow; font-size:10pt;" colspan="2">
+    <i><b>Boxes highlighted yellow are automatically calculated</b></i>
+    </td>
+    </tr>
+    
+</table>
+
+</apex:page>

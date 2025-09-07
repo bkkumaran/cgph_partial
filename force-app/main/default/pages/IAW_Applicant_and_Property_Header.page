@@ -1,0 +1,16 @@
+<apex:page standardController="HOMEtracker__Service_File__c" tabStyle="HOMEtracker__Service_File__c" showHeader="false" sidebar="false">
+  <style>
+        div#message {
+            position:relative;
+            
+            padding:5px;
+            padding-left:30px;
+            margin:10px 10px;  
+            height:14px;          
+            background: #F5E4A9;
+            }
+  </style>
+  <div id="message">
+  <b>Applicant &#38; Property Information:</b>
+  </div>
+</apex:page>

@@ -1,0 +1,20 @@
+<apex:page standardController="Contract">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        .buttonClickArea { font-family: Montserrat; font-size: 14pt;color: black; padding: 2px 20px 2px 20px;}
+        .activeTab { background-color: rgb(44, 73, 129); color:white; background-image: none; font-size: 16pt; font-family: 'Montserrat'; font-weight: bold; }
+        .inactiveTab { background-color: rgb(234, 238, 247); color:black; background-image: none; font-size: 14pt; font-family: 'Montserrat'; }
+        
+    </style>
+    
+    <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />
+    <br />
+    <div style="font-size: 30pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 0px 0px;">
+        Staff Rates for : {!Contract.Name}
+    </div>
+    <div style="font-size: 12pt; font-family: 'Montserrat'; font-weight: normal; margin: 20px;">
+     <apex:outputField value="{!Contract.Staff_Rates__c}" />
+     </div>
+
+</apex:page>

@@ -1,0 +1,145 @@
+<apex:page standardController="HOMEtracker__Service_File__c" showHeader="false">
+
+
+<apex:variable var="show2" value="X"/>
+<apex:variable var="showH" value="display:none;"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    table {border-collapse:collapse;}
+    td    {height:30px; padding-left:10px; font-size:10.5pt; font-family:Open Sans; border-bottom: 1px solid #c9c9c9;}
+    a     {color:#0b5cab;}
+    .split {color:#0b5cab;}
+    .head {background-color:#f3f3f3;{!showH}}
+    .missing {color:red; font-weight:bold;}
+    .noBottom {border-bottom: 0px solid white;}
+</style>
+<apex:variable var="width1" value="10%"/>
+<apex:variable var="width2" value="90%"/>
+<apex:variable var="match" value="!IF(HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = TRUE, '1','0')}"/>
+
+
+<!-- -----------------------LINK FORMULAS------------------------- -->
+
+<!-- Step 1 (F) Begin Ineligibility Email Setup --> 
+<apex:variable var="emailSetup" value="
+mailto:{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}?bcc=noreply@cgph.net;HousingEligibilities@cgph.net
+&subject=
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Name}
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c} Affordable Housing Program / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name} / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name} / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName} / Confirmation of Removal/ 
+{!HOMEtracker__Service_File__c.Case_Number__c}
+"/>
+
+<!-- Step 2 (A) Generate Ineligibility Email Text  -->
+<apex:variable var="Step2Inelig" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a293m000004wcCx
+&DS7=3
+&OFN=Ineligibility+Email+Text+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+&QueryId=[CertProperty]a211N000001eJlW?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Id},
+[CertMunicipality]a211N000001eJlq?pv0={!HOMEtracker__Service_File__c.Municipality_ID__c},
+[CertHHMember]a211N00000218Hi?pv0={!HOMEtracker__Service_File__c.Id},
+[CertCaseManager]a211N000001eK7k?pv0={!HOMEtracker__Service_File__c.Application_Case_Manager_New__r.Id},
+[ReqDocMissing]a213m000003YOvq?pv0={!HOMEtracker__Service_File__c.Id},
+[CertPrimaryApplicant]a213m000003HBPi?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Id}
+&ReportId=[ISD]00O3m000006AwgQ?pv0={!HOMEtracker__Service_File__c.Id}
+"/>
+
+<!-- Step 3 (C) Generate Ineligibility Spreadsheet  --> 
+<apex:variable var="Step3Inelig" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=00P3m00001Ccmgi
+&DS7=3
+&OFN=Income+Calculation+Worksheet+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+&QueryId=[CertProperty]a211N000001eJlW?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Id},
+[CertMunicipality]a211N000001eJlq?pv0={!HOMEtracker__Service_File__c.Municipality_ID__c},
+[CertHHMember]a211N00000218Hi?pv0={!HOMEtracker__Service_File__c.Id}
+&ReportId=[ISD]00O3m000006AwgQ?pv0={!LEFT(HOMEtracker__Service_File__c.Id,15)}
+"/>
+
+
+
+<!-- -----------------------TABLE BEGINS------------------------- -->
+
+
+<table width="100%" style="{!show2}">
+<tr>
+<td colspan="2" class="head">
+Application // 5b. Ineligibility Communications &nbsp;&nbsp; <a href="https://cgph--c.vf.force.com/apex/SF_Inelig_Comm?id={!HOMEtracker__Service_File__c.Id}" target="_blank" style="{!IF($User.LastName='Burton','','display:none;')}">
+[VF PAGE]
+</a>
+</td>
+</tr>
+<tr>
+
+<td width="{!width1}">
+Step 1
+</td>
+<td width="{!width2}">
+
+<apex:outputLink value="mailto:{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}?bcc=noreply@cgph.net;HousingEligibilities@cgph.net
+&subject=
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Name}
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c} Affordable Housing Program / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name} / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name} / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName} / Confirmation of Removal/ 
+{!HOMEtracker__Service_File__c.Case_Number__c}
+                    ">
+Begin Ineligibility Email Setup
+</apex:outputLink>
+</td>
+
+</tr>
+
+<tr>
+<td>
+Step 2
+</td>
+<td>
+<a target="_blank"
+href="{!SUBSTITUTE(Step2Inelig,' ','')}">
+Generate Ineligibility Email Text
+</a>
+
+</td>
+
+<td class="noBottom" width="{!width2}"></td>
+
+</tr>
+<tr>
+<td>
+Step 3
+</td>
+<td>
+<a target="_blank"
+href="{!SUBSTITUTE(Step3Inelig,' ','')}">
+Step 3: Generate Ineligibility Spreadsheet
+</a>
+
+
+</td>
+</tr>
+</table>
+
+
+<div style="display:none"> <!-- for SOQL purposes -->
+{!HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_contact_email__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Email_Recipients_for_Certs__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Municipal_Type__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+{!HOMEtracker__Service_File__c.Case_Number__c}
+</div>
+</apex:page>

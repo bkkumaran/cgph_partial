@@ -1,0 +1,123 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="OutreachTrackerUnitExt" showHeader="false">
+
+
+<apex:variable var="font" value="Roboto"/>
+<apex:variable var="showH" value="{!IF($CurrentPage.parameters.H='1','','display:none')}"/>
+<apex:variable var="hideH" value="{!IF($CurrentPage.parameters.H='1','display:none','')}"/>
+
+<!-- COLORS -->
+<apex:variable var="PrimaryUs" value="#b7e1cd"/>
+<!--
+<apex:variable var="PrimaryThem" value="#ff6456"/>
+-->
+<apex:variable var="PrimaryThem" value="#fac8c8"/>
+<apex:variable var="BackupUs" value="#ffeebc"/>
+<apex:variable var="BackupThem" value="#fac8c8"/>
+<apex:variable var="HeaderUs" value="#d4d4d4"/>
+<apex:variable var="HeaderThem" value="#db9393"/>
+<apex:variable var="HiddenUs" value="#e0dce6"/>
+<apex:variable var="HiddenThem" value="#cec9d6"/>
+<apex:variable var="ApproveText" value="blue"/>
+<apex:variable var="FlagUs" value="#ffb75d"/>
+<apex:variable var="FlagThem" value="#f0a448"/>
+<apex:variable var="CGPHblue" value="rgb(0, 101, 168)"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family={!font}');
+
+    a { color: inherit; }
+    td { white-space: nowrap; padding: 5px 7px 5px 7px; font-family:'{!font}'; font-size:10pt;font-weight:400;}
+    th { white-space: normal; padding: 5px 7px 5px 7px; font-family:'{!font}'; font-size:10pt; font-weight:400;}
+    table {border-collapse:collapse; border: 0.5px gray}
+    .usH {background-color:{!HeaderUs};word-wrap: break-word; text-align:left;}
+    .usBack {background-color:{!BackupUs};}
+    .usHide {background-color:{!HiddenUs};}
+    .usPrime {background-color:{!PrimaryUs};}
+    .usFlag {background-color:{!FlagUs};font-weight:bold;}
+    .themH {background-color:{!HeaderThem};white-space: normal;}
+    .themBack {background-color:{!BackupThem};white-space: normal;}
+    .themHide {background-color:{!HiddenThem};white-space: normal;}
+    .themPrime {background-color:{!PrimaryThem};white-space: normal;}
+    .themFlag {background-color:{!FlagThem};font-weight:bold;white-space: normal;}
+    .approved {color:{!ApproveText}; font-weight:bold;}
+</style>
+
+
+<apex:variable var="UsClass" value="{!CASE(primary.Tracker_Status__c,'Primary','usPrime','Flagged','usFlag','Backup','usBack','usHide')}"/>
+<apex:variable var="ThemClass" value="{!CASE(primary.Tracker_Status__c,'Primary','themPrime','Flagged','themFlag','Backup','themBack','themHide')}"/>
+
+<apex:variable var="group" value="{!IF(HOMEtracker__Property__c.Group_Property__c = true,1,0)}"/>
+
+<div style="{!IF(group = 1, '','display:none;')}">
+GROUP PROPERTY
+</div>
+
+<table border="1" style="{!IF(group = 1, 'display:none;','')}">
+        <tr class="{!UsClass}">
+            <th>Applicant Name</th>
+            <td>
+                <a href="/{!primary.Id}" target="_blank"> {!primary.Applicant_Name__c}</a>
+            </td>
+        </tr>
+        <tr class="{!UsClass}">
+            <th>Status</th>
+            <td> {!primary.Tracker_Status__c} </td>
+        </tr>
+        <tr class="{!UsClass}">
+            <th>Unit</th>
+            <td> {!primary.Unit__c} </td>
+        </tr>
+        <tr class="{!UsClass}">
+            <th>Priority</th>
+            <td> {!primary.SF_Priority__c} </td>
+        </tr>
+        <tr class="{!UsClass}">
+            <th>Date CGPH Added</th>
+            <td>
+                <apex:outputField value="{!primary.Date_CGPH_Added_Name__c}"/>
+            </td>
+        </tr>
+        <tr class="{!UsClass}">
+            <th>Date Marked Primary</th>
+            <td>
+                <apex:outputField value="{!primary.Date_Marked_Primary__c}"/>
+            </td>
+        </tr>
+        <tr class="{!ThemClass}">
+            <th>LL/DEV Approval</th>
+            <td> {!primary.Landlord_Developer_Determination__c} </td>
+        </tr>
+        <tr class="{!ThemClass}">
+            <th>LL/DEV Date</th>
+            <td>
+                <apex:outputField value="{!primary.Landlord_Developer_Determination_Date__c}"/>
+            </td>
+        </tr>
+        <tr class="{!UsClass}">
+            <th>Ready for Cert</th>
+            <td>
+                <apex:outputField value="{!primary.Date_Ready_for_Eligibility_Review__c}"/>
+            </td>
+        </tr>
+        <tr class="{!UsClass}">
+            <th>Cert Begun</th>
+            <td>
+                <apex:outputField value="{!primary.Date_Eligibility_Review_Began__c}"/>
+            </td>
+        </tr>
+        <tr class="{!UsClass}">
+            <th>CGPH Determination</th>
+            <td>
+                <apex:outputField value="{!primary.CGPH_Determination__c}"/>
+            </td>
+        </tr>
+        <tr class="{!UsClass}">
+            <th>CGPH Date</th>
+            <td>
+                <apex:outputField value="{!primary.CGPH_Approval_Denial_Date__c}"/>
+            </td>
+        </tr>
+
+</table>
+
+</apex:page>

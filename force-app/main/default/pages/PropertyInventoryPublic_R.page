@@ -1,0 +1,311 @@
+<apex:page controller="PropertyInventoryController_L" showheader="false" standardStylesheets="false">
+
+<!-- VARIABLES -->
+<apex:variable id="Font" var="font" value="Roboto" />
+<apex:variable id="FontSize" var="fontSize" value=""/>
+
+<apex:variable id="TableWidth" var="tWidth" value="100%"/>
+<apex:variable id="HeaderColor" var="HeadColor" value="#d4d4d4"/>
+
+<apex:variable id="CGPHblue" var="CGPHblue" value="rgb(0, 101, 168)"/>
+<apex:variable id="EditButtonColor" var="EditDark" value="#9e1515"/>
+
+<apex:variable id="warningColor" var="warnColor" value="#ff5454"/>
+<apex:variable id="doneColor" var="doneColor" value="#c7ebd8"/>
+
+
+<apex:variable id="rowColorAvailable" var="rowColorAvailable" value="white"/>
+<apex:variable id="rowColorPending" var="rowColorPending" value="#53e09d"/>
+<apex:variable id="rowColorRented" var="rowColorRented" value="#c7ebd8"/>
+<apex:variable id="rowColorConstruction" var="rowColorConstruction" value="#e3e3e3"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family={!font}');
+    
+    body {
+        max-width: 85%;
+        overflow-x: hidden;
+        width: 99%;
+
+        }
+    a    {
+        text-decoration: none;
+        color:black;
+        }
+    table {
+        border-collapse: collapse;
+        width:99%;
+        }
+    td  {
+        padding: 5px 5px 5px 5px;
+        font-size: 9pt;
+        font-family:{!font};
+        }
+    th {
+        padding: 5px 5px 5px 5px;
+        font-size:11pt;
+        font-family:{!font};
+        background-color:{!HeadColor};
+        }
+    thead {
+        top: 0;
+        Position: sticky;
+        background-color: white;
+        z-index: 20;
+        min-height: 30px;
+        height: 30px;
+    }
+    .topHeader{
+          background-color: white;
+          position: sticky; 
+          top: 0; 
+          width: 100%; 
+            }       
+    .head{
+        padding: 10px 10px 10px 10px;
+        font-size:16pt;
+        font-weight:bold;
+        font-family:{!font};
+        color:{!CGPHblue};
+        }
+    .data{
+        font-size:9pt;
+        font-family:{!font};
+        }
+    .right{
+        text-align:right;
+        }
+    .center{
+        text-align:center;
+        }
+    .left{
+        text-align:left;
+        }
+    .buttonTrack{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: 9pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HeadColor});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid gray; 
+            border-bottom: 1.5px solid gray; 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonTrack:hover{
+            color:white;
+            background-image: linear-gradient(gray,gray);
+            text-decoration:none;
+                }
+    .buttonLease{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: 8pt;
+            color: {!warnColor};
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HeadColor});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid gray; 
+            border-bottom: 1.5px solid gray; 
+            border-left: 1px solid #CCCCCC; 
+            padding: 3px 5px 3px 5px;
+            }
+     .buttonLease:hover{
+            color:white;
+            background-image: linear-gradient({!warnColor},{!warnColor});
+            text-decoration:none;
+                }                
+
+     .mainRow:hover{
+         font-weight:bold;
+         background-color:yellow !important;
+         }
+    .red {
+        color:{!warnColor};
+        font-weight:bold;
+    }
+    .done {
+        background-color:{!doneColor};
+        }
+
+</style>
+
+
+<!-- COLUMN WIDTHS -->
+
+<apex:variable var="ColWidthInclude" value="40"/>
+<apex:variable var="ColWidthAddy" value="200"/>
+<apex:variable var="ColWidthUnit" value="30"/>
+<apex:variable var="ColWidthStatus" value="150"/>
+<apex:variable var="ColWidthGroup" value="160"/>
+<apex:variable var="ColWidthPrice" value="90"/>
+<apex:variable var="ColWidthIncome" value="70"/>
+<apex:variable var="ColWidthBeds" value="35"/>
+<apex:variable var="ColWidthBldg" value="35"/>
+<apex:variable var="ColWidthFloor" value="35"/>
+<apex:variable var="ColWidthPhase" value="35"/>
+<apex:variable var="ColWidthTarget" value="90"/>
+<apex:variable var="ColWidthCurrent" value="100"/>
+
+<table border="1" width="100%">
+
+    <thead>
+        <tr>
+        <td colspan="16">
+            <div style="height:30px; vertical-align:middle;" class="topHeader">
+                <span class="head">
+                    {!dev.Name} Rental Inventory List
+                    &nbsp;&nbsp;
+                </span>
+            &nbsp;&nbsp;
+                <a href="https://cgph--c.vf.force.com/apex/OutreachTrackerPublic?d={!devID}" class="buttonTrack" target="_top">
+                    APPLICANT TRACKER
+                </a>
+            <div>
+    </div>
+    </div>
+        </td>
+        </tr>
+        <tr>
+
+        <th class="left" width="{!ColWidthAddy}">
+            Address
+        </th>
+        <th class="center"  width="{!ColWidthUnit}">
+            Unit
+        </th>
+        <th class="left" width="{!ColWidthStatus}">
+            Status
+        </th>
+        <th class="center"  width="{!ColWidthPrice}">
+            Rent
+        </th>
+        <th class="center" width="{!ColWidthIncome}">
+            Income
+        </th>
+        <th class="center" width="{!ColWidthBeds}">
+            Beds
+        </th>
+        <th class="center"  width="{!ColWidthBldg}">
+            Bldg.
+        </th>
+        <th class="center"  width="{!ColWidthFloor}">
+            Floor
+        </th>
+        <th class="center" width="{!ColWidthPhase}">
+        Phase
+        </th>
+        <th class="center" width="{!ColWidthTarget}">
+        Target Date
+        </th>
+        <th class="center"  width="{!ColWidthCurrent}">
+            Current Renter
+        </th>
+        <th class="center"  width="{!ColWidthCurrent}">
+            Lease
+        </th>
+    </tr>
+    </thead>
+    
+    
+    <tr>    
+
+</tr>
+<apex:repeat var="x" value="{!unitList}">
+
+<!-- -------------------------------------ROW STYLING FORMULA -------------------------------- -->
+    <tr class="mainRow" style="height:25px;
+    background-color:{!CASE(x.HOMEtracker__Status__c,
+            'Available for Rent - part of group',rowColorAvailable,
+            'Available For Rent',rowColorAvailable,
+            'Rental Pending',rowColorPending,
+            'Rented',rowColorRented,
+            'Under Construction',rowColorConstruction,
+            'red')}">
+
+       
+<!-- Address -->
+        <td class="left" width="{!ColWidthAddy}">
+            <a href="https://cgph.my.salesforce.com/{!x.id}" target="_blank">
+            <u>{!x.Name}</u>
+            </a>
+        </td>
+
+<!-- Unit -->
+        <td class="center" width="{!ColWidthUnit}">
+            {!x.Unit_Number__c}
+        </td>
+
+<!-- STATUS -->
+        <td class="left" width="{!ColWidthStatus}">
+            {!SUBSTITUTE(x.HOMEtracker__Status__c,'Available for Rent - part of group','Available For Rent')}
+        </td>
+                
+<!-- RENTAL: Monthly Rent-->
+        <td class="right"  width="{!ColWidthPrice}">
+             <apex:outputField value="{!x.HOMEtracker__Monthly_Rent__c}" />
+        </td>
+        
+<!-- Income Level-->
+        <td class="center" style="{!IF(ISBLANK(x.Income_Level__c)=true,'background-color:'+warnColor+';','')}" width="{!ColWidthIncome}">
+             {!x.Income_Level__c}
+        </td>
+
+<!-- Bedrooms -->
+        <td class="center" width="{!ColWidthBeds}">
+             {!x.HOMEtracker__Number_of_Bedrooms__c}
+        </td>
+<!-- Building -->
+        <td class="center"  width="{!ColWidthBldg}">
+             {!x.Building_Number__c}
+        </td>
+        
+<!-- Floor -->
+        <td class="center"  width="{!ColWidthFloor}">
+             {!x.Floor_unit_is_located_on__c}
+        </td>
+
+<!-- Phase-->
+        <td class="center"  width="{!ColWidthFloor}">
+             {!x.Initial_Leaseup_Sale_Phase__c}
+        </td>
+
+<!-- Target Certification Date -->
+        <td class="center" width="{!ColWidthTarget}">
+            <apex:outputfield value="{!x.Current_Outreach_Timeline__r.Target_Outreach_Date__c}"/>
+        </td>
+
+<!-- Current Renter -->        
+        <td class="left"  width="{!ColWidthCurrent}">
+            {!x.Current_renter__r.Name}
+        </td>
+<!-- Lease -->
+        <td class="center"  width="{!ColWidthCurrent}">
+            <span style="{!IF(x.HOMEtracker__Current_Owner_Service_File__r.Id='','display:none;','')}">
+            <a class="buttonLease" href="https://www.tfaforms.com/5145685?tfa_2={!SUBSTITUTE(x.Name,'#','+')}&tfa_4={!x.Current_renter__r.Name}&tfa_7={!x.Id}&tfa_8={!x.HOMEtracker__Current_Owner_Service_File__r.Id}" target="_blank" style="{!IF(x.HOMEtracker__Current_Owner_Service_File__r.Current_Lease__r.Lease_PDF__c=false,'','display:none;')}">
+                 <b>UPLOAD LEASE</b>
+            </a>
+            <b>
+            <apex:outputfield value="{!x.HOMEtracker__Current_Owner_Service_File__r.Current_Lease__r.Lease_Begin__c}"
+                            rendered="{!IF(OR(ISNULL(x.HOMEtracker__Current_Owner_Service_File__c)=true,x.HOMEtracker__Current_Owner_Service_File__r.Current_Lease__r.Lease_PDF__c=false),false,true)}"/>
+            </b>
+            </span>
+        </td>
+   
+    </tr>
+</apex:repeat>
+</table>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+</apex:page>

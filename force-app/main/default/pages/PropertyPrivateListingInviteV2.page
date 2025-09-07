@@ -1,0 +1,2730 @@
+<apex:page controller="PropertyPrivateListingInviteControllerV2" sidebar="false" showHeader="false" standardStylesheets="false" cache="false" >
+<head> 
+
+<apex:includeScript value="https://www.gstatic.com/charts/loader.js"></apex:includeScript>
+
+<!-- <apex:includeScript value="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></apex:includeScript> -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.css"></link>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <apex:includeScript value="{!URLFOR($Resource.CGPH_Resource, '/js/moment.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.CGPH_Resource, '/js/moment-timezone.min.js')}"/>
+  
+  <!-- Connection.js Files  --> 
+  <script src="/soap/ajax/53.0/connection.js" type="text/javascript"></script>
+  <script src="/soap/ajax/53.0/apex.js" type="text/javascript"></script>
+  
+</head>
+<c:CGPHComponent />
+<style>
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600); 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:400,700);
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,700);
+/* Header Test CSS */
+
+    /* Loader Animation Styles */
+    .spinner {
+        margin: 100px auto;
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        font-size: 10px;
+    }
+    
+    .spinner > div {
+        background-color:white;
+        height: 200%;
+        width: 6px;
+        display: inline-block;
+        -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+        -moz-animation: stretchdelay 1.2s infinite ease-in-out;
+        animation: stretchdelay 1.2s infinite ease-in-out;
+    }
+    
+    .spinner .rect2 {
+        -webkit-animation-delay: -1.1s;
+        -moz-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+    }
+    
+    .spinner .rect3 {
+        -webkit-animation-delay: -1.0s;
+        -moz-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+    
+    .spinner .rect4 {
+        -webkit-animation-delay: -0.9s;
+        -moz-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+    }
+    
+    .spinner .rect5 {
+        -webkit-animation-delay: -0.8s;
+        -moz-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+    }
+    
+    @-webkit-keyframes stretchdelay {
+        0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+        20% { -webkit-transform: scaleY(1.0) }
+    }
+    @-moz-keyframes stretchdelay {
+        0%, 40%, 100% { -moz-transform: scaleY(0.4) }  
+        20% { -moz-transform: scaleY(1.0) }
+    }
+    @keyframes stretchdelay {
+        0%, 40%, 100% { transform: scaleY(0.4); -webkit-transform: scaleY(0.4); -moz-transform: scaleY(0.4);} 
+        20% { transform: scaleY(1.0); -webkit-transform: scaleY(1.0);  -moz-transform: scaleY(1.0);}
+    }
+    /*
+    body.modal-open {
+        overflow: hidden;
+    }
+    .modal-open {
+        overflow: hidden;
+    }
+    .modal { overflow-y: auto; }*/
+    /* Portrait and Landscape */
+    
+    @media only screen 
+      and (min-device-width: 320px) 
+      and (max-device-width: 480px) {
+        .modal-dialog {
+            width: 95%;
+            margin:30px auto;
+        }
+        .modal-content{
+            height:100%;
+        }
+    }
+    
+    
+    .progress-bar.animate {
+        width: 100%;
+        overflow: hidden;
+    }
+    .cgphLoader{
+        /*top:40%; 
+        width:15%; 
+        height:15%; */
+        top:55%; 
+        width:30%; 
+        height:25%; 
+        margin-top:15%; 
+        margin-right:auto; 
+        margin-bottom:0; 
+        margin-left:auto;
+    }
+    
+
+
+.RegionMap {
+    position: absolute; 
+    left: 15px;
+    top: 55px;
+    
+}
+.container {
+  max-width: 1200px;
+  layout: block;
+  font-size: 1.25em;
+}
+
+h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3.5em;
+  font-weight: 600;
+  margin: 0;
+}
+
+h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2em;
+  font-weight: 400;
+  margin: 0 0 5px 0;
+}
+
+h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.4em;
+  font-weight: 400;
+  margin: 0;
+}
+
+h3 span {
+  font-size: .75em;
+  color: #777;
+}
+
+tr, th {
+  text-align:center;
+}
+/* Profile CSS */
+
+.header {
+  height: 120px;
+  margin-bottom: 10px;
+}
+
+.headerTitle {
+  font-size: 3em;
+  font-family: 'Open Sans', serif;
+  font-weight: 600;
+  color: #2b4981;
+  /*position: absolute;
+    bottom: 15px;
+  right: 35px;*/
+  
+  text-align: right;
+  padding-top: 8px;
+}
+
+.profileBlock {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  background-color: #e6f3fa;
+}
+
+
+
+.profileValue {
+  font-size: 1.3em;
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+}
+
+.HeadingBox {
+  font-size: 2.2em;
+  font-family: 'Open Sans', serif;
+  font-weight: 300;
+  background-color: #007cc2;
+  text-align: center;
+  height: 75px;
+  padding-top: 8px;
+  color:white;
+}
+
+.HeadingButton{
+  font-size: 2.2em;
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+  background-color: white;
+  text-align: center;
+  height: 75px;
+  padding-top: 8px;
+  color:black;
+  border:1px solid #ddd;
+}
+.HeadingButton:hover {
+  background-color: #e9eef2;
+}
+
+.SecondaryButton{
+  font-size: 1.75em;
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+  background-color: white;
+  text-align: center;
+  height: 60px;
+  padding-top: 6px;
+  color:black;
+  border:1px solid #ddd;
+}
+.SecondaryButton:hover {
+  background-color: #e9eef2;
+}
+.mt-1{
+margin-top:1rem;
+}
+.RightBar{
+  border-right:10px solid white;
+}
+
+.LeftBar{
+  border-left:10px solid white;
+}
+
+
+.WaitListBox {
+  padding-left: 0px;
+  padding-top: 0px;
+
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+}
+
+.MinicipStat {
+  font-size: 1.1em;
+  font-family: 'Open Sans', serif;
+  
+  padding-top: 0px;
+  text-align: center;
+}
+/* Property Thumbnail CSS */
+
+.propertyThumbnailBox1 {
+  margin: 25px 0px;
+  padding: 0px 0px;
+  /*background-color: #f3f7fa;*/
+  
+  border: 1px solid #ddd;
+  height: 142px;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+  -moz-user-select: none;
+  /* Firefox */
+  
+  -ms-user-select: none;
+  /* Internet Explorer */
+  
+  -khtml-user-select: none;
+  /* KHTML browsers (e.g. Konqueror) */
+  
+  -webkit-user-select: none;
+  /* Chrome, Safari, and Opera */
+  
+  -webkit-touch-callout: none;
+  /* Disable Android and iOS callouts*/
+}
+
+.propertyThumbnailBox1:hover {
+  background-color: #e9eef2;
+}
+
+.propertyThumbnailTitle {
+  padding-left: 15px;
+  font-size: 34px;
+  height: 30px;
+  float: left;
+  font-family: 'Open Sans Condensed', serif;
+  font-weight: 700;
+}
+
+.blueTitle1 {
+  color: #0e6bca;
+}
+
+.greenTitle1 {
+  color: #0d9845;
+}
+
+.greyTitle1 {
+  color: #aeaeae;
+}
+
+.propertySubtitle {
+  padding-left: 4px;
+  color: #999999;
+  height: 200px;
+  font-size: 24px;
+  font-family: 'Open Sans Condensed', serif;
+  font-weight: 700;
+}
+
+.propertyTitleRight {
+  padding-right: 15px;
+  float: right;
+  font-size: 34px;
+  font-family: 'Open Sans Condensed', serif;
+  font-weight: 700;
+}
+
+.blueTitle2 {
+  color: #0e6bca;
+}
+
+.greenTitle2 {
+  color: #19857b;
+}
+
+.propertyThumbnailBox2 {
+  padding: 5px 15px;
+  height: 30px;
+  color: white;
+  font-size: 14px;
+  font-family: 'Open Sans', serif;
+}
+
+.blueBox2 {
+  background-color: #007cc2;
+}
+
+.greenBox2 {
+  background-color: #0d9845;
+}
+
+.greyBox2 {
+  background-color: #aeaeae;
+}
+
+.propertyThumbnailBox3 {
+  position: relative;
+  padding: 5px 15px;
+  height: 68px;
+  color: white;
+  font-family: 'Open Sans', serif;
+}
+
+.blueBox3 {
+  background-color: #92cae9;
+}
+
+.greenBox3 {
+  background-color: #2ac468;
+}
+
+.propertyTitleRightBottom {
+  text-align: white;
+  font-size: 22px;
+  bottom: 5px;
+  right: 15px;
+  position: absolute;
+  font-family: 'Open Sans', serif;
+  font-weight: 300;
+}
+
+.blueTitle3 {
+  color: #006ac4;
+}
+
+.greenTitle3 {
+  color: #0c833f;
+}
+/*====================================================*/
+
+#CGPHTownshipPreferences {
+  margin-bottom: -9999px;
+  padding-bottom: 9999px;
+}
+
+.container {
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.waveBackground {
+  background-image: url('http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/08/white_wave.png');
+  background-repeat: repeat;
+}
+
+.InfoContent {
+  text-overflow: ellipsis;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px;
+  padding: 10px 35px;
+  font-family: Open Sans;
+  font-size: 1.25em;
+  height: 220px;
+  color: #fff;
+  background-color: transparent;
+  z-index: 100;
+  position: relative;
+  -moz-user-select: none;
+  /* Firefox */
+  
+  -ms-user-select: none;
+  /* Internet Explorer */
+  
+  -khtml-user-select: none;
+  /* KHTML browsers (e.g. Konqueror) */
+  
+  -webkit-user-select: none;
+  /* Chrome, Safari, and Opera */
+  
+  -webkit-touch-callout: none;
+  /* Disable Android and iOS callouts*/
+}
+
+.InfoArrow {
+  width: 100%;
+  height: 220px;
+  position: absolute;
+  top: 0px;
+  padding: 20px 10px 0 10px;
+  box-sizing: border-box;
+  z-index: 50;
+}
+
+.InfoArrowTop {
+  height: 110px;
+  width: 90%;
+  margin-left: 10px;
+  -webkit-transform: skew(10deg, 0deg);
+  -moz-transform: skew(10deg, 0deg);
+  -ms-transform: skew(10deg, 0deg);
+  -o-transform: skew(10deg, 0deg);
+  transform: skew(10deg, 0deg);
+}
+
+.InfoArrowBottom {
+  height: 110px;
+  width: 90%;
+  margin-left: 10px;
+  -webkit-transform: skew(-6deg, 0deg);
+  -moz-transform: skew(-6deg, 0deg);
+  -ms-transform: skew(-6deg, 0deg);
+  -o-transform: skew(-6deg, 0deg);
+  transform: skew(-10deg, 0deg);
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+}
+
+.MunicipalityContainer {
+  /*  cursor: pointer; */
+}
+
+.MunicipalityContent {
+  text-overflow: ellipsis;
+  margin: 10px;
+  padding: 10px;
+  font-family: Open Sans;
+  font-size: 1.25em;
+  height: 220px;
+  color: #333;
+  background-color: white;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+  -moz-user-select: none;
+  /* Firefox */
+  
+  -ms-user-select: none;
+  /* Internet Explorer */
+  
+  -khtml-user-select: none;
+  /* KHTML browsers (e.g. Konqueror) */
+  
+  -webkit-user-select: none;
+  /* Chrome, Safari, and Opera */
+  
+  -webkit-touch-callout: none;
+  /* Disable Android and iOS callouts*/
+}
+
+.MunicipalityButton {
+  font-size: 18px;
+  bottom: 25px;
+  right: 30px;
+  position: absolute;
+  font-family: 'Open Sans', serif;
+  font-weight: 700;
+}
+
+.columnheader {
+  font-size: 1em;
+  font-family: 'Open Sans', serif;
+  font-weight: 300;
+  background-color: #007cc2;
+  padding: 8px 0;
+  color:white;
+}
+.center {
+  text-align:center !important;
+  color:blue;
+  border:1px solid red;
+}
+.separate {
+  padding:15px 0;
+  border-bottom:1px solid #ccc;
+}
+
+.overdue {
+  color:orange; 
+}
+
+.btn {
+  border-radius:0;
+}
+
+ .customModal{
+  position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+  }
+  
+  .fadeCustom {
+    height:100%;
+    width:100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding:0;
+    margin:0;
+    border:0;
+    position:absolute;
+    overflow:hidden;
+    left:0px;
+    top:0px;
+    display:block;
+}
+    
+.alertBox{
+  width: 50%;
+    margin-left: 30%;
+    margin-top: 15%;
+    color: whitesmoke;
+  }
+  
+  .clsOrange{
+    color:orange;
+    }
+  
+  .clsRed{
+    color:red;
+     }
+    .divDisabled{
+        pointer-events: none;
+      opacity: 0.5;
+      background: #CCC;
+    }
+    .select2{
+       height:34px!important;
+      width:100%!important;
+        text-align: left;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow{
+    height:32px;
+    }
+    .option_label{
+    font-weight:700;
+    }
+    .option_sublabel {
+        font-size: 12px;
+        color: #605b5b;
+    }
+    .option_sublabel:hover, .select2-results__option--highlighted .option_sublabel{
+        font-size: 12px;
+        color: #ffffff;
+    }
+     .option_sublabel span{
+      font-weight:700;
+    }
+    .option_container{
+        position: relative;
+        padding: 2px 0px 3px 7px;
+        border-radius: 5px;
+    }
+    .eligible{
+     border-left: 3px solid #4caf50;
+    }
+    .Ineligible{
+        border-left: 3px solid #ff4848;
+    }
+    .select2-selection__placeholder{
+        font-size:14px;
+    }
+    .select2-selection--single {
+        border-left: none!important;
+        border-radius: 0px!important;
+        border-top-right-radius: 4px!important;
+        border-bottom-right-radius: 4px!important;
+        height:34px!important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 33px;
+    }
+</style>
+<script>
+ 
+$( document ).ready(function() {
+
+$('[data-toggle="popover"]').popover();
+  
+  $('#EIDeadline').click(function(){
+    $('#EIDeadlineLabel').popover('hide');
+  });  
+  
+    $('#EINote').click(function(){
+    $('#EINoteLabel').popover('hide');
+  });  
+  
+  $('.Deadline').datepicker({
+         startDate:new Date(Date.now()),
+         autoclose:true,
+         autoOpen: false
+     });
+     
+     
+  $('#HelpLink').click(function() {
+    $('#HelpModal').on('shown.bs.modal', function() {})
+    $('#HelpModal').modal({
+      show: true
+    })
+    console.log('got it');
+  });
+ 
+
+  $(".InviteSelect").click(function(){
+    var TotalSelected = $('input[type=checkbox]:checked').length;
+    var TotalSelected2 = $('.InviteSelect').find('input.checkbox:checked').length;
+    console.log('TotalSelected='+TotalSelected+'   invite selected= '+TotalSelected2); 
+    
+    if (TotalSelected > 10) {
+      $(this).prop('checked',false);
+      console.log('You can only invite btaches of 10. Please uncheck Applicnats before adding more.'); 
+    }
+
+  });  
+
+ $('.campaign-members').select2({
+     placeholder: 'Search applicant...',
+      ajax: {
+        dataType: 'json',
+        transport: function (params, success, failure) {
+           let application_scope = angular.element(document.getElementById("application")).scope();
+           if(application_scope){
+               application_scope.getCampaignMembers(params.data.term).then(result => {
+                   success(result );
+               })
+           }
+        },
+         processResults: function (data) {
+          let items = [];
+          data.forEach(item => {
+             item.id = item.Id;
+             item.text = item.Contact ? item.Contact.Name : 'Not specified';
+             items.push(item);
+          });
+          return {
+            results: items
+          };
+        },
+      },
+      minimumInputLength: 1,
+        allowClear: true,
+        templateResult: function (data) {
+             if (data.loading) {
+                return data.text;
+              }else{
+                  return $(
+                      "<div class=\"option_container "+ (data.Eligible_for_Property__c? 'eligible' : 'Ineligible')  +"\"><div class=\"option_label\">"+ data.text +"</div><div class=\"option_sublabel\"><span>Waitlist Order:</span> "+ (data.EA_Order__c ? data.EA_Order__c : '' )+"</div><div class=\"option_sublabel\"><span>Lottery Number:</span> "+ (data.Campaign_Member_Lottery_Number__c ? data.Campaign_Member_Lottery_Number__c : '' )+"</div><div class=\"option_sublabel\"><span>Eligibility:</span> "+ (data.Eligible_for_Property__c? 'Eligible' : 'Ineligible') +"</div></div>" 
+                  );
+              }
+        }
+        
+ }); 
+
+  $('.campaign-members').on('select2:select', function (e) {
+        let data = e.params.data;
+        let application_scope = angular.element(document.getElementById("application")).scope();
+       if(application_scope && data){
+          application_scope.showCampaignMemberDetails(data);
+       }
+    });
+    
+
+  
+});
+
+// -----------------------------------------------------------------
+// Google Chart
+// -----------------------------------------------------------------
+
+  // Load the Visualization API and the piechart package
+  google.load("visualization", "1", {
+    packages: ["corechart"]
+  });
+  
+Visualforce.remoting.timeout = 120000; // Set timeout at page level
+
+
+function SelectNone() {
+  $(".InviteSelect").prop('checked',false);
+}
+
+angular.module('myApp',[]).filter('moment', ['$rootScope', function($rootScope) {
+   return function(dateString, format) {
+     var localTime = moment.tz(dateString, $rootScope.timeZone)
+     return moment(localTime).format(format);
+  };
+}])
+.controller('Test',['$scope','$filter','$timeout',function($scope,$filter,$timeout){
+$scope.deadLineDate;
+$scope.outreachNote = '';
+$scope.outReachNoteFollowUp = '';
+$scope.loded = false;
+$scope.property = {};
+$scope.lstPreapplicant = [];
+$scope.lstPreapplicantInvited = [];
+$scope.lstPreapplicantNotInvited = [];
+$scope.applicant = {};
+$scope.todaysDate = new Date();
+$scope.deadLineDateFollowUp;
+$scope.followupStatus = '';
+$scope.sortPredicate;
+$scope.lottryNoToDisplay; 
+$scope.notInvitedSelectAll = false; 
+$scope.selected = 0;
+$scope.deadLineDatePostalMail;
+$scope.outreachNotePostalMail = '';
+$scope.outReachNotePhone = '';
+$scope.deadLineDatePhone;
+$scope.LotteryFieldName;
+$scope.iIvitedCount = 1;
+$scope.iNotIvitedCount = 1;
+$scope.mapInvited = {};
+$scope.mapNotInvited = {}; 
+$scope.iNotInvitedCount = 0; 
+
+
+$scope.currentPage = 1,$scope.numPerPage = 10,$scope.maxSize = 5;
+  
+/// get the custom settings check to see if the pre applicant trigger is off from the 
+// custom settings show the warning
+
+$scope.getTriggerSettings = function()
+{
+    // get the email limits
+     Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getPreAppTriggerSettings}', function(result, event){
+         if(event.statusCode == 200){
+            if(result.Pre_Applicant_Profile_Updates__c == false)
+                $scope.showError('Pre Applicant Trigger is inactive from custom settings');     
+            $scope.$apply();
+            debugger; 
+         }
+         else{
+            $scope.showError(event.type+' : '+event.message);
+         }
+         
+     });
+}
+
+
+
+// get the daily email limits for the organisation
+$scope.getEmailLimitsAction = function()
+{
+    // get the email limits
+     Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getEmailLimits}', function(result, event){
+         if(event.statusCode == 200){
+            $scope.iTotalEmailRemaining = result;
+            $scope.$apply();
+            debugger; 
+         }
+         else{
+            $scope.showError(event.type+' : '+event.message);
+         }
+         
+     });
+}
+
+$scope.getPropertyDetails = function(){
+    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getPropertyDetails}','{!strPropertyId}', function(result, event){
+         if(event.statusCode == 200){
+            $scope.property = result;
+            
+            var lotteryUsed ='';
+            if($scope.property.Lottery_Number_for_Priority__c != null && $scope.property.Lottery_Number_for_Priority__c != undefined)
+             lotteryUsed  = $scope.property.Lottery_Number_for_Priority__c.substring(0,$scope.property.Lottery_Number_for_Priority__c.length-3);
+            console.log(' 1 '+lotteryUsed);
+            lotteryUsed = lotteryUsed.replace(/\_/g, ' ');
+            console.log(' 2 '+lotteryUsed);
+            $scope.loaded = true;
+                        
+            $scope.property.Lottery_Number_for_Priority__c = lotteryUsed;
+            if (!$scope.$$phase && !$scope.$root.$$phase) $scope.$apply();
+
+         }
+         else
+         {
+            $scope.showError('Property query error '+event.type+' : '+event.message);
+         }
+    },{buffer: false});
+}
+
+$scope.initialise = function()
+{
+    $scope.startProcessing();
+    $scope.getTriggerSettings();
+    $scope.getEmailLimitsAction();
+    $scope.iIvitedCount = 1;
+    $scope.iNotIvitedCount = 1;
+    $scope.mapInvited = {};
+    $scope.mapNotInvited = {};  
+    $scope.property = {};
+    $scope.lstPreapplicant = [];
+    $scope.lstPreapplicantInvited = [];
+    $scope.lstPreapplicantNotInvited = [];
+    $scope.iTotalEmailRemaining = 1000;
+    $('#successModal').attr('style','display:none'); 
+    $('#errorModal').attr('style','display:none');
+    
+    
+    $scope.getPropertyDetails();
+    
+   
+    // add members to campaign 
+    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.addCampaignMembers}','{!strPropertyId}','30000', function(result, event){
+          
+         if(event.statusCode == 200){
+         debugger;
+         $scope.windowIntervalFutureJob = setInterval($scope.getJobStatus, 5000);
+                if (!$scope.$$phase && !$scope.$root.$$phase) 
+                    $scope.$apply();
+             }
+             else
+             {
+                $scope.loaded = true; 
+                $scope.stopProcessing();
+                if (!$scope.$$phase && !$scope.$root.$$phase) 
+                    $scope.$apply();
+                $scope.showError(event.type+' : '+event.message);
+             }
+        });
+}
+
+
+$scope.clearCheckBoxes = function(){
+     $(".InviteSelect").each(function (index, value){    
+      if($(value).is(":checked") == true)
+      {
+          $(value).prop("checked","");
+      }           
+    });
+}
+
+$scope.statusWiseMember;
+// load google chart
+ 
+$scope.drawChart = function(lstPreapplicant)
+{
+Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getStatusWiseMemberMap}','{!strPropertyId}', function(result, event){
+ if(event.statusCode == 200){
+    $scope.statusWiseMember = result;
+   var data = google.visualization.arrayToDataTable([
+    ['Session', 'Participants'],
+    ['Emailed',  $scope.statusWiseMember['Emailed'] != undefined ? $scope.statusWiseMember['Emailed'].length : 0],
+    ['Called', $scope.statusWiseMember['Called'] != undefined ? $scope.statusWiseMember['Called'].length : 0],
+    ['Mailed',  $scope.statusWiseMember['Mailed'] != undefined ? $scope.statusWiseMember['Mailed'].length : 0],
+    ['Not Interested in Unit', $scope.statusWiseMember['Not Interested in Unit'] != undefined ? $scope.statusWiseMember['Not Interested in Unit'].length : 0],
+  /*  ['Not Interested in Municip', $scope.statusWiseMember['Not Interested in Municip'] != undefined ? $scope.statusWiseMember['Not Interested in Municip'].length : 0],*/
+    ['Did Not Respond to Invite', $scope.statusWiseMember['Did Not Respond to Invite'] != undefined ? $scope.statusWiseMember['Did Not Respond to Invite'].length : 0],
+    ['Requested to Visit', $scope.statusWiseMember['Requested to Visit'] != undefined ? $scope.statusWiseMember['Requested to Visit'].length : 0],
+    ['Requested to Visit Not Advancing', $scope.statusWiseMember['Requested to Visit Not Advancing'] != undefined ? $scope.statusWiseMember['Requested to Visit Not Advancing'].length : 0],
+   /* ['Requested to Visit NQ', $scope.statusWiseMember['Requested to Visit NQ'] != undefined ? $scope.statusWiseMember['Requested to Visit NQ'].length : 0], */ 
+   /* ['Not Invited', $scope.lstPreapplicantNotInvited != undefined ? $scope.lstPreapplicantNotInvited.length : 0],*/
+  ]); 
+  
+          
+              var options = {
+                pieHole: 0.5,
+                tooltip: {
+                //  trigger: 'none'
+                },
+                chartArea: {
+                  left: 10,
+                  top: 10,
+                  width: '100%',
+                  height: '280'
+                },
+                backgroundColor: {
+                  fill: 'transparent'
+                },
+                pieSliceBorderColor: 'transparent'
+              };
+            
+              // Create charts for each Session
+              var chart = new google.visualization.PieChart(document.getElementById('CampaignChart'));
+              chart.draw(data, options);            
+         }
+         else
+         {
+            $scope.showError(event.type+' : '+event.message);
+         }
+    },{buffer: false});
+
+}
+
+// signle EMAIL action
+$scope.sendEmailAction = function(applicant)
+{
+    $scope.applicant = applicant; 
+    $('#EmailInviteModal').modal({show: true});
+    $('#emailMany').val('SingleEmail');
+}
+
+
+
+
+// send Mass EMAIL action
+$scope.sendMassEmailAction = function()
+{
+    
+    if($scope.selected > 0)
+    {
+        $scope.applicant = {}; 
+        $('#EmailInviteModal').modal({show: true});
+        $('#emailMany').val('MassEmail');
+    }else{
+    $scope.showError('Please select at least one record');
+    $scope.stopProcessing();
+    }
+}
+
+
+
+// EMAIL invite yes action
+$scope.EmailInviteYes = function(applicant){
+    if( $('#emailMany').val() == 'SingleEmail' )
+    {
+        $scope.startProcessing();    
+        var lstContactIds = [];
+        var lstPreAppIds = [];
+        lstContactIds.push(applicant.preApplicant.Contact__c);
+        lstPreAppIds.push(applicant.preApplicant.Id);
+        
+        if($scope.validateModal('Email') == true)
+        {    
+            $('#EmailInviteModal').modal('hide');
+                 
+            if(lstContactIds != null && lstContactIds.length > 0)
+                $scope.sendEmail(lstContactIds,lstPreAppIds,'New Invite','Email');
+        }
+        else{
+            $scope.stopProcessing();     
+        }
+    }
+    else if( $('#emailMany').val() == 'MassEmail' )
+    {
+        // call select all function
+        $scope.emailSelected();
+    }
+}
+
+
+
+
+// single POSTAL MAIL action
+//sendSingleMailAction
+$scope.sendPostalMailAction = function(applicant)
+{
+    $scope.applicant = applicant; 
+    $('#PostalMailInviteModal').modal({show: true});
+    $('#emailManyPostalMail').val('SinglePostalMail');
+}
+
+
+//open phone modal
+$scope.PhoneAction = function(applicant)
+{
+    $scope.startProcessing();
+    $scope.applicant = applicant; 
+    $('#PhoneModal').modal({show: true});
+    $scope.stopProcessing();
+//  $('#emailManyPostalMail').val('SinglePostalMail'); 
+}
+
+// send Mass POSTAL MAIL Action
+
+
+$scope.sendMassPostalMailAction = function() 
+{
+    var selectedRecords = 0;
+    
+    $(".InviteSelect").each(function (index, value){    
+            var preAppId =  value.getAttribute('valPreAppId');     
+            var conID = value.getAttribute('valConId');
+            if($(value).is(":checked") == true)
+            {
+                selectedRecords++;
+            }           
+          });
+            
+    if(selectedRecords > 0)
+    {
+        $scope.applicant = {}; 
+        $('#PostalMailInviteModal').modal({show: true});
+        $('#emailManyPostalMail').val('MassPostalMail');
+    }else{
+    $scope.showError('Please select at least one record');
+    $scope.stopProcessing();
+    }
+}
+
+
+
+// POSATAL MAIL yes Action
+
+$scope.PostalMailInviteYes = function(applicant){
+    //if( $('#emailManyPostalMail').val() == 'SinglePostalMail' )
+    {
+        $scope.startProcessing();    
+        var lstContactIds = [];
+        var lstPreAppIds = [];
+        
+        if( $('#emailManyPostalMail').val() ==  'MassPostalMail')
+        {
+                    $(".InviteSelect").each(function (index, value){    
+                    var preAppId =  value.getAttribute('valPreAppId');     
+                    var conID = value.getAttribute('valConId');
+                    if($(value).is(":checked") == true)
+                    {
+                        lstContactIds.push(conID);
+                        lstPreAppIds.push(preAppId);
+                    }           
+                  });
+        
+        }
+        else if( $('#emailManyPostalMail').val() == 'SinglePostalMail' )
+        {
+            lstContactIds.push(applicant.preApplicant.Contact__c);
+            lstPreAppIds.push(applicant.preApplicant.Id);
+        }
+        
+        
+        if($scope.validateModal('PostalMail') == true)
+        {    
+            $('#PostalMailInviteModal').modal('hide');
+                 
+            if(lstContactIds != null && lstContactIds.length == 1)
+            {
+                $scope.sendSingleMailAction(lstContactIds,lstPreAppIds); // need to replace this function
+            }
+            else if(lstContactIds != null && lstContactIds.length > 0)
+            {                
+                $scope.sendMailAction(lstContactIds,lstPreAppIds);
+            }
+        }
+        else{
+            $scope.stopProcessing();     
+        }
+    }
+    //else if( $('#emailManyPostalMail').val() == 'MassPostalMail' )
+    {
+        // call select all function
+        //$scope.sendMailAction();
+    }
+}
+
+
+// send mail action
+
+$scope.sendSingleMailAction = function(lstContactIds,lstPreAppIds)
+{
+
+    $scope.startProcessing();                    
+    if(lstContactIds != null && lstContactIds.length > 0)
+    {
+        $scope.outReachNoteFollowUp = $scope.outreachNotePostalMail;
+        //var d = new Date();
+        $scope.deadLineDateFollowUp = $scope.deadLineDatePostalMail;//$scope.getDate($scope.deadLineDatePostalMail);
+        $scope.followupStatus = 'Mailed';
+        $scope.YesFollowUP(lstContactIds,lstPreAppIds,'New Invite');
+    }
+    $scope.stopProcessing();      
+}
+
+
+// mail selected
+$scope.sendMailAction = function(lstContactIds,lstPreAppIds){
+
+    $scope.startProcessing();    
+
+        $('#PostalMailInviteModal').modal('hide');
+             
+        if(lstContactIds != null && lstContactIds.length > 0)
+        {
+            $scope.outReachNoteFollowUp = $scope.outreachNotePostalMail;
+            //var d = new Date();
+            $scope.deadLineDateFollowUp = $scope.deadLineDatePostalMail;//$scope.getDate(d);
+            $scope.followupStatus = 'Mailed';
+            $scope.YesFollowUP(lstContactIds,lstPreAppIds,'New Invite');
+        }
+        else{
+        $scope.showError('Please select at least one record');
+        }   
+            $scope.stopProcessing();
+}
+
+
+$scope.validateModal = function(modalName)
+{
+   
+    var isValid = true
+    if(modalName == 'Email')
+    {
+      // deadline date 
+      if( $('#EIDeadline').val() == '') {
+        isValid = false;
+        $('#EIDeadlineLabel').popover('show');   
+      } 
+      else 
+      {
+        $('#EIDeadlineLabel').popover('hide');
+      }
+  
+    }
+    
+    
+    if(modalName == 'PostalMail')
+    {
+      // deadline date 
+      if( $('#EIDeadlinePostalMail').val() == '') {
+        isValid = false;
+        $('#EIDeadlineLabelPostalMail').popover('show');   
+      } 
+      else 
+      {
+        $('#EIDeadlineLabelPostalMail').popover('hide');
+      }
+    }
+    
+    if(modalName == 'PostalEmail')
+    {
+      // deadline date 
+      if( $('#EIDeadline').val() == '') {
+        isValid = false;
+        $('#EIDeadlineLabelPostalMail').popover('show');   
+      } 
+      else 
+      {
+        $('#EIDeadlineLabelPostalMail').popover('hide');
+      }
+      
+      // outreach note 
+     /* if( $('#EINotePostalMail').val() == '') {
+        isValid = false;
+        $('#EINoteLabelPostalMail').popover('show');   
+      } 
+      else 
+      {
+        $('#EINoteLabelPostalMail').popover('hide'); 
+      }*/
+    }
+    
+    
+    if(modalName == 'FollowUp')
+    {
+      // deadline date 
+      if( $('#CADeadline').val() == '') {
+        isValid = false;
+        $('#CADeadlineLabel').popover('show');   
+      } 
+      else 
+      {
+        $('#CADeadlineLabel').popover('hide');
+      }
+      
+      // outreach note /* It is not required as per trello request on 16 March */ 
+     /* if( $('#CANote').val() == '') {
+        isValid = false;
+        $('#CANoteLabel').popover('show');   
+      } 
+      else 
+      {
+        $('#CAINoteLabel').popover('hide'); 
+      }
+      */ 
+      // check if action is selected
+      if( $('#radioNotIntrestedUnit').is(":checked") || $('#radioDidNotRespondToInvite').is(":checked")  ||  $('#radioRTVNotAdvancing').is(":checked") ||  /*$('#radioNotIntrestedMunicipality').is(":checked")  ||  $('#radioRemoveFromWL').is(":checked") || */ $('#radioAttemptedContact').is(":checked") || $('#radioResendEmail').is(':checked'))
+      {
+         $('#FolloUpActionLbl').popover('hide'); 
+         
+        if($('#radioNotIntrestedUnit').is(":checked") == true )
+            $scope.followupStatus = 'Not Interested in Unit';
+        /*if( $('#radioNotIntrestedMunicipality').is(":checked") == true ) // this two options are removed from follow up modal as per trello card
+            $scope.followupStatus = 'Not Interested in Unit';//'Not Interested in Municipality';
+        if( $('#radioRemoveFromWL').is(":checked") == true )
+            $scope.followupStatus = 'Not Interested in Unit';//'Remove me from all waiting lists';
+            */
+        if( $('#radioDidNotRespondToInvite').is(":checked") == true ) // this two options are added to follow up modal as per trello card
+            $scope.followupStatus = 'Did Not Respond to Invite'; //'Remove me from all waiting lists';
+        if( $('#radioRTVNotAdvancing').is(":checked") == true )
+            $scope.followupStatus = 'Requested to Visit Not Advancing';
+            
+        if( $('#radioAttemptedContact').is(":checked") == true )
+            $scope.followupStatus = 'Called';
+        if( $('#radioResendEmail').is(':checked') == true )
+            $scope.followupStatus = 'Emailed';
+        
+      }
+      else{
+         $('#FolloUpActionLbl').popover('show'); 
+         isValid = false;
+      }
+    }
+    
+    
+    
+    if(modalName == 'PhoneModal')
+    {
+      // deadline date 
+      if( $('#PHDeadline').val() == '') {
+        isValid = false;
+        $('#PHDeadlineLabel').popover('show');   
+      } 
+      else 
+      {
+        $('#PHDeadlineLabel').popover('hide');
+      }
+      
+      // outreach note  
+     /* if( $('#PHNote').val() == '') {
+        isValid = false;
+        $('#PHNoteLabel').popover('show');   
+      } 
+      else 
+      {
+        $('#PHINoteLabel').popover('hide'); 
+      }*/
+      
+      // check if action is selected
+      if( $('#radioNotIntrestedUnitPhone').is(":checked") || $('#radioAttemptedContactPhone').is(":checked"))
+      {
+         $('#PhoneActionLbl').popover('hide'); 
+         
+        if($('#radioNotIntrestedUnitPhone').is(":checked") == true )
+            $scope.followupStatus = 'Not Interested in Unit';
+        
+        if( $('#radioAttemptedContactPhone').is(":checked") == true )
+            $scope.followupStatus = 'Called';
+      }
+      else{
+         $('#PhoneActionLbl').popover('show'); 
+         isValid = false;
+      }
+    }
+    
+    return isValid; 
+}
+
+$scope.sendEmail = function(lstContactIds,lstPreAppIds,strInviteType,strInviteMethod)
+{       debugger;
+        var iBatchSize = 55;
+        var deadLineDate = new Date();
+        console.log('deadLineDate '+deadLineDate);      
+        var dateArr = $scope.deadLineDate.split('/');
+        var newDate = dateArr[0]+ '/' + dateArr[1]+ '/' + dateArr[2];
+        
+        var lstBatchContactIds = [];
+        var lstBatchPreAppIds = [];
+        
+        var iTotalCount = 0;
+      
+        // create batches for mass emails        
+        for( iCount = 0 ; iCount < lstContactIds.length ; iCount++ )
+        {
+            iTotalCount++;
+            lstBatchContactIds.push(lstContactIds[iCount]);
+            lstBatchPreAppIds.push(lstPreAppIds[iCount]);
+            if(lstBatchContactIds.length >= iBatchSize || iTotalCount >= lstContactIds.length)
+            {
+            
+             if( $scope.iTotalEmailRemaining - lstBatchContactIds.length >= {!configuredPreAppEmailLimit} )
+             {
+                deadLineDate = newDate;
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.sendEmail}',$scope.property.Campaign__c,$scope.property.Id,lstBatchContactIds,deadLineDate,$scope.outreachNote,lstBatchPreAppIds,strInviteType,strInviteMethod, function(result, event){
+                
+                     if(event.statusCode == 200){
+                        if( iTotalCount >= lstContactIds.length )
+                        {
+                            $scope.initialise();
+                            if (!$scope.$$phase && !$scope.$root.$$phase)
+                            $scope.$apply();
+                            $scope.stopProcessing();
+                            $scope.showSuccess('Invite Email Sent');
+                        }
+                     }
+                     else
+                     {
+                        $scope.showError(event.type+' : '+event.message);
+                        $scope.stopProcessing();
+                     }
+            },{buffer: true, escape: true, timeout: 120000});
+            
+            lstBatchPreAppIds = [];
+            lstBatchContactIds = [];
+            }
+            else{
+                $scope.showError('Error : '+'Exceeding daily email limit. Can\'t send email');
+                $scope.stopProcessing();
+            }
+            
+         }
+        //  $scope.getEmailLimitsAction();
+    }
+    
+    $scope.getEmailLimitsAction();
+}
+
+
+// Display Loading Animation
+$scope.startProcessing = function() {
+  $('.js-loading-bar').modal('show');
+  $('.js-loading-bar').find('.progress-bar').addClass('animate');
+}
+
+// Remove Loading Animation and dont show modal
+$scope.stopProcessing = function() {
+  $('.js-loading-bar').find('.progress-bar').removeClass('animate');
+ 
+  setTimeout(function() {
+   $('.js-loading-bar').modal('hide');
+    $('#fade').attr('style','display:none');
+  },1000);
+}
+
+
+$scope.showSuccess = function (message) {
+        $('html, body').animate({ scrollTop: 0 }, 'fast', function () {
+        $('#successModal').attr('style','display:block');
+                $("#success-alert").alert();
+                $('#alertMessage').html(message);
+               $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+               $('#successModal').attr('style','display:none');
+        });           
+        });
+    };
+    
+$scope.showError = function (message) {
+        $('html, body').animate({ scrollTop: 0 }, 'slow', function () {
+        $('#errorModal').attr('style','display:block'); 
+        $('#error-alert').attr('style','display:block');
+        //$('#error-alert').attr('style','background-color:#F44336');
+        $('#error-alert').attr('style','opacity:1;background-color:#F44336');
+        
+                $("#error-alert").alert();
+                $('#alertMessageError').html(message);
+                /*$("#error-alert").fadeTo(2000, 500).slideUp(1000, function(){
+                 $('#errorModal').attr('style','display:none');           
+                    });*/
+                 });
+    };
+    
+$scope.showReportLink = function(message){
+        $('html, body').animate({ scrollTop: 0 }, 'slow', function () {
+        $('#reportModal').attr('style','display:block'); 
+                $("#report-alert").alert();
+                $('#alertMessageReport').html(message);
+          });
+} 
+// Show Confirmation Modals
+$scope.ConfirmationModal = function(Object, Action, RecordName, Id) {
+  // Set Data Attributes in Confirmation Modal
+  $('#ConfirmationModal').data('object',Object);
+  $('#ConfirmationModal').data('action',Action);
+  $('#ConfirmationModal').data('id',Id);
+  
+  var NewBody = document.getElementById('ConfirmationModalBody');
+
+  switch (Object) { 
+       case 'Team': 
+       NewBody.innerHTML = '<h4>Are you sure you want to remove ' + RecordName + '?</h4>';
+       break;
+     case 'Remove': 
+       if(Action == 'Municipality') {
+         NewBody.innerHTML = '<h4>Are you sure you want to remove ' + RecordName + ' - Municipality message?</h4>';
+       } else if (Action == 'NoResponse') {
+         NewBody.innerHTML = '<h4>Are you sure ' + RecordName + ' - did not responsed message?</h4>';   
+       } else if (Action == 'NotQualified') {
+         NewBody.innerHTML = '<h4>Are you sure you want to remove ' + RecordName + ' - not qualified confirmation message?</h4>';   
+       } else if (Action == 'RemoveAll') {
+         NewBody.innerHTML = '<h4>Are you sure you want to remove ' + RecordName + ' - remove all confirmation message?</h4>';   
+       }
+           break;        
+  }
+  $('#ConfirmationModal').modal({show: true});
+}
+
+
+
+// Call Attempt Modal confirmed actions
+ $scope.ConfirmationModalYes = function() {
+    var DataObject = $('#ConfirmationModal').data('object'); 
+    var DataAction = $('#ConfirmationModal').data('action'); 
+    var DataId = $('#ConfirmationModal').data('id'); 
+    
+    switch (DataObject) { 
+        case 'Team': 
+        // Call Remove Code for Team Record
+        break;
+      case 'Session':
+        if(DataAction == 'Remove') {
+          // Call Remove Code for Session Record
+        } else if(DataAction == 'Clone') {
+          // Call Clone Code for Session Record
+        }
+        break;        
+    }
+    
+    $('#ConfirmationModal').modal('hide');
+  };
+    
+// compare 2 dates
+$scope.compareDates = function(start,end) 
+{
+    if(start != undefined && end != undefined)
+    {
+        if(new Date(start) > new Date(end))
+        return true;
+        else;
+        return false
+    }
+}    
+
+$scope.dateDiff = function(start,end){
+    if(start != undefined && end != undefined)
+    {
+        if(new Date(start) > new Date(end))
+        {
+            var timeDiff = Math.abs(start - end); 
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            return diffDays;
+        }
+        else
+        {
+            return -10;
+        }
+    } 
+    return -10;
+}
+
+
+// show followup modal
+ $scope.showFollowUpModal = function(applicant) {
+    debugger;
+    $scope.startProcessing();
+    $scope.applicant = applicant;
+    // get the follow up information for note and dead line feom the campaign member
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getCampaignMember}',applicant.member.Id,function(result, event){
+             if(event.statusCode == 200){
+                $('#FollowUpModal').on('shown.bs.modal', function() {})
+                    $('#FollowUpModal').modal({
+                      show: true
+                    })
+                    
+                    if($scope.applicant.preApplicant.Contact__r.EB_tools__Email_Verification__c == 'Problem')
+                        $('#radioResendEmail').attr('disabled',true);
+                    else
+                        $('#radioResendEmail').attr('disabled',false);
+                    moment.tz.add([
+                        'America/New_York|EST EDT|50 40|0101|1Lz50 1zb0 Op0'
+                    ]);
+                    moment.tz.setDefault("America/New_York"); 
+                $scope.outReachNoteFollowUp = result.Note__c; 
+                var strDate = $scope.calcTime(result.Deadline_Date__c);
+                //var d = new Date($scope.calcTime(result.Deadline_Date__c));
+                //var strDate =  (d.getMonth() + 1) + '/' + d.getDate()+ '/' + d.getFullYear();
+                
+                $scope.deadLineDateFollowUp = strDate;
+                $scope.$apply();
+                $scope.stopProcessing();
+             }
+             else
+             {
+                $scope.showError(event.type+' : '+event.message);
+                $scope.stopProcessing();
+             }
+        });
+    
+  };
+  
+  
+$scope.FollowUpActionYes = function(applicant){
+    $scope.startProcessing();    
+    var lstContactIds = [];
+    var lstPreAppIds = [];
+    lstContactIds.push(applicant.preApplicant.Contact__c);
+    lstPreAppIds.push(applicant.preApplicant.Id);
+    
+    if($scope.validateModal('FollowUp') == true)
+    {
+        $('#FollowUpModal').modal('hide');
+             
+        if(lstContactIds != null && lstContactIds.length > 0)
+            $scope.YesFollowUP(lstContactIds,lstPreAppIds,'Follow Up');
+    }
+    else{
+        $scope.stopProcessing();     
+    }
+}
+  
+
+$scope.RTVLink = function(applicant){
+  $('#FollowUpModal').modal('hide');
+  $('#PhoneModal').modal('hide');
+  debugger;
+  var lotterNumber = '';
+  
+  if(applicant.strLotteryField == 'Village_Court_Seniors__c' && applicant.preference.Village_Court_Seniors__c != null)
+    lotterNumber = applicant.preference.Village_Court_Seniors__c;
+  else
+  if(applicant.strLotteryField == 'Rivendell_Heights__c' && applicant.preference.Rivendell_Heights__c != null)
+    lotterNumber = applicant.preference.Rivendell_Heights__c;
+  else
+  if(applicant.strLotteryField == 'Edison_Market_to_Affordable__c' && applicant.preference.Edison_Market_to_Affordable__c != null)
+    lotterNumber = applicant.preference.Edison_Market_to_Affordable__c;
+  else
+  if(applicant.strLotteryField == 'Evergreen_Court_Wyckoff__c' && applicant.preference.Evergreen_Court_Wyckoff__c != null)
+    lotterNumber = applicant.preference.Evergreen_Court_Wyckoff__c;
+  else
+  if(applicant.strLotteryField == 'Lottery_Number__c' && applicant.preference.Lottery_Number__c != null)
+    lotterNumber = applicant.preference.Lottery_Number__c;
+  else
+  if(applicant.strLotteryField == 'Woodmont_Station_at_Cranford__c' && applicant.preference.Woodmont_Station_at_Cranford__c != null)
+    lotterNumber = applicant.preference.Woodmont_Station_at_Cranford__c;
+  else
+  if(applicant.strLotteryField == 'Centerplace_at_Edison__c' && applicant.preference.Centerplace_at_Edison__c != null)
+    lotterNumber = applicant.preference.Centerplace_at_Edison__c;   
+  else
+  if(applicant.strLotteryField == 'Valley_Bloom__c' && applicant.preference.Valley_Bloom__c != null)
+    lotterNumber = applicant.preference.Valley_Bloom__c;    
+  else  
+  if(applicant.strLotteryField == 'Laurel_Green__c' && applicant.preference.Laurel_Green__c != null)
+    lotterNumber = applicant.preference.Laurel_Green__c; 
+  else
+  if(applicant.strLotteryField == 'Village_of_Bridgewater__c' && applicant.preference.Village_of_Bridgewater__c != null)
+    lotterNumber = applicant.preference.Village_of_Bridgewater__c; 
+  else  
+  if(applicant.strLotteryField == 'Fairway_28__c' && applicant.preference.Fairway_28__c != null)
+    lotterNumber = applicant.preference.Fairway_28__c;      
+  
+  
+  
+
+  var encodedURL = $scope.property.Property_Questionnaire_URL__c + applicant.preApplicant.Property_Questionnaire_URL__c + "&tfa_470=False&tfa_579=" + $scope.property.Campaign__c + '&tfa_581=' + applicant.member.Id + '&tfa_586=' + lotterNumber + '&tfa_588=' + $scope.calcTime(applicant.preference.Interest_Date__c);
+  encodedURL = encodedURL.replace(/amp;/g, '');
+  window.open(encodedURL, "RTVWindow", '_blank');
+
+ }
+
+
+$scope.PhoneActionYes = function(applicant){
+    $scope.startProcessing();    
+    var lstContactIds = [];
+    var lstPreAppIds = [];
+    lstContactIds.push(applicant.preApplicant.Contact__c);
+    lstPreAppIds.push(applicant.preApplicant.Id);
+    
+    if($scope.validateModal('PhoneModal') == true)
+    {
+        $('#PhoneModal').modal('hide');
+        $scope.outReachNoteFollowUp = $scope.outReachNotePhone;
+        $scope.deadLineDateFollowUp = $scope.deadLineDatePhone; 
+        
+        if(lstContactIds != null && lstContactIds.length > 0)
+            $scope.YesFollowUP(lstContactIds,lstPreAppIds,'New Invite');
+    }
+    else{
+        $scope.stopProcessing();     
+    }
+}
+
+$scope.constructDate = function(strDateVal){
+    
+    var newDate;
+    var arrDate = [];
+    arrDate = strDateVal.split('/');
+    newDate = arrDate[0] + '/' + arrDate[1] + '/' + arrDate[2];
+    return newDate;
+}
+
+  // do submit action for follow up
+  
+$scope.YesFollowUP = function(lstContactIds,lstPreAppIds,strInviteType) 
+{
+        
+        var deadLineDateFollowup = new Date();
+        //var dateArr = $scope.deadLineDate.split('/');
+        //var newDate = dateArr[1]+ '/' + dateArr[0]+ '/' + dateArr[2];
+        
+        deadLineDateFollowup = $scope.deadLineDateFollowUp;//$scope.constructDate($scope.deadLineDateFollowUp);
+        if($scope.followupStatus == 'Emailed')
+        {
+            $scope.deadLineDate = $scope.constructDate($scope.deadLineDateFollowUp);
+            $scope.outreachNote = $scope.outReachNoteFollowUp;
+            if( $scope.outreachNote == null || $scope.outreachNote == undefined )
+                $scope.outreachNote = '';
+            $scope.sendEmail(lstContactIds,lstPreAppIds,'Follow up','Email');
+        }
+        else{
+            if( $scope.outReachNoteFollowUp == null || $scope.outReachNoteFollowUp == undefined )
+                $scope.outReachNoteFollowUp = '';
+                debugger;
+                $scope.deadlineDatePhone = $scope.constructDate($scope.deadLineDateFollowUp);
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.followUpAction}',$scope.property.Campaign__c,$scope.property.Id,lstContactIds,$scope.deadlineDatePhone,$scope.outReachNoteFollowUp
+            ,lstPreAppIds,$scope.followupStatus,strInviteType,function(result, event){
+             if(event.statusCode == 200){
+             
+                
+                $scope.stopProcessing();
+                $scope.showSuccess('Follow up action succeeded!!');
+                
+                if($scope.followupStatus == 'Mailed')
+                {
+                    $scope.showReportLink('<a href="{!instanceURL}/{!reportName}?pv2='+$scope.property.Campaign__c + '" target="_blank">Link to Mailing List</a>');
+                }
+                
+                $scope.initialise();
+                if (!$scope.$$phase && !$scope.$root.$$phase) 
+                $scope.$apply();
+             }
+             else
+             {
+                $scope.showError(event.type+' : '+event.message);
+                $scope.stopProcessing();
+             }
+        });
+    }
+}
+    
+//
+$scope.SelectAll = function() 
+{
+  // delect 
+//  SelectNone();
+    debugger;
+  //var selected = 0;  
+  $scope.selected = 0;
+  $(".InviteSelect").each(function (index, value){
+    if($scope.selected<100) { 
+    if($scope.notInvitedSelectAll == true)
+    {
+      $(this).prop('checked',true);
+      $scope.selected++;
+    }
+     else
+        $(this).prop('checked',false);
+      
+    }
+  });
+  //$scope.showSuccess($scope.selected+' records selected');
+}
+
+
+$scope.objMapAppliants = {};
+$scope.checkSelectedBox = function(modalName)
+{
+    if($scope.objMapAppliants[modalName] == true )
+        $scope.selected++;
+    else
+        $scope.selected--;
+}
+
+// email selected
+
+$scope.emailSelected = function()
+{
+    $scope.startProcessing();    
+    var lstContactIds = [];
+    var lstPreAppIds = [];
+    
+
+    if($scope.validateModal('Email') == true)
+    {    
+    $(".InviteSelect").each(function (index, value){    
+            var preAppId =  value.getAttribute('valPreAppId');     
+            var conID = value.getAttribute('valConId');
+            if($(value).is(":checked") == true)
+            {
+                lstContactIds.push(conID);
+                lstPreAppIds.push(preAppId);
+            }           
+          });
+    
+        $('#EmailInviteModal').modal('hide');
+             
+        if(lstContactIds != null && lstContactIds.length > 0)
+            $scope.sendEmail(lstContactIds,lstPreAppIds,'New Invite','Email');
+    }
+    else{
+        $scope.stopProcessing();     
+    }
+}
+
+
+// function for date formatting
+$scope.getDate = function(date){
+  var d =  (date.getMonth() + 1) + '/' + date.getDate()+ '/' +  date.getFullYear();
+  return d;
+}
+
+// close error msg
+$scope.closeError = function()
+{
+    //$('#errorModal').attr('style','display:none');
+    $("#error-alert").fadeTo( "slow", 0.33).slideUp(500, function(){
+      $('#errorModal').attr('style','display:none');           
+         })
+}
+
+// close report
+// close error msg
+$scope.closeReport = function()
+{
+    //$('#errorModal').attr('style','display:none');
+    $("#report-alert").fadeTo( "slow", 0.33).slideUp(500, function(){
+      $('#reportModal').attr('style','display:none');           
+         })
+}
+
+
+
+$scope.flaggedCheckBoxes = function() 
+{
+  console.log('Here ' +$('input:checkbox.Flagged').length);
+  $('input:checkbox.Flagged').each(function() {
+    console.log('value='+ $(this).val());
+    if($(this).val()=="true"){
+      console.log('checking it');
+      $(this).prop( "checked", true );      
+    }
+  });
+
+}    
+
+
+// date difference measure
+
+$scope.calcTime = function(dateVal) {
+        var newDate;
+        if(dateVal != '' && dateVal != null)
+        {
+            var offset = 240; // this is timezone offset for America/New_York
+            // create Date object for current location
+            d = new Date(dateVal);
+           // convert to msec, add local time zone offsetand  get UTC time in msec
+            utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            // create new Date object with supplied offset
+            nd = new Date(utc);
+            // return time as a string
+            var dateArr = nd.toLocaleDateString().split('/');
+            newDate = dateArr[0]+ '/' + dateArr[1]+ '/' + dateArr[2];
+        }
+        
+        return newDate;
+    }
+    
+    
+    $scope.incrementInvitedIndex = function(index,app){
+           if( app.status == 'Ineligible, Pending staff action' || app.status == 'Requested to Visit' || app.status == 'Emailed' || app.status == 'Mailed' || app.status == 'Called' )
+            $scope.mapInvited[index] = $scope.iIvitedCount++;
+    } 
+    
+    
+   
+    $scope.incrementNotInvitedIndex = function(index,app){
+        if( app.status == 'Not Invited')
+            $scope.mapNotInvited[index] = $scope.iNotIvitedCount++;
+    } 
+    
+    $scope.windowInterval;
+    $scope.criteriaCalcJob = false;
+    $scope.startCriteriaCalcAction = function(){
+            $scope.startProcessing();
+            $scope.criteriaCalcJob = true;
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.startCriteriaCalculations}','{!strPropertyId}', function(result, event){
+             $scope.stopProcessing();
+             if(event.statusCode == 200){
+             debugger;
+               if( result == true){
+                  // $scope.showSuccess('Property Criteria Calculation Job Started');
+                   $scope.windowInterval = setInterval($scope.getJobStatus, 5000);
+                   $('#statusModal').modal({backdrop: 'static', keyboard: false}); 
+                   $('#statusModal').modal('show');
+               }
+              if (!$scope.$$phase && !$scope.$root.$$phase) $scope.$apply();
+             }
+             else
+             {
+                $scope.showError('Error in starting the criteria calclulation job '+event.type+' : '+event.message);
+             }
+        });
+      }
+    
+    $scope.searchKey = '';
+    $scope.timer = null;
+    $scope.campaignMemberRecords = [];
+    $scope.campaignMemberDetails = {};
+    
+    $scope.showCampaignMemberDetails = function(details){
+        $scope.campaignMemberDetails = details;
+        $scope.$apply();
+        $('#campaign_memner_details').modal({backdrop: 'static', keyboard: false}); 
+        $('#campaign_memner_details').modal('show');
+    }
+    
+    
+    $scope.getCampaignMembers = function(searchKey){
+    
+        return new Promise((resolve, reject) => {
+               if(searchKey && searchKey.trim()){
+                   Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.searchCampaignMembers}',searchKey,$scope.property.Campaign__c, function(result, event){
+                      if(event.statusCode == 200){
+                                resolve(result);
+                      }
+                       else{
+                           resolve([]);
+                       }
+                   });
+               }else{
+                   resolve([]);
+               }
+        });           
+    }
+    
+    $scope.searchCampaignMember = function(){
+    
+        if( $scope.timer ) $timeout.cancel($scope.timer);
+                
+                                  if( $scope.searchKey =='' ){
+                                      $scope.campaignMemberRecords = [];
+                                  }
+                                  else{
+                                 $scope.timer = $timeout( function(){
+                                          Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.searchCampaignMembers}',$scope.searchKey,$scope.property.Campaign__c, function(result, event){
+                                        debugger;
+                                             if(event.statusCode == 200){
+                                                    $scope.campaignMemberRecords = result;
+                                                    $scope.$apply();
+                                               }
+                                               else{
+                                               
+                                               }
+                                               });
+                                
+                                }, 1000);
+                                
+                                }
+                                
+                               
+    }
+    
+    $scope.selectAction = function(record){
+       console.log(record.Id);
+    }
+      
+    $scope.loadRecords = function(recCount){
+                        $scope.startProcessing();
+                        $scope.getPropertyDetails();
+                        recCount == null ? recCount = 2000 : recCount;
+                       Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getMembersDetails}','{!strPropertyId}','30000',recCount, function(result, event){
+                        debugger;
+                             if(event.statusCode == 200){
+                                $scope.lstPreapplicant = []; 
+                                $scope.lstPreapplicant = result;
+                                if( result != null && result.length > 0 )
+                                    $scope.iNotInvitedCount = result[result.length - 1].iCountNotInvited - 1;
+    
+                                if($scope.lstPreapplicant != null){
+                                $scope.lstPreapplicantNotInvited = [];
+                                $scope.lstPreapplicantInvited = [];
+                                    for(var iIndex = 0 ; iIndex < $scope.lstPreapplicant.length ; iIndex++)
+                                    {   
+                                        // adjust the deadlinedate
+                                        var d = new Date();
+                                        if( $scope.lstPreapplicant[iIndex].member.Deadline_Date__c != null )
+                                            $scope.lstPreapplicant[iIndex].member.Deadline_Date__c =  $scope.lstPreapplicant[iIndex].member.Deadline_Date__c + ( d.getTimezoneOffset() * 60000 );
+                                        
+                                        if( $scope.lstPreapplicant[iIndex].member.Invited_Date__c != null )
+                                            $scope.lstPreapplicant[iIndex].member.Invited_Date__c =  $scope.lstPreapplicant[iIndex].member.Invited_Date__c + ( d.getTimezoneOffset() * 60000 );
+                                            
+                                        // set sort predicate for the lottery number
+                                        var wrapObj =  $scope.lstPreapplicant[iIndex];
+                                        if(wrapObj.strLotteryField == 'Lottery_Number__c')
+                                             {$scope.sortPredicate = 'preference.Lottery_Number__c';$scope.lottryNoToDisplay = 'Lottery_Number__c';}
+                                        if(wrapObj.strLotteryField == 'Centerplace_at_Edison__c')
+                                            {$scope.sortPredicate = 'preference.Centerplace_at_Edison__c';$scope.lottryNoToDisplay = 'Centerplace_at_Edison__c';}
+                                        if(wrapObj.strLotteryField == 'Rivendell_Heights__c')
+                                            {$scope.sortPredicate = 'preference.Rivendell_Heights__c';$scope.lottryNoToDisplay = 'Rivendell_Heights__c';}
+                                        if(wrapObj.strLotteryField == 'Edison_Market_to_Affordable__c')
+                                            {$scope.sortPredicate = 'preference.Edison_Market_to_Affordable__c';$scope.lottryNoToDisplay = 'Edison_Market_to_Affordable__c';}
+                                        if(wrapObj.strLotteryField == 'Evergreen_Court_Wyckoff__c')
+                                            {$scope.sortPredicate = 'preference.Evergreen_Court_Wyckoff__c';$scope.lottryNoToDisplay = 'Evergreen_Court_Wyckoff__c';}    
+                                        if(wrapObj.strLotteryField == 'Village_Court_Seniors__c')
+                                            {$scope.sortPredicate = 'preference.Village_Court_Seniors__c';$scope.lottryNoToDisplay = 'Village_Court_Seniors__c';}
+                                        if(wrapObj.strLotteryField == 'Woodmont_Station_at_Cranford__c')
+                                            {$scope.sortPredicate = 'preference.Woodmont_Station_at_Cranford__c';$scope.lottryNoToDisplay = 'Woodmont_Station_at_Cranford__c';}
+                                        if(wrapObj.strLotteryField == 'Valley_Bloom__c')
+                                            {$scope.sortPredicate = 'preference.Valley_Bloom__c';$scope.lottryNoToDisplay = 'Valley_Bloom__c';}   
+                                        if(wrapObj.strLotteryField == 'Laurel_Green__c')
+                                            {$scope.sortPredicate = 'preference.Laurel_Green__c';$scope.lottryNoToDisplay = 'Laurel_Green__c';}
+                                        if(wrapObj.strLotteryField == 'Village_of_Bridgewater__c')
+                                            {$scope.sortPredicate = 'preference.Village_of_Bridgewater__c';$scope.lottryNoToDisplay = 'Village_of_Bridgewater__c';}    
+                                        if(wrapObj.strLotteryField == 'Fairway_28__c')
+                                            {$scope.sortPredicate = 'preference.Fairway_28__c';$scope.lottryNoToDisplay = 'Fairway_28__c';}       
+                                    
+                                        
+                                         if($scope.lstPreapplicant[iIndex].member.Status == 'Not Invited') 
+                                            $scope.lstPreapplicantNotInvited.push($scope.lstPreapplicant[iIndex]);
+                                         else
+                                            $scope.lstPreapplicantInvited.push($scope.lstPreapplicant[iIndex]);
+                                    }
+                                }
+                                //
+                                if (!$scope.$$phase && !$scope.$root.$$phase) 
+                                    $scope.$apply();
+                                
+                                $scope.drawChart($scope.lstPreapplicant);
+                                
+                                $scope.loaded = true;
+                                if (!$scope.$$phase && !$scope.$root.$$phase) 
+                                    $scope.$apply();
+                                    
+                                $scope.stopProcessing();
+                                $scope.flaggedCheckBoxes();
+                                $scope.clearCheckBoxes();
+                             }
+                             else
+                             {
+                                $scope.showError(event.type+' : '+event.message);
+                                // if there is error due to CPU time limit call method here
+                                 $scope.startProcessing();
+                             }
+                        },{buffer: false} );
+    } 
+    
+   
+    
+    
+   /* start of pagination related code */   
+   $scope.lstPreapplicantNotInvitedFiltered = []; 
+    $scope.numPages = function () {
+    return Math.ceil($scope.lstPreapplicantNotInvited.length / $scope.numPerPage);
+  };
+
+  $scope.$watch("currentPage + numPerPage", function() {
+    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+    , end = begin + $scope.numPerPage;
+
+    $scope.lstPreapplicantNotInvitedFiltered = $scope.lstPreapplicantNotInvited.slice(begin, end);
+  });
+   /* end of pagination related code */   
+    
+    $scope.jobStatus;
+    $scope.disableCriteriaCalcBtn = true;    
+    $scope.getJobStatus = function(){
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getJobStatus}','{!strPropertyId}', function(result, event){
+             if(event.statusCode == 200){
+             //debugger;
+              if( result != null){
+                   //$scope.windowInterval = setInterval($scope.getJobStatus, 5000);
+                    if(result.property.Camp_Member_Add_Job_Status__c == 'Complete'){  
+                           $scope.disableCriteriaCalcBtn = false;
+                           clearInterval($scope.windowIntervalFutureJob);
+                   }
+                   if( result.AsyncApexJob != null && (result.AsyncApexJob.Status == 'Completed' || result.AsyncApexJob.Status == 'Aborted' || result.AsyncApexJob.Status == 'Failed') ){
+                       clearInterval($scope.windowInterval);
+                       if( $scope.criteriaCalcJob == true ){
+                           $scope.criteriaCalcJob = false;
+                           $('#statusModal').modal('hide');
+                       }
+                      }// end of if
+                   else{
+                           $scope.jobStatus = angular.copy(result.AsyncApexJob); 
+                           if( $("#statusModal").data('bs.modal')?.isShown == undefined){
+                               $scope.stopProcessing();
+                               $('#statusModal').modal({backdrop: 'static', keyboard: false}); 
+                               $('#statusModal').modal('show');
+                               
+                               console.log('show modal and set interval called');
+                               $scope.windowInterval = setInterval($scope.getJobStatus, 5000);
+                            }   
+                       }
+               
+                   // get members details
+                   if( result.property.Camp_Member_Add_Job_Status__c == 'Complete' && ( result.property.Calculation_Status__c == null || ( result.AsyncApexJob != null && ( result.AsyncApexJob.Status == 'Completed' || result.AsyncApexJob.Status == 'Aborted' || result.AsyncApexJob.Status == 'Failed' )) ) ){
+                    $scope.loadRecords('200');
+                    $('#statusModal').modal('hide');
+                   }      
+                       
+               }
+               
+                if (!$scope.$$phase && !$scope.$root.$$phase) $scope.$apply();
+    
+             }
+             else
+             {
+                $scope.showError('Error in starting the criteria calclulation job '+event.type+' : '+event.message);
+             }
+        },{buffer: false});    
+        
+    }
+
+}]);
+
+
+
+
+</script>
+<div id="application" class="container" ng-app="myApp" ng-controller="Test" ng-show="loaded" ng-init="initialise()">
+  <div class="row header">
+    <div class="col-xs-9">
+      <img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/CGPH-Blue-Logo.png" style="margin-left:5px;" />
+    </div>
+    
+<!--    <a href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008nTCfUAM/view?queryScope=userFolders&fv0={!$CurrentPage.parameters.test}">data</a>  -->
+        <a href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008nmJJUAY/view?queryScope=userFolders&fv0={!$CurrentPage.parameters.test}">EA1</a>
+        <a href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008nmJYUAY/view?queryScope=userFolders&fv0={!$CurrentPage.parameters.test}">EA2</a>
+        
+    <div class="col-xs-3 SecondaryButton" id="HelpLink" style="margin-top:35px;">Help
+    </div>
+    
+    <div ng-click="startCriteriaCalcAction()" class="col-xs-4 SecondaryButton {{disableCriteriaCalcBtn ? 'divDisabled' : ''}}" id="startCriteria" style="margin-top:30px;float:right;">
+   
+      <div class="{{disableCriteriaCalcBtn == true?'ng-show':'ng-hide'}}">
+          Preparing
+         <img src="/img/loading32.gif" width="25" height="25" />
+     </div>
+     <div class="{{disableCriteriaCalcBtn == false ? 'ng-show':'ng-hide' }}">
+      Recalculate Criteria
+     </div>
+  </div>  
+  
+    
+  </div> 
+  
+  <div class="row">
+      <div class="col-xl-6">
+            
+           <div class="btn-group" role="group" aria-label="...">
+              <button ng-click="loadRecords('50')" type="button" class="btn btn-primary">50</button>
+              <button ng-click="loadRecords('100')" type="button" class="btn btn-primary">100</button>
+              <button ng-click="loadRecords('200')" type="button" class="btn btn-primary">200</button>
+              <button ng-click="loadRecords('2000')" type="button" class="btn btn-primary">2000</button>
+            </div>
+ 
+     </div>
+    
+ <div class="col-xl-6">
+ <!--
+  <div ng-click="startCriteriaCalcAction()" class="col-xs-4 SecondaryButton {{disableCriteriaCalcBtn ? 'divDisabled' : ''}}" id="startCriteria" style="margin-top:30px;float:right;">
+   
+      <div class="{{disableCriteriaCalcBtn == true?'ng-show':'ng-hide'}}">
+          Preparing
+         <img src="/img/loading32.gif" width="25" height="25" />
+     </div>
+     <div class="{{disableCriteriaCalcBtn == false ? 'ng-show':'ng-hide' }}">
+      Recalculate Criteria
+     </div>
+  </div>  
+  -->
+</div>
+</div>  
+    
+<div class="customModal fadeCustom" style="width:100%;" id="successModal"> 
+  <div class="alert alert-success alertBox" id="success-alert" style="background-color:#4caf50">
+        <strong>Success!</strong>  <div id="alertMessage"></div>
+    </div>  
+</div>
+  
+ <div class="customModal fadeCustom" style="width:100%;background-color:#F44336;display:none;" id="errorModal">
+ 
+  <div class="alert alert-danger alertBox" id="error-alert" style="background-color:#F44336">
+   <button ng-click="closeError()" type="button" class="close" data-dismiss="errorModal" aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></button>
+     <strong>Error!</strong>
+          <div id="alertMessageError">Operation </div>
+  </div>
+</div> 
+
+<div class="customModal fadeCustom" style="width:100%;display:none;" id="reportModal">
+  <div class="alert alert-info alertBox" id="report-alert" style="color:#31708f">
+   <button ng-click="closeReport()" type="button" class="close" data-dismiss="reportModal" aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></button>
+     <strong>Information!</strong>
+          <div id="alertMessageReport">Operation </div>
+  </div>
+</div>
+
+    
+    
+  <div class="row">
+    <div class="col-lg-12 HeadingBox">Eligible Applicants </div>
+  </div>
+  <div class="row">
+    <div  class="col-lg-7 {{ ( (iTotalEmailRemaining - {!configuredPreAppEmailLimit} ) <= 200) ?  (((iTotalEmailRemaining - {!configuredPreAppEmailLimit}) <= 0) ? 'clsRed':'clsOrange') : ''}}">
+        *{{iTotalEmailRemaining}} Daily emails remaining /  {{iTotalEmailRemaining - {!configuredPreAppEmailLimit} }} Emails available for invites / Reset in {!hoursRemaining} hours
+    </div>
+    <div  class="col-lg-5">
+    Last Criteria Calculated On : {{property.Last_Calculation__c | date : 'short'}}
+    </div>
+  </div>
+ 
+ 
+  <div class="row" style="margin-top:5px;">
+    <!-- <div class="col-lg-6" style="margin-top:45px; text-align:center;">
+
+ 
+    <div class="input-group">
+    <input ng-model="searchKey" ng-keyup="searchCampaignMember()" type="text" class="form-control" style="width:200%" placeholder="Search applicant"/>
+    
+    <ul class="search-ac">
+        <li ng-repeat="record in campaignMemberRecords"><a href="" ng-click="selectAction(record)">{{record.Contact.Name}}</a></li>
+      </ul>
+    </div>
+  </div>-->
+   <div class="col-lg-6" style="margin-top:45px; text-align:center;">
+   <div class="input-group" style="height:34px;">
+      <span class="input-group-addon" id="basic-addon1"> <span class="glyphicon glyphicon-search"></span></span>
+      <select class="campaign-members form-control" name="state" style="visibility:hidden;">
+      </select>
+    </div>
+          
+  </div>
+  
+ </div> 
+ 
+ 
+  
+  <div class="row" style="margin-top:20px;">
+    <div class="col-lg-6" style="margin-top:45px; text-align:center;">
+      <h2>{{property.Name}}</h2>
+      {{property.HOMEtracker__City__c}}, {{property.HOMEtracker__State__c}}, {{property.HOMEtracker__Postal_Code__c}} in {{property.Municipality_Name__r.Name}}<br/>
+      {{property.HOMEtracker__Number_of_Bedrooms__c}}br &#183; {{property.HOMEtracker__Number_of_Bathrooms__c}}ba &#183; {{property.Max_Income_Level__c}}<br/>
+      {{property.HOMEtracker__Property_Type__c}} for 
+      <span ng-show="{{property.HOMEtracker__Monthly_Rent__c != ''}}">{{property.HOMEtracker__Monthly_Rent__c | currency : "$" :0}}</span>
+      <span ng-show="{{property.HOMEtracker__List_Price__c != ''}}">{{property.HOMEtracker__List_Price__c | currency : "$" :0}}</span>
+      <br/>
+      
+      <div id="LotteryType">{{property.Lottery_Number_for_Priority__c}}</div>
+
+         
+      {{property.Consider_Veterans_Preference__c}}
+      
+      
+      <!-- <a class="btn btn-default" style="margin-top:10px;" href="Listing Link">Listing Link</a> -->
+      <br/>
+          <span class="badge" style="background-color:orange; margin-left:15px; font-size:1.2em;">{{lstPreapplicant[0].iCountInvited}}</span>Invited
+          
+          <!--
+          <span class="badge {{ ( lstPreapplicantNotInvited.length >= 300 && property.EA_Layout__c == 'Include Invited')? 'ng-show':'ng-hide' }}" style="background-color:red; margin-left:15px; font-size:1.2em;">{{lstPreapplicantNotInvited.length}}+</span> 
+          <span class="badge  {{ ( lstPreapplicantNotInvited.length < 300 && property.EA_Layout__c == 'Include Invited')? 'ng-show':'ng-hide' }}" style="background-color:red; margin-left:15px; font-size:1.2em;">{{lstPreapplicantNotInvited.length}}</span> 
+          <span class="badge {{ ( lstPreapplicantNotInvited.length >= 500 && property.EA_Layout__c == 'Uninvited only')? 'ng-show':'ng-hide' }}" style="background-color:red; margin-left:15px; font-size:1.2em;">{{lstPreapplicantNotInvited.length}}+</span> 
+          <span class="badge  {{ ( lstPreapplicantNotInvited.length < 500 && property.EA_Layout__c == 'Uninvited only')? 'ng-show':'ng-hide' }}" style="background-color:red; margin-left:15px; font-size:1.2em;">{{lstPreapplicantNotInvited.length}}</span>
+          -->
+          
+          <span class="badge" style="background-color:red; margin-left:15px; font-size:1.2em;">{{iNotInvitedCount}}</span>Not Invited 
+          
+    </div>
+  
+    <div class="col-lg-6">
+      <div id="CampaignChart" style="width:500px; height:300px;"></div>
+    </div>
+
+  </div>
+  
+   <div class="row {{property.EA_Layout__c == 'Include Invited' ? 'ng-show' : 'ng-hide'}}" style="margin-top:0px; ">
+    <div class="col-lg-12" style="margin-bottom:15px;">
+      <h2>Invited Pre-Applicants</h2>
+     </div>
+  </div> 
+     
+  <div class="row  {{property.EA_Layout__c == 'Include Invited' ? 'ng-show' : 'ng-hide'}}" >
+    <table class="table">
+      <thead>
+        <tr>
+        
+          <th>#</th>
+          <th style="text-align:left;">Pre-Applicant</th>
+          <th>Flagged</th>
+          <th>Lottery#</th>
+          <th>Joined</th>
+          <th>Status</th>
+          <th>Email Verification</th>
+          <th>Actions</th>
+          <th style="text-align:left;">Message</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- 1 -->
+         <tr ng-init="incrementInvitedIndex($index, app)" ng-repeat="app in lstPreapplicantInvited | orderBy:[sortPredicate,'preference.Interest_Date__c']" class="{{ ( app.member.Status == 'Requested to Visit' || app.status == 'Emailed' || app.status == 'Mailed' || app.status == 'Called' || app.status == 'Ineligible, Pending staff action' )? 'ng-show' : 'ng-hide' }}" data-id="id#MY" data-name="{{app.preApplicant.Contact__r.Name}}" data-note="Long note here" data-email="{{app.Contact__r.Email}}" data-phone="{{app.preApplicant.Contact__r.Phone}}" data-deadline="01/10/2011">
+          <th scope="row">{{mapInvited[$index]}}</th>
+          <td style="text-align:left;"><a href="{{'/'+ app.preApplicant.Id }}">{{app.preApplicant.Contact__r.Name}}</a></td>
+          <td><input type="checkbox" class="Flagged" value="{{app.preApplicant.Flagged_for_Outreach__c}}" DISABLED="True"/></td>
+          <td>
+            <span class="{{lottryNoToDisplay == 'Lottery_Number__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Lottery_Number__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Centerplace_at_Edison__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Centerplace_at_Edison__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Rivendell_Heights__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Rivendell_Heights__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Edison_Market_to_Affordable__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Edison_Market_to_Affordable__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Evergreen_Court_Wyckoff__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Evergreen_Court_Wyckoff__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Village_Court_Seniors__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Village_Court_Seniors__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Woodmont_Station_at_Cranford__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Woodmont_Station_at_Cranford__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Valley_Bloom__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Valley_Bloom__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Laurel_Green__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Laurel_Green__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Village_of_Bridgewater__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Village_of_Bridgewater__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Fairway_28__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Fairway_28__c | number : 1}}</span>
+
+            
+            
+
+          </td> 
+          <td>{{app.preference.Interest_Date__c != null ? (app.preference.Interest_Date__c | moment : 'MM/DD/YYYY') : 'Not Available'}}</td>
+          <td>{{app.status}}</td>
+          <td>{{app.preApplicant.Contact__r.EB_tools__Email_Verification__c}}</td>
+          <td>
+             <a class="btn btn-default FollowUp" ng-click="showFollowUpModal(app)">Follow Up</a>
+          </td>
+          <td style="text-align:left;">
+                <span class="{{compareDates(todaysDate,app.member.Deadline_Date__c) ? 'glyphicon glyphicon-bell overdue' : ''}}"></span><span class="{{compareDates(todaysDate,app.member.Deadline_Date__c) ? 'overdue' : ''}}">
+                <span class="{{compareDates(todaysDate,app.member.Deadline_Date__c) ? 'overdue ng-show' : 'ng-hide'}}">{{dateDiff(todaysDate,app.member.Deadline_Date__c)}} days overdue,</span> 
+                Invited on&nbsp;{{app.member.Invited_Date__c | date : 'MM/d'}},&nbsp;Deadline&nbsp;{{app.member.Deadline_Date__c | date : 'MM/d'}}</span><span class="{{app.member.Flagged_RTV__c ? 'glyphicon glyphicon-warning-sign' : ''}}" style="color:red; margin-left:8px;"></span>
+          </td>
+        </tr> 
+      </tbody>
+    </table>
+  </div>
+  
+  
+  <div class="row" style="margin-top:80px; margin-bottom:15px;">
+    <div class="col-lg-9">
+      <h2 style="display:inline; margin-right:10px;">Not Invited Pre-Applicants</h2> <button class="btn btn-default {{(iTotalEmailRemaining  <= {!configuredPreAppEmailLimit})? 'ng-hide' : 'ng-show'}}" ng-click="sendMassEmailAction()" style="margin-top:-15px; margin-right:10px;" type="button" id="EmailSelected" data-toggle="" aria-haspopup="true" aria-expanded="true">Email Selected</button> <button ng-click="sendMassPostalMailAction()" class="btn btn-default" style="margin-top:-15px;" type="button" id="MailSelected" data-toggle="" aria-haspopup="true" aria-expanded="true">Mail Selected</button>
+    </div>
+    <div class="col-lg-3">
+     
+    </div>
+  </div>
+
+  <div class="row">
+    <table class="table">
+      <thead> 
+        <tr>
+          <th style="text-align:center;">
+                <input type="checkbox" ng-model="notInvitedSelectAll" ng-change="SelectAll();" value="" id="chkSelectAll"/>
+              <!-- <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border:none;"><input type="checkbox" class="InviteSelect" id="Select0" value=""></input>  <span class="caret"></span></button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a ng-click="SelectAll();">Select All</a></li>
+                <li><a ng-click="SelectNone();">None</a></li>
+              </ul> -->
+           </th>
+          <th>#</th>
+          <th style="text-align:left;">Pre-Applicant</th>
+          <th>Flagged</th>
+          <th>Lottery#</th>
+          <th>Joined</th>
+          <th>Municip Pref</th>
+          <th>Email Verification</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 1 -->
+       
+        <tr ng-init="incrementNotInvitedIndex($index,app)" ng-repeat="app in lstPreapplicantNotInvited  | orderBy:[sortPredicate,'preference.Interest_Date__c']" class="{{app.member.Status == 'Not Invited' ? 'ng-show' : 'ng-hide'}}"  data-id="id#1" data-name="{{app.preApplicant.Contact__r.Name}}" data-note="Long note here" data-email="{{app.preApplicant.Contact__r.Email}}" data-phone="{{app.preApplicant.Contact__r.Phone}}" data-deadline="01/10/2011">
+          <td style="text-align:center;"><input ng-change="checkSelectedBox(preapplicant+$index)" ng-model="objMapAppliants[preapplicant+$index]" type="checkbox" class="InviteSelect" id="Select0" valPreAppId="{{app.preApplicant.Id}}" valConId="{{app.preApplicant.Contact__c}}"></input></td>
+          <td>{{$index+1}}</td>
+          <td style="text-align:left;"><a href="{{'/'+ app.preApplicant.Id }}">{{app.preApplicant.Contact__r.Name}}</a>
+         
+          </td> 
+          <td style="text-align:center;"><input type="checkbox" class="Flagged" value="{{app.preApplicant.Flagged_for_Outreach__c}}"  DISABLED="True" /></td>
+          
+           <td>
+            <span class="{{lottryNoToDisplay == 'Lottery_Number__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Lottery_Number__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Centerplace_at_Edison__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Centerplace_at_Edison__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Rivendell_Heights__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Rivendell_Heights__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Edison_Market_to_Affordable__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Edison_Market_to_Affordable__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Evergreen_Court_Wyckoff__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Evergreen_Court_Wyckoff__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Village_Court_Seniors__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Village_Court_Seniors__c | number : 1}}</span>
+            <span class="{{lottryNoToDisplay == 'Woodmont_Station_at_Cranford__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Woodmont_Station_at_Cranford__c | number : 1}}</span>
+             <span class="{{lottryNoToDisplay == 'Valley_Bloom__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Valley_Bloom__c | number : 1}}</span> 
+             <span class="{{lottryNoToDisplay == 'Laurel_Green__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Laurel_Green__c | number : 1}}</span>
+             <span class="{{lottryNoToDisplay == 'Village_of_Bridgewater__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Village_of_Bridgewater__c | number : 1}}</span> 
+             <span class="{{lottryNoToDisplay == 'Fairway_28__c' ? 'ng-show' : 'ng-hide'}}">{{app.preference.Fairway_28__c | number : 1}}</span> 
+             
+            
+          </td>
+          <td>{{app.preference.Interest_Date__c != null ? (app.preference.Interest_Date__c | moment : 'MM/DD/YYYY') : 'Not Available'}}</td>
+          <td><a href="{{'/'+app.preference.Id}}" target="_blank">Link</a></td>
+          <td>{{app.preApplicant.Contact__r.EB_tools__Email_Verification__c}}</td> 
+          <td> 
+              <button ng-click="sendEmailAction(app)" class="btn btn-default EmailInvite {{( (iTotalEmailRemaining  <= {!configuredPreAppEmailLimit} ) || (app.preApplicant.Contact__r.Email == null ) || (app.preApplicant.Contact__r.EB_tools__Email_Verification__c == 'Problem'))? 'ng-hide' : 'ng-show'}} " type="button" id="{{'btn'+app.preApplicant.Id}}" data-toggle="" aria-haspopup="true" aria-expanded="true">Email</button>
+              <button ng-click="sendPostalMailAction(app)" class="btn btn-default EmailInvite  {{ ( app.preApplicant.Contact__r.MailingStreet != null && app.preApplicant.Contact__r.MailingCity != null && app.preApplicant.Contact__r.MailingState != null && app.preApplicant.Contact__r.MailingPostalCode != null) ? 'ng-show' : 'ng-hide'}}" type="button" id="{{'btnMail'+app.preApplicant.Id}}" data-toggle="" aria-haspopup="true" aria-expanded="true">Mail</button>
+              <button ng-click="PhoneAction(app)" class="btn btn-default EmailInvite {{ app.preApplicant.Contact__r.Phone != null ? 'ng-show' : 'ng-hide'}}" type="button" id="{{'btnPhone'+app.preApplicant.Id}}" data-toggle="" aria-haspopup="true" aria-expanded="true">Phone</button>
+          </td>
+        </tr>   
+      </tbody> 
+    </table>
+    
+    
+    <!-- pagination element -->
+    <div data-pagination="" data-num-pages="numPages()" 
+  data-current-page="currentPage" data-max-size="maxSize"  
+  data-boundary-links="true"></div>
+    
+  </div>
+
+  <div style="height:200px;">&nbsp;</div>
+
+
+
+<!-- End go -->
+
+
+<!-- ----------------------------------------------- -->
+<!-- Help Modal                                      -->
+<!-- ----------------------------------------------- -->
+<div class="modal" id="HelpModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row" style="padding:0px 15px 15 px 10px;">
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2>Eligible Applicants Help</h2></div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <apex:outputText value="{!helpContent}" escape="false"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ----------------------------------------------- -->
+<!-- Confirmation Modal                                      -->
+<!-- ----------------------------------------------- -->
+<div class="modal" id="ConfirmationModal" data-object="" data-action="" data-id="">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id="ConfirmationModalBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" ng-click="ConfirmationModalYes()" class="btn btn-primary" id="ConfirmationModalYes">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ----------------------------------------------- -->
+<!-- Email Invite                                    -->
+<!-- ----------------------------------------------- -->
+<div class="modal" id="EmailInviteModal" data-object="" data-action="" data-id="">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <div class="row" style="padding:0px 15px 15 px 10px;">
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2>Email Invite</h2></div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal-body">
+        <div id="EmailDetails" style="margin-bottom:20px; font-size:1.2em;">
+          <h3 id="EIName">{{applicant.preApplicant.Contact__r.Name}}</h3>
+          <span id="EIPhone">{{applicant.preApplicant.Contact__r.Phone}}</span>
+          <span id="EIExt" class=" {{ applicant.preApplicant.Contact__r.Ext__c != null ? 'ng-show' : 'ng-hide' }} ">&nbsp;ext {{applicant.preApplicant.Contact__r.Ext__c}}</span>
+          <span id="EIEmail" style="margin-left:10px;">{{applicant.preApplicant.Contact__r.Email}}</span>
+        </div>
+          <div class="row">                   
+          <div class="col-xs-6"><h4 id="EIDeadlineLabel" data-toggle="popover" data-placement="top" data-content="Enter a valid deadline date">Deadline</h4>
+            <input type="text" ng-model="deadLineDate" id="EIDeadline" class="form-control Deadline" placeholder="MM/DD/YYYY" />
+          </div>
+         <input type="hidden" id="emailMany"/> 
+        </div> 
+         
+        <div class="row">
+          <div class="col-xs-12" style="margin-top:30px;">
+            <h4 id="EINoteLabel" data-toggle="popover" data-placement="top" data-content="Enter an outreach note">Outreach Note (internal staff notes only)</h4>
+            <textarea id="EINote" ng-model="outreachNote" class="form-control" placeholder="Outreach Note" rows="4"></textarea>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="modal-footer" style="border-top:none;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" ng-click="EmailInviteYes(applicant)" class="btn btn-primary" id="EmailModalYes">Email</button>
+      </div>
+      <input type="hidden" id="EIId" />
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ----------------------------------------------- -->
+<!-- Postal Mail Invite                                    -->
+<!-- ----------------------------------------------- -->
+<div class="modal" id="PostalMailInviteModal" data-object="" data-action="" data-id="">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <div class="row" style="padding:0px 15px 15 px 10px;">
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2>Mail Invite</h2></div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div id="EmailDetailsPostalMail" style="margin-bottom:20px; font-size:1.2em;">
+          <h3 id="EINamePostalMail">{{applicant.preApplicant.Contact__r.Name}}</h3>
+          <span id="EIPhonePostalMail">{{applicant.preApplicant.Contact__r.Phone}}</span>
+          <span id="EIExtPostalMail" class=" {{ applicant.preApplicant.Contact__r.Ext__c != null ? 'ng-show' : 'ng-hide' }} ">&nbsp;ext {{applicant.preApplicant.Contact__r.Ext__c}}</span>
+          <span id="EIEmailPostalMail" style="margin-left:10px;">{{applicant.preApplicant.Contact__r.Email}}</span>
+        </div>
+          <div class="row">                   
+          <div class="col-xs-6"><h4 id="EIDeadlineLabelPostalMail" data-toggle="popover" data-placement="top" data-content="Enter a valid deadline date">Deadline</h4>
+            <input type="text" ng-model="deadLineDatePostalMail" id="EIDeadlinePostalMail" class="form-control Deadline" placeholder="MM/DD/YYYY" />
+          </div>
+         <input type="hidden" id="emailManyPostalMail"/> 
+        </div> 
+         
+        <div class="row">
+          <div class="col-xs-12" style="margin-top:30px;">
+            <h4 id="EINoteLabelPostalMail" data-toggle="popover" data-placement="top" data-content="Enter an outreach note">Outreach Note (internal staff notes only)</h4>
+            <textarea id="EINotePostalMail" ng-model="outreachNotePostalMail" class="form-control" placeholder="Outreach Note" rows="4"></textarea>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="modal-footer" style="border-top:none;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" ng-click="PostalMailInviteYes(applicant)" class="btn btn-primary" id="PostalMailModalYes">Mail</button>
+      </div>
+      <input type="hidden" id="EIIdPostalMail" />
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ----------------------------------------------- -->
+<!-- Call Attempt / Follow Up Modal                  -->
+<!-- ----------------------------------------------- -->
+<div class="modal" id="FollowUpModal" data-object="" data-action="" data-id="">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row" style="padding:0px 15px 15 px 10px;">
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2 id="CAModal">Follow Up</h2></div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <h3 id="CAName">{{applicant.preApplicant.Contact__r.Name}}</h3>
+        <span id="CAPhone">{{applicant.preApplicant.Contact__r.Phone}}</span>
+        <span id="CAExt" class=" {{ applicant.preApplicant.Contact__r.Ext__c != null ? 'ng-show' : 'ng-hide' }} ">&nbsp;ext {{applicant.preApplicant.Contact__r.Ext__c}}</span>
+        <span id="CAAltPhone" style="margin-left:10px;">{{applicant.preApplicant.Contact__r.Alternate_Phone__c}}</span>
+        <span id="CAAltExt" class="{{ applicant.preApplicant.Contact__r.Alt_Ext__c != null ? 'ng-show' : 'ng-hide' }} ">&nbsp;ext {{applicant.preApplicant.Contact__r.Alt_Ext__c}}</span>
+        <span id="CAEmail" style="margin-left:10px;">{{applicant.preApplicant.Contact__r.Email}}</span>
+        <div class="row" style="margin-top:20px;">
+                   
+          <div class="col-xs-5"><h4 id="CADeadlineLabel" data-toggle="popover" data-placement="top" data-content="Enter a valid deadline date">Deadline</h4>
+            <input type="text" ng-model="deadLineDateFollowUp" id="CADeadline" class="form-control Deadline" placeholder="MM/DD/YYYY"></input>
+          </div>
+
+          <div class="col-xs-7">   
+            <h4 id="FolloUpActionLbl" data-toggle="popover" data-placement="top" data-content="Please select followup action">Action</h4>
+            <div>
+              <label class="control-label"><input id="radioNotIntrestedUnit" type="radio" name="radioGroup"> </input>Not Interested in Unit</label>
+            </div>
+          <!-- 
+            <div>
+              <label class="control-label"><input id="radioNotIntrestedMunicipality" type="radio" name="radioGroup"> </input>Not Interested in Municipality</label>
+            </div>
+          
+            <div>
+              <label class="control-label"><input id="radioRemoveFromWL" type="radio" name="radioGroup"> </input>Remove me from all waiting lists</label>
+            </div>
+           -->
+           <div>
+              <label class="control-label"><input id="radioDidNotRespondToInvite" type="radio" name="radioGroup"> </input>Did Not Respond to Invite</label>
+            </div>
+            
+            
+            <div>
+              <label class="control-label"><input id="radioRTVNotAdvancing" type="radio" name="radioGroup"> </input>Request To Visit Not Advancing</label>
+            </div>
+            
+           
+            <div>
+              <label class="control-label"><input id="radioAttemptedContact" type="radio" name="radioGroup"> </input>Attempted Contact</label>
+            </div>
+          
+            <div id="ResendEmail">
+              <label class="control-label">
+                <input name="radioGroup" id="radioResendEmail" type="radio"> </input>Resend Email 
+              </label>
+            </div>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-xs-12" style="margin-top:30px;">
+            <h4 id="CANoteLabel" data-toggle="popover" data-placement="top" data-content="Enter an outreach note">Outreach Note (internal staff notes only)</h4>
+            <textarea id="CANote" ng-model="outReachNoteFollowUp" class="form-control" placeholder="Outreach Note" rows="4"></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer" style="border-top:none;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="FollowUpActionYes(applicant)" id="ConfirmationModalYes">Submit</button>
+        <button type="button" class="btn btn-primary" ng-click="RTVLink(applicant)" id="ConfirmationModalRTV">Submit an Interest Form</button> 
+     </div>
+      <input type="hidden" id="CAId" />
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ----------------------------------------------- -->
+<!-- Phone Modal                  -->
+<!-- ----------------------------------------------- -->
+<div class="modal" id="PhoneModal" data-object="" data-action="" data-id="">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row" style="padding:0px 15px 15 px 10px;">
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2>Phone</h2></div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <h3 id="PHName">{{applicant.preApplicant.Contact__r.Name}}</h3>
+        <span id="PHPhone">{{applicant.preApplicant.Contact__r.Phone}}</span>
+        <span id="PHExt" class=" {{ applicant.preApplicant.Contact__r.Ext__c != null ? 'ng-show' : 'ng-hide' }} ">&nbsp;ext {{applicant.preApplicant.Contact__r.Ext__c}}</span>
+        <span id="PHEmail" style="margin-left:10px;">{{applicant.preApplicant.Contact__r.Email}}</span>
+        <div class="row" style="margin-top:20px;">
+                   
+          <div class="col-xs-5"><h4 style="" data-toggle="popover" id="CADeadlineLabel" ddata-toggle="popover" data-placement="top" data-content="Enter a valid deadline date">Deadline</h4>
+            <input type="text" ng-model="deadLineDatePhone" id="PHDeadline" class="form-control Deadline" placeholder="MM/DD/YYYY"></input>
+          </div>
+
+          <div class="col-xs-7">   
+            <h4 id="PhoneActionLbl" data-toggle="popover" data-placement="top" data-content="Please select action">Action</h4>
+            <div>
+              <label class="control-label"><input id="radioNotIntrestedUnitPhone" type="radio" name="radioGroup"> </input>Not Interested in Unit</label>
+            </div>
+             <div>
+              <label class="control-label"><input id="radioAttemptedContactPhone" type="radio" name="radioGroup"> </input>Attempted Contact</label>
+            </div>
+            
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-xs-12" style="margin-top:30px;">
+            <h4 id="PHNoteLabel" data-toggle="popover" data-placement="top" data-content="Enter an outreach note">Outreach Note (internal staff notes only)</h4>
+            <textarea id="PHNote" ng-model="outReachNotePhone" class="form-control" placeholder="Outreach Note" rows="4"></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer" style="border-top:none;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="PhoneActionYes(applicant)" id="ConfirmationModalYes">Submit</button>
+        <button type="button" class="btn btn-primary" ng-click="RTVLink(applicant)" id="ConfirmationModalRTV">Request to Visit</button> 
+     </div>
+      <input type="hidden" id="PHId" />
+    </div>
+  </div>
+</div>
+
+<!------------------------------------------------------------------------>
+<!-- Loading image and overlay                                          --> 
+<!------------------------------------------------------------------------>
+
+  <div id="fade" class="processing_overlay"></div> 
+
+  <div class="modal js-loading-bar" style="width:100%;">
+    <div class="modal-dialog cgphLoader" >
+        <!-- Rectangles for loading animation  -->
+      <center><div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div></center>
+    </div>
+  </div>
+  
+  
+
+  <!-- Modal -->
+<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #007cc2;font-family: 'Open Sans', serif;color: white;">
+        <h5 class="modal-title" id="exampleModalLabel">Preapplicant Cirteria Calculations</h5>
+      <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body" style="font-size: 1.6em;font-family: 'Open Sans', serif;font-weight: 200;">
+             <div class="row">
+                <div  class="col-lg-12">
+                
+                    <div class="modal-dialog" >
+     
+                      <center><div class="spinner" style="height: 30px;font-size: 10px;margin:0px;">
+                        <div class="rect1" style="background-color: #007cc2;"></div>
+                        <div class="rect2" style="background-color: #007cc2;"></div>
+                        <div class="rect3" style="background-color: #007cc2;"></div>
+                        <div class="rect4" style="background-color: #007cc2;"></div>
+                        <div class="rect5" style="background-color: #007cc2;"></div>
+                      </div></center>
+                    </div>
+                
+                <span ng-show="{{jobStatus.Status != 'Completed' }}">Processing criteria batch {{jobStatus.JobItemsProcessed}}/{{jobStatus.TotalJobItems}}</span>
+              
+               
+                </div>
+              </div>  
+      </div>
+      <div class="modal-footer">
+       <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ <!-- campaign Member Modal -->
+<div class="modal fade" id="campaign_memner_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #007cc2;font-family: 'Open Sans', serif;color: white;">
+        <h5 class="modal-title">Member Details</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> 
+      </div>
+      <div class="modal-body" style="font-size: 18px;font-family: 'Open Sans', serif;font-weight: 200;">
+             <div class="row">
+                <div  class="col-lg-12">
+                   <div class="mt-1"><label>Name: </label> <div>{{ campaignMemberDetails.Contact.Name || '' }}</div></div>
+                  <div  class="mt-1"><label>Waitlist Order: </label> <div>{{ campaignMemberDetails.EA_Order__c || '' }}</div></div>
+                  <div class="mt-1"><label>Lottery Number: </label> <div>{{ campaignMemberDetails.Campaign_Member_Lottery_Number__c || '' }}</div></div>
+                  <div class="mt-1"><label>Campaign Join Date: </label> <div>{{campaignMemberDetails.Campaign_Member_Join_Date__c != null ? (campaignMemberDetails.Campaign_Member_Join_Date__c | moment : 'MM/DD/YYYY') : 'Not Available'}}</div></div>
+                  <div class="mt-1 {{ ( campaignMemberDetails.Eligible_for_Property__c) ? 'ng-hide':'ng-show' }}" ><label>Ineligibility message: </label> <div> {{ campaignMemberDetails.Ineligibility_Message__c || '' }}</div></div>
+                </div>
+              </div>  
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button> 
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</apex:page>

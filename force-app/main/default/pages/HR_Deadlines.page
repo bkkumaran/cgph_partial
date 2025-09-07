@@ -1,0 +1,465 @@
+<apex:page standardController="HR_Case_File__c" showheader="false">
+
+
+<apex:variable var="col" value="5"/>
+<apex:variable var="set" value=""/>
+
+<!--
+<apex:variable var="col" value="4"/>
+<apex:variable var="set" value="display:none;"/>
+-->
+
+<style>
+    table{
+        border-collapse:collapse;
+        }
+    td {
+        padding: 2px 5px 2px 5px;
+        border-bottom: 1px solid #d9d9d9;
+        }
+    th {
+        padding: 10px 5px 2px 5px;
+        border-bottom: 4px double black;
+        text-align:center;
+        font-size:10pt;
+        }
+    .left {
+        text-align:left;
+        }
+    .right {
+        text-align:right;
+        }
+    .center {
+        text-align:center;
+        }
+    .setting {
+        {!set}
+        }
+</style>
+
+
+<a href="https://cgph.lightning.force.com/lightning/setup/CustomSettings/page?address=%2Fsetup%2Fui%2FlistCustomSettingsData.apexp%3Fid%3Da3l%26setupid%3DCustomSettings%26sfdcIFrameOrigin%3Dhttps%253A%252F%252Fcgph.lightning.force.com%26clc%3D1" target="_blank">CUSTOM SETTINGS</a>
+<br/><br/>
+
+
+<table border="1">
+<tr>
+<th colspan="{!col}">ELIGIBILITY</th> <!-- -----------------------------------------------------ELIGIBILITY ---------------------------------------------- -->
+<th>DEADLINE FIELD</th>
+<th>STAFF</th>
+</tr>
+<tr>
+<td>Additional Docs Letter Sent</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Additional_Docs_Letter_Sent__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Additional_Docs_Letter_Sent__c}</td>
+<td>cal days after</td>
+<td>Application Received</td>
+<td>Additional Docs Letter Due</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Last Followup Date</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Last_Followup_Date__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Last_Followup_Date__c}</td>
+<td>cal days before</td>
+<td>Today&#39;s Date</td>
+<td>N/A</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Peer Review Requested</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Peer_Review_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Peer_Review_Requested__c}</td>
+<td>biz days after</td>
+<td>??Docs Completed Date??</td>
+<td>Peer Review Request Due</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Title Search Requested</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Title_Search_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Title_Search_Requested__c}</td>
+<td>biz days after</td>
+<td>Peer Review Requested</td>
+<td>??Peer Review Completion Deadline??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Title Search Received</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Title_Search_Received__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Title_Search_Received__c}</td>
+<td>biz days after</td>
+<td>Title Search Requested</td>
+<td>??Title Search Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Determination of Approval</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Determination_of_Approval__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Determination_of_Approval__c}</td>
+<td>biz days after</td>
+<td>Title Search Received</td>
+<td>??Determination of Approval Deadline??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<th colspan="{!col}">ELIGIBILITY TO PRECON</th>  <!-- ----------------------------------------------ELIGIBILITY TO PRECON ------------------------------ -->
+<th>DEADLINE FIELD</th>
+<th>STAFF</th>
+</tr>
+<tr>
+<td>Comp Insp/COS/WWU Request to Inspector </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Comp_Insp_COS_WWU_Request_to_Inspector__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Comp_Insp_COS_WWU_Request_to_Inspector__c}</td>
+<td>biz days after</td>
+<td>Determination of Approval</td>
+<td>??Comp/COS/WWU request needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Comp Inspection Date [Scheduled]</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Comp_Inspection_Date_Scheduled__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Comp_Inspection_Date_Scheduled__c}</td>
+<td>biz days after</td>
+<td>??</td>
+<td>??Comp Inspection Needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Case Terminated Date or Cert of Eligibility </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Case_Terminated_Date_or_Cert_of_Eligibil__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Case_Terminated_Date_or_Cert_of_Eligibil__c}</td>
+<td>biz days after</td>
+<td>Comp Inspection Date [Actual]</td>
+<td>??Eligibility Finalization Needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>HMR/Muni Agreement to HMR </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.HMR_Muni_Agreement_to_HMR__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.HMR_Muni_Agreement_to_HMR__c}</td>
+<td>biz days after</td>
+<td>Comp Inspection Date [Actual]</td>
+<td>??HMR Agreement Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>HMR/Muni Agreement to Muni </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.HMR_Muni_Agreement_to_Muni__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.HMR_Muni_Agreement_to_Muni__c}</td>
+<td>biz days after</td>
+<td>HMR/Muni Agreement to HMR </td>
+<td>??HMR Agreement Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>HMR/Muni Executed to HMR </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.HMR_Muni_Executed_to_HMR__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.HMR_Muni_Executed_to_HMR__c}</td>
+<td>biz days after</td>
+<td>HMR/Muni Agreement to Muni </td>
+<td>??HMR Agreement Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>LRA Requested</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.LRA_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.LRA_Requested__c}</td>
+<td>biz days after</td>
+<td>Comp Inspection Date [Actual]</td>
+<td>??Lead Followup Action??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>LRA Received</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.LRA_Received__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.LRA_Received__c}</td>
+<td>biz days after</td>
+<td>LRA Requested</td>
+<td>??Lead Followup Action??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>LRA Acknowledge Form Received From Owner</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.LRA_Acknowledge_Form_Received_From_Owner__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.LRA_Acknowledge_Form_Received_From_Owner__c}</td>
+<td>biz days after</td>
+<td>??</td>
+<td>??Lead Followup Action??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>LRA Sent to Owner</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.LRA_Sent_to_Owner__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.LRA_Sent_to_Owner__c}</td>
+<td>biz days after</td>
+<td>??</td>
+<td>??Lead Followup Action??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>HUD Lead form complete</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.HUD_Lead_form_complete__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.HUD_Lead_form_complete__c}</td>
+<td>biz days after</td>
+<td>??</td>
+<td>??Lead Followup Action??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Radon Test Requested</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Radon_Test_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Radon_Test_Requested__c}</td>
+<td>biz days after</td>
+<td>Comp Inspection Date [Actual]</td>
+<td>??Radon Test Followup??</td><td>HRS</td>
+</tr>
+<tr>
+<td>Radon Test Received</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Radon_Test_Received__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Radon_Test_Received__c}</td>
+<td>biz days after</td>
+<td>Radon Test Requested</td>
+<td>??Radon Test Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>WWU Received (from Insp.) </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.WWU_Received_from_Insp__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.WWU_Received_from_Insp__c}</td>
+<td>biz days after</td>
+<td>Comp Inspection Date [Actual]</td>
+<td>??WWU Followup?? For INSP??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>WWU HMR Review Requested </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.WWU_HMR_Review_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.WWU_HMR_Review_Requested__c}</td>
+<td>biz days after</td>
+<td>WWU Received</td>
+<td>WWU Followup</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>WWU HMR Review Received </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.WWU_HMR_Review_Received__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.WWU_HMR_Review_Received__c}</td>
+<td>cal days after</td>
+<td>WWU HMR Review Requested </td>
+<td>WWU Followup</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>SHPO Approval Requested</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.SHPO_Approval_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.SHPO_Approval_Requested__c}</td>
+<td>biz days after</td>
+<td>??</td>
+<td>??SHPO Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>SHPO Approval Received</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.SHPO_Approval_Received__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.SHPO_Approval_Received__c}</td>
+<td>cal days after</td>
+<td>SHPO Approval Requested</td>
+<td>??SHPO Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>ERR Requested</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.ERR_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.ERR_Requested__c}</td>
+<td>biz days after</td>
+<td>??</td>
+<td>??ERR Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>ERR Received</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.ERR_Received__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.ERR_Received__c}</td>
+<td>biz days after</td>
+<td>ERR Requested</td>
+<td>??ERR Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Prevailing Wage Rates Requested</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Prevailing_Wage_Rates_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Prevailing_Wage_Rates_Requested__c}</td>
+<td>biz days after</td>
+<td>??</td>
+<td>??Prevailing Wage Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Prevailing Wage Rates Received</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Prevailing_Wage_Rates_Received__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Prevailing_Wage_Rates_Received__c}</td>
+<td>biz days after</td>
+<td>Prevailing Wage Rates Requested</td>
+<td>??Prevailing Wage Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<th colspan="{!col}">PRECONSTRUCTION</th> <!-- --------------------------------------- PRECONSTRUCTION ---------------------------- -->
+<th>DEADLINE FIELD</th>
+<th>STAFF</th>
+</tr>
+<tr>
+<td>Bid Notice Sent (No SHPO, ERR, PWR)</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Bid_Notice_Sent_No_SHPO_ERR_PWR__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Bid_Notice_Sent_No_SHPO_ERR_PWR__c}</td>
+<td>biz days after</td>
+<td>WWU HMR Review Received </td>
+<td>Bid Notice Send Deadline</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Bid Notice Sent (Yes SHPO, ERR, PWR)</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.SHPO_Approval_Received__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.SHPO_Approval_Received__c}</td>
+<td>biz days after</td>
+<td>WWU HMR Review Received </td>
+<td>Bid Notice Send Deadline</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Bid Opening</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Bid_Opening__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Bid_Opening__c}</td>
+<td>cal days after</td>
+<td>Bid Notice Sent</td>
+<td>??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Bid Tab to Cost Estimator</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Bid_Tab_to_Cost_Estimator__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Bid_Tab_to_Cost_Estimator__c}</td>
+<td>biz days after</td>
+<td>Bid Opening</td>
+<td>??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Bid Award Date</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Bid_Award_Date__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Bid_Award_Date__c}</td>
+<td>biz days after</td>
+<td>Bid Opening</td>
+<td>??Bid Award Needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Contractor Checklist Requested</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Contractor_Checklist_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Contractor_Checklist_Requested__c}</td>
+<td>biz days after</td>
+<td>Bid Award Date</td>
+<td>??Contractor Checklist Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Contractor Checklist Completed</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Contractor_Checklist_Completed__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Contractor_Checklist_Completed__c}</td>
+<td>biz days after</td>
+<td>Bid Award Date</td>
+<td>??Contractor Checklist Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<th colspan="{!col}">LOAN CLOSING &amp; CONSTRUCTION</th> <!-- --------------------------------------- LOAN CLOSING & CONSTRUCTION ---------------------------- -->
+<th>DEADLINE FIELD</th>
+<th>STAFF</th>
+</tr>
+<tr>
+<td>Closing Docs Sent to HMR</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Closing_Docs_Sent_to_HMR__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Closing_Docs_Sent_to_HMR__c}</td>
+<td>biz days after</td>
+<td>Contract Date [Scheduled]</td>
+<td>Closing Docs Needed</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Contract Date [Scheduled / Actual]</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Contract_Date__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Contract_Date__c}</td>
+<td>biz days after</td>
+<td>??Bid Award Date??</td>
+<td>??Contract Date Deadline??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Muni add Mortg. on HMR Ins.</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Muni_add_Mortg_on_HMR_Ins__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Muni_add_Mortg_on_HMR_Ins__c}</td>
+<td>biz days after</td>
+<td>??</td>
+<td>??Muni Add Mortgage Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Lead Clearance Requested</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Lead_Clearance_Requested__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Lead_Clearance_Requested__c}</td>
+<td>biz days after</td>
+<td>??</td>
+<td>??Lead Clearance Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Lead Clearance Received</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Lead_Clearance_Received__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Lead_Clearance_Received__c}</td>
+<td>biz days after</td>
+<td>Lead Clearance Requested</td>
+<td>??Lead Clearance Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Lead Clearance fwd to HMR</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Lead_Clearance_fwd_to_HMR__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Lead_Clearance_fwd_to_HMR__c}</td>
+<td>biz days after</td>
+<td>Lead Clearance Received</td>
+<td>??Lead Clearance Followup??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Notice to Proceed Follow Up (30 days)</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Notice_to_Proceed_Follow_Up__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Notice_to_Proceed_Follow_Up__c}</td>
+<td>cal days after</td>
+<td>Notice to Proceed Date</td>
+<td>??Progress Followup Needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Progress Follow up (60 days)</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Progress_Follow_up__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Progress_Follow_up__c}</td>
+<td>cal days after</td>
+<td>Notice to Proceed Date</td>
+<td>??Progress Followup Needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Completion Date (90 days)</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Final_Inspection_Date__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Final_Inspection_Date__c}</td>
+<td>cal days after</td>
+<td>Notice to Proceed Date</td>
+<td>??Progress Followup Needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<th colspan="{!col}">FINAL INSPECTION &amp; CLOSEOUT</th>  <!-- ------------------------------- FINAL INSPECTION & CLOSEOUT ------------------------------ -->
+<th>DEADLINE FIELD</th>
+<th>STAFF</th>
+</tr>
+<tr>
+<td>Final Inspection Date [Scheduled]</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Final_Inspection_Date__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Final_Inspection_Date__c}</td>
+<td>cal days after</td>
+<td>Completion Date (90 days)</td>
+<td>??Progress Followup Needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Mortgage Forwarding Date</td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Mortgage_Forwarding_Date__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Mortgage_Forwarding_Date__c}</td>
+<td>biz days after</td>
+<td>Final Inspection Date [ScheduledActual]</td>
+<td>??Closeout Followup Needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>HMR Close Case Letter Date </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.HMR_Close_Case_Letter_Date__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.HMR_Close_Case_Letter_Date__c}</td>
+<td>biz days after</td>
+<td>Final Inspection Date [Actual]</td>
+<td>??Closeout Followup Needed??</td>
+<td>HRS</td>
+</tr>
+<tr>
+<td>Testimonial Date Recd </td>
+<td class="setting">$Setup.CGPH_Rehab_Due_Dates__c.Testimonial_Date_Recd__c</td><td class="right">{!$Setup.CGPH_Rehab_Due_Dates__c.Testimonial_Date_Recd__c}</td>
+<td>biz days after</td>
+<td>Final Inspection Date [Actual]</td>
+<td>??Testimonial Followup??</td>
+<td>HRS</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+</apex:page>

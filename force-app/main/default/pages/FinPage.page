@@ -1,0 +1,34 @@
+<apex:page >
+<div style="{!IF($User.LastName='Burton','display:none;','')}">
+<b>YOU DO NOT HAVE ACCESS TO THIS PAGE</b>
+</div>
+<div style="{!IF($User.LastName='Burton','','display:none;')}">
+FIN PAGE:<br/><br/>
+<a href="https://cgph.my.salesforce.com/apex/APXTConga4__Conga_Composer?serverUrl={!$Api.Enterprise_Server_URL_370}&Id=8003m000002Po4PAAS&DS7=3&QueryId=a21Uq0000006UY5IAM&TemplateId=a29Uq0000004kkDIAQ&OFN=Planner+Budget+Import+{!DAY(TODAY())}-{!MONTH(TODAY())}-{!YEAR(TODAY())}" target="_blank" >
+PLANNER EXPORT
+</a><br/><br/>
+
+<apex:variable var="mon" value="
+{!CASE(LEFT($CurrentPage.parameters.y,3),
+'JAN','01'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'FEB','02'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'MAR','03'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'APR','04'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'MAY','05'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'JUN','06'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'JUL','07'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'AUG','08'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'SEP','09'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'OCT','10'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'NOV','11'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'DEC','12'+'.20'+RIGHT($CurrentPage.parameters.y,2),
+'XX')}
+" />
+
+<a href="https://cgph.my.salesforce.com/apex/APXTConga4__Conga_Composer?serverUrl={!$Api.Enterprise_Server_URL_370}&Id=8003m000002Po4PAAS&DS7=3&QueryId=[STAFF]a21Uq000000j9DdIAI,[INV]a21Uq000000DRX3IAO?pv0={!$CurrentPage.parameters.y}&TemplateId=a29Uq000000A8CPIA0&OFN={!mon}Financial+Report+{!$CurrentPage.parameters.y}" target="_blank" >
+FINANCIAL REPORT EXPORT - MONTH/YEAR = <span style="background-color:orange;font-weight:bold;">{!$CurrentPage.parameters.y}</span>
+</a><br/>
+<i>!!If MONTH/YEAR is empty, type the following at the end of the URL: "FinPage?y=MMMYY" where MMM = 3-letter abbreviated month in all caps and YY is two digit year.</i>
+</div>
+
+</apex:page>

@@ -1,0 +1,12 @@
+<apex:page title="Invoice Workbook" controller="InvoiceWorkbookController" standardStylesheets="false" showHeader="false" sidebar="false">
+
+<apex:repeat var="x" value="{!setupList}">
+
+{!x.setupName} - {!x.slipCount} <br/>
+
+</apex:repeat>
+
+
+
+
+</apex:page>

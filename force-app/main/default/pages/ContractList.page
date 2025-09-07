@@ -1,0 +1,185 @@
+<apex:page standardController="Contract" extensions="ContractListExt" lightningstylesheets="true" showheader="false">
+
+
+<apex:variable var="Button" value="white-space: nowrap; text-decoration:none; font-size: 15pt; font-family: 'Fira Code'; border-top: 2px solid #CCCCCC; border-left: 2px solid #CCCCCC; border-right: 2px solid #333333; border-bottom: 2px solid #333333; border-radius: 5px; padding: 5px 10px 3px 10px;"/>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        @import url('https://fonts.googleapis.com/css?family=Fira+Code');
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900');
+        .buttonClickArea { white-space: nowrap; background-color: #d1e3ff; font-family: Montserrat; font-size: 10pt;color: black; width: 875 px; padding: 2px 20px 2px 20px;}
+        .activeTab { white-space: nowrap; background-color: rgb(44, 73, 129); color:white; background-image: none; font-size: 14pt; font-family: 'Montserrat'; font-weight: bold; }
+        .inactiveTab { white-space: nowrap; background-color: rgb(234, 238, 247); color:black; background-image: none; font-size: 12pt; font-family: 'Montserrat'; font-weight: 400;}
+        #button {{!Button} background-color: rgb(37,113,170); color: white; font-weight: bold; text-align:center;}
+
+    .button {
+        background-color: #0176D3;
+        border-radius: 4px;
+        color: white;
+        padding: 3px 8px;
+        text-align: center;
+        text-decoration: none !important;
+        display: inline-block;
+        font-size: 18px;
+        font-family:'Inconsolata';
+        font-weight: 900;
+            }
+                
+    .button:hover{
+        background-color: #032D60;
+        color: white;
+        cursor:pointer;
+            }
+
+        
+    </style>
+
+<!--   
+    <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />
+    <br />
+-->    
+<!--
+    <div style="white-space: nowrap; font-size: 20pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px;">
+        Current Active Contracts
+        <br />
+    </div>
+ -->
+ 
+<!-- <div style="white-space: nowrap">            
+            <apex:repeat value="{!ABC}" var="abc" >
+                <div style="white-space: nowrap; font-size: 10pt"> &nbsp;</div> -->
+
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=A">A</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=B">B</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=C">C</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=D">D</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=E">E</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=F">F</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=G">G</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=H">H</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=I">I</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=J">J</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=K">K</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=L">L</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=M">M</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=N">N</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=O">O</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=P">P</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=Q">Q</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=R">R</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=S">S</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=T">T</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=U">U</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=V">V</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=W">W</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=X">X</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=Y">Y</a>&nbsp;
+<a class="button" target="_top" href="/one/one.app#/alohaRedirect/apex/ContractList?alpha=Z">Z</a>&nbsp;
+<br/>
+<br/>
+<br/>
+<br/>
+
+        <table>
+        <tr>
+        <td width="1000">                 
+                <apex:outputText value="{!alpha}"  style="white-space: nowrap; font-size: 25pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold;"/>
+<!-- HERE -->          <apex:repeat value="{!listAll}" var="c"  >
+                            <apex:form >
+                            
+                   
+        <apex:outputPanel layout="block" 
+                    style="white-space: nowrap; width:1100; float: left; background-color: #d1e3ff;" 
+                    styleClass="buttonClickArea" 
+                    onmouseover="style='white-space: nowrap; width: 875 px; float: left;background-color: #fff6c1; '" 
+                    onmouseout="style='white-space: nowrap; float: left; background-color: #d1e3ff;'"
+                    >
+           <!-- rendered="{!IF(c.First_Letter_Calc__c=abc,true,false)}" -->
+                               
+                               <apex:outputPanel layout="block" 
+                                       onclick="window.open('/{!c.Id}','_blank')"
+                                       style="width: 300px; float: left;">
+                                       {!c.Name}
+                               </apex:outputPanel>
+                               <apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                          
+                                  <apex:outputPanel layout="block"
+                                        onclick="window.open('/{!c.Account.Id}','_blank')"
+                                        style="white-space: nowrap; width:50px; float: left; text-align: center;" > 
+                                  <apex:outputtext value="Acct" />     
+                                </apex:outputPanel>
+                                <apex:outputpanel layout="block" style="background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                          
+                               <apex:outputPanel layout="block"
+                                        onclick="window.open('/{!c.Associated_Opportunity__c}','_blank')"
+                                        style="white-space: nowrap; width:50px; float: left; text-align: center;" > 
+                                  <apex:outputtext value="Opp" rendered="{!IF(ISBLANK(c.Associated_Opportunity__c)=true,false,true)}"/>
+                                  <apex:outputtext value="---" rendered="{!IF(ISBLANK(c.Associated_Opportunity__c)=true,true,false)}"/>      
+                                </apex:outputPanel>
+                                <apex:outputpanel layout="block" style="background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                          
+                                <apex:outputPanel layout="block"
+                                        onclick="window.open('{!c.Contract_Spreadsheet_URL__c}','_blank')"
+                                        style="white-space: nowrap; width:100px; float: left; text-align: center;" > 
+                                        Spreadsheet
+                                </apex:outputPanel>
+                                <apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                                <apex:outputPanel layout="block"
+                                        onclick="window.open('/apex/BillingTermsCondensed?Id={!c.Id}','_blank')"
+                                        style="white-space: nowrap; width:75px; float: left; text-align: center;" > 
+                                        Terms
+                                </apex:outputPanel>
+                                <apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                                <apex:outputPanel layout="block"
+                                        onclick="window.open('/apex/contInvoice?Id={!c.Id}&Id2={!c.PriorIdCalc__c}','_blank')"
+                                        style="white-space: nowrap; width:85px; float: left; text-align: center;" >
+                                    Invoices
+                                </apex:outputPanel>
+                                <apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                                <apex:outputPanel layout="block" rendered="{!c.Contract_PDF_Calc__c}"
+                                        onclick="window.open('{!c.Contract_PDF_URL__c}','_blank')"
+                                        style="white-space: nowrap; width:50px; float: left; text-align: center;" >
+                                    PDF
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="block" rendered="{!IF(c.Contract_PDF_Calc__c=true,false,true)}"
+                                        style="white-space: nowrap; width:50px; float: left; text-align: center;" >
+                                    ---
+                                </apex:outputPanel>
+
+                                <span style="{!IF($User.LastName='Burton','','display:none;')}">
+                                <apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                                    <apex:outputPanel layout="block"
+                                            onclick="window.open('/{!c.Account.Id}','_blank')"
+                                            style="white-space: nowrap; width:130px; float: left; text-align: left; color:red; font-size:9pt;padding-left:6px;" >
+                                        <apex:outputtext value="Acct Past Due:${0, number, ###,###}" rendered="{!IF(c.Account.Total_Past_Due_Acc__c=0,false,true)}">
+                                            <apex:param value="{!c.Account.Total_Past_Due_Acc__c}"/>
+                                        </apex:outputtext>    
+                                    </apex:outputPanel>
+                                </span>
+
+ 
+ 
+ <!--                               
+                                <apex:outputPanel layout="block"
+                                        onclick="window.open('/apex/contInvoice?Id={!c.Id}&Id2={!c.PriorIdCalc__c}','_blank')"
+                                        style="white-space: nowrap; width:85px; float: left; text-align: center;" >
+                                    OWNER
+                                </apex:outputPanel>
+                                <apex:outputpanel layout="block" style="background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+   -->                             
+                                
+            </apex:outputPanel>
+
+ <!--                 <br style="{!IF(c.First_Letter_Calc__c=abc,'clear:both','display: none')}" /> -->
+                            </apex:form>
+                </apex:repeat>
+                 </td>
+            </tr>
+            </table>       
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</apex:page>

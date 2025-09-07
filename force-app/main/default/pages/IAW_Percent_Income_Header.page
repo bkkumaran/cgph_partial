@@ -1,0 +1,15 @@
+<apex:page standardController="HOMEtracker__Service_File__c" tabStyle="HOMEtracker__Service_File__c" showHeader="false" sidebar="false">
+  <style>
+        div#message {
+            position:relative;
+            padding:5px;
+            padding-left:30px;
+            margin:10px 10px;  
+            height:14px;          
+            background: #F5E4A9;
+            }
+  </style>
+  <div id="message">
+  <b>Percent of Income Spent on Housing Expenses:</b>
+  </div>
+</apex:page>

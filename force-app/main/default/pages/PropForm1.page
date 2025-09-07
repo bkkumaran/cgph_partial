@@ -1,0 +1,106 @@
+<apex:page standardController="HOMEtracker__Property__c" standardStylesheets="true" lightningStylesheets="true" sidebar="false" title="Property Form Test">
+
+<!-- --------------------------- -->
+<!--         VARIABLES           -->
+<!-- --------------------------- -->
+<apex:variable id="varFont" var="varFont" value="Montserrat" /> <!-- font family -->
+<apex:variable id="varTSize" var="varTSize" value="10pt" />      <!-- font size for text -->
+<apex:variable id="varHSize" var="varHSize" value="18pt" />     <!-- font size for header -->
+<apex:variable id="varTHSize" var="varTHSize" value="12pt" />     <!-- font size for header -->
+<apex:variable id="varBSize" var="varBSize" value="10pt" />     <!-- font size for buttons -->
+<apex:variable id="varTWidth" var="varTWidth" value="30%" />    <!-- width for table, % or px -->
+
+
+<!-- --------------------------- -->
+<!--           STYLES            -->
+<!-- --------------------------- -->
+<style>
+    @import url('https://fonts.googleapis.com/css?family={!varFont}');
+    body     {font-family:Montserrat; font-size:{!varTSize}}
+    table    {border-collapse: collapse;}
+    th       {font-weight:bold; font-size:{!varTHSize};padding: 2px 5px 2px 5px;display:none;}
+    td       {font-size:{!varTSize};padding: 2px 5px 2px 5px;}
+    a        {text-decoration:none;}
+    
+    .right   {text-align:right;}
+    .center  {text-align:center;}
+    .left    {text-align:left;}
+    
+    .label   {
+              font-family:{!varFont};
+              font-weight:bold;
+              vertical-align:top;
+              }
+    .input   {
+              background-color:white;
+              font-family:{!varFont};
+              vertical-align:top;
+             }
+    
+    .head    {
+              font-size: {!varHSize};
+              font-weight:bold;
+              }
+
+</style>
+
+<!-- --------------------------- -->
+<!--           FORM              -->
+<!-- --------------------------- -->
+<apex:form >
+
+
+<!-- --------------------------- -->
+<!--          TABLE              -->
+<!-- --------------------------- -->
+
+<apex:pageblock mode="edit">
+    <apex:pageBlockButtons location="bottom" >
+        <apex:commandButton id="save" action="{!save}" value="Save" />
+        <apex:commandButton id="cancel" action="{!cancel}" value="Cancel" />
+    </apex:pageBlockButtons>
+
+
+
+<!-- --------------------------- -->
+<!--          HEADER             -->
+<!-- --------------------------- -->
+
+<!--
+<div class="head"> PAGE HEADER: {!HOMEtracker__Property__c.Name} </div>
+<br/>
+-->
+
+<table border="0" width="{!varTWidth}">
+    <tr class="left">
+        <th> FIELD </th>
+        <th> DATA </th>
+    </tr>
+    <tr>
+        <td class="label">
+            Staff Notes
+        </td>
+        <td class="input">
+            <apex:inputField value="{!HOMEtracker__Property__c.HOMEtracker__Staff_Notes__c}"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            Tracker Order
+        </td>
+        <td class="input">
+            <apex:inputField value="{!HOMEtracker__Property__c.Tracker_Order__c}"/>
+        </td>
+    </tr>
+    
+</table>
+
+
+</apex:pageblock>
+
+</apex:form>
+
+<!-- button to open visualforce page in developer mode -->
+<a style="{!IF($User.LastName='Burton','','display:none;')}" href="https://cgph--c.vf.force.com/apex/PropForm1?id={!HOMEtracker__Property__c.Id}" target="_blank">VF</a>
+
+</apex:page>

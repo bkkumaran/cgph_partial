@@ -1,0 +1,8 @@
+<template>
+  <template if:true={authorized}>
+    <slot></slot>
+  </template>
+  <template if:false={authorized}>
+    <p>Please verify your email to view this content.</p>
+  </template>
+</template>

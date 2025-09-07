@@ -1,0 +1,783 @@
+<apex:page title="CGPH Design" standardStylesheets="false">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto Mono');
+    body  {font-family: Roboto Mono}
+    table {border-collapse:collapse}
+    th    {font-size: 10pt; padding: 5px 5px 5px 5px; font-family: Roboto Mono;}
+    td    {font-size: 10pt; padding: 5px 5px 5px 5px; font-family: Roboto Mono;}
+    button { background-color: white; opacity: 100%; border: 0px; border-radius: 2px;}
+    button:hover { opacity: 60%;}
+    button:active { background:RGB(3,45,96); }
+    .center {text-align:center}
+    .top {font-size: 20pt; padding: 10px 0px 20px 0px; font-family: Roboto Mono; color: RGB(0,101,168); text-align: center;}
+    .icon {opacity: 50%}
+    .icon:hover {opacity:100%}
+    
+</style>
+
+<body>
+<table border="0" style="border-color: blue;">
+<tr>
+<td class="top" colspan="4">
+    CGPH Design Elements<br/>
+    <a href="https://cgph.lightning.force.com/lightning/setup/ApexPages/page?address=%2F066Uq0000001w5B" target="_blank" class="icon">
+        <apex:image url="{!$Resource.EditPencil}"  height="15" />
+    </a>
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top;">
+    <table border="1">
+            <tr>
+                <th colspan="3" class="center">TEXT COLORS</th>
+            </tr>
+            <tr>
+                <apex:variable var="CGPHLogo" value="RGB(0,101,168)"/>
+                <td style="color:{!CGPHLogo};">
+                    <button onclick="navigator.clipboard.writeText('{!CGPHLogo}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    <b>CGPH Logo</b>
+                    </td>
+                <td style="color:{!CGPHLogo};"><b>Blue</b></td>
+                <td style="color:{!CGPHLogo};"><b>{!CGPHLogo}</b></td>
+            </tr>
+            <tr>
+                <apex:variable var="GoodNum" value="RGB(0,113,107)"/>
+                <td style="color:{!GoodNum};">
+                    <button onclick="navigator.clipboard.writeText('{!GoodNum}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    <b>Good Number</b></td>
+                <td style="color:{!GoodNum};"><b>Green</b></td>
+                <td style="color:{!GoodNum};"><b>{!GoodNum}</b></td>
+            </tr>
+            <tr>
+                <apex:variable var="WarnNum" value="RGB(255,180,90)"/>
+                <td style="color:{!WarnNum};">
+                    <button onclick="navigator.clipboard.writeText('{!WarnNum}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    <b>Warning Number</b></td>
+                <td style="color:{!WarnNum};"><b>Orange/Yellow</b></td>
+                <td style="color:{!WarnNum};"><b>{!WarnNum}</b></td>
+            </tr>
+            <tr>
+                <apex:variable var="BadNum" value="RGB(230,76,76)"/>
+                <td style="color:{!BadNum};">
+                    <button onclick="navigator.clipboard.writeText('{!BadNum}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    <b>Bad Number</b></td>
+                <td style="color:{!BadNum};"><b>Red</b></td>
+                <td style="color:{!BadNum};"><b>{!BadNum}</b></td>
+            </tr>
+            <tr>
+                <th colspan="3" class="center">TABLE COLORS</th>
+            </tr>
+            
+            <apex:variable var="RowHigh" value="RGB(255,255,215)"/>
+            <tr style="background-color:{!RowHigh};">
+                <td>
+                    <button onclick="navigator.clipboard.writeText('{!RowHigh}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    Row Highlight</td>
+                <td>Light Yellow</td>
+                <td>{!RowHigh}</td>
+            </tr>
+            
+            <apex:variable var="RowGood" value="RGB(83,224,157)"/>
+            <tr style="background-color:{!RowGood};">
+                <td>
+                    <button onclick="navigator.clipboard.writeText('{!RowGood}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    Success / Good</td>
+                <td>Green</td>
+                <td>{!RowGood}</td>
+            </tr>
+            
+            <apex:variable var="RowGray" value="RGB(230,230,230)"/>
+            <tr style="background-color:{!RowGray};">
+                <td>
+                    <button onclick="navigator.clipboard.writeText('{!RowGray}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    Grayed Out</td>
+                <td>Light Gray</td>
+                <td>{!RowGray}</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="center"><b>BUTTON COLORS</b></td>
+            </tr>
+            
+            <apex:variable var="ButtonSFLight" value="RGB(1,118,211)"/>
+            <tr>
+                <td style="background-color:{!ButtonSFLight}; color:white;">
+                    <button onclick="navigator.clipboard.writeText('{!ButtonSFLight}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    <b>Flow Buttons</b></td>
+                <td style="background-color:{!ButtonSFLight}; color:white;"><b>SF Blue Light</b></td>
+                <td style="background-color:{!ButtonSFLight}; color:white;"><b>{!ButtonSFLight}</b></td>
+            </tr>
+            
+            <apex:variable var="ButtonSFDark" value="RGB(3,45,96)"/>
+            <tr>
+                <td style="background-color:{!ButtonSFDark}; color:white;"><b>
+                    <button onclick="navigator.clipboard.writeText('{!ButtonSFDark}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    Flow Buttons</b></td>
+                <td style="background-color:{!ButtonSFDark}; color:white;"><b>SF Blue Dark</b></td>
+                <td style="background-color:{!ButtonSFDark}; color:white;"><b>{!ButtonSFDark}</b></td>
+            </tr>
+            
+             <apex:variable var="ButtonGreen" value="RGB(0,132,107)"/>
+            <tr>
+                <td style="background-color:{!ButtonGreen}; color:white;">
+                    <button onclick="navigator.clipboard.writeText('{!ButtonGreen}')"><apex:image url="{!$Resource.Clipboard}" height="12"/></button>
+                    <b>Green Button</b></td>
+                <td style="background-color:{!ButtonGreen}; color:white;"><b>Green</b></td>
+                <td style="background-color:{!ButtonGreen}; color:white;"><b>{!ButtonGreen}</b></td>
+            </tr>
+
+                
+    </table>
+
+</td>
+
+<!-- EMOJIS & CHARACTERS -->
+
+<td style="vertical-align: top; padding-left: 20px;">
+    <table border="1">     
+        <tr>
+            <th colspan="4" class="center" width="200px;">
+                EMOJIS &amp; CHARACTERS
+            </th>
+        </tr>
+        
+         <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⏶')" style="font-size: 12pt;">
+                ⏶
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⏷')" style="font-size: 12pt;">
+                ⏷
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⏴')" style="font-size: 12pt;">
+                ⏴
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⏵')" style="font-size: 12pt;">
+                ⏵
+                </button>
+            </td>
+        </tr>
+        
+         <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⬆️')" style="font-size: 12pt;">
+                ⬆️
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⬇️')" style="font-size: 12pt;">
+                ⬇️
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⬅️')" style="font-size: 12pt;">
+                ⬅️
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('➡️')" style="font-size: 12pt;">
+                ➡️
+                </button>
+            </td>
+        </tr>
+        
+        
+        
+        
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('↩')" style="font-size: 12pt;">
+                ↩
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('↪')" style="font-size: 12pt;">
+                ↪
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⏺')" style="font-size: 12pt;">
+                ⏺
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⏹')" style="font-size: 12pt;">
+                ⏹
+                </button>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('☐')" style="font-size: 12pt;">
+                ☐
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('☑')" style="font-size: 12pt;">
+                ☑
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('☒')" style="font-size: 12pt;">
+                ☒
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⛒')" style="font-size: 12pt;">
+                ⛒
+                </button>
+            </td>
+        </tr>
+        
+        
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🔴')" style="font-size: 12pt;">
+                🔴
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟠')" style="font-size: 12pt;">
+                🟠
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟡')" style="font-size: 12pt;">
+                🟡
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟢')" style="font-size: 12pt;">
+                🟢
+                </button>
+            </td>
+        </tr>
+        
+         <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🔵')" style="font-size: 12pt;">
+                🔵
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟣')" style="font-size: 12pt;">
+                🟣
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟤')" style="font-size: 12pt;">
+                🟤
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⚫️')" style="font-size: 12pt;">
+                ⚫️
+                </button>
+            </td>
+        </tr>
+  
+  
+          <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟥')" style="font-size: 12pt;">
+                🟥
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟧')" style="font-size: 12pt;">
+                🟧
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟨')" style="font-size: 12pt;">
+                🟨
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟩')" style="font-size: 12pt;">
+                🟩
+                </button>
+            </td>
+        </tr>
+        
+         <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟦')" style="font-size: 12pt;">
+                🟦
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟪')" style="font-size: 12pt;">
+                🟪
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🟫')" style="font-size: 12pt;">
+                🟫
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⬛️')" style="font-size: 12pt;">
+                ⬛️
+                </button>
+            </td>
+        </tr>
+        
+          <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('✅')" style="font-size: 12pt;">
+                ✅
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⛔️')" style="font-size: 12pt;">
+                ⛔️
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🛑')" style="font-size: 12pt;">
+                🛑
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⚠️')" style="font-size: 12pt;">
+                ⚠️
+                </button>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🔒')" style="font-size: 12pt;">
+                🔒
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🔓')" style="font-size: 12pt;">
+                🔓
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('📁')" style="font-size: 12pt;">
+                📁
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('✏️')" style="font-size: 12pt;">
+                ✏️
+                </button>
+            </td>
+        </tr>
+        
+        
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🔨')" style="font-size: 12pt;">
+                🔨
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('⚒️')" style="font-size: 12pt;">
+                ⚒️
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🏠')" style="font-size: 12pt;">
+                🏠
+                </button>
+            </td>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('🏫')" style="font-size: 12pt;">
+                🏫
+                </button>
+            </td>
+        </tr>
+    </table>
+</td>
+
+
+<!-- RESOURCE ICONS -->
+
+
+<td style="padding-left: 20px; vertical-align: top;">
+
+    <table border="1">
+        <tr>
+            <th colspan="2" class="center">
+                RESOURCE ICONS
+            </th>
+        </tr>
+         <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.EditPencil')">
+                <apex:image url="{!$Resource.EditPencil}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.EditPencil
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Clipboard')">
+                    <apex:image url="{!$Resource.Clipboard}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Clipboard
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.OpenRecordIcon')">
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.OpenRecordIcon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.blueFileIcon')">
+                    <apex:image url="{!$Resource.blueFileIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.blueFileIcon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.blueCalcIcon')">
+                <apex:image url="{!$Resource.blueCalcIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.blueCalcIcon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Invoice_Icon')">
+                <apex:image url="{!$Resource.Invoice_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Invoice_Icon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Blue_Report_Icon')">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Blue_Report_Icon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.BlueQFile')">
+                <apex:image url="{!$Resource.BlueQFile}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.BlueQFile
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.MergeFormsIcon')">
+                <apex:image url="{!$Resource.MergeFormsIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.MergeFormsIcon
+            </td>
+        </tr>
+         <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.MergeFormsIcon')">
+                <apex:image url="{!$Resource.MergeFormsIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.MergeFormsIcon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.PDF_Icon')">
+                <apex:image url="{!$Resource.PDF_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.PDF_Icon
+            </td>
+        </tr>
+         <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.PDF_Icon_Small')">
+                <apex:image url="{!$Resource.PDF_Icon_Small}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.PDF_Icon_Small
+            </td>
+        </tr>
+                <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.AddIcon')">
+                <apex:image url="{!$Resource.AddIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.AddIcon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Thumbs_Up')">
+                <apex:image url="{!$Resource.Thumbs_Up}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Thumbs_Up
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Thumbs_Down')">
+                <apex:image url="{!$Resource.Thumbs_Down}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Thumbs_Down
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.CircleX')">
+                <apex:image url="{!$Resource.CircleX}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.CircleX
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.RedFlag')">
+                <apex:image url="{!$Resource.RedFlag}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.RedFlag
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.NoMailIcon')">
+                <apex:image url="{!$Resource.NoMailIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.NoMailIcon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Target_Icon')">
+                <apex:image url="{!$Resource.Target_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Target_Icon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.DonutChartIcon')">
+                <apex:image url="{!$Resource.DonutChartIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.DonutChartIcon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Calendar_Icon')">
+                <apex:image url="{!$Resource.Calendar_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Calendar_Icon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.WorkbookIcon')">
+                <apex:image url="{!$Resource.WorkbookIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.WorkbookIcon
+            </td>
+        </tr>
+         <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.SpreadsheetIcon')">
+                <apex:image url="{!$Resource.SpreadsheetIcon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.SpreadsheetIcon
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2" class="center">
+                TWO-COLOR ICONS
+            </th>
+        </tr>
+        
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Cancel_Icon')">
+                <apex:image url="{!$Resource.Cancel_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Cancel_Icon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Cancel_Icon_Gray')">
+                <apex:image url="{!$Resource.Cancel_Icon_Gray}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Cancel_Icon_Gray
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Blue_Email_Icon')">
+                <apex:image url="{!$Resource.Blue_Email_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Blue_Email_Icon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Gray_Email_Icon')">
+                <apex:image url="{!$Resource.Gray_Email_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Gray_Email_Icon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Calendar_Alert')">
+                <apex:image url="{!$Resource.Calendar_Alert}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Calendar_Alert
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Calendar_Alert_Gray')">
+                <apex:image url="{!$Resource.Calendar_Alert_Gray}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Calendar_Alert_Gray
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Denied_Doc_Icon')">
+                <apex:image url="{!$Resource.Denied_Doc_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Denied_Doc_Icon
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.Denied_Doc_Gray_Icon')">
+                <apex:image url="{!$Resource.Denied_Doc_Gray_Icon}" height="20"/>
+                </button>
+            </td>
+            <td>
+                $Resource.Denied_Doc_Gray_Icon
+            </td>
+        </tr>
+    </table>
+</td>
+
+
+<!-- LOGOS -->
+
+
+<td style="padding-left: 20px; vertical-align: top;">
+
+    <table border="1">
+        <tr>
+            <th colspan="2" class="center">
+                CGPH LOGOS
+            </th>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.cgphLOGOgif')">
+                    <apex:image url="{!$Resource.cgphLOGOgif}" width="200"/>
+                </button>
+            </td>
+            <td>
+                $Resource.cgphLOGOgif
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.AHNJ_logo')">
+                    <apex:image url="{!$Resource.AHNJ_logo}" width="200"/>
+                </button>
+            </td>
+            <td>
+                $Resource.AHNJ_logo
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <button onclick="navigator.clipboard.writeText('$Resource.logoAHNJ')">
+                    <apex:image url="{!$Resource.logoAHNJ}" width="200"/>
+                </button>
+            </td>
+            <td>
+                $Resource.logoAHNJ
+            </td>
+        </tr>
+    </table>
+</td>
+
+</tr>
+</table>
+</body>
+</apex:page>

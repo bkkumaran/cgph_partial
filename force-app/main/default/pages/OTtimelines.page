@@ -1,0 +1,321 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="InventoryTimelineExt" standardStylesheets="false" showHeader="false">
+
+<!-- VARIABLES -->
+<apex:variable id="Font" var="font" value="Roboto" />
+<apex:variable id="TableWidth" var="tWidth" value="100%"/>
+<apex:variable id="HeaderColor" var="HeadColor" value="rgb(0, 101, 168)"/>
+<apex:variable id="CGPHblue" var="CGPHblue" value="rgb(0, 101, 168)"/>
+<apex:variable id="NoTimeline" var="NoTimeline" value="#ffffd7"/>
+<apex:variable id="red" var="red" value="RGB(230,76,76)"/>
+<apex:variable id="Gray" var="gray" value="#d4d4d4"/>
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family={!font}');
+    
+    .topHeader{
+          overflow: hidden;
+          background-color: white;
+          position: fixed; 
+          top: 0; 
+          width: 100%; 
+          border-bottom: 1px solid gray;
+            }
+    a    {
+        text-decoration: none;
+        color:black;
+        }
+    table {
+        border-collapse: collapse;
+        }
+    td  {
+        padding: 4px 7px 5px 7px;
+        vertical-align:top;
+        font-size: 10pt;
+        font-family:{!font};
+        }
+    th {
+        padding: 5px 5px 5px 5px;
+        font-size:11pt;
+        font-family:{!font};
+        background-color:{!HeadColor};
+        color:white;
+        }
+    .head{
+        padding: 10px 10px 10px 10px;
+        font-size:18pt;
+        font-weight:bold;
+        font-family:{!font};
+        color:{!HeadColor};
+        }
+    .buttonTrack{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: 9pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!gray});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid gray; 
+            border-bottom: 1.5px solid gray; 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonTrack:hover{
+            color:white;
+            background-image: linear-gradient({!HeadColor},{!HeadColor});
+            text-decoration:none;
+                }
+    .data{
+        font-size:10pt;
+        font-family:{!font};
+        }
+    .right{
+        text-align:right;
+        }
+    .center{
+        text-align:center;
+        }
+    .left{
+        text-align:left;
+        }
+     .mainRow:hover{
+         font-weight:bold;
+         }
+     .date{
+         font-size:11pt;
+         }
+     .status{
+         font-size:9pt;
+         font-style: italic;
+         }
+     .innerTd {
+         padding: 0px 7px 0px 0px;
+         }
+     .AddTimeline {
+         padding: 3px 5px 3px 5px;
+         font-size:12pt;
+         font-weight:bold;
+         color:{!red};
+         }
+     .AddTimeline:hover {
+         padding: 3px 5px 3px 5px;
+         background-color:{!red};
+         font-size:12pt;
+         font-weight:bold;
+         color:white;
+         }
+        
+        
+</style>
+    <div style="height: 50px; vertical-align:middle;" class="topHeader">
+    <div style="height:10px;">&nbsp;<br/></div>
+<!--        <a style="text-decoration:none;" href="{!dev.Google_Tracker_Link__c}" target="_blank">
+                <apex:image url="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Google_Sheets_logo_%282014-2020%29.svg/800px-Google_Sheets_logo_%282014-2020%29.svg.png" height="20"/>
+            </a>
+        <a style="text-decoration:none;" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008SdVQUA0/view?queryScope=userFolders&fv0={!dev.Name}" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="20"/>
+        </a>
+     -->   
+        <a class="head" href="/{!devID}" target="_blank">
+            <u>{!dev.Name} {!dev.Rental_or_Sale_Development__c} - INVENTORY Outreach Timelines</u>
+            &nbsp;&nbsp;
+        </a>
+
+        <!-- BUTTONS -->
+      
+            &nbsp;&nbsp;
+            <a href="https://cgph--c.vf.force.com/apex/PropertyInventory?d={!devID}&g={!getGroupShow}" class="buttonTrack" target="_top">
+                INVENTORY
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://cgph--c.vf.force.com/apex/OutreachTrackerStaff?id={!devID}" class="buttonTrack" target="_top">
+                APPLICANT TRACKER
+            </a>
+            
+            
+    </div>
+<div style="height:50px;">&nbsp;</div>
+
+<table border="1" width="{!tWidth}">
+    <tr>
+        <th class="left">
+            Address
+        </th>
+        <th class="left">
+            Unit / #
+        </th>
+        <th class="center">
+         <a href="https://cgph.my.salesforce.com/ui/list/FilterEditPage?id=00BUq000000QP7d&fval1={!LEFT(Dev.Id,15)}&retURL=%2Fa3g&cancelURL=%2Fa3g%2Fo" target="_blank" style="text-decoration:none;">
+                <apex:image url="{!$Resource.Target_Icon}" width="25px"/>
+            </a>   
+        </th>
+        <th class="left">
+            Target Date
+            
+        </th>
+        <th class="left">
+            Target Status
+        </th>
+        <th class="left">
+            Outreach Start
+        </th>
+        <th class="left">
+            Full Apps Sent
+        </th>
+        <th class="left">
+            Tracker
+        </th>
+        <th class="left">
+            LL/Dev Approval
+        </th>
+        <th class="left">
+            Certification
+        </th>
+    </tr>    
+<apex:repeat var="x" value="{!unitList}">
+
+    <tr class="mainRow"
+        style="{!IF(x.Group_Property__c=true,'display:none;','')}background-color:{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=true,NoTimeline,'white')};">
+
+<!-- Address -->
+        <td class="left">
+            <a href="/{!x.Id}" target="_blank">{!x.Name}</a>
+        </td>
+
+<!-- Unit -->
+        <td class="left">
+            {!x.Unit_Number__c}
+        </td>
+        
+<!-- TARGET LINK -->
+        <td class="center">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Timelines_New_Target_Date?varID={!x.Current_Outreach_Timeline__r.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOTtimelines%3Fid%3D{!devId}" target="_top">
+                <apex:image url="{!$Resource.Target_Icon}" height="15px"/>
+            </a>
+        </td>
+  
+       
+<!-- Target Outreach Date -->
+        <td class="left" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+             <apex:outputField value="{!x.Current_Outreach_Timeline__r.Target_Outreach_Date__c}" />
+        </td>
+        
+<!-- Target Outreach Status -->
+        <td class="left" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+             <apex:outputField value="{!x.Current_Outreach_Timeline__r.Target_Outreach_Status__c}" />
+        </td>
+        
+<!-- -------------------------------------------------------------------------------- -->       
+
+<!-- Outreach Start Date -->        
+        <td>
+            <table>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+                    <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Date_Change?varID={!x.Id}&varNum=3&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOTtimelines%3Fid%3D{!devId}" target="_top">
+                        <apex:image url="{!$Resource.Calendar_Icon}" height="15px"/>
+                    </a>
+                </td>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+                    <div class="date"><apex:outputField value="{!x.Current_Outreach_Timeline__r.Outreach_Start_Date__c}" /></div>
+                    <div class="status"><apex:outputField value="{!x.Current_Outreach_Timeline__r.Outreach_Start_Date_Status__c}"/></div>
+                </td>
+            </table>
+        </td>
+
+<!-- Full Apps Sent Date -->        
+        <td>
+            <table>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+                    <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Date_Change?varID={!x.Id}&varNum=4&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOTtimelines%3Fid%3D{!devId}" target="_top">
+                        <apex:image url="{!$Resource.Calendar_Icon}" height="15px"/>
+                    </a>
+                </td>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+                    <div class="date"><apex:outputField value="{!x.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c}" /></div>
+                    <div class="status"><apex:outputField value="{!x.Current_Outreach_Timeline__r.Full_Apps_Sent_Date_Status__c}"/></div>
+                </td>
+            </table>
+        </td>
+
+<!-- Applicants to Tracker Date -->
+        <td>
+            <table>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+                    <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Date_Change?varID={!x.Id}&varNum=5&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOTtimelines%3Fid%3D{!devId}" target="_top">
+                        <apex:image url="{!$Resource.Calendar_Icon}" height="15px"/>
+                    </a>
+                </td>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+                    <div class="date"><apex:outputField value="{!x.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c}" /></div>
+                    <div class="status"><apex:outputField value="{!x.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date_Status__c}"/></div>
+                </td>
+            </table>
+        </td>
+
+<!-- LL Dev Approval Date -->
+        <td>
+            <table>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+                    <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Date_Change?varID={!x.Id}&varNum=6&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOTtimelines%3Fid%3D{!devId}" target="_top">
+                        <apex:image url="{!$Resource.Calendar_Icon}" height="15px"/>
+                    </a>
+                </td>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+                    <div class="date"><apex:outputField value="{!x.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c}" /></div>
+                    <div class="status"><apex:outputField value="{!x.Current_Outreach_Timeline__r.LL_Dev_Approval_Date_Status__c}"/></div>
+                </td>
+            </table>
+        </td>
+
+<!-- Certification Date -->
+        <td>
+            <table>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=false,'','display:none;')}">
+                    <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Date_Change?varID={!x.Id}&varNum=7&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOTtimelines%3Fid%3D{!devId}" target="_top">
+                        <apex:image url="{!$Resource.Calendar_Icon}" height="15px"/>
+                    </a>
+                </td>
+                <td class="innerTd" style="{!IF(ISBLANK(x.Current_Outreach_Timeline__c)=true,'display:none;','')}">
+                    <div class="date"><apex:outputField value="{!x.Current_Outreach_Timeline__r.Certification_Date__c}" /></div>
+                    <div class="status"><apex:outputField value="{!x.Current_Outreach_Timeline__r.Certification_Date_Status__c}"/></div>
+                </td>
+            </table>
+        </td>
+                        
+<!-- Outreach Dates Warning
+        <td>
+            <table>
+                <td style="padding: 0px 5px 0px 0px;">
+                    <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Update_All_Fast?varID={!x.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOTtimelines%3Fid%3D{!devId}" target="_top">
+                        <apex:image url="{!$Resource.Target_Icon}" width="15px"/>
+                    </a>
+                </td>
+                <td style="padding: 0px 0px 0px 0px;">
+                    <apex:outputField value="{!x.Outreach_Dates_Warning__c}"/>
+                </td>
+            </table>
+        </td>
+-->
+
+
+<!-- OLD CERT DATE 
+        <td class="left" style="{!IF(ISNULL(x.Current_Primary_Applicant__r.Applicant_Name__c)=false,'','display:none;')}">
+            <apex:outputField value="{!x.Current_Primary_Applicant__r.CGPH_Approval_Denial_Date__c}"/>
+        </td>
+        <td class="left" style="{!IF(ISNULL(x.Current_Primary_Applicant__r.Applicant_Name__c)=false,'display:none;','')}">
+            n/a
+        </td>
+-->        
+    </tr>
+</apex:repeat>
+</table>
+
+<br/>
+<br/>
+<br/>
+<br/>
+</apex:page>

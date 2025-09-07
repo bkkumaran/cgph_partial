@@ -1,0 +1,2256 @@
+<apex:page showheader="false" standardStylesheets="false" controller="CGPHProfileController" cache="false" action="{!setProfileStatistics}" expires="300">
+<apex:includeScript value="{!URLFOR($Resource.CGPH_Resource, '/js/prefixfree.min.js')}" /> 
+<apex:stylesheet value="{!URLFOR($Resource.CGPH_Resource,'/css/normalize.css')}"/>
+<script>
+
+var actionElement = '';
+function showModal(param)
+{
+    debugger;
+    stopLoading();
+    if( param == 'helpLink' )
+  {
+     $('#helpModal').on('shown.bs.modal',function() { 
+      })
+      
+      $('#helpModal').modal({show:true})
+  }
+
+  if( param == 'IncomeLimitsLink' )
+  {
+     $('#IncomeLimitsModal').on('shown.bs.modal',function() { 
+      })
+      
+      $('#IncomeLimitsModal').modal({show:true})
+  }
+
+  if( param == 'LotteryLink' )
+  {
+    console.log('show');
+     $('#LotteryModal').on('shown.bs.modal',function() { 
+      })
+      
+      $('#LotteryModal').modal({show:true})
+  }
+}
+
+$(document).ready(function(){
+///////////////////////// sliding validation
+(function($) {
+
+  $.fn.visible = function(partial) {
+    
+      var $t            = $(this),
+          $w            = $(window),
+          viewTop       = $w.scrollTop(),
+          viewBottom    = viewTop + $w.height(),
+          _top          = $t.offset().top,
+          _bottom       = _top + $t.height(),
+          compareTop    = partial === true ? _bottom : _top,
+          compareBottom = partial === true ? _top : _bottom;
+    
+    return ((compareBottom <= viewBottom) && (compareTop >= viewTop));
+
+  };
+    
+})(jQuery);
+
+var win = $(window);
+
+var allMods = $(".module");
+
+allMods.each(function(i, el) {
+  var el = $(el);
+  if (el.visible(true)) {
+    el.addClass("already-visible"); 
+  } 
+});
+
+win.scroll(function(event) {
+  
+  allMods.each(function(i, el) {
+    var el = $(el);
+    if (el.visible(true)) {
+      el.addClass("come-in"); 
+    } 
+  });
+  
+});
+
+
+////////////////////////
+if({!showOwnership}=="" && '{!(PreApplicantDetails.preApplicant.Rental_Interest__c && NOT(PreApplicantDetails.preApplicant.Purchase_Interest__c))}' == 'true') {
+    showPropertySection('rentalBtn');   
+}else if({!showOwnership}==false){
+  showPropertySection('rentalBtn');
+}else{
+  showPropertySection('purchaseBtn');
+}
+
+
+  $('#helpLink').click(function() {
+    startProcessing();
+    actionElement = 'helpLink';
+   // set the enpoint reference
+    setEndpointURL('/wp-json/wp/v2/pages/4774');
+  })
+
+  // Show Help window on first profile view 
+  if('{!AND(iProfileViews == 0,PreApplicantDetails.preApplicant.Update_Status__c=='Current')}'== 'true') {
+    startProcessing();
+    actionElement = 'helpLink';
+    // set the enpoint reference
+    setEndpointURL('/wp-json/wp/v2/pages/4774');
+  }
+
+  $('.LiveWorkLink').click(function() {
+    $('#LiveWorkModal').on('shown.bs.modal',function() { 
+    })
+    $('#LiveWorkModal').modal({show:true})
+  })
+
+  $('#IncomeLimitsLink').click(function() {
+    startProcessing();
+    actionElement = 'IncomeLimitsLink';
+   // set the enpoint reference
+    setEndpointURL('/wp-json/wp/v2/pages/4858');
+  })
+
+  $('.LotteryLink').click(function() {
+    console.log('did it');
+    startProcessing();
+    actionElement = 'LotteryLink';
+   // set the enpoint reference
+    setEndpointURL('/wp-json/wp/v2/pages/5224');
+  })  
+
+  $('.NoListingsLink').click(function() {
+    $('#NoListingsModal').on('shown.bs.modal',function() { 
+    })
+    $('#NoListingsModal').modal({show:true})
+  })
+
+  // Setup background modal on start processing
+  $('.js-loading-bar').modal({
+    backdrop: 'static',
+    show: false,
+  });
+
+  $('[data-toggle="tooltip"]').tooltip(); 
+
+});
+
+
+function hiOwl() {
+  $("#owl-demo").owlCarousel({
+    
+    stopOnHover : true,
+    navigation:true,
+    paginationSpeed : 1000,
+    goToFirstSpeed : 2000,
+    singleItem : true,
+    autoHeight : true,
+    transitionStyle:"fade"
+  });
+
+}
+
+function updateLink(){
+debugger;
+//console.log('{!PreApplicantDetails.strUpdateURL}');
+window.top.location.href = '{!JSENCODE(PreApplicantDetails.strUpdateURL)}'; 
+}
+
+function restartLink(){
+  window.top.location.href = '{!JSENCODE(PreApplicantDetails.strRestartURL)}'; 
+}
+
+// Show full rental property info
+function showFullRentalProperty(param){
+  getPropertyInfo(param);
+  startProcessing();    
+}
+
+// Show full purchase prperty
+function showFullPurchaseProperty(param){
+  getPurchasePropertyInfo(param);
+  startProcessing();    
+}
+
+// Display Loading Animation
+function startProcessing() {
+  $('.js-loading-bar').modal('show');
+  $('.js-loading-bar').find('.progress-bar').addClass('animate');
+}
+
+// Remove Loading Animation and dont show modal
+function stopLoading() {
+  $('.js-loading-bar').find('.progress-bar').removeClass('animate');
+  $('.js-loading-bar').modal('hide');
+  setTimeout(function() {
+    $('#fade').attr('style','display:none');
+  },1000);
+}
+
+// Remove Loading Animation
+function stopProcessing() {
+  $('.js-loading-bar').find('.progress-bar').removeClass('animate');
+  $('.js-loading-bar').modal('hide');
+  setTimeout(function() {
+    $('#fade').attr('style','display:none');
+  },1000);
+  $('#myModal').modal('show');
+}
+
+// Remove modal window
+function removeModal(){     
+  $('#myModal').modal('hide');
+  $('body').removeClass('modal-open');
+  $('#myModal').removeData('.modal')
+  $('.modal-backdrop').remove();
+}
+
+function showPropertySection(param){
+
+  if('{!AND(PreApplicantDetails.preApplicant.Update_Status__c != 'Grace Period', PreApplicantDetails.preApplicant.Update_Status__c != 'Expired',
+    PreApplicantDetails.preApplicant.Update_Status__c != 'Pending',
+    PreApplicantDetails.preApplicant.Update_Status__c != 'None')}' == 'false') 
+    return;
+
+  if(param=='purchaseBtn') {
+    
+    // add classes to expand button size
+    $('[id*=purchaseBtn]').addClass('HeadingBox');
+    $('[id*=purchaseBtn]').removeClass('HeadingButton');
+    $('[id*=purchaseSection]').attr('style','display:block;');
+    
+    $('[id*=rentalBtn]').addClass('HeadingButton');
+    $('[id*=rentalBtn]').removeClass('HeadingBox');
+    $('[id*=rentalSection]').attr('style','display:none;'); 
+
+    $('[id*=myProfileBtn]').addClass('HeadingButton');
+    $('[id*=myProfileBtn]').removeClass('HeadingBox');
+    $('[id*=myProfileSection]').attr('style','display:none;'); 
+
+  }else if(param=='rentalBtn') {
+
+    $('[id*=purchaseBtn]').addClass('HeadingButton');
+    $('[id*=purchaseBtn]').removeClass('HeadingBox');
+    $('[id*=purchaseSection]').attr('style','display:none;');
+    
+    $('[id*=rentalBtn]').addClass('HeadingBox');
+    $('[id*=rentalBtn]').removeClass('HeadingButton');
+    $('[id*=rentalSection]').attr('style','display:block;'); 
+
+    $('[id*=myProfileBtn]').addClass('HeadingButton');
+    $('[id*=myProfileBtn]').removeClass('HeadingBox');
+    $('[id*=myProfileSection]').attr('style','display:none;'); 
+
+  }else if(param=='myProfileBtn') {
+
+    $('[id*=purchaseBtn]').addClass('HeadingButton');
+    $('[id*=purchaseBtn]').removeClass('HeadingBox');
+    $('[id*=purchaseSection]').attr('style','display:none;');
+    
+    $('[id*=rentalBtn]').addClass('HeadingButton');
+    $('[id*=rentalBtn]').removeClass('HeadingBox');
+    $('[id*=rentalSection]').attr('style','display:none;'); 
+
+    $('[id*=myProfileBtn]').addClass('HeadingBox');
+    $('[id*=myProfileBtn]').removeClass('HeadingButton');
+    $('[id*=myProfileSection]').attr('style','display:block;'); 
+  }
+
+  /*
+    if('{!AND(PreApplicantDetails.preApplicant.Update_Status__c != 'Grace Period', PreApplicantDetails.preApplicant.Update_Status__c != 'Expired', PreApplicantDetails.preApplicant.Update_Status__c != 'None')}' == 'false') 
+    return;
+
+  if(param=='purchaseBtn') {
+    $('[id*=purchaseSection]').attr('style','display:block;');
+    $('[id*=rentalSection]').attr('style','display:none;'); 
+    
+    // add classes to expand button size
+    $('[id*=purchaseBtn]').addClass('HeadingBox');
+    $('[id*=purchaseBtn]').html('Viewing Ownership');
+    $('[id*=purchaseBtn]').removeClass('HeadingButton');
+    
+    $('[id*=rentalBtn]').addClass('HeadingButton');
+    $('[id*=rentalBtn]').html('Go to Rentals');
+
+    $('[id*=rentalBtn]').removeClass('HeadingBox');
+
+  }else{
+
+    $('[id*=purchaseBtn]').removeClass('HeadingBox');
+    $('[id*=purchaseBtn]').html('Go to Ownership');
+    $('[id*=purchaseBtn]').addClass('HeadingButton');
+
+    $('[id*=rentalBtn]').removeClass('HeadingButton');
+    $('[id*=rentalBtn]').html('Viewing Rentals');
+    $('[id*=rentalBtn]').addClass('HeadingBox');
+
+    $('[id*=rentalSection]').attr('style','display:block;');
+    $('[id*=purchaseSection]').attr('style','display:none;');
+
+  }*/
+}
+
+</script>
+
+<c:CGPHComponent />
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
+
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,700);
+
+
+{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+section {
+  background: #eee;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.module {
+
+}
+.module:nth-child(even) {
+  margin-right: 0;
+}
+
+
+.come-in {
+  transform: translateY(250px);
+  animation: come-in 3s ease forwards;
+}
+
+.come-in:nth-child(odd) {
+  animation-duration: 3s;
+}
+
+.already-visible {
+  transform: translateY(0);
+  animation: none;
+}
+
+@keyframes come-in {
+  to {
+    transform: translateY(0);
+  }
+}
+
+
+
+/* end of css slide animation */
+
+
+*{
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+text-shadow:none;
+text-rendering: optimizeLegibility;
+}
+
+.conatiner{
+  layout:block;
+
+}
+
+body{
+  font-family: 'Open Sans', sans-serif;
+  /*font-size-adjust: .65;
+  font-size: 175%;
+  font-weight: 400;
+  line-height:1.55;*/
+
+  -webkit-animation-delay: 0.1s;
+  -webkit-animation-name: fontfix;
+  -webkit-animation-duration: 0.1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+
+}
+
+@-webkit-keyframes fontfix {
+    from { opacity: 1; }
+    to   { opacity: 1; }
+}
+
+// New CSS
+
+/* Header CSS */
+
+h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3.5em;
+  font-weight: 600;
+  margin: 0;
+}
+
+h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 4.25em;
+  font-weight: 400;
+  margin: 0 0 5px 0;
+}
+
+h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2.25em;
+  font-weight: 400;
+  margin: 0;
+}
+
+h3 span {
+  font-size: 2.5em;
+  color: #777;
+}
+
+p,li{
+  font-size:1.5em;
+}
+.normalText{
+  font-size:1.5em;
+}
+
+
+/* Profile CSS */
+.header {
+
+  margin-bottom:10px;  
+}
+
+.headerTitle {
+  font-size: 48px;
+  font-family: 'Open Sans', serif;
+  font-weight: 300;  
+  color: white;
+  position: absolute;
+  bottom: 15px;
+  right: 35px;
+}
+
+
+.profileBlock {
+  margin-top:10px;
+  margin-bottom:30px;
+  background-color:#e6f3fa;
+  box-sizing: border-box;
+  padding:5px 20px;
+  font-size: 1.3em;
+  font-family: 'Open Sans', serif;  
+}
+
+.profileTitle {
+  font-size: 38px;
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+  margin-bottom:-10px;
+}
+
+.profileUpdate {
+  font-size: 34px;
+  font-family: 'Open Sans', serif;
+  font-weight: 300;
+  text-align:right;
+  
+}
+
+.profileStat {
+  width:150px;
+  float:left;
+  margin-right:20px;
+  text-align:center;
+}
+
+.profileValue {
+  font-size: 24px;
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+}
+
+
+.HeadingBox {
+  color:#007cc2;
+  background-color:#d8d8d8;
+
+  font-size: 2.6em;
+  font-family: 'Open Sans', serif;
+  font-weight: 300;
+  text-align: center;
+  min-height: 65px;
+  margin-top:0px;
+  padding-top: 8px;
+  border-radius:2px;
+  cursor:pointer;
+
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+  -moz-user-select: none;
+  /* Firefox */
+  
+  -ms-user-select: none;
+  /* Internet Explorer */
+  
+  -khtml-user-select: none;
+  /* KHTML browsers (e.g. Konqueror) */
+  
+  -webkit-user-select: none;
+  /* Chrome, Safari, and Opera */
+  
+  -webkit-touch-callout: none;
+  /* Disable Android and iOS callouts*/  
+}
+
+.HeadingButton{
+  background-color: #007cc2;
+  color:white;
+
+  font-size: 2.6em;
+  font-family: 'Open Sans', serif;
+  font-weight: 300;
+  text-align: center;
+  min-height: 65px;
+  margin-top:0px;
+  padding-top: 5px;
+  border-radius:2px;
+  cursor:pointer;
+
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+  -moz-user-select: none;
+  /* Firefox */
+  
+  -ms-user-select: none;
+  /* Internet Explorer */
+  
+  -khtml-user-select: none;
+  /* KHTML browsers (e.g. Konqueror) */
+  
+  -webkit-user-select: none;
+  /* Chrome, Safari, and Opera */
+  
+  -webkit-touch-callout: none;
+  /* Disable Android and iOS callouts*/  
+}
+
+.HeadingButton:hover {
+  background-color: #229fe4;
+}
+
+.SecondaryButton{
+  font-size: 2.25em;
+  font-family: 'Open Sans', serif;
+  font-weight: 300;
+  background-color: #007cc2;
+  text-align: center;
+  min-height: 50px;
+  padding-top: 1px;
+  color:white;
+  cursor:pointer;
+  border-radius: 2px;
+
+
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+  -moz-user-select: none;
+  /* Firefox */
+  
+  -ms-user-select: none;
+  /* Internet Explorer */
+  
+  -khtml-user-select: none;
+  /* KHTML browsers (e.g. Konqueror) */
+  
+  -webkit-user-select: none;
+  /* Chrome, Safari, and Opera */
+  
+  -webkit-touch-callout: none;
+  /* Disable Android and iOS callouts*/  
+}
+
+.SecondaryButton:hover {
+  background-color: #229fe4;
+}
+
+.SmallerFont{
+/*  font-size: 1.5em; 
+  padding-top:10px;*/
+}
+
+.WaitListBox {
+  /*padding-left: 2%;*/
+  padding-top: 0px;
+
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+}
+
+.MinicipStat {
+  font-size: 1.1em;
+  font-family: 'Open Sans', serif;
+  
+  padding-top: 0px;
+  text-align: center;
+}
+
+/* Property Thumbnail CSS */
+
+.propertyThumbnailBox1 {
+  margin: 25px 0px;
+  padding: 0px 0px;
+  /*background-color: #f3f7fa;*/
+  position: relative;
+
+  border: 1px solid #ddd;
+  height: 149px;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+  -moz-user-select: none;
+  /* Firefox */
+  
+  -ms-user-select: none;
+  /* Internet Explorer */
+  
+  -khtml-user-select: none;
+  /* KHTML browsers (e.g. Konqueror) */
+  
+  -webkit-user-select: none;
+  /* Chrome, Safari, and Opera */
+  
+  -webkit-touch-callout: none;
+  /* Disable Android and iOS callouts*/
+  cursor: pointer;
+}
+
+.propertyThumbnailBox1:hover {
+ /* background-color: #e9eef2;*/
+    
+}
+
+.viewListing{
+  width:100%;
+  height:149px;
+  position:absolute;
+  top:0px;
+  left:0px;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align:center;
+  padding-top:50px;
+  font-size:1.5em;
+  display:none;
+}
+
+.propertyThumbnailBox1:hover .viewListing{
+    display: block;
+}
+
+/*
+
+
+.propertyThumbnailBox1:hover:after {
+    content: url('http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/CGPH-Blue-Logo.png'); 
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+    background-color:red;
+    width:100%;
+    height:149px;
+}
+*/
+
+.propertyThumbnailTitle {
+  padding-left: 15px;
+  font-size: 34px;
+  height: 30px;
+  float: left;
+  font-family: 'Open Sans Condensed', serif;
+  font-weight: 700;
+}
+
+.blueTitle1 {
+  color: #0e6bca;
+}
+
+.greenTitle1 {
+  color: #1a876a;
+}
+
+.greyTitle1 {
+  color: #aeaeae;
+}
+
+.propertySubtitle {
+  padding-left: 4px;
+  color: #999999;
+  height: 200px;
+  font-size: 24px;
+  font-family: 'Open Sans Condensed', serif;
+  font-weight: 700;
+}
+
+.propertyTitleRight {
+  padding-right: 15px;
+  float: right;
+  font-size: 34px;
+  font-family: 'Open Sans Condensed', serif;
+  font-weight: 700;
+}
+
+.blueTitle2 {
+  color: #0e6bca;
+}
+
+.greenTitle2 {
+  color: #2dbd9a;
+}
+
+.propertyThumbnailBox2 {
+  padding: 5px 15px;
+  height: 30px;
+  color: white;
+  font-size: 1em;
+  font-family: 'Open Sans', serif;
+}
+
+.blueBox2 {
+  background-color: #007cc2;
+}
+
+.greenBox2 {
+  background-color: #1a876a;
+}
+
+.greyBox2 {
+  background-color: #aeaeae;
+}
+
+.propertyThumbnailBox3 {
+  position: relative;
+  padding: 5px 15px;
+  height: 68px;
+  color: white;
+  font-family: 'Open Sans', serif;
+  font-size: 1.5em;
+}
+
+.blueBox3 {
+  background-color: #92cae9;
+}
+
+.greenBox3 {
+  background-color: #2dbd9a;
+}
+
+.propertyTitleRightBottom {
+  text-align: white;
+  font-size: 22px;
+  bottom: 5px;
+  right: 15px;
+  position: absolute;
+  font-family: 'Open Sans', serif;
+  font-weight: 300;
+}
+
+.blueTitle3 {
+  color: #006ac4;
+}
+
+.greenTitle3 {
+  color: #156a53;
+}
+
+
+
+.RegionMap {
+    position: absolute;
+    left: 0px;
+    top: 15px;
+    
+}
+
+.Regions{
+  padding:10px 50px 10px 50px;
+  font-size:1.5em;
+}
+
+
+.SelectedRegion{
+  /*background-color: #ddd;*/
+  color: #0e6bca;
+}
+
+.jumbotron{
+  border-radius:0;
+  text-align:center;
+  padding-top:20px;
+}
+
+/*====================================================*/
+
+#CGPHTownshipPreferences {
+  margin-bottom: -9999px;
+  padding-bottom: 9999px;
+}
+
+.container {
+}
+
+
+
+// End New CSS
+
+    .cgphUpdateLabels{
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        /*margin-left: 1%;*/
+    }
+    .cgphMarginLeft{
+        margin-left: 1%;
+    }
+    .cgphRentalDiv{
+        /* margin-left: -1%;*/
+    }
+    .cgphPurchaseDiv{
+        /*margin-left: -1%;*/
+        margin-top: 15%;
+    }
+    .cgphRetalTable{
+        margin-left: 2.5%;
+    }
+    .cgphMunicipalityPreference{
+        font-family: 'Open Sans', sans-serif;
+        margin: auto;
+       /* margin-left: 3%;*/
+        line-height: 51px;
+        font-size: 1.5em;
+        color:rgb(41, 128, 185);
+    }
+    .cgphBtnRentalUpdate{
+        float:right;
+    }
+    .cgphBtnPurchaseUpdate{
+        float:right;
+    }
+    .cgphUpdateRentalProfile{
+        float:left;
+        /*margin-left:2%;*/
+        font-size: 18px;
+        font-family: 'Open Sans', sans-serif;   
+    }
+    .btn-info {
+        border-radius: 0;
+        float:right;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        background-color: #999999;
+        border-color: #999999;
+    }
+    .table>thead>tr>th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #ddd;
+        color: rgb(41, 128, 185);
+    }
+    .messageText h4{
+        display:none;
+    }
+    .message{
+   
+        font-family: 'Open Sans', sans-serif;
+        font-size: 30px;
+        font-weight: 500;
+
+    }
+
+     .control-label {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.3em;
+        display: inline-block;
+        margin-bottom: 5px;
+        margin-top:10px;  
+        font-weight: 600;
+    }
+    
+    .cgphPropLabel{ /*Used on Property Detail   - Replace */
+
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.5em;
+        display: inline-block;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+
+    /* Loader Animation Styles */
+    .spinner {
+        margin: 100px auto;
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        font-size: 10px;
+    }
+    
+    .spinner > div {
+        background-color:white;
+        height: 200%;
+        width: 6px;
+        display: inline-block;
+        -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+        -moz-animation: stretchdelay 1.2s infinite ease-in-out;
+        animation: stretchdelay 1.2s infinite ease-in-out;
+    }
+    
+    .spinner .rect2 {
+        -webkit-animation-delay: -1.1s;
+        -moz-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+    }
+    
+    .spinner .rect3 {
+        -webkit-animation-delay: -1.0s;
+        -moz-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+    
+    .spinner .rect4 {
+        -webkit-animation-delay: -0.9s;
+        -moz-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+    }
+    
+    .spinner .rect5 {
+        -webkit-animation-delay: -0.8s;
+        -moz-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+    }
+    
+    @-webkit-keyframes stretchdelay {
+        0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+        20% { -webkit-transform: scaleY(1.0) }
+    }
+    @-moz-keyframes stretchdelay {
+        0%, 40%, 100% { -moz-transform: scaleY(0.4) }  
+        20% { -moz-transform: scaleY(1.0) }
+    }
+    @keyframes stretchdelay {
+        0%, 40%, 100% { transform: scaleY(0.4); -webkit-transform: scaleY(0.4); -moz-transform: scaleY(0.4);} 
+        20% { transform: scaleY(1.0); -webkit-transform: scaleY(1.0);  -moz-transform: scaleY(1.0);}
+    }
+    /*
+    body.modal-open {
+        overflow: hidden;
+    }
+    .modal-open {
+        overflow: hidden;
+    }
+    .modal { overflow-y: auto; }*/
+    /* Portrait and Landscape */
+    
+    .progress-bar.animate {
+        width: 100%;
+        overflow: hidden;
+    }
+    .cgphLoader{
+        /*top:40%; 
+        width:15%; 
+        height:15%; */
+        top:55%; 
+        width:30%; 
+        height:25%; 
+        margin-top:15%; 
+        margin-right:auto; 
+        margin-bottom:0; 
+        margin-left:auto;
+    }
+    
+
+    /* Property Image Carousel CSS */
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 100%;
+        margin: auto;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+       /* margin-left:-5%;*/
+        /*height:370px !important;*/
+        height: auto;
+    }
+    
+    .carousel-control.right {
+        left: auto;
+        right: 0;
+        background-image: -webkit-linear-gradient(left,color-stop(rgba(0,0,0,.0001) 0),color-stop(rgba(0,0,0,.5) 100%));
+        background-image: linear-gradient(to right,rgba(0,0,0,.000) 0,rgba(0,0,0,.0) 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+    }
+    .carousel-control.left {
+        background-image: -webkit-linear-gradient(left,color-stop(rgba(0,0,0,.5) 0),color-stop(rgba(0,0,0,.0001) 100%));
+        background-image: linear-gradient(to right,rgba(0,0,0,.0) 0,rgba(0,0,0,.0000) 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+    }
+
+   
+
+.on{
+  background-color:rgb(000,098,156);/*rgb(160,207,103);*/
+  color:white;
+}
+
+.on .focus{
+  background-color:rgb(000,098,156);/*rgb(160,207,103);*/
+  color:white;
+}
+
+.on:hover{
+  background-color:rgb(000,098,156);
+}
+  
+.off{
+  background-color:#eeeeee;
+  color:black;
+}
+  
+.off hover{
+  background-color:#dddddd;
+}
+
+
+  /*==========  Non-Mobile First Method  ==========*/
+
+    @media only screen 
+      and (min-device-width: 320px) 
+      and (max-device-width: 480px) {
+     /*    .modal-dialog {
+            width: 95%;
+            margin:30px auto;
+        }
+       .modal-content{
+            height:100%;
+        } */
+    }
+
+  /* Large Devices, Wide Screens */
+  @media only screen and (max-width : 1200px){
+     #menuRentalBtn{
+      padding:0px;
+    }
+    .township{
+      display:block !important;
+    }
+  }
+ 
+  /* Medium Devices, Desktops */
+  @media only screen and (max-width : 992px){
+    #menuRentalBtn{
+      padding:0px;
+    }
+    #AHNJ{
+      display:block !important;
+    }
+
+    #Profile{
+    text-align: center;
+    }
+
+    #MyLiveWork{
+     margin-top:35px;
+    }
+
+  }
+ 
+  /* Extra Small Devices, Phones */
+  @media only screen and (max-width : 768px){
+
+    #menuRentalBtn{
+      padding:0px;
+    }
+    #AHNJ{
+      display:block !important;
+    }
+
+ }
+  /* Extra Small Devices, Phones */
+
+  @media only screen and (max-width : 480px){
+
+    #menuRentalBtn{
+     padding:0px;
+    }
+    h2{
+      display:block;
+    }
+  }
+ 
+</style>
+<!--
+<apex:outputPanel rendered="{!b_ShowForm==false}" layout="block">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="">
+      <div class="modal-header">
+        <div class="row" style="padding:0px 15px 0px 10px;">
+          <div class="col-lg-12 col-md-11 col-sm-11 col-xs-11"><h2 style="padding-top:10px; padding-bottom:0px;">Affordable Homes New Jersey Profile</h2></div>         
+        </div>
+      </div>
+      <div class="modal-body">
+        <apex:pageMessages escape="false"></apex:pageMessages>
+      </div>
+    </div>
+  </div>
+   
+</apex:outputPanel>
+-->
+
+<apex:form id="cgphForm"> 
+
+<!--   action function to set the endpoint URL for help modals -->
+
+<apex:actionFunction name="setEndpointURL" action="{!setEndpoint}" reRender="modalContent" onComplete="showModal(actionElement);">
+    <apex:param name="endPoint" value=""></apex:param> 
+</apex:actionFunction>
+
+<!--    <apex:actionFunction name="getListData" action="{!CGPHProfile}" reRender="outerpanel"/>-->
+<!--<apex:outputPanel rendered="{!b_ShowForm}" id="outerpanel"> -->  
+<apex:outputPanel id="outerpanel">  
+
+
+<apex:outputPanel id="modalContent">
+<!------------------------------------------------------------------------>
+<!-- Modal Window Content                                               --> 
+<!------------------------------------------------------------------------>
+
+<!-- Welcome Help Modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="helpModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="welcomeContent">
+      <div class="modal-header">
+        <div class="row" style="padding:0px 15px 15 px 10px;">
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2>Welcome to Affordable Homes New Jersey Listings</h2></div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <apex:outputText value="{!HelpContent}" escape="false"></apex:outputText>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Income Limits Modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="IncomeLimitsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="" id="IncomeLimitsContent">
+      <div class="modal-header">
+        <div class="row" style="padding:0px 15px 0px 10px;">
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2 style="padding-top:10px; padding-bottom:0px;">Income Limits</h2></div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <apex:outputText value="{!HelpContent}" escape="false"></apex:outputText>
+      </div>
+    </div>
+  </div> 
+</div>
+
+<!-- No Listings Modal -->
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="NoListingsModal">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="row" style="padding:15px 25px 15px 50px;">
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2 style="padding-bottom:10px; padding-top:10px">No Listings to Show</h2></div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+        </div>
+      </div>
+
+      <div class="row" style="padding:0px 50px 30px 50px;">
+        <div class="col-lg-12">
+          You may be seeing this message for several reasons.
+          <ol>
+            <li>You may not qualify for available units based on your household size and income.  Make sure you keep your profile updated.</li>
+            <li>There may not be any units available.</li>
+            <li>Available units are only shown to the next applicants on the waiting list.</li>
+          </ol>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Lottery Modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="LotteryModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="" id="LotteryContent">
+      <div class="modal-header">
+        <div class="row" style="padding:0px 15px 0px 10px;">
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2 style="padding-top:10px; padding-bottom:0px;">Lottery Information</h2></div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <apex:outputText value="{!HelpContent}" escape="false"></apex:outputText>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Live/Work Modal -->
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="LiveWorkModal">
+  <div class="modal-dialog modal-md" >
+    <div class="modal-content">
+      <div class="row" style="padding:15px 25px 15px 50px;">
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><h2 style="padding-bottom:10px; padding-top:10px">My Live and Work Regions</h2></div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:2em;"><span aria-hidden="true">&times;</span></button>
+        </div>
+      </div>
+
+      <div class="row" style="padding:0px 50px 15px 50px;">
+        <div class="col-lg-12">
+          <p>Many municipalities provide regional preference to households who live or work within the region. Under regional preference, in region households will be contacted before households who live or work outside of the region.</p>
+
+          <p>You have indicated that your household lives or works in the following regions.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 SecondaryButton" style="margin-top:15px; margin-bottom:15px;" onclick="updateLink();">
+          Update My Profile Information
+        </div>
+      </div> 
+
+      <div class="row Regions" style="font-weight:600;">
+        <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1"></div>
+        <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2" style="text-align:center;">Region</div>
+        <div class="col-lg-9 col-md-9 col-xs-9 col-xs-9">Included Counties</div>
+      </div> 
+
+      <div class="row Regions{!IF(AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'1'))," SelectedRegion","")}">
+        <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1"><apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'1'))}"/></div>
+        <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2" style="text-align:center;">1</div>
+        <div class="col-lg-9 col-md-9 col-xs-9 col-xs-9">Bergen, Hudson, Passaic, Sussex</div>
+      </div>
+
+      <div class="row Regions{!IF(AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'2'))," SelectedRegion","")}">
+        <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1"><apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'2'))}"/></div>
+        <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2" style="text-align:center;">2</div>
+        <div class="col-lg-9 col-md-9 col-xs-9 col-xs-9">Essex, Morris, Union, Warren</div>
+      </div>
+
+      <div class="row Regions{!IF(AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'3'))," SelectedRegion","")}">
+        <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1"><apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'3'))}"/></div>
+        <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2" style="text-align:center;">3</div>
+        <div class="col-lg-9 col-md-9 col-xs-9 col-xs-9">Hunterdon, Middlesex, Somerset</div>
+      </div>
+
+      <div class="row Regions{!IF(AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'4'))," SelectedRegion","")}">
+        <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1"><apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'4'))}"/></div>
+        <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2" style="text-align:center;">4</div>
+        <div class="col-lg-9 col-md-9 col-xs-9 col-xs-9">Mercer, Monmouth, Ocean</div>
+      </div>
+
+      <div class="row Regions{!IF(AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'5'))," SelectedRegion","")}">
+        <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1"><apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'5'))}"/></div>
+        <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2" style="text-align:center;">5</div>
+        <div class="col-lg-9 col-md-9 col-xs-9 col-xs-9">Burlington, Camden, Gloucester</div>
+      </div>
+
+      <div class="row Regions{!IF(AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'6'))," SelectedRegion","")}" style="padding-bottom:50px;">
+        <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1"><apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'6'))}"/></div>
+        <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2" style="text-align:center;">6</div>
+        <div class="col-lg-9 col-md-9 col-xs-9 col-xs-9">Atlantic, Cape May, Cumberland, Salem</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</apex:outputPanel>
+<div class="container">
+
+  <!------------------------------------------------------------------------>
+  <!-- Header                                                             --> 
+  <!------------------------------------------------------------------------>
+  <div class="row header" style="margin-bottom:35px;">
+    <div class="col-lg-10 col-sm-8 col-xs-8" style="padding-top:25px;">
+      <h2 style="display:inline; color:#007cc2; font-size:3.5em;" id="AHNJ">Affordable Homes New Jersey</h2><span style="color:#007cc2; font-family: 'Open Sans', sans-serif; font-weight:300; font-size:2em;">  a CGP&amp;H service</span>
+    </div>
+
+    <div class="col-lg-2 col-sm-4 col-xs-4 SecondaryButton" style="margin-top:25px;" id="helpLink">Help</div>
+  </div>
+
+
+  <!------------------------------------------------------------------------>
+  <!-- Message Window                                                     --> 
+  <!------------------------------------------------------------------------>
+  <apex:outputPanel layout="block" styleClass="row" rendered="{!(PreApplicantDetails.preApplicant.Update_Status__c == 'Current')}" >
+    <!-- Here is the block to show if there is a WordPress ProfileMessage Post --> 
+    <apex:outputPanel layout="block" styleClass="col-lg-12" style="color:white; margin-bottom:25px; padding:19px 25px 20px 145px; min-height:140px; background:url('http://www.electricbaby.com/resources/experiments/icons-bell.png') 25px 25px no-repeat #e9654c; border-radius:5px; font-size:1.25em;">
+      <!-- Insert most recent WordPress ProfileMessage Post Delete sample message below -->
+      <apex:outputText value="{!strGeneralMessage}" escape="false"/>
+    </apex:outputPanel>
+
+  </apex:outputPanel>
+
+  <!------------------------------------------------------------------------>
+  <!-- Pending Period                                                       --> 
+  <!------------------------------------------------------------------------>
+  <div class="row" style="display:{!IF(PreApplicantDetails.preApplicant.Update_Status__c == 'Pending','block;','none;')}">
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="background-color:#e9654c; color:white;">
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="https://www.electricbaby.com/resources/experiments/icons-bell-lg.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 SecondaryButton" onclick="restartLink();">Profile Update Required
+        </div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:white; margin-top:45px; font-weight:700;">Your Profile is set to Expire</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.25em; margin-top:5px; text-align:center;">{!PreApplicantDetails.preApplicant.Applicant_Name__c}, your profile expires on&nbsp;<apex:outputText value="{0,date,MM/dd/yyyy}" ><apex:param value="{!PreApplicantDetails.preApplicant.Most_Recent_Update__c + 365}" /></apex:outputText>.</div>
+      </div>  
+    </div>
+  </div>
+
+    <!------------------------------------------------------------------------>
+  <!-- Grace Period                                                       --> 
+  <!------------------------------------------------------------------------>
+  <div class="row" style="display:{!IF(PreApplicantDetails.preApplicant.Update_Status__c == 'Grace Period','block;','none;')}">
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="background-color:#e9654c; color:white;">
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="http://www.electricbaby.com/resources/experiments/icons-bell-lg.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 SecondaryButton" onclick="restartLink();">Profile Update Required
+        </div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:white; margin-top:45px; font-weight:700;">Your Profile has Expired</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.25em; margin-top:5px; text-align:center;">{!PreApplicantDetails.preApplicant.Applicant_Name__c}, your profile expired on&nbsp;<apex:outputText value="{0,date,MM/dd/yyyy}" ><apex:param value="{!PreApplicantDetails.preApplicant.Most_Recent_Update__c + 365}" /></apex:outputText>. You have <apex:outputText value="{0, number, 00}" ><apex:param value="{!PreApplicantDetails.preApplicant.Update_Days__c}" /></apex:outputText> days before you are removed from all waiting lists.</div>
+      </div>  
+    </div>
+  </div>
+
+  <!------------------------------------------------------------------------>
+  <!-- Expired Profile                                                    --> 
+  <!------------------------------------------------------------------------>
+  <div class="row" style="display:{!IF(PreApplicantDetails.preApplicant.Update_Status__c == 'Expired','block;','none;')}">
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="background-color:#e9654c; color:white;">
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="http://www.electricbaby.com/resources/experiments/icons-bell-lg.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 SecondaryButton" onclick="restartLink();">Restart by Updating your Profile
+        </div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:white; margin-top:45px; font-weight:700;">Your Profile has Expired</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.25em; margin-top:5px; text-align:center;">{!PreApplicantDetails.preApplicant.Applicant_Name__c}, your profile expired on&nbsp;<apex:outputText value="{0,date,MM/dd/yyyy}" ><apex:param value="{!PreApplicantDetails.preApplicant.Most_Recent_Update__c + 365}" /></apex:outputText>. You have been removed from all waiting lists. You need to submit a new pre-application to reapply.</div>
+      </div>  
+    </div>
+  </div>  
+
+
+  <!------------------------------------------------------------------------>
+  <!-- Imported Content                                                   --> 
+  <!------------------------------------------------------------------------>
+  <div class="row" style="display:{!IF(PreApplicantDetails.preApplicant.Update_Status__c == 'None','block;','none;')}">
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="background-color:#e9654c; color:white;">
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="http://www.electricbaby.com/resources/experiments/icons-bell-lg.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 SecondaryButton" onclick="restartLink();">Begin by Updating your Profile
+        </div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:white; margin-top:45px; font-weight:700;">Step 1: Update Profile</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.25em; margin-top:5px; text-align:center;">{!PreApplicantDetails.preApplicant.Applicant_Name__c}, welcome to your Affordable Homes New Jersey Profile.  You will be able to view your profile after you update your profile information. This will ensure that we have current information on-file for you.</div>
+      </div>  
+    </div>
+  </div> 
+
+
+  <!------------------------------------------------------------------------>
+  <!-- Menu                                                               --> 
+  <!------------------------------------------------------------------------>
+  <apex:outputPanel layout="block" styleClass="row" rendered="{!(PreApplicantDetails.preApplicant.Update_Status__c == 'Current')}" style="margin-top:30px;">
+    <div class="col-lg-5" style="padding:0; margin-bottom:20px;">
+      <div id="purchaseBtn" class="{!if(PreApplicantDetails.preApplicant.Rental_Interest__c,'HeadingButton','HeadingBox')}" onclick="showPropertySection('purchaseBtn')">My Ownership Waiting Lists</div>
+    </div>
+   
+    <div class="col-lg-5" id="menuRentalBtn" style="margin-bottom:20px;">
+      <div id="rentalBtn" class="{!if(PreApplicantDetails.preApplicant.Rental_Interest__c,'HeadingBox','HeadingButton')}" onclick="showPropertySection('rentalBtn')">My Rental Waiting Lists</div>
+    </div>  
+
+    <div class="col-lg-2" style="padding:0; margin-bottom:20px;">
+      <div id="myProfileBtn" class="{!if(PreApplicantDetails.preApplicant.Rental_Interest__c,'HeadingBox','HeadingButton')}" onclick="showPropertySection('myProfileBtn')">My Profile</div>
+    </div>
+
+  </apex:outputPanel>
+
+
+
+  <!------------------------------------------------------------------------>
+  <!-- My Profile Section                                                 --> 
+  <!------------------------------------------------------------------------>
+
+  <apex:outputPanel layout="block" id="myProfileSection" style="display:none;">
+
+
+  <div class="row" style="margin-bottom:15px;margin-top:20px; display:{!IF(AND(PreApplicantDetails.preApplicant.Update_Status__c != 'Grace Period', PreApplicantDetails.preApplicant.Update_Status__c != 'Expired', PreApplicantDetails.preApplicant.Update_Status__c != 'None'),'block;','none;')} text-align:center;">
+
+    <h2>My Profile</h2>
+    <h3 style="margin-bottom:30px;">{!PreApplicantDetails.preApplicant.Applicant_Name__c}</h3>     
+
+        <div class="col-lg-8 col-lg-offset-2 SecondaryButton" onclick="updateLink();" style="margin-bottom:40px;">Update My Profile Information</div>
+  <!-- Profile -->
+    <div class="row" style="display:{!IF(AND(PreApplicantDetails.preApplicant.Update_Status__c != 'Grace Period', PreApplicantDetails.preApplicant.Update_Status__c != 'Expired', PreApplicantDetails.preApplicant.Update_Status__c != 'None'),'block','none')}">
+
+      <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" id="Profile" style="background-color:#f3f7fa; padding-top:25px; padding-bottom:25px; min-height:300px;">
+        <h3 style="padding-left:50px; margin-bottom:15px;">{!PreApplicantDetails.preApplicant.Applicant_Name__c}</h3>
+            
+        <p style="padding-left:50px; margin-bottom:25px; font-size:1.25em;">
+        {!PreApplicantDetails.preApplicant.Contact__r.Email}     {!PreApplicantDetails.preApplicant.Contact__r.Phone}    {!if(PreApplicantDetails.preApplicant.Ext__c != null,"ext " + PreApplicantDetails.preApplicant.Ext__c,"")}<br/>
+        {!PreApplicantDetails.preApplicant.Contact__r.MailingStreet}, {!PreApplicantDetails.preApplicant.Contact__r.MailingCity}, {!PreApplicantDetails.preApplicant.Contact__r.MailingState}     {!PreApplicantDetails.preApplicant.Contact__r.MailingPostalCode}</p>
+
+        <p style="margin-left:50px;">I am interested in the following affordable homes:</p>
+
+        <p style="margin-left:100px;"><img src="{!IF(PreApplicantDetails.preApplicant.Rental_Interest__c == true,'http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png','http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/xmark2.png')}" style="vertical-align: text-bottom; margin-right:12px;"/>Rentals</p>
+
+
+        <p style="margin-left:100px;"><img src="{!IF(PreApplicantDetails.preApplicant.Purchase_Interest__c == true,'http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png','http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/xmark2.png')}" style="vertical-align: text-bottom; margin-right:12px;"/>Sales</p>
+
+        <p style="margin-left:100px;">
+        <apex:outputPanel rendered="{!PreApplicantDetails.preApplicant.AR_Properties_Only__c}">
+          <img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png" style="vertical-align: text-bottom; margin-right:12px;"/>I am only interested in 55+ homes
+        </apex:outputPanel>
+        </p>
+
+      </div>
+
+      <div class="col-lg-5 col-md-5 col-sm-8 col-xs-8 normalText" >
+        <div class="row" style="margin-top:0px; padding-top:35px; text-align:center;">
+          <div class="col-lg-6 col-sm-6 col-xs-6">Profile Status
+            <br/><span class="profileValue blueTitle1">{!PreApplicantDetails.preApplicant.Update_Status__c}&nbsp; <apex:outputLabel rendered="{!PreApplicantDetails.preApplicant.Update_Status__c == 'Pending'}"> Your profile will expire if you do not update within {!PreApplicantDetails.preApplicant.Update_Days__c} days</apex:outputLabel></span>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a id="IncomeLimitsLink" href="#" style=" cursor:pointer; text-decoration:underline;">Annual Income
+            <img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/08/qmark.png" style="margin-left:6px;" /></a>
+            <br/><span class="profileValue blueTitle1"><apex:outputText value="${0, number, ###,###,###,##0}">
+            <apex:param value="{!PreApplicantDetails.preApplicant.Annual_Income__c}" /> 
+            </apex:outputText></span>
+          </div>
+
+        </div>
+
+        <div class="row" style="margin-top:0px; padding-top:40px; text-align:center;">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Household Size
+            <br/><span class="profileValue blueTitle1">{!PreApplicantDetails.preApplicant.Household_Size__c}</span>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">55+
+            <br/><apex:image rendered="{!PreApplicantDetails.preApplicant.Household_Members_55__c == true}" style="margin-top:8px;" value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/09/check.png" /><apex:outputLabel rendered="{!PreApplicantDetails.preApplicant.Household_Members_55__c != true}"><span class="profileValue blueTitle1">N/A</span></apex:outputLabel>
+          </div>
+
+          <div class="col-lg-12" id="MyLiveWork" style="padding-top:40px; text-align:right;"><a class="LiveWorkLink" style=" cursor:pointer; text-decoration:underline;">My Live and Work Regions
+            <img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/08/qmark.png" style="margin-left:6px;" /></a>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4" style="padding-top:0px;">
+
+        <div style="width:162px; height:300px; cursor:pointer;" class="LiveWorkLink">
+          <apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/10/Regions.png" styleClass="RegionMap" style="z-index:-7;" />
+
+          <apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/10/Region1.png" styleClass="RegionMap" style="z-index:-6;" id="Region1" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'1'))}"/>
+        
+          <apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/10/Region2.png" styleClass="RegionMap" style="z-index:-5;" id="Region2" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'2'))}"/>
+        
+          <apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/10/Region3.png" styleClass="RegionMap" style="z-index:-4;" id="Region3" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'3'))}"/>
+        
+          <apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/10/Region4.png" styleClass="RegionMap" style="z-index:-3;" id="Region4" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'4'))}"/>
+      
+          <apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/10/Region5.png" styleClass="RegionMap" style="z-index:-2;" id="Region5" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'5'))}"/>
+        
+          <apex:image value="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/10/Region6.png" styleClass="RegionMap" style="z-index:-1;" id="Region6" rendered="{!AND(PreApplicantDetails.preApplicant.Live_Work_Regions__c!=null,CONTAINS(PreApplicantDetails.preApplicant.Live_Work_Regions__c,'6'))}"/>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  </apex:outputPanel>
+
+
+  <input type="hidden" id="requestType" value="" />
+
+<!------------------------------------------------------------------------>
+<!-- Rental Preferences Section                                         --> 
+<!------------------------------------------------------------------------>
+  <apex:outputPanel layout="block" id="rentalSection" style="display:none;">
+
+
+  <div class="row" style="margin-bottom:15px;margin-top:40px; display:{!IF(AND(PreApplicantDetails.preApplicant.Update_Status__c != 'Grace Period', PreApplicantDetails.preApplicant.Update_Status__c != 'Expired', PreApplicantDetails.preApplicant.Update_Status__c != 'None'),'block;','none;')} text-align:center;">
+
+    <h2>My Rental Waiting Lists</h2>
+    <h3 style="margin-bottom:30px;">{!PreApplicantDetails.preApplicant.Applicant_Name__c}</h3>
+
+    <!-- Update Interests Box -->
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="display:{!IF(NOT(PreApplicantDetails.preApplicant.Rental_Interest__c),'block;','none;')} background-color:#FF9E54; color:#41616D;">
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="http://www.electricbaby.com/resources/experiments/icons-waitlist.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 SecondaryButton" onclick="updateLink();">Update Profile</div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:#41616D; margin-top:45px; font-weight:700;">You are not listed as interested in renting.</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.75em; margin-top:5px; text-align:center;">If interested, please update your Profile and return here to join rental waiting lists.</div>
+      </div>  
+    </div>
+
+    <!-- Join Waiting List Box -->
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="display:{!IF(PreApplicantDetails.preApplicant.Rental_Interest__c && iRentalPropMapSize == 0,'block;','none;')} background-color:#FF9E54; color:#41616D;">
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="http://www.electricbaby.com/resources/experiments/icons-keys.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+      </div>
+      <div class="row">        
+        <div class="col-lg-8 col-lg-offset-2 SecondaryButton" onclick="UpdateRentalPreference();" >
+          Join Rental Waiting Lists
+        </div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:#41616D; margin-top:45px; font-weight:700;">You have not joined any rental waiting lists.</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.75em; margin-top:5px; text-align:center;">In order to be considered for affordable housing, you must join waiting lists. Each municipality may have a rental and ownership waiting list. All rental waiting lists you join will be listed below.</div>
+      </div>  
+    </div>
+
+    <!-- Join More Waiting List Box -->
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="display:{!IF(PreApplicantDetails.preApplicant.Rental_Interest__c && iRentalPropMapSize > 0,'block;','none;')} background-color:#FF9E54; color:#41616D;">
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="http://www.electricbaby.com/resources/experiments/icons-keys.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 SecondaryButton" onclick="UpdateRentalPreference();" >
+          Join/Leave Rental Waiting Lists
+        </div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:#41616D; margin-top:45px; font-weight:700;">You may be able to join more waiting lists.</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.75em; margin-top:5px; text-align:center;">In order to be considered for affordable housing, you must join waiting lists. Each municipality may have a rental and ownership waiting list. All rental waiting lists you join will be listed below.</div>
+      </div>  
+    </div>
+
+  </div>
+
+    
+    <!-- Property badges only show if there is Rental Interest and if there are Municipality Prefs  -->
+    <apex:repeat value="{!mapWrapRentalProperties}" var="rentProperty" rendered="{!iRentalPropMapSize > 0}">
+
+    <div class="row" style="margin-top:15px; padding-top:10px; padding-bottom:10px; border-top:1px solid #eee;">
+      <apex:variable var="lstProperties" value="{!RentalProperties[rentProperty]}" />
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 WaitListBox">
+            <span style="font-size:1.8em;">{!rentProperty} Rentals </span> <span style="font-size:20px; color:grey;"><apex:outputText value="({!mapRentalMuniciPalityNameToPreferences[rentProperty].Municipality__r.County__c} County)" rendered="{!IF(mapRentalMuniciPalityNameToPreferences[rentProperty].Municipality__r.County__c != null,true,false)}"/></span>
+      </div>
+
+      <apex:outputPanel styleClass="col-lg-2 col-md-2 col-sm-6 col-xs-6 MinicipStat" style="margin-top:13px; text-align:left;" rendered="{!mapRentalMuniciPalityNameToPreferences[rentProperty].On_Hold__c == false}" layout="block">
+        Joined:&nbsp;
+            <apex:outputText value="{0,date,MM/dd/yyyy}" styleClass="MunicipalityValue">
+          <apex:param value="{!mapRentalMuniciPalityNameToPreferences[rentProperty].Interest_Date__c}" />   
+        </apex:outputText>
+        </apex:outputPanel>
+
+      <apex:outputPanel styleClass="col-md-1  col-xs-0" rendered="{!mapRentalMuniciPalityNameToPreferences[rentProperty].On_Hold__c == false}" layout="block"></apex:outputPanel>
+
+        <apex:outputPanel styleClass="col-lg-2 col-md-2 col-sm-6 col-xs-6 MinicipStat" style="margin-top:13px; text-align:right; padding-left:0px; padding-right:0px;" rendered="{!mapRentalMuniciPalityNameToPreferences[rentProperty].On_Hold__c == false}" layout="block">
+        Lottery#:
+        <a class="LotteryLink" style="cursor:pointer; text-decoration:underline;">
+        <apex:outputText value="{0, number, 00}" rendered="{!IF(mapRentalMuniciPalityNameToPreferences[rentProperty].Lottery_Number__c!= null,true,false)}">
+            <apex:param value="{!mapRentalMuniciPalityNameToPreferences[rentProperty].Lottery_Number__c}"/>
+        </apex:outputText>
+            <apex:outputPanel rendered="{!IF(mapRentalMuniciPalityNameToPreferences[rentProperty].Lottery_Number__c== null,true,false)}">n/a</apex:outputPanel>
+        <img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/08/qmark.png" style="margin-left:2px;" /></a>
+        </apex:outputPanel>
+
+      <apex:outputPanel styleClass="col-lg-5 col-md-5 col-sm-12 col-xs-12 MinicipStat" style="margin-top:13px; text-align:right; padding-left:0px; padding-right:0px;" rendered="{!mapRentalMuniciPalityNameToPreferences[rentProperty].On_Hold__c != false}" layout="block">
+        <a class="LotteryLink" style="cursor:pointer; text-decoration:none;">
+        On Hold
+        <img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/08/qmark.png" style="margin-left:2px;" /></a>
+      </apex:outputPanel>     
+
+      </div>
+
+   <!-- <apex:outputPanel rendered="{!lstProperties.size == 0}" styleClass="row" layout="block"> -->
+    <div class="row" style="margin-top:0px;">
+      <div class="col-lg-12">
+        {!mapRentalMuniciPalityNameToPreferences[rentProperty].Municipality__r.Rental_Waiting_List__c} <apex:outputText rendered="{!lstProperties.size == 0}"><br/><a class="NoListingsLink" style=" cursor:pointer; text-decoration:underline;">No Listings<img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/08/qmark.png" style="margin-left:6px;" /></a></apex:outputText>
+      </div>
+    </div>
+   <!-- </apex:outputPanel> -->
+
+
+    <div class="row">
+
+      <apex:repeat value="{!RentalProperties[rentProperty]}" var="Property" >
+
+      <div class="col-lg-4 module" onclick="showFullRentalProperty('{!JsenCode(Property.property.id)}')">
+        <div class="propertyThumbnailBox1">
+          <div class="propertyThumbnailTitle blueTitle1">{!Property.property.HOMEtracker__Number_of_Bedrooms__c}<span class="propertySubtitle">bed</span> {!Property.property.HOMEtracker__Number_of_Bathrooms__c}<span class="propertySubtitle">bath</span></div>
+            
+          <div class="propertyTitleRight blueTitle1">
+            <apex:outputText rendered="{!Property.property.HOMEtracker__Monthly_Rent__c != null}" value="${0,number,###,###,###,##0}">
+              <apex:param value="{!Property.property.HOMEtracker__Monthly_Rent__c}" />
+            </apex:outputText>
+            <apex:outputText rendered="{!Property.property.HOMEtracker__Monthly_Rent__c == null}">&nbsp;</apex:outputText>
+          </div>
+        
+          <div style="clear:both;"></div>
+      
+          <div class="propertyThumbnailBox2 blueBox2">
+            <apex:outputLabel rendered="{!IF( Property.property.Development_address__r.Name != null ,true,false )}" >{!Property.property.Development_address__r.Name}</apex:outputLabel>
+            <apex:outputLabel rendered="{!IF(Property.property.Age_Restriction__c != null && Property.property.Age_Restriction__c != 'None' ,true,false )}" >, 55+ Community</apex:outputLabel>
+          </div>
+      
+          <div class="propertyThumbnailBox3 blueBox3">{!Property.property.Name}
+            <div class="propertyTitleRightBottom blueTitle3">
+                      <apex:outputPanel rendered="{!AND(Property.property.HOMEtracker__Date_Listed__c != null, Property.property.HOMEtracker__Date_Listed__c + 14 > today(), Property.property.Deadline__c == null)}">New Listing</apex:outputPanel>
+              
+              <apex:outputPanel rendered="{!Property.property.Deadline__c != null}">
+              Respond by: 
+                <apex:outputText value="{0,date,MM/dd/yyyy}" styleClass="MunicipalityValue">
+                  <apex:param value="{!Property.property.Deadline__c}" />   
+                </apex:outputText>
+              </apex:outputPanel>
+            </div>
+          </div>
+
+          <div class="viewListing"><span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="margin-right:8px;"></span>View this Listing</div>
+
+        </div>
+      </div> 
+      </apex:repeat>
+    </div>  
+
+    </apex:repeat>
+
+  </apex:outputPanel>
+
+  <apex:actionFunction name="UpdateRentalPreference" action="{!updateMunicipalityPreference}"/>
+
+
+<!------------------------------------------------------------------------>
+<!-- Purchase Preferences Section                                       --> 
+<!------------------------------------------------------------------------>
+<apex:outputPanel layout="block" id="purchaseSection" style="display:none;">
+
+
+  <div class="row" style="margin-bottom:15px;margin-top:40px; display:{!IF(AND(PreApplicantDetails.preApplicant.Update_Status__c != 'Grace Period', PreApplicantDetails.preApplicant.Update_Status__c != 'Expired', PreApplicantDetails.preApplicant.Update_Status__c != 'None'),'block;','none;')} text-align:center;">
+
+    <h2>My Ownership Waiting Lists</h2>
+    <h3 style="margin-bottom:30px;">{!PreApplicantDetails.preApplicant.Applicant_Name__c}</h3>
+
+    <!-- Update Interests Box -->
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="display:{!IF(NOT(PreApplicantDetails.preApplicant.Purchase_Interest__c),'block;','none;')} background-color:#fed653; color:#41616D;">
+
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="http://www.electricbaby.com/resources/experiments/icons-waitlist.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 SecondaryButton" onclick="updateLink();">Update Profile</div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:#41616D; margin-top:45px; font-weight:700;">You are not listed as interested in purchasing.</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.75em; margin-top:5px; text-align:center;">If interested, please update your Profile and return here to join ownership waiting lists.</div>
+      </div>  
+    </div>
+
+    <!-- Join Waiting List Box -->
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="display:{!IF(PreApplicantDetails.preApplicant.Purchase_Interest__c && iPurchasePropMapSize == 0,'block;','none;')} background-color:#fed653; color:#41616D;">
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="http://www.electricbaby.com/resources/experiments/icons-keys.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 SecondaryButton" onclick="UpdatePurchasePreference();" >
+          Join Ownership Waiting Lists
+        </div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:#41616D; margin-top:45px; font-weight:700;">You have not joined any ownership waiting lists.</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.75em; margin-top:5px; text-align:center;">In order to be considered for affordable housing, you must join waiting lists. Each municipality may have a rental and ownership waiting list. All ownership waiting lists you join will be listed below.</div>
+      </div>  
+    </div>
+
+
+    <!-- Join More Waiting List Box -->
+    <div class="col-lg-8 col-lg-offset-2 jumbotron" style="display:{!IF(PreApplicantDetails.preApplicant.Purchase_Interest__c && iPurchasePropMapSize > 0,'block;','none;')} background-color:#fed653; color:#41616D;">
+      <div class="row">
+        <div class="col-xs-12" style="text-align:center;">
+          <img src="http://www.electricbaby.com/resources/experiments/icons-keys.png" style="height:150px; width:150px; margin-bottom:45px;" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 SecondaryButton" onclick="UpdatePurchasePreference();" >
+          Join/Leave Ownership Waiting Lists
+        </div>
+
+        <div class="col-xs-12" style="text-align:center;">
+          <h3 style="color:#41616D; margin-top:45px; font-weight:700;">You may be able to join more waiting lists.</h3>
+        </div>
+
+        <div class="col-xs-12" style="font-size:1.75em; margin-top:5px; text-align:center;">In order to be considered for affordable housing, you must join waiting lists. Each municipality may have a rental and ownership waiting list. All ownership waiting lists you join will be listed below.</div>
+      </div>  
+    </div>
+  </div>
+
+    <apex:actionFunction name="UpdatePurchasePreference" action="{!updateMunicipalityHomeOwnerPreference}"/>
+
+    <!-- Property badges only show if there is Purchase Interest and if there are Municipality Prefs  -->
+    <apex:repeat value="{!mapWrapPurchaseProperties}" var="purchaseProperty" rendered="{!iPurchasePropMapSize > 0}"> 
+    <apex:variable var="lstProperties" value="{!mapWrapPurchaseProperties[purchaseProperty]}" />
+    
+    <div class="row" style="margin-top:15px; padding-top:10px; padding-bottom:10px; border-top:1px solid #eee;">
+
+      <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 WaitListBox">
+        <span style="font-size:2.5em;" class="township">{!purchaseProperty} Ownership </span> <span style="font-size:2em; color:grey;"><apex:outputText value="({!mapPurchaseMunicipalityNameToPreferences[purchaseProperty].Municipality__r.County__c} County)" rendered="{!IF(mapPurchaseMunicipalityNameToPreferences[purchaseProperty].Municipality__r.County__c != null,true,false)}"/></span>
+      </div>
+
+      <apex:outputPanel styleClass="col-lg-2 col-md-2 col-sm-6 col-xs-6 MinicipStat normalText" style="margin-top:13px; text-align:left;" rendered="{!mapPurchaseMunicipalityNameToPreferences[purchaseProperty].On_Hold__c == false}" layout="block">
+        Joined:&nbsp;
+        <apex:outputText value="{0,date,MM/dd/yyyy}" styleClass="MunicipalityValue">
+          <apex:param value="{!mapPurchaseMunicipalityNameToPreferences[purchaseProperty].Interest_Date__c}" />   
+        </apex:outputText>
+      </apex:outputPanel>
+
+      <apex:outputPanel styleClass="col-md-1 col-xs-0" rendered="{!mapPurchaseMunicipalityNameToPreferences[purchaseProperty].On_Hold__c == false}" layout="block"></apex:outputPanel>
+
+      <apex:outputPanel styleClass="col-lg-2 col-md-2 col-sm-6 col-xs-6 MinicipStat normalText" style="margin-top:13px; text-align:right; padding-left:0px; padding-right:0px;" rendered="{!mapPurchaseMunicipalityNameToPreferences[purchaseProperty].On_Hold__c == false}" layout="block">
+        Lottery#:
+        <a class="LotteryLink" style="cursor:pointer; text-decoration:underline;">
+        <apex:outputText value="{0, number, 00}" rendered="{!IF(mapPurchaseMunicipalityNameToPreferences[purchaseProperty].Lottery_Number__c!= null,true,false)}">
+            <apex:param value="{!mapPurchaseMunicipalityNameToPreferences[purchaseProperty].Lottery_Number__c}"/>
+        </apex:outputText>
+        <apex:outputPanel rendered="{!IF(mapPurchaseMunicipalityNameToPreferences[purchaseProperty].Lottery_Number__c== null,true,false)}">n/a</apex:outputPanel>
+        <img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/08/qmark.png" style="margin-left:2px;" /></a>
+      </apex:outputPanel>
+
+      <apex:outputPanel styleClass="col-lg-5 col-md-5 col-sm-12 col-xs-12 MinicipStat normalText" style="margin-top:13px; text-align:right; padding-left:0px; padding-right:0px;" rendered="{!mapPurchaseMunicipalityNameToPreferences[purchaseProperty].On_Hold__c != false}" layout="block">
+        <a class="LotteryLink" style="cursor:pointer; text-decoration:none;">
+        On Hold
+        <img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/08/qmark.png" style="margin-left:2px;" /></a>
+      </apex:outputPanel>  
+
+    </div>
+
+    <div class="row" style="margin-top:0px;">
+      <div class="col-lg-12 normalText">
+        {!mapPurchaseMunicipalityNameToPreferences[purchaseProperty].Municipality__r.Purchase_Waiting_List__c} <apex:outputText rendered="{!lstProperties.size == 0}"><br/><a class="NoListingsLink" style=" cursor:pointer; text-decoration:underline;">No Listings<img src="http://www.affordablehomesnewjersey.com/wp-content/uploads/2015/08/qmark.png" style="margin-left:6px;" /></a></apex:outputText>
+
+      </div>
+    </div>
+
+
+    <div class="row">
+      <apex:repeat value="{!PurchaseProperties[purchaseProperty]}" var="ownerProperty" >
+
+      <div class="col-lg-4 module" onclick="showFullPurchaseProperty('{!JsenCode(ownerProperty.property.id)}')" >
+        <div class="propertyThumbnailBox1">
+          <div class="propertyThumbnailTitle greenTitle1">{!ownerProperty.property.HOMEtracker__Number_of_Bedrooms__c}<span class="propertySubtitle">bed</span> {!ownerProperty.property.HOMEtracker__Number_of_Bathrooms__c}<span class="propertySubtitle">bath</span></div>
+
+          <div class="propertyTitleRight greenTitle1">
+            <apex:outputText rendered="{!ownerProperty.property.HOMEtracker__List_Price__c != null}" value="${0,number,###,###,###,##0}">
+              <apex:param value="{!ownerProperty.property.HOMEtracker__List_Price__c}" /> 
+            </apex:outputText>
+          </div>
+        
+          <div style="clear:both;"></div>
+
+          <div class="propertyThumbnailBox2 greenBox2">
+            <apex:outputLabel rendered="{!IF( ownerProperty.property.Development_address__r.Name != null ,true,false )}" >{!ownerProperty.property.Development_address__r.Name}</apex:outputLabel>
+
+            <apex:outputLabel rendered="{!IF(ownerProperty.property.Age_Restriction__c != null && ownerProperty.property.Age_Restriction__c != 'None' ,true,false )}" >, 55+ Community</apex:outputLabel>
+
+          </div>
+
+          <div class="propertyThumbnailBox3 greenBox3">{!ownerProperty.property.Name}
+            <div class="propertyTitleRightBottom greenTitle3">
+                <apex:outputPanel rendered="{!AND(ownerProperty.property.HOMEtracker__Date_Listed__c != null, ownerProperty.property.HOMEtracker__Date_Listed__c + 14 > today(), ownerProperty.property.Deadline__c == null)}">New Listing</apex:outputPanel>
+
+              <apex:outputPanel rendered="{!ownerProperty.property.Deadline__c != null}">
+                Respond by: 
+                <apex:outputText value="{0,date,MM/dd/yyyy}" styleClass="MunicipalityValue">
+                  <apex:param value="{!ownerProperty.property.Deadline__c}" />   
+                </apex:outputText>
+              </apex:outputPanel>
+            </div>  
+          </div>  
+
+          <div class="viewListing"><span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="margin-right:8px;"></span>View this Listing</div>
+
+        </div>     
+      </div>      
+      </apex:repeat>
+    </div>  
+    </apex:repeat> 
+  </apex:outputPanel> 
+
+
+  <div class="row" style="margin:50px 0 25px;">
+    <div class="col-xs-4">
+      <img src="https://www.affordablehomesnewjersey.com/wp-content/uploads/2016/10/cgph-logo.png" style="width:100%;"/>
+   </div>
+    <div class="col-xs-6 normalText" style="text-align:center; margin-top:38px;">&copy; 2025 CGP&amp;H.  All rights reserved.  <a href="https://www.affordablehomesnewjersey.com/cgph-privacy-policy" target="_blank">Privacy Policy</a>
+    </div>
+
+    <div class="col-xs-2" style="text-align:right;">
+      <img src="https://www.affordablehomesnewjersey.com/wp-content/uploads/2016/02/fheo75.png" style="margin-right:10px;"/>
+    </div>
+  </div>
+
+
+<!------------------------------------------------------------------------>
+<!-- Property Listing Detail Modal                                       --> 
+<!------------------------------------------------------------------------>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+        <apex:outputPanel id="propertyInfo">
+
+          <!-- Modal Header -->
+          <div class="modal-header row" style="margin:10px 0; padding:0 15px;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="removeModal()"><span aria-hidden="true">&times;</span></button>
+
+            <h3 class="modal-title" id="myModalLabel"><apex:outputLabel rendered="{!objWrapperPropertyInfo.property.Development_address__c != null}" >
+            {!objWrapperPropertyInfo.property.Development_address__r.Name} <a href="{!objWrapperPropertyInfo.property.Property_Map__c}" class="{!IF(objWrapperPropertyInfo.property.HOMEtracker__List_Price__c != null,'greenTitle1','blueTitle1' )}" >  map</a></apex:outputLabel><br/>
+
+            <apex:outputLabel rendered="{!objWrapperPropertyInfo.property.Name != null}" >{!objWrapperPropertyInfo.property.Name}, {!objWrapperPropertyInfo.property.HOMEtracker__City__c}, {!objWrapperPropertyInfo.property.Municipality_Name__r.County__c} County</apex:outputLabel>
+            </h3>
+          </div>
+
+
+<!--
+          <apex:outputPanel rendered="{!objWrapperPropertyInfo.lstPropertyImg != null}" styleClass="modal-body row" layout="block">
+            <div class="col-lg-12">
+              <div id="owl-demo" class="owl-carousel">
+              <apex:repeat value="{!objWrapperPropertyInfo.lstPropertyImg}" var="propImg">
+                  <div><apex:image url="{!propImg.Image_url__c}" /></div>
+                </apex:repeat>
+              </div>
+            </div>
+            <script>hiOwl();</script>
+          </apex:outputPanel>
+-->
+
+          <!-- Carousel -->
+          <div class="modal-body row" style="margin:0px; padding:0px;">
+
+            <apex:outputPanel layout="block" rendered="{!AND(objWrapperPropertyInfo.lstPropertyImg!=null,objWrapperPropertyInfo.lstPropertyImg.size > 0)}" styleClass="col-lg-12">
+              <div id="myCarousel" class="carousel slide" data-interval="">
+                <apex:variable var="i" value="{!0}" />
+                <ol class="carousel-indicators">
+                  <apex:repeat value="{!objWrapperPropertyInfo.lstPropertyImg}" var="porpImg"> 
+                    <li data-target="#myCarousel" data-slide-to="{!i}" class="{!if(i == 0,'active','#')}"></li>
+                    <apex:variable var="i" value="{!1+i}"/>
+                  </apex:repeat>
+                </ol>
+
+                <div class="carousel-inner">
+                  <apex:variable var="i" value="{!0}"/>
+                  <apex:repeat value="{!objWrapperPropertyInfo.lstPropertyImg}" var="porpImg">
+                  <div class="item  {!if(i == 0,'active','')}">
+                    <apex:image url="{!porpImg.Image_url__c}" />
+                    <apex:variable var="i" value="{!1+i}"/>
+                  </div>
+                  </apex:repeat>
+                </div>
+
+                <apex:outputPanel rendered="{!objWrapperPropertyInfo.lstPropertyImg.size > 1}">
+                  <a class="left carousel-control" href="#myCarousel" data-slide="prev"> 
+                      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                     
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next"> 
+                      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                </apex:outputPanel>
+              </div>
+            </apex:outputPanel>
+
+         <!-- End Carousel -->
+
+        <apex:outputPanel layout="block" rendered="{!objWrapperPropertyInfo.lstPropertyImg.size == 0}" styleClass="col-lg-12" style="text-align:center; color:grey; padding:50px 0px;">
+          <h2><span class="glyphicon glyphicon glyphicon-camera" aria-hidden="true" style="margin-right:10px;"></span>No Image Available</h2>
+        </apex:outputPanel>
+      </div> 
+
+
+
+          <div class="row" style="margin:0px;">         
+            <div id="divRentPropType" class="col-lg-12" >
+              <!-- Bedroom / Bath / Price -->
+              <apex:outputlabel styleClass="{!IF(objWrapperPropertyInfo.property.HOMEtracker__List_Price__c != null,'greenTitle1 propertyThumbnailTitle','blueTitle1 propertyThumbnailTitle' )}" style="padding-left:0px;" rendered="{!objWrapperPropertyInfo.property.HOMEtracker__Number_of_Bedrooms__c != null}">
+              {!objWrapperPropertyInfo.property.HOMEtracker__Number_of_Bedrooms__c}<span class="propertySubtitle">bed</span>
+              </apex:outputlabel>
+
+              <apex:outputLabel styleClass="{!IF(objWrapperPropertyInfo.property.HOMEtracker__List_Price__c != null,'greenTitle1 propertyThumbnailTitle','blueTitle1 propertyThumbnailTitle' )}" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null &&  objWrapperPropertyInfo.property.HOMEtracker__Number_of_Bathrooms__c != null}" style="padding-left:5px;">{!objWrapperPropertyInfo.property.HOMEtracker__Number_of_Bathrooms__c}<span class="propertySubtitle">bath {!objWrapperPropertyInfo.property.Development_address__r.HOMEtracker__Property_Type__c}</span>
+              </apex:outputLabel> 
+
+              <apex:outputText styleClass="propertyTitleRight blueTitle1" style="padding-right:0px;" rendered="{!objWrapperPropertyInfo.property.HOMEtracker__Monthly_Rent__c != null}" value="${0,number,###,###,###,##0}/month" >
+                <apex:param value="{!objWrapperPropertyInfo.property.HOMEtracker__Monthly_Rent__c}" /> 
+              </apex:outputText>
+
+              <apex:outputText styleClass="propertyTitleRight greenTitle1" style="padding-right:0px;" rendered="{!objWrapperPropertyInfo.property.HOMEtracker__List_Price__c != null}" value="${0,number,###,###,###,##0}" >
+                <apex:param value="{!objWrapperPropertyInfo.property.HOMEtracker__List_Price__c}" />
+              </apex:outputText>
+
+            </div>
+          </div>
+
+          <div class="row" style="margin:0px 15px;">
+            <!-- Property Questionnaire Link -->
+            <apex:outputPanel layout="block" rendered="{!objWrapperPropertyInfo.lstPreliminarySubmission != null && objWrapperPropertyInfo.lstPreliminarySubmission.size == 0}" styleClass="col-lg-12 SecondaryButton" style="margin:15px 0px;" onclick="window.location='{!objWrapperPropertyInfo.strQuestionaireUrl}'">Request to Visit
+            </apex:outputPanel>
+
+          
+            <!-- Property Questionnaire Message -->
+             <apex:outputPanel layout="block" rendered="{!objWrapperPropertyInfo.lstPreliminarySubmission != null && objWrapperPropertyInfo.lstPreliminarySubmission.size > 0}" styleClass="col-lg-12" style="margin-top:20px; margin-bottom:10px; color:green; text-align:center;">
+              <h3><span class="glyphicon glyphicon-ok-circle" aria-hidden="true" style="margin-right:8px; font-size:1.25em; color:green; padding-top:20px;"></span>Your Current Request To Visit<br/>Is Being Processed.</h3>
+              <div style="clear:both;"></div> 
+            </apex:outputPanel>
+               
+            <!-- Status -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!PropertyInfo.HOMEtracker__Status__c != null}">{!objWrapperPropertyInfo.property.HOMEtracker__Status__c}</apex:outputlabel>
+            </div>
+            
+
+            <!-- Application Fees and Credit Requirements -->  
+            <div id="divAppFeenCrReq" class="col-lg-12">
+              <apex:outputlabel styleClass="control-label">Application Fees and Credit Requirements</apex:outputlabel>
+            </div>
+
+
+            <!-- Credit Check --> 
+            <div class="col-lg-12">
+              <!-- Development Credit Check Required -->
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.Development_address__r.Credit_Check_Required__c == 'Yes' && objWrapperPropertyInfo.property.RecordType.Name == 'Homeownership'}" value="Credit Check Required" />
+
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.RecordType.Name != 'Homeownership'}" value="{!if(objWrapperPropertyInfo.property.Development_address__r.Credit_Check_Required__c == 'Yes','Credit Check Required','Credit Check not Required')}" />
+            </div>
+ 
+
+            <!-- Background Check --> 
+            <!--<div class="col-lg-12">-->
+              <!-- Development Background Check Required -->
+              <!--<apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.Development_address__r.Background_Check_Required__c == 'Yes' && objWrapperPropertyInfo.property.RecordType.Name == 'Homeownership'}" value="Background Check Required" />-->
+
+              <!--<apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.RecordType.Name != 'Homeownership'}" value="{!if(objWrapperPropertyInfo.property.Development_address__r.Background_Check_Required__c == 'Yes','Background Check Required','Background Check not Required')}" />-->
+            <!--</div>-->
+
+            <!-- Background Check Fee --> 
+            <div class="col-lg-12">
+              <!-- Development Background Check Fee -->
+              <apex:outputlabel styleClass="cgphPropLabel" escape="false" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.Development_address__r.Credit_Background_Check_Fee__c != null && objWrapperPropertyInfo.property.RecordType.Name == 'Homeownership'}" value="Credit Check Fee: ${!objWrapperPropertyInfo.property.Development_address__r.Credit_Background_Check_Fee__c} <br/>{!objWrapperPropertyInfo.property.Development_address__r.Credit_Background_Check_Fee_Notes__c}" />
+
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.Development_address__r.Credit_Background_Check_Fee__c != null && objWrapperPropertyInfo.property.RecordType.Name != 'Homeownership'}" value="Credit Check Fee: ${!objWrapperPropertyInfo.property.Development_address__r.Credit_Background_Check_Fee__c}" />              
+            </div>         
+
+            <!-- Minimum Credit Score --> 
+            <div class="col-lg-12">
+              <!-- Development Min Credit Score -->
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.Development_address__r.Minimum_Credit_Score_to_be_Eligible__c != null && objWrapperPropertyInfo.property.Development_address__r.Minimum_Credit_Score_to_be_Eligible__c != 0 && objWrapperPropertyInfo.property.Development_address__r.Credit_Check_Required__c == 'Yes'}" value="Minimum Credit Score to Be Eligible: {!objWrapperPropertyInfo.property.Development_address__r.Minimum_Credit_Score_to_be_Eligible__c}" />
+            </div>
+
+            <!-- Co-Signers Allowed --> 
+            <div class="col-lg-12">
+              <!-- Development Co-signers Allowed -->
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.RecordType.Name!='Homeownership'}" value="{!if(objWrapperPropertyInfo.property.Development_address__r.Co_Signers_Allowed__c == 'Yes', '', 'No')} Co-Signers Allowed" />
+            </div>
+
+            <!-- Required Deposit --> 
+            <div class="col-lg-12">
+              <!-- Development Co-Signers Allowed -->
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.RecordType.Name=='Homeownership' && objWrapperPropertyInfo.property.Development_address__r.Required_Deposit__c != null}" value="Required Deposit: ${!objWrapperPropertyInfo.property.Development_address__r.Required_Deposit__c}" />
+            </div>
+
+            <!-- Credit Background Check Fee Notes -->
+            <div class="col-lg-12"> 
+              <!-- Development Credit Background Check Fee Notes -->
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.Development_address__r.Credit_Background_Check_Fee_Notes__c != null}" value=" {!objWrapperPropertyInfo.property.Development_address__r.Credit_Background_Check_Fee_Notes__c}" />
+            </div>
+
+            <!-- Development Financing Requirements -->
+            <div class="col-lg-12"> 
+              <!-- Development Financing Requirements -->
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.RecordType.Name=='Homeownership'}" value="{!objWrapperPropertyInfo.property.Development_address__r.Development_Financing_Requirements__c}" />
+            </div>
+
+            <!-- Unit Information and Amenities -->
+            <div id="divUnityInfonAmenities" class="col-lg-12">
+              <apex:outputlabel styleClass="control-label" value="Unit Information and Amenities" />
+            </div>
+
+            <!-- 5% Down Payment -->
+            <div class="col-lg-12">
+              <apex:outputText styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.RecordType.Name=='Homeownership'}" value="5% Down Payment: ${0,number,###,###,###,##0}">
+                <apex:param value="{!objWrapperPropertyInfo.property.X5_Down_Payment_Approximate__c}" />
+                </apex:outputText>
+            </div>
+
+            <!-- Annual Property Taxes -->
+            <div class="col-lg-12">
+              <apex:outputText styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.RecordType.Name == 'Homeownership' && objWrapperPropertyInfo.property.Development_address__r.HOMEtracker__Property_Type__c != 'Mobile or Manufactured Home'}" value="Annual Property Taxes: ${0,number,###,###,###,##0}">
+                <apex:param value="{!objWrapperPropertyInfo.property.Approximate_Annual_Property_Taxes__c}" />
+                </apex:outputText>
+            </div>
+
+            <!-- HOA Condo Fees-->
+            <div class="col-lg-12">
+              <apex:outputText styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.RecordType.Name == 'Homeownership'}" value="{!IF(objWrapperPropertyInfo.property.Development_address__r.HOMEtracker__Property_Type__c != 'Mobile or Manufactured Home','HOA/Condo Fee:','Monthly Fee:')}  ${0,number,###,###,###,##0}">
+                <apex:param value="{!objWrapperPropertyInfo.property.HOMEtracker__Current_HOA_Condo_Fees__c}" />
+              </apex:outputText>
+            </div>
+
+            <!-- Utilities -->
+            <div class="col-lg-12">
+              <!-- Development Utilities Included -->
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.Development_address__r.Utilities_Included__c != null}">Utilities Included in Rent: {!SUBSTITUTE(objWrapperPropertyInfo.property.Development_address__r.Utilities_Included__c,';',', ')}</apex:outputlabel>
+            </div>
+
+            <!-- Income Level -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Max_Income_Level__c != null}" value="{!objWrapperPropertyInfo.property.Max_Income_Level__c} Income Level" />
+            </div> 
+
+            <!-- Floor -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.HOMEtracker__Property_Type__c != null && (objWrapperPropertyInfo.property.HOMEtracker__Property_Type__c != 'Single-Family Home' && objWrapperPropertyInfo.property.HOMEtracker__Property_Type__c != 'Mobile or Manufactured Home')}">{!objWrapperPropertyInfo.property.Floor_unit_is_located_on__c} Floor</apex:outputlabel>
+            </div>
+
+            <!-- Multi-level Unit -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Multi_level_unit__c}">Multi Level Home</apex:outputlabel>
+            </div>
+
+            <!-- Elevator -->
+            <div class="col-lg-12">
+              <!-- Development Elevator -->
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null}" value="{!if(objWrapperPropertyInfo.property.Development_address__r.Elevator__c == 'Yes','Elevator','No Elevator')}"/>        
+            </div>
+
+            <!-- Smoking Policy -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!(objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.Development_address__r.Smoking_Allowed__c == 'No')}" value="No Smoking Allowed" />
+            </div>
+
+            <!-- Amenities -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Development_address__c != null && objWrapperPropertyInfo.property.Development_address__r.Amenities__c != null}" value="Complex Amenities: {!SUBSTITUTE(objWrapperPropertyInfo.property.Development_address__r.Amenities__c,';',', ')}" />
+            </div>
+
+            <!-- Interior -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.HOMEtracker__Interior__c != null}" value="Interior Amenities: {!SUBSTITUTE(objWrapperPropertyInfo.property.HOMEtracker__Interior__c,';',', ')}" />
+            </div>
+
+            <!-- Exterior -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.HOMEtracker__Exterior__c != null}" value="Exterior Amenities: {!SUBSTITUTE(objWrapperPropertyInfo.property.HOMEtracker__Exterior__c,';',', ')}" />
+            </div>
+
+
+            <!-- Age Restriction -->
+            <div id="divAgeRestricted" class="col-lg-12">
+              <!-- Age Restriction Policy -->
+              <apex:outputlabel styleClass="control-label" rendered="{!objWrapperPropertyInfo.property.Age_Restriction__c != 'None'}" value="Age-Restricted Policy" />
+            </div>
+
+            <!-- Age Restriction -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Age_Restriction__c =='55+ exclusive'}">This is a 55+ community.  All household members must be 55 years old or older.</apex:outputlabel>
+
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Age_Restriction__c == 'Over 17'}">This is a 55+ community.  At least one household member must be 55 years or older.  All other household members must be over 17 years old.</apex:outputlabel>
+
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Age_Restriction__c == 'Over 18'}">This is a 55+ community.  At least one household member must be 55 years or older.  All other household members must be over 18 years old.</apex:outputlabel>
+            </div>
+
+            <!-- Pets -->   
+            <div id="divParking" class="col-lg-12">
+              <apex:outputlabel styleClass="control-label" value="Pets" />
+            </div>
+
+            <!-- Pets Allowed -->
+            <div class="col-lg-12">
+              <!-- Pet Policy -->
+              <apex:outputText styleClass="cgphPropLabel" escape="false" value="{!if(objWrapperPropertyInfo.property.Pets_allowed__c == 'No','No Pets Allowed', objWrapperPropertyInfo.property.Pet_fee__c)}" />
+            </div>
+
+            <!-- Parking -->   
+            <div id="divParking" class="col-lg-12">
+              <apex:outputlabel styleClass="control-label" value="Parking" />
+            </div>
+
+            <!-- Property Parking -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" >{!objWrapperPropertyInfo.property.Additional_Parking_Fee__c}
+              </apex:outputlabel> 
+              <!--
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.Type_of_Free_Parking__c != 'None' && objWrapperPropertyInfo.property.Type_of_Free_Parking__c != null}" >
+              Additional Parking Fees: {!objWrapperPropertyInfo.property.Additional_Parking_Fee__c} for each {!SUBSTITUTE(objWrapperPropertyInfo.property.Type_of_Free_Parking__c,';',', ')}
+              </apex:outputlabel> 
+              -->
+            </div>
+
+            <!-- Accessibility Features -->
+            <div id="divAccess" class="col-lg-12">
+              <apex:outputlabel styleClass="control-label" rendered="{!objWrapperPropertyInfo.property.HOMEtracker__Accessibility_Features__c == true}" value="Accessibility Features"/>
+            </div>
+
+            <!-- Accessibility Features -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.HOMEtracker__Accessibility_Features__c == true}">{!objWrapperPropertyInfo.property.HOMEtracker__Description_of_Accessibility_Features__c}</apex:outputlabel>
+            </div>
+
+
+            <!-- Affordability Assistance -->  
+           
+            <div id="divAffAssistance" class="col-lg-12">
+              <apex:outputlabel rendered="{!objWrapperPropertyInfo.property.RecordType.Name == 'Homeownership' && (objWrapperPropertyInfo.property.Municipality_Name__r.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != '' || objWrapperPropertyInfo.property.Municipality_Name__r.Down_Payment_Assistance_Cert_Text__c != '')}"
+              styleClass="control-label">Affordability Assistance</apex:outputlabel>
+            </div>
+            
+            <div id="divAffAssistance" class="col-lg-12">
+              <apex:outputlabel rendered="{!objWrapperPropertyInfo.property.RecordType.Name == 'Rental Unit' && (objWrapperPropertyInfo.property.Municipality_Name__r.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != '' || objWrapperPropertyInfo.property.Municipality_Name__r.Rent_Assistance_Cert_Text__c != '')}"
+              styleClass="control-label">Affordability Assistance</apex:outputlabel>
+            </div>
+            
+            
+            <div class="col-lg-12">
+             
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.RecordType.Name == 'Homeownership' && objWrapperPropertyInfo.property.Municipality_Name__r.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != ''}" value="{!objWrapperPropertyInfo.property.Municipality_Name__r.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c}" />
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.RecordType.Name == 'Homeownership' && objWrapperPropertyInfo.property.Municipality_Name__r.Down_Payment_Assistance_Cert_Text__c != ''}" value="{!objWrapperPropertyInfo.property.Municipality_Name__r.Down_Payment_Assistance_Cert_Text__c}" />      
+              
+           
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.RecordType.Name == 'Rental Unit' && objWrapperPropertyInfo.property.Municipality_Name__r.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != ''}" value="{!objWrapperPropertyInfo.property.Municipality_Name__r.County_Lookup__r.County_Rent_Assistance_Cert_Text__c}" />                    
+              <apex:outputlabel styleClass="cgphPropLabel" rendered="{!objWrapperPropertyInfo.property.RecordType.Name == 'Rental Unit' && objWrapperPropertyInfo.property.Municipality_Name__r.Rent_Assistance_Cert_Text__c != ''}" value="{!objWrapperPropertyInfo.property.Municipality_Name__r.Rent_Assistance_Cert_Text__c}" />                    
+              
+            </div>
+
+
+            <!-- Description -->
+            <div class="col-lg-12">
+              <apex:outputlabel styleClass="control-label" rendered="{!objWrapperPropertyInfo.property.HOMEtracker__Property_Description__c != null}">{!objWrapperPropertyInfo.property.HOMEtracker__Property_Description__c}</apex:outputlabel>
+            </div>
+
+            <div class="col-lg-12" style="margin-bottom:25px;"></div>
+          </div>
+        </apex:outputPanel>
+      </div>
+    </div>
+  </div>
+
+
+
+<!------------------------------------------------------------------------>
+<!-- Loading image and overlay                                          --> 
+<!------------------------------------------------------------------------>
+
+  <div id="fade" class="processing_overlay"></div> 
+
+  <div class="modal js-loading-bar" style="width:100%;">
+    <div class="modal-dialog cgphLoader" >
+        <!-- Rectangles for loading animation  -->
+      <center><div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div></center>
+    </div>
+  </div>
+
+  <apex:actionFunction name="getPropertyInfo" action="{!getPropertyInfo}" rerender="propertyInfo" onComplete="stopProcessing()">
+    <apex:param name="strPropertyId" assignTo="{!strPropertyId}" value="null" />
+  </apex:actionFunction>
+
+  <apex:actionFunction name="getPurchasePropertyInfo" action="{!getPropertyInfo}" rerender="propertyInfo" onComplete="stopProcessing()">
+    <apex:param name="strPropertyId" assignTo="{!strPropertyId}" value="null" />
+  </apex:actionFunction>
+
+
+
+</div> <!-- End Container --> 
+</apex:outputPanel>
+</apex:form>
+</apex:page>

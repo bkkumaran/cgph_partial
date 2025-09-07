@@ -1,0 +1,34 @@
+<apex:page standardController="Account" renderAs="html" recordSetVar="accounts" tabstyle="account" sidebar="false">
+<head>
+<apex:stylesheet value="{!$Resource.customCSS}" />
+</head>
+<style type="text/css">
+p, th, td {font-family: 'Open Sans', sans-serif;}
+</style>
+    
+    <h1>Affordable Homes New Jersey</h1>
+    <h2> a CGP&amp;H service </h2>
+    <p>Thank you, <b><apex:outputText value=" {!Account.Name}"/></b>, for
+    becoming a new account with CGP&amp;H Affordable Homes New Jersey.</p>
+    <p class="hand" style="font-size: 200%; font-weight: bold;"> Your account details are:</p>
+        <table>
+            <tr><th>Account Name</th>
+                <td><apex:outputText value="{!Account.Name}"/></td>
+            </tr>
+            <tr><th>Account Rep</th>
+                <td><apex:outputText value="{!Account.Owner.Name}"/></td>
+            </tr>
+            <tr><th>Customer Since</th>
+                <td><apex:outputText value="{0,date,long}">
+                    <apex:param value="{!Account.CreatedDate}"/>
+                </apex:outputText></td>
+            </tr>
+        </table>
+        
+ 
+<apex:pageBlock >
+<apex:pageBlockTable value="{!accounts}" var="a">
+<apex:column value="{!a.name}"/>
+</apex:pageBlockTable>
+</apex:pageBlock>
+</apex:page>

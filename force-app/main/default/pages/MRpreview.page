@@ -1,0 +1,374 @@
+<apex:page standardcontroller="Monitoring_Project_Unit__c" >
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        #TopHead { white-space: nowrap; font-size: 20pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; vertical-align: bottom;}
+        .SubHead { white-space: normal; font-size: 11pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 4px 10px 10px 5px; vertical-align: top; text-align: left;}
+        #Label { white-space: normal; font-family: Montserrat; font-size: 10pt;color: black; padding: 2px 10px 0px 0px; font-weight:bold; vertical-align:top; text-align: right; border-bottom: 0.5px solid rgb(206, 228, 245);border-collapse: collapse;}
+        #Text { white-space: normal; font-family: Montserrat; font-size: 10pt;color: black; padding: 2px 0px 10px 0px; vertical-align:top;border-bottom: 0.5px solid rgb(206, 228, 245);border-collapse: collapse;}
+        #TextSmall {white-space:normal;font-family: Montserrat; font-size: 9pt;color: black; padding: 2px 0px 10px 0px; vertical-align:top;border-bottom: 0.5px solid rgb(206, 228, 245);border-collapse: collapse;}
+        #TextLoc { white-space: normal; font-family: Montserrat; font-size: 9pt;color: rgb(37,113,170); padding: 2px 0px 10px 5px; vertical-align:top;border-left: 2px solid rgb(37,113,170); border-collapse: collapse;}
+        #BoxH {white-space: nowrap;font-family: Montserrat; font-size: 10pt;color: black; font-weight:bold; vertical-align:middle; text-align: center; border-bottom: 0.5px solid rgb(206, 228, 245);border-collapse: collapse;color: rgb(37,113,170); border-left: 0.5px solid rgb(206, 228, 245)}
+        #BoxA { white-space: nowrap; font-family: Montserrat; font-size: 11pt;color: black; font-weight:bold; vertical-align:middle; text-align: center; border-bottom: 0.5px solid rgb(206, 228, 245); border-left: 0.5px solid rgb(206, 228, 245)}
+        #BoxB { white-space: nowrap; font-family: Montserrat; font-size: 11pt;color: black; font-weight:bold; vertical-align:middle; text-align: center; border-bottom: 1px solid rgb(37,113,170); border-left: 0.5px solid rgb(206, 228, 245)}
+        #tbl {  display: inline-table; border-collapse: collapse;}
+        <!-- border: 2px solid rgb(37,113,170); -->
+        
+    </style>
+    
+<table><tr><td>
+<apex:image url="{!$Resource.cgphLOGOgif}" width="275px" />
+</td>
+<td id="TopHead" >
+<apex:outputPanel layout="block" onDblclick="window.open('/{!Monitoring_Project_Unit__c.Id}','_parent')"
+>
+<div id="TopHead" style="width: 900px;">
+{!Monitoring_Project_Unit__c.MR_Muni_Name_Calc__c}<br />
+{!Monitoring_Project_Unit__c.MR_County__c} County<br />
+</div>
+</apex:outputPanel>
+</td>
+</tr>
+</table>
+<br/>
+<br/>
+
+            <apex:variable var="openProj" value="window.open('/{!Monitoring_Project_Unit__c.Id}','_blank')" />
+            <apex:variable var="openDev" value="window.open('/{!Monitoring_Project_Unit__c.MR_Development__r.Id}','_blank')" />
+            <apex:variable var="col1" value="width: 150px;" />
+            <apex:variable var="col2" value="width: 50px;" />
+            <apex:variable var="col3" value="width: 600px;" />
+            <apex:variable var="heightHead" value="height: 30px;" />
+            <apex:variable var="heightNorm" value="height: 15px;" />            
+            <apex:variable var="heightMed" value="height: 50px;" />
+            <apex:variable var="heightBig" value="height: 70px;" />
+            <apex:variable var="heightBlockH" value="height: 35px;" />
+            <apex:variable var="heightBlock" value="height: 25px;" />
+            
+            <table id="tbl" style="table-layout:fixed;  float: left;">
+            <col style="{!col1}" />
+            <col style="{!col2}" />
+            <col style="{!col2}" />
+            <col style="{!col2}" />
+            <col style="{!col2}" />
+            <col style="{!col2}" />
+            <col style="{!col3}" />
+            
+                <tr >
+                    <td colspan="6" style="border: 2px solid rgb(37,113,170);border-bottom: 1.5px solid rgb(37,113,170);">
+                    <apex:outputPanel layout="block" styleclass="SubHead" style="{!heightHead}" ondblclick="openProj">
+                        {!FLOOR(Monitoring_Project_Unit__c.MR_Project_Number__c)}. {!Monitoring_Project_Unit__c.Name}
+                    </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc"> <i><b>Monitoring Project:</b> "Project or Program Name" field</i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" >
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}" >
+                            Project Type
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightHead}">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}" >
+                            {!Monitoring_Project_Unit__c.MR_Project_Type__c}
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc"> <i><b>Development:</b> In "Development Charcteristics" section:<br/>"100% Affordable or Inclusionary", "Type of Units" and "Special Circumstances" </i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" >
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            Block &amp; Lot / Street
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightBig}">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            {!Monitoring_Project_Unit__c.MR_BL_Calc__c}
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc"> <i><b>Development:</b> "Block &amp; Lot / Street" field</i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" >
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Status
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!Monitoring_Project_Unit__c.MR_Project_Status__c}
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc"> <i><b>Monitoring Project:</b> "Project Status" field.  <br/>Look at "Current Development Status" field (calculated from property) to help choose</i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" >
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}" >
+                            Date
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextSmall" colspan="5" style="{!heightMed}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}"> 
+                            {!Monitoring_Project_Unit__c.MR_Controls_Date__c}
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc"> <i><b>Monitoring Project:</b> "Controls Date" field</i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Length of Controls
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!Monitoring_Project_Unit__c.MR_Length_of_Controls_Text__c}
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc"> <i><b>Monitoring Project:</b> "Length of Controls Text" field</i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" >
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            Admin Agent
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextSmall" colspan="5" style="{!heightBig}">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            <apex:outputText escape="false" value="{!Monitoring_Project_Unit__c.MR_Administrative_Agent_Info__c}" />
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextLoc"> <i><b>Development:</b> In "Homeowner's Association / Landlord" section: <br/>"Administrative Agent" lookup field (Accounts).</i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            RCA Contribution
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!Monitoring_Project_Unit__c.MR_Contribution__c}
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextLoc"> <i><b>Monitoring Project:</b> "Contribution" field</i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            Type of Units
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            {!Monitoring_Project_Unit__c.MR_Unit_Type__c}
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc"> <i><b>Development:</b> In "Development Characteristics" section: "Type of Units" field <br/> This determines both this value and "Project Type" above</i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" >
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Total Affordable Units
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_Total_Affordable_Units__c)} {!IF(Monitoring_Project_Unit__c.MR_Total_Affordable_Units__c =1,"unit","units")}
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc"> <i><b>Monitoring Project:</b> "Total Affordable Units" field. <br/> Compare to "Development Units" field which comes from Development.</i> </td>
+                </tr>
+                <tr style="border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" style="border-bottom: 1px solid rgb(37,113,170);">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Unit Notes
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextSmall" colspan="5" style="{!heightBig} border-bottom: 1px solid rgb(37,113,170);">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!Monitoring_Project_Unit__c.MR_Unit_Notes__c}
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc"> <i><b>Monitoring Project:</b> "Unit Notes" field.</i> </td>
+                </tr>
+                <tr style="text-align: center; border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" >
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Income/Bedroom<br/>Distribution
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxH" style="{!heightBlockH}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            EFF.<br/>Std.
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxH">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            BR<br/>1
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxH">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            BR<br/>2
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxH">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            
+                        </apex:outputPanel>
+                        BR<br/>3
+                    </td>
+                    <td id="BoxH">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            BR<br/>4
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc" style="text-align: left;"> <i><b>Monitoring Project:</b> "Unit Distribution" section</i> </td>
+                </tr>
+                <tr style="text-align: center; border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label"  >
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Very-Low-Income  
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA" style="{!heightBlock}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_Eff_Very_Low__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_1_Br_Very_Low__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            
+                        </apex:outputPanel>
+                        {!FLOOR(Monitoring_Project_Unit__c.MR_2_Br_Very_Low__c)}
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_3_Br_Very_Low__c)}    
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_4_BR_Very_Low__c)}    
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextLoc" style="text-align: left;"> </td>
+                </tr>
+                <tr style="text-align: center; border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" >
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Low-Income  
+                        </apex:outputPanel>
+                    </td>
+                    <td id="BoxA" style="{!heightBlock}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_Eff_Low__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            
+                        </apex:outputPanel>
+                        {!FLOOR(Monitoring_Project_Unit__c.MR_1_Br_Low__c)}
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_2_Br_Low__c)}    
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_3_Br_Low__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_4_BR_Low__c)}   
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc" style="text-align: left;"> </td>
+                </tr>
+                <tr style="text-align: center; border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" style="border-bottom: 1px solid rgb(37,113,170);">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Moderate-Income  
+                        </apex:outputPanel>
+                    </td>
+                    <td id="BoxB" style="{!heightBlock}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_Eff_Moderate__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxB">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_1_Br_Moderate__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxB">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_2_Br_Moderate__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxB">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_3_Br_Moderate__c)}  
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxB">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(Monitoring_Project_Unit__c.MR_4_BR_Moderate__c)}   
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc" style="text-align: left;"> </td>
+                </tr>
+                <tr style=" border-left: 2px solid rgb(37,113,170);">
+                    <td id="Label" style="border: none;height:60px; border-bottom: 2px solid rgb(37,113,170);">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Monitoring Notes:
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextSmall" colspan="5" style="{!heightBig}; border-bottom: 2px solid rgb(37,113,170);">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!Monitoring_Project_Unit__c.MR_Development__r.Monitoring_Notes__c}   
+                        </apex:outputPanel>
+                    </td>
+                    <td id="TextLoc" style="text-align: left;"> <i><b>Development:</b> In "New AA Kickoff" section:<br/> "Monitoring Notes" text box</i></td>
+                </tr>
+            </table>
+
+</apex:page>

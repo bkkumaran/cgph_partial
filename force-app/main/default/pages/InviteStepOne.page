@@ -1,0 +1,253 @@
+<apex:page standardcontroller="Application__c" extensions="InviteStepOneExt">
+
+<!-- COLORS -->
+<apex:variable id="blue" var="blue" value="#1e72aa"/>
+<apex:variable id="lightGreen" var="lightGreen" value="#8bf0b0"/>
+<apex:variable id="veryLightGreen" var="veryLightGreen" value="#ebfaf1"/>
+<apex:variable id="darkGreen" var="darkGreen" value="#b6dec0"/>
+<apex:variable id="green" var="green" value="green"/>
+<apex:variable id="lightRed" var="lightRed" value="#8bf0b0"/>
+<apex:variable id="veryLightRed" var="veryLightRed" value="#faebeb"/>
+<apex:variable id="darkRed" var="darkRed" value="#deb6b6"/>
+<apex:variable id="red" var="red" value="#e31414"/>
+<apex:variable id="appDueFuture" var="appDueFuture" value="#8bf0b0"/>
+<apex:variable id="appDueMiddle" var="appDueMiddle" value="#fcfc8b"/>
+<apex:variable id="appDuePast" var="appDuePast" value="#e64c4c"/>
+
+<!-- color test
+<span style="background-color:{!appDuePast};">
+appDuePast
+</span>
+<span style="background-color:{!appDueMiddle};">
+appDueMiddle
+</span>
+<span style="background-color:{!appDueFuture};">
+appDueFuture
+</span>
+-->
+
+<!-- Acceptible age of documents -->
+<apex:variable id="age" var="age" value="120"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat');
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+    @import url('https://fonts.googleapis.com/css?family=Fira+Code');
+    #buttonGreen {white-space: nowrap; text-decoration:none; font-size: 10pt; color: {!green}; font-family: 'Montserrat'; font-weight: bold; background-color: {!veryLightGreen};border-radius: 5px;
+            border-top: 1px solid {!darkGreen}; border-right: 1.5px solid {!green}; border-bottom: 1.5px solid {!green}; border-left: 1px solid {!darkGreen}; padding: 3px 10px 3px 10px; }
+    #buttonGray {white-space: nowrap; text-decoration:none; font-size: 10pt; color: gray; font-family: 'Montserrat'; font-weight: bold; background-color: white;border-radius: 5px;
+            border-top: 1px solid gray; border-right: 1.5px solid gray; border-bottom: 1.5px solid gray; border-left: 1px solid gray; padding: 3px 10px 3px 10px; }
+    #buttonRed { white-space: nowrap; text-decoration:none; font-size: 10pt; color: {!red}; font-family: 'Montserrat'; font-weight: bold; background-color: {!veryLightRed};border-radius: 5px;
+            border-top: 1px solid {!darkRed}; border-right: 1.5px solid {!red}; border-bottom: 1.5px solid {!red}; border-left: 1px solid {!darkRed}; padding: 3px 10px 3px 10px; }
+    #TopHead {white-space: nowrap; font-size: 15pt; color: {!blue}; font-family: 'Montserrat'; font-weight: bold; padding: 15px 0px 0px 0px; }
+    .text {font-size: 9pt; font-family: 'Open Sans';}
+    #tbl { padding: 0px 0px 0px 0px; text-align:left; } 
+
+</style>
+<apex:pageblock >
+
+<apex:variable id="URL" var="URL" value="https://cgph--c.vf.force.com/flow/Outreach_Invite_Step_One?varID={!Id}&varType="/>
+
+<table border="">
+    <tr>
+        <td colspan="4">
+                <a id="TopHead" href="https://cgph.lightning.force.com/lightning/r/Application__c/{!Id}/view" target="_blank">
+                    {!Application__c.Pre_Applicant__r.Name} - {!Application__c.Property__r.Name}, {!Application__c.Property__r.Municipality_Name__r.Name}
+                </a>
+                <div id="TopHead" ><i>{!Application__c.Status__c}</i></div>
+                <br/>
+            <span style="background-color:yellow; font-size: 12pt;{!IF(ISBLANK(Application__c.Notes__c),'display:none;','')}">
+                {!Application__c.Notes__c}<br/><br/>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th style="font-size:10pt;" colspan="2">
+            PRELIMINARY SUBMISSION ACTION
+        </th>
+    </tr>
+    <tr>
+        
+        <td id="tbl" style="padding-top:10px;">
+            <a id="buttonGreen" style="{!IF(Application__c.For_Alternate_Property__c=true,'display:none;','')}"
+                href="{!URL}1&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FInviteStepOne%3FId%3D{!Id}" target="_top">
+                MARK AS ALTERNATE
+            </a>
+            <div id="buttonGray" style="{!IF(Application__c.For_Alternate_Property__c=true,'','display:none;')}">
+                MARKED ALTERNATE
+            </div>
+            
+        </td>
+        
+        
+        <td style="padding:10px 0px 0px 10px;vertical-align:bottom;">
+            Click button if Service File below is marked <span style="background-color:{!lightGreen};"><b>GREEN</b></span> for being in "Application in Process" stage, and if Application Due date is in the future (also marked <span style="background-color:{!lightGreen};"><b>GREEN</b></span>).<br/>
+            If application due date is marked <span style="background-color:{!appDueMiddle};"><b>YELLOW</b></span> or <span style="background-color:{!appDuePast};"><b>RED</b></span>, see the service file actions below to process.
+        </td>
+    </tr>
+</table>
+
+<br/>    <br/>
+    <table width="100%">
+        <tr>
+            <th style="font-size:10pt;">
+                SERVICE FILE ACTIONS
+            </th>
+        </tr>
+        <tr>
+            <td>
+                 <apex:image url="{!$Resource.Denied_Doc_Icon}" height="15"/>
+                 Change <b>Status</b> to "Application in Process - Old Docs" if <b>Application Due</b> date is <span style="background-color:{!appDuePast};"><b>RED</b></span> (older than {!age} days ago)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <apex:image url="{!$Resource.Blue_Email_Icon}" height="15"/>
+                Create case for application submission followup if application has not been submitted but is otherwise complete
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <apex:image url="{!$Resource.Cancel_Icon}" height="15"/>
+                Withdraw Service File application for not submitting by the deadline. Applicant will still be in consideration for current property.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <apex:image url="{!$Resource.Calendar_Alert}" height="15"/>
+                Change <b>Status</b> to "Certified - Expired" if <b>Status</b> is "Certified - On Hold" and <b>Date Certification Expires</b> has passed
+            </td>
+        </tr>
+    </table>
+    <br/>
+<apex:variable id="AppInProcess" var="AppInProcess" value="background-color:{!lightGreen}; font-weight:bold;"/>
+
+<apex:variable id="AppType" var="aType" value="{!Application__c.Property_Type__c}" />
+
+    <apex:pageblocktable var="x" value="{!ListSF}" >
+
+<!-- ACTIONS COLUMN START ---------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+        <apex:column width="100" headerValue="SF ACTIONS" style="text-align:center; text-decoration:none;{!IF(x.HOMEtracker__Status__c='Application in Process',AppInProcess,'')}">
+        
+            <!-- START Application in Process Status span to hide or show SF Action buttons -->
+            <span style="text-decoration:none;{!IF(x.HOMEtracker__Status__c='Application in Process','','display:none;')}">
+            
+            <!-- Old Docs Icons -->
+                <span id="OldDocsYes" style="display:{!IF(ISNULL(x.PHA__Application_Due_Date__c),'none',IF(AND(x.PHA__Application_Due_Date__c < TODAY()-value(age),x.Application_Workflow_Status__c='Application Received - Waiting for Credit Results'),'','none'))}">
+                    <a href="{!URL}2&varSFID={!x.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FInviteStepOne%3FId%3D{!Id}" target="_top" style="text-decoration:none;">
+                        <apex:image url="{!$Resource.Denied_Doc_Icon}" height="20"/>
+                    </a>
+                </span>
+                <span id="OldDocsNo" style="display:{!IF(ISNULL(x.PHA__Application_Due_Date__c),'',IF(AND(x.PHA__Application_Due_Date__c < TODAY()-value(age),x.Application_Workflow_Status__c='Application Received - Waiting for Credit Results'),'none',''))}">
+                    <apex:image url="{!$Resource.Denied_Doc_Gray_Icon}" height="20"/>
+                </span>
+                
+                    &nbsp;&nbsp;&nbsp;
+                    
+            <!-- Submission Fix Case Icons -->
+                <span id="SubFixYes" style="display:{!IF(OR(x.PHA__Application_Status__c='Invited',x.PHA__Application_Status__c='Incomplete'),'','none;')}">
+                    <a style="text-decoration:none;" 
+                        href="https://cgph--c.vf.force.com/flow/Outreach_Submission_Check_Followup_Case?varType=SF&varPSID={!Id}&varSFID={!x.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FInviteStepOne%3FId%3D{!Id}"
+                        target="_top">
+                            <apex:image url="{!$Resource.Blue_Email_Icon}" height="20"/>
+                    </a>
+                </span>
+                <span id="SubFixNo" style="display:{!IF(OR(x.PHA__Application_Status__c='Invited',x.PHA__Application_Status__c='Incomplete'),'none;','')}">
+                    <apex:image url="{!$Resource.Gray_Email_Icon}" height="20"/>
+                </span>
+
+                    &nbsp;&nbsp;&nbsp;
+            <!-- Withdraw Unsubmitted Application -->
+                <span id="withdrawYes" style="display:{!IF(OR(x.PHA__Application_Status__c='Invited',x.PHA__Application_Status__c='Incomplete'),'','none;')}">
+                    <a href="https://cgph--c.vf.force.com/flow/Outreach_Withdraw_Not_Submitted?varSFID={!x.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FInviteStepOne%3FId%3D{!Id}" target="_top">
+                        <apex:image url="{!$Resource.Cancel_Icon}" height="20"/>
+                    </a>
+                </span>
+                <span id="withdrawNo" style="display:{!IF(OR(x.PHA__Application_Status__c='Invited',x.PHA__Application_Status__c='Incomplete'),'none;','')}">
+                    <apex:image url="{!$Resource.Cancel_Icon_Gray}" height="20"/>
+                </span>
+                
+   <!--
+   <a href="https://cgph--c.vf.force.com/flow/Outreach_Remove_Applicant_Before_Referral?varCMID={!CampaignMember.Id}&varSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&varPSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&varPSID={!CampaignMember.Campaign_Preliminary_Submission__r.Id}&retURL=https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FPreApplicants__c%2F{!CampaignMember.Pre_Applicant__r.Id}%2Frelated%2FServices__r%2Fview" target="_Top">
+            <b>CLICK HERE</b>
+            </a>
+   -->                     
+                    
+                    
+            </span> <!-- END Application in Process Status span to hide or show SF Action buttons -->   
+           
+           <!-- Certification Expired Fix Icons -->
+           <span id="CertExp" style="{!IF(CONTAINS(x.HOMEtracker__Status__c,'Certified'),'','display:none;')}">              
+                <span id="CertExpYes" 
+                    style="{!IF(OR(x.HOMEtracker__Status__c='Certified - Expired',AND(NOT(ISNULL(x.Date_Certification_Expires__c)),x.Date_Certification_Expires__c>TODAY())),'display:none;','')}">
+                    
+                    <a style="text-decoration:none;" 
+                        href="{!URL}3&varSFID={!x.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FInviteStepOne%3FId%3D{!Id}"
+                        target="_top">
+                            <apex:image url="{!$Resource.Calendar_Alert}" height="20"/>
+                    </a>
+                </span>
+                <span id="CertExpNo" style="{!IF(OR(x.HOMEtracker__Status__c='Certified - Expired',AND(NOT(ISNULL(x.Date_Certification_Expires__c)),x.Date_Certification_Expires__c>TODAY())),'','display:none;')}">
+                    <apex:image url="{!$Resource.Calendar_Alert_Gray}" height="20"/>
+                </span>
+            </span>
+
+
+
+            
+            
+        </apex:column> 
+<!-- ACTION COLUMN FINISH -->
+
+
+    
+        
+        <apex:column styleclass="text" width="" value="{!x.Name}" style="text-decoration:underline; {!IF(x.HOMEtracker__Status__c='Application in Process',AppInProcess,'')}"
+        onclick="window.open('https://cgph.lightning.force.com/lightning/r/HOMEtracker__Service_File__c/{!x.Id}/view')"
+        />
+
+        <apex:column styleclass="text" width="" value="{!x.RecordType.Name}" headerValue="Type" style="{!IF(x.HOMEtracker__Status__c='Application in Process',AppInProcess,'')}"
+        />
+
+        
+        <apex:column styleclass="text" width="300" headervalue="Status" style="{!IF(x.HOMEtracker__Status__c='Application in Process',AppInProcess,IF(contains(x.HOMEtracker__Status__c,'Certified - Expired'),'',IF(contains(x.HOMEtracker__Status__c,'Certified'),'background-color:yellow; font-weight:bold;','')))}">
+            {!x.HOMEtracker__Status__c}
+            <span style="{!IF(OR(ISNULL(x.Date_Certification_Expires__c),x.Date_Certification_Expires__c<TODAY()),'font-weight:bold;background-color:'&appDuePast&';','')}display:{!IF(CONTAINS(x.HOMEtracker__Status__c,'Certified'),'','none')}">
+                <br/>
+                CERT EXP: 
+                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!x.Date_Certification_Expires__c}" /> 
+                </apex:outputText>
+            </span>
+        </apex:column>
+        
+        <apex:column styleclass="text" width="" value="{!x.PHA__Application_Status__c}"
+            style="{!IF(x.HOMEtracker__Status__c='Application in Process',
+                IF(OR(x.PHA__Application_Status__c='Incomplete',x.PHA__Application_Status__c='Invited'),"font-weight:bold; background-color:"&appDueMiddle&";",AppInProcess),'')}"
+        />
+        
+        <apex:column styleclass="text" width="300" value="{!x.Application_Workflow_Status__c}"
+        style="{!IF(x.HOMEtracker__Status__c='Application in Process',
+                IF(OR(x.PHA__Application_Status__c='Incomplete',x.PHA__Application_Status__c='Invited'),"font-weight:bold; background-color:"&appDueMiddle&";",AppInProcess),'')}"/>
+        
+        <apex:column styleclass="text" width="" value="{!x.PHA__Application_Due_Date__c}"
+            style="
+                {!IF(x.HOMEtracker__Status__c!="Application in Process",'',
+                    IF(x.PHA__Application_Due_Date__c < TODAY()-120,'font-weight:bold;background-color:'&appDuePast,
+                        If(x.PHA__Application_Due_Date__c > TODAY()-1,'font-weight:bold;background-color:'&appDueFuture,
+                            'font-weight:bold;background-color:'&appDueMiddle)))}"
+            />
+        <apex:column styleclass="text" width="" value="{!x.Cases_Check__c}" style="{!IF(x.HOMEtracker__Status__c='Application in Process',
+                IF(OR(x.PHA__Application_Status__c='Incomplete',x.PHA__Application_Status__c='Invited'),"font-weight:bold; background-color:"&appDueMiddle&";",AppInProcess),'')}"/>
+        <apex:column styleclass="text" width="" value="{!x.Application_URL_Internal__c}" style="{!IF(x.HOMEtracker__Status__c='Application in Process',
+                IF(OR(x.PHA__Application_Status__c='Incomplete',x.PHA__Application_Status__c='Invited'),"font-weight:bold; background-color:"&appDueMiddle&";",AppInProcess),'')}"/>
+        <apex:column styleclass="text" width="" value="{!x.PHA__Portal_Visits__c}" style="{!IF(x.HOMEtracker__Status__c='Application in Process',IF(AND(x.PHA__Application_Due_Date__c<TODAY(),x.PHA__Portal_Visits__c=0),'font-weight:bold;background-color:'&appDuePast,AppInProcess),'')}"/>
+        <apex:column styleclass="text" width="" value="{!x.PHA__Total_Required_Documents__c}" headerValue="Docs" style="{!IF(x.HOMEtracker__Status__c='Application in Process',IF(AND(x.PHA__Application_Due_Date__c<TODAY(),x.PHA__Portal_Visits__c=0),'font-weight:bold;background-color:'&appDuePast,AppInProcess),'')}"/>
+
+    </apex:pageblocktable>
+
+
+
+</apex:pageblock>
+
+</apex:page>

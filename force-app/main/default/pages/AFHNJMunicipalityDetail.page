@@ -1,0 +1,418 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0"
+    controller="CGPHMunicipalityController" cache="false">
+    <apex:variable var="m" value="{!objWrapperMunicipalityInfo.municipality}" />
+    <apex:variable var="mi" value="{!m.Income_Limit__r}" />
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Municipality Detail</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <!-- Import the Design System style sheet -->
+        <apex:slds />
+        <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+        <link rel='stylesheet' id='thegem-google-fonts-css' href='//fonts.googleapis.com/css?family=Oswald%3Aregular%7CMontserrat%3A700%2Cregular%7CSource+Sans+Pro%3A300%2Cregular&#038;subset=latin-ext%2Clatin%2Cvietnamese%2Ccyrillic%2Ccyrillic-ext%2Cgreek-ext%2Cgreek&#038'
+            type='text/css' media='all' />
+        <link rel="stylesheet" id="thegem-child-style-css" href="https://www.affordablehomesnewjersey.com/wp-content/plugins/js_composer/assets/lib/bower/font-awesome/css/font-awesome.min.css"
+            type="text/css" media="all" />
+        <link rel="stylesheet" id="thegem-style-css" href="https://www.affordablehomesnewjersey.com/wp-content/themes/thegem/style.css"
+            type="text/css" media="all" />
+        <link rel="stylesheet" id="thegem-child-style-css" href="https://www.affordablehomesnewjersey.com/wp-content/themes/thegem-child/style.css"
+            type="text/css" media="all" />
+    </head>
+
+    <body style="margin-left: 0;">
+
+        <apex:outputPanel >
+            <apex:pageMessages ></apex:pageMessages>
+        </apex:outputPanel>
+
+
+        <!-- REQUIRED SLDS WRAPPER -->
+        <div class="slds-scope">
+            <apex:outputPanel layout="block" rendered="{!objWrapperMunicipalityInfo.lstListings != null && objWrapperMunicipalityInfo.lstListings.size > 0 }">
+                <hr class="slds-m-top_x-small" style="border-top-width: 3px;" />
+                <span>
+                    <h4>CURRENT LISTINGS</h4>
+                </span>
+                <span>
+                    <br/>Click below for additional information on current affordable opportunities in this municipality. Join
+                    waiting lists to be considered.</span>
+                <ul class="slds-has-dividers_top-space slds-list_vertical-space-medium">
+                    <apex:repeat value="{!objWrapperMunicipalityInfo.lstListings}" var="curProp">
+                        <li class="slds-item cl-item">
+                            <a href="https://www.affordablehomesnewjersey.com/all-opportunities/current-listings/?lid={!curProp.Id}" onclick="lload(event,'{!curProp.Id}','{!curProp.Development_address__r.Rental_or_Sale_Development__c}');">
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <div class="slds-col slds-show_small slds-size_1-of-1 slds-small-size_1-of-4 slds-medium-size_1-of-7 slds-text-align_center">
+                                        <i class="fa fa-home" style="font-size: 6.3rem;"></i>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-4 slds-medium-size_6-of-7">
+                                        {!curProp.Development_address__r.Name}
+                                        <br/> {!curProp.Development_address__r.Rental_or_Sale_Development__c}
+                                        <br/> {!curProp.Name}
+                                        <br/>
+                                        <apex:outputText value="{0, number, $###,##0}">
+                                            <apex:param value="{!curProp.HOMEtracker__List_Price__c}" /></apex:outputText>
+                                        <apex:outputText value="{0, number, $###,##0}">
+                                            <apex:param value="{!curProp.HOMEtracker__Monthly_Rent__c}" /></apex:outputText> | {!curProp.HOMEtracker__Number_of_Bedrooms__c} bed | {!curProp.HOMEtracker__Number_of_Bathrooms__c}
+                                        bath | {!curProp.Max_Income_Level__c}
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </apex:repeat>
+                </ul>
+                <hr class="slds-m-top_x-small" style="border-top-width: 3px;" />
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="block" rendered="{!objWrapperMunicipalityInfo.lstDevelopmentInfo != null && objWrapperMunicipalityInfo.lstDevelopmentInfo.size > 0 }">
+                <span>
+                    <h4>LOCATIONS</h4>
+                </span>
+                <span>
+                    <br/>Click below for additional information on locations in this municipality. Join waiting lists to be considered.</span>
+                <ul class="slds-has-dividers_top-space slds-list_vertical-space-medium">
+                    <apex:repeat value="{!objWrapperMunicipalityInfo.lstDevelopmentInfo}" var="curProp">
+                        <li class="slds-item cl-item">
+                            <a href="https://www.affordablehomesnewjersey.com/all-opportunities/development/?did={!curProp.Id}" onclick="pload(event,'{!curProp.Id}','{!curProp.Rental_or_Sale_Development__c}');">
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <div class="slds-col slds-show_small slds-size_1-of-1 slds-small-size_1-of-4 slds-medium-size_1-of-7 slds-text-align_center">
+                                        <i class="fa fa-map-signs" style="font-size: 6.3rem;"></i>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-4 slds-medium-size_6-of-7">
+                                        {!curProp.Name}
+                                        <br/> {!curProp.Rental_or_Sale_Development__c}
+                                        <apex:outputPanel rendered="{!NOT(ISBLANK(curProp.Age_Restriction__c))}">
+                                                <br/> {!curProp.Age_Restriction__c}
+                                        </apex:outputPanel>
+                                        <br/> {!curProp.Unit_Mix__c} | {!curProp.Affordability_restriction_del__c} | {!curProp.Number_of_units__c}
+                                        {!curProp.HOMEtracker__Property_Type__c}
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </apex:repeat>
+                </ul>
+                <hr class="slds-m-top_x-small" style="border-top-width: 3px;" />
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="block" rendered="{!objWrapperMunicipalityInfo.lstDevelopmentNAInfo != null && objWrapperMunicipalityInfo.lstDevelopmentNAInfo.size > 0 }">
+                <span>
+                    <h4>ADDITIONAL LOCATIONS</h4>
+                </span>
+                <span>
+                    <br/>Click below for contact information and steps to take if you are interested. You will not be considered
+                    for these locations by joining the CGP&amp;H waiting lists.</span>
+                <ul class="slds-has-dividers_top-space">
+                    <apex:repeat value="{!objWrapperMunicipalityInfo.lstDevelopmentNAInfo}" var="curProp">
+                        <li class="slds-item cl-item">
+                            <a href="https://www.affordablehomesnewjersey.com/all-opportunities/developments-na/?did={!curProp.Id}" onclick="pload(event,'{!curProp.Id}','{!curProp.Rental_or_Sale_Development__c}','','true');">
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <div class="slds-col slds-show_small slds-size_1-of-1 slds-small-size_1-of-4 slds-medium-size_1-of-7 slds-text-align_center">
+                                        <i class="fa fa-map-signs" style="font-size: 6.3rem; color: grey;"></i>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-4 slds-medium-size_6-of-7">
+                                        {!curProp.Name}
+                                        <br/> {!curProp.Rental_or_Sale_Development__c}
+                                        <apex:outputPanel rendered="{!NOT(ISBLANK(curProp.Age_Restriction__c))}">
+                                                <br/> {!curProp.Age_Restriction__c}
+                                        </apex:outputPanel>
+                                        <br/> {!curProp.Unit_Mix__c} | {!curProp.Affordability_restriction_del__c} | {!curProp.Number_of_units__c}
+                                        {!curProp.HOMEtracker__Property_Type__c}
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </apex:repeat>
+                </ul>
+                <hr class="slds-m-top_x-small" style="border-top-width: 3px;" />
+            </apex:outputPanel>
+
+            <apex:outputPanel styleClass="slds-grid slds-gutters slds-m-bottom_large" layout="block" rendered="{!m.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != null ||
+                                                                                                        m.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != null ||
+                                                                                                        m.Down_Payment_Assistance_Cert_Text__c != null ||
+                                                                                                        m.Rent_Assistance_Cert_Text__c != null}">
+                <div class="slds-col">
+                    <span>
+                        <h4>AFFORDABILITY ASSISTANCE</h4>
+                        <ul class="slds-list_dotted">
+                            <li class="slds-item" style="display: {!IF(m.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != null, 'list-item', 'none')};">
+                                {!m.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c}</li>
+                            <li class="slds-item" style="display: {!IF(m.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != null, 'list-item', 'none')};">
+                                {!m.County_Lookup__r.County_Rent_Assistance_Cert_Text__c}</li>
+                            <li class="slds-item" style="display: {!IF(m.Down_Payment_Assistance_Cert_Text__c != null, 'list-item', 'none')};">
+                                {!m.Down_Payment_Assistance_Cert_Text__c}</li>
+                            <li class="slds-item" style="display: {!IF(m.Rent_Assistance_Cert_Text__c != null, 'list-item', 'none')};">
+                                {!m.Rent_Assistance_Cert_Text__c}
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel styleClass="slds-grid slds-gutters slds-m-bottom_large" layout="block" rendered="{!m != null}">
+                <div class="slds-col">
+                    <span>
+                        <h4>MAXIMUM INCOME LIMITS PER HOUSEHOLD: {!mi.Year__c}</h4>
+                        <span style="color:red;vertical-align: top;">*</span>
+                        <p>
+                            <span style="color:red;">*</span>Income limits may be different for some locations in the municipality. {!mi.Income_Limit_Description_Text__c}</p>
+                        <table id="income_limits" class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate slds-hide_small" title="Number of Persons in Household">#</div>
+                                        <div class="slds-truncate slds-show_small" title="Number of Persons in Household">Household Size</div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Very Low">Very Low</div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Low">Low</div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Moderate">Moderate</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="1">1</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!mi.HH1_Very_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH1_Very_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!mi.HH1_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH1_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!mi.HH1_Moderate__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH1_Moderate__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="2">2</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!mi.HH2_Very_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH2_Very_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!mi.HH2_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH2_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!mi.HH2_Moderate__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH2_Moderate__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="3">3</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!mi.HH3_Very_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH3_Very_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!mi.HH3_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH3_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!mi.HH3_Moderate__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH3_Moderate__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="4">4</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!mi.HH4_Very_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH4_Very_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!mi.HH4_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH4_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!mi.HH4_Moderate__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH4_Moderate__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="5">5</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!mi.HH5_Very_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH5_Very_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!mi.HH5_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH5_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!mi.HH5_Moderate__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH5_Moderate__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="6">6</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!mi.HH6_Very_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH6_Very_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!mi.HH6_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH6_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!mi.HH6_Moderate__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH6_Moderate__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="7">7</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!mi.HH7_Very_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH7_Very_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!mi.HH7_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH7_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!mi.HH7_Moderate__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH7_Moderate__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="8">8</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!mi.HH8_Very_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH8_Very_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!mi.HH8_Low__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH8_Low__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!mi.HH8_Moderate__c}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!mi.HH8_Moderate__c}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="slds-hide_small"><span style="color:red;"># = household size</span></p>
+                    </span>
+                </div>
+            </apex:outputPanel>
+
+
+        </div>
+        <!-- / REQUIRED SLDS WRAPPER -->
+    </body>
+
+    <script>
+
+        /*SLDS Tabs JS*/
+        function ifsize() {
+            parent.postMessage({ "sfmsg": "ifsize", "ifsize": (document.body.scrollHeight + 50) }, "*");
+        }
+        function lload(event, lid, ltab) {
+            if (event.ctrlKey) {
+                return;
+            }
+            parent.postMessage({ "sfmsg": "lid", "lid": lid, "ltab": ltab }, "*");
+            event.preventDefault();
+        };
+        function pload(event, did, mres, sfby, na) {
+            if (event.ctrlKey) {
+                return;
+            }
+            parent.postMessage({ "sfmsg": "did", "did": did, "mres": mres, "sfby": sfby, "na": na }, "*");
+            event.preventDefault();
+        };
+        function doneloading() {
+            parent.postMessage({ "sfmsg": "doneloading" }, "*");
+        }
+
+        $(document).ready(function () {
+            ifsize();
+            parent.postMessage({
+                "sfmsg": "sbcontent", "sbcontent": {
+                    "title": "{!m.Name} - Rental &amp; Ownership",
+                    "county": "{!m.County_Lookup__r.Name} County<br />{!m.Name} {!m.Municipal_Type__c}",
+                    "map": "{!m.Name} {!m.Municipal_Type__c}, New Jersey",
+                    "availability": "{!m.CGP_H_M_Availability_Text__c}"
+                }
+            }, "*");
+            doneloading();
+        });
+
+    </script>
+
+    </html>
+</apex:page>

@@ -1,0 +1,66 @@
+<apex:page standardController="Contract" extensions="ContAcctListExt">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        .buttonClickArea { background-color: #d1e3ff; font-family: Montserrat; font-size: 12pt;color: black; padding: 2px 20px 2px 20px;}
+        .activeTab { background-color: rgb(44, 73, 129); color:white; background-image: none; font-size: 14pt; font-family: 'Montserrat'; font-weight: bold; }
+        .inactiveTab { background-color: rgb(234, 238, 247); color:black; background-image: none; font-size: 12pt; font-family: 'Montserrat'; font-weight: 400;}
+        
+    </style>
+    
+    <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />
+    <br />
+    <div style="font-size: 30pt; color: rgb(35,149,32); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px;">
+        Active Contracts / Accounts ( {!AllSize} )
+        <br />
+    </div>
+ 
+            
+            <apex:repeat value="{!ABC}" var="abc" >
+                <div style="font-size: 10pt"> &nbsp;</div>
+                <apex:outputText value="{!abc}"  style="font-size: 25pt; color: rgb(35,149,32); font-family: 'Montserrat'; font-weight: bold;"/>
+<!-- HERE -->          <apex:repeat value="{!listAll}" var="c"  >
+                            <apex:form >
+                            
+                            
+        <apex:outputPanel layout="block" 
+                    style="width:800 px; float: left; background-color: rgb(220,250,220);" 
+                    styleClass="buttonClickArea" 
+                    onmouseover="style='width: 875 px; float: left;background-color: #fff6c1; '" 
+                    onmouseout="style='width: 875 px; float: left; background-color: rgb(220,250,220);'"
+                    rendered="{!IF(c.First_Letter_Calc__c=abc,true,false)}">
+                               <apex:outputPanel layout="block" 
+                                       onclick="window.open('/{!c.Id}','_blank')" 
+                                       style="width: 350px; float: left;">
+                                       {!c.Name}
+                               </apex:outputPanel>
+                               <apex:outputpanel layout="block" style="background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                                <apex:outputPanel layout="block"
+                                        onclick="window.open('/{!c.AccountId}','_blank')"
+                                        style="width:450px; float: left; text-align: left;" > 
+                                       {!c.Account_Name_Text__c}
+                                </apex:outputPanel>
+                                <apex:outputpanel layout="block" style="background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                                <!--
+                                <apex:outputPanel layout="block"
+                                        onclick="window.open('/apex/BillingTermsCondensed?Id={!c.Id}','_blank')"
+                                        style="width:125px; float: left; text-align: center;" > 
+                                        Billing Terms
+                                </apex:outputPanel>
+                                <apex:outputpanel layout="block" style="background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                                -->
+                                <!--
+                                <apex:outputPanel layout="block"
+                                        onclick="window.open('/apex/contInvoice?Id={!c.Id}','_blank')"
+                                        style="width:100px; float: left; text-align: center;" >
+                                    Invoices
+                                </apex:outputPanel>
+                                <apex:outputpanel layout="block" style="background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+                                -->
+            </apex:outputPanel>
+                  <br style="{!IF(c.First_Letter_Calc__c=abc,'clear:both','display: none')}" />
+                            </apex:form>
+                </apex:repeat>
+            </apex:repeat>
+ 
+</apex:page>

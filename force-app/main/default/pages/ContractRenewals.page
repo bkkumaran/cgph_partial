@@ -1,0 +1,384 @@
+<apex:page standardController="Contract" extensions="ContractRenewalsExt" sidebar="false">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        .column { font-family: Montserrat; font-size: 10pt;color: black; }
+        
+    </style>
+    
+    <div style="font-size: 30pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px;">
+        Contract Renewals by Month
+        <br />
+    </div>
+       
+<!-- here -->                    
+                <apex:form >
+                 <apex:pageblock title="{!mt01}">
+<!-- here -->   <apex:pageblockTable value="{!list01}" var="c" styleClass="column">          
+                    <apex:column headerValue="Contract Name" onclick="window.open('/{!c.Id}')" styleClass="column" width="300">
+                            <apex:outputField value="{!c.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Next" styleClass="column" width="40px" onclick="window.open('{!c.Next_Contract_ID__c}')">
+                           <apex:image url="{!$Resource.noFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,false,true)}"/>
+                           <apex:image url="{!$Resource.blueFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Start Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.StartDate}" />
+                    </apex:column>
+                    <apex:column headerValue="End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.EndDate}" />
+                    </apex:column>
+                    <apex:column headerValue="Billing Status" onclick="window.open('/{!c.Id}')" styleClass="column" width="170">
+                            <apex:outputField value="{!c.Current_Billing_Status__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Past End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Active_Past_End_Date__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Easy Renew" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Easy_Renewal__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Renewal Notes" onclick="window.open('/{!c.Id}')" styleClass="column">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!c.Renewal_Notes__c}" styleClass="column">
+<!-- here -->                 <apex:inlineEditSupport event="onClick" showOnEdit="save01,cancel01" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column> 
+                </apex:pageblockTable>
+                <apex:pageblockButtons location="top" >
+<!-- here -->   <apex:commandButton action="{!save}" id="save01" value="Save" style="display: none;"/>
+<!-- here -->   <apex:commandButton onclick="resetInlineEdit()" id="cancel01" value="Cancel" style="display: none;"/>
+                </apex:pageblockButtons>
+                </apex:pageblock>
+                </apex:form>
+
+<!-- here START-->                    
+                <apex:form >
+                 <apex:pageblock title="{!mt02}">
+<!-- here -->   <apex:pageblockTable value="{!list02}" var="c" styleClass="column">          
+                    <apex:column headerValue="Contract Name" onclick="window.open('/{!c.Id}')" styleClass="column" width="300">
+                            <apex:outputField value="{!c.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Next" styleClass="column" width="40px" onclick="window.open('{!c.Next_Contract_ID__c}')">
+                           <apex:image url="{!$Resource.noFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,false,true)}"/>
+                           <apex:image url="{!$Resource.blueFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Start Date" onclick="window.open('/{!c.Id}')" styleClass="column"  width="80">
+                            <apex:outputField value="{!c.StartDate}" />
+                    </apex:column>
+                    <apex:column headerValue="End Date" onclick="window.open('/{!c.Id}')" styleClass="column"  width="80">
+                            <apex:outputField value="{!c.EndDate}" />
+                    </apex:column>
+                    <apex:column headerValue="Billing Status" onclick="window.open('/{!c.Id}')" styleClass="column" width="170">
+                            <apex:outputField value="{!c.Current_Billing_Status__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Past End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Active_Past_End_Date__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Easy Renew" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Easy_Renewal__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Renewal Notes" onclick="window.open('/{!c.Id}')" styleClass="column">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!c.Renewal_Notes__c}" styleClass="column">
+<!-- here -->                 <apex:inlineEditSupport event="onClick" showOnEdit="save02,cancel02" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column> 
+                </apex:pageblockTable>
+                <apex:pageblockButtons location="top" >
+<!-- here -->   <apex:commandButton action="{!save}" id="save02" value="Save" style="display: none;"/>
+<!-- here -->   <apex:commandButton onclick="resetInlineEdit()" id="cancel02" value="Cancel" style="display: none;"/>
+                </apex:pageblockButtons>
+                </apex:pageblock>
+              </apex:form>
+<!-- HERE END -->
+<!-- here START-->                    
+                <apex:form >
+                 <apex:pageblock title="{!mt03}">
+ <!-- here -->   <apex:pageblockTable value="{!list03}" var="c" styleClass="column">          
+                    <apex:column headerValue="Contract Name" onclick="window.open('/{!c.Id}')" styleClass="column" width="300">
+                            <apex:outputField value="{!c.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Next" styleClass="column" width="40px" onclick="window.open('{!c.Next_Contract_ID__c}')">
+                           <apex:image url="{!$Resource.noFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,false,true)}"/>
+                           <apex:image url="{!$Resource.blueFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Start Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.StartDate}" />
+                    </apex:column>
+                    <apex:column headerValue="End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.EndDate}" />
+                    </apex:column>
+                    <apex:column headerValue="Billing Status" onclick="window.open('/{!c.Id}')" styleClass="column" width="170">
+                            <apex:outputField value="{!c.Current_Billing_Status__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Past End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Active_Past_End_Date__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Easy Renew" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Easy_Renewal__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Renewal Notes" onclick="window.open('/{!c.Id}')" styleClass="column">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!c.Renewal_Notes__c}" styleClass="column">
+<!-- here -->                 <apex:inlineEditSupport event="onClick" showOnEdit="save03,cancel03" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column> 
+                </apex:pageblockTable>
+                <apex:pageblockButtons location="top" >
+<!-- here -->   <apex:commandButton action="{!save}" id="save03" value="Save" style="display: none;"/>
+<!-- here -->   <apex:commandButton onclick="resetInlineEdit()" id="cancel03" value="Cancel" style="display: none;"/>
+                </apex:pageblockButtons>
+                </apex:pageblock>
+              </apex:form>
+<!-- HERE END -->
+<!-- here START-->                    
+                <apex:form >
+                 <apex:pageblock title="{!mt04}">
+<!-- here -->   <apex:pageblockTable value="{!list04}" var="c" styleClass="column">          
+                    <apex:column headerValue="Contract Name" onclick="window.open('/{!c.Id}')" styleClass="column" width="300">
+                            <apex:outputField value="{!c.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Next" styleClass="column" width="40px" onclick="window.open('{!c.Next_Contract_ID__c}')">
+                           <apex:image url="{!$Resource.noFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,false,true)}"/>
+                           <apex:image url="{!$Resource.blueFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Start Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.StartDate}" />
+                    </apex:column>
+                    <apex:column headerValue="End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.EndDate}" />
+                    </apex:column>
+                    <apex:column headerValue="Billing Status" onclick="window.open('/{!c.Id}')" styleClass="column" width="170">
+                            <apex:outputField value="{!c.Current_Billing_Status__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Past End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Active_Past_End_Date__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Easy Renew" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Easy_Renewal__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Renewal Notes" onclick="window.open('/{!c.Id}')" styleClass="column">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!c.Renewal_Notes__c}" styleClass="column">
+<!-- here -->                 <apex:inlineEditSupport event="onClick" showOnEdit="save04,cancel04" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column> 
+                </apex:pageblockTable>
+                <apex:pageblockButtons location="top" >
+<!-- here -->   <apex:commandButton action="{!save}" id="save04" value="Save" style="display: none;"/>
+<!-- here -->   <apex:commandButton onclick="resetInlineEdit()" id="cancel02" value="Cancel" style="display: none;"/>
+                </apex:pageblockButtons>
+                </apex:pageblock>
+              </apex:form>
+<!-- HERE END -->
+<!-- here START-->                    
+                <apex:form >
+                 <apex:pageblock title="{!mt05}">
+<!-- here -->   <apex:pageblockTable value="{!list05}" var="c" styleClass="column">          
+                    <apex:column headerValue="Contract Name" onclick="window.open('/{!c.Id}')" styleClass="column" width="300">
+                            <apex:outputField value="{!c.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Next" styleClass="column" width="40px" onclick="window.open('{!c.Next_Contract_ID__c}')">
+                           <apex:image url="{!$Resource.noFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,false,true)}"/>
+                           <apex:image url="{!$Resource.blueFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Start Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.StartDate}" />
+                    </apex:column>
+                    <apex:column headerValue="End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.EndDate}" />
+                    </apex:column>
+                    <apex:column headerValue="Billing Status" onclick="window.open('/{!c.Id}')" styleClass="column" width="170">
+                            <apex:outputField value="{!c.Current_Billing_Status__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Past End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Active_Past_End_Date__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Easy Renew" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Easy_Renewal__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Renewal Notes" onclick="window.open('/{!c.Id}')" styleClass="column">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!c.Renewal_Notes__c}" styleClass="column">
+<!-- here -->                 <apex:inlineEditSupport event="onClick" showOnEdit="save05,cancel05" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column> 
+                </apex:pageblockTable>
+                <apex:pageblockButtons location="top" >
+<!-- here -->   <apex:commandButton action="{!save}" id="save05" value="Save" style="display: none;"/>
+<!-- here -->   <apex:commandButton onclick="resetInlineEdit()" id="cancel05" value="Cancel" style="display: none;"/>
+                </apex:pageblockButtons>
+                </apex:pageblock>
+              </apex:form>
+<!-- HERE END -->
+<!-- here START-->                    
+                <apex:form >
+                 <apex:pageblock title="{!mt06}">
+<!-- here -->   <apex:pageblockTable value="{!list06}" var="c" styleClass="column">          
+                    <apex:column headerValue="Contract Name" onclick="window.open('/{!c.Id}')" styleClass="column" width="300">
+                            <apex:outputField value="{!c.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Next" styleClass="column" width="40px" onclick="window.open('{!c.Next_Contract_ID__c}')">
+                           <apex:image url="{!$Resource.noFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,false,true)}"/>
+                           <apex:image url="{!$Resource.blueFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Start Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.StartDate}" />
+                    </apex:column>
+                    <apex:column headerValue="End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.EndDate}" />
+                    </apex:column>
+                    <apex:column headerValue="Billing Status" onclick="window.open('/{!c.Id}')" styleClass="column" width="170">
+                            <apex:outputField value="{!c.Current_Billing_Status__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Past End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Active_Past_End_Date__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Easy Renew" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Easy_Renewal__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Renewal Notes" onclick="window.open('/{!c.Id}')" styleClass="column">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!c.Renewal_Notes__c}" styleClass="column">
+<!-- here -->                 <apex:inlineEditSupport event="onClick" showOnEdit="save06,cancel06" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column> 
+                </apex:pageblockTable>
+                <apex:pageblockButtons location="top" >
+<!-- here -->   <apex:commandButton action="{!save}" id="save06" value="Save" style="display: none;"/>
+<!-- here -->   <apex:commandButton onclick="resetInlineEdit()" id="cancel06" value="Cancel" style="display: none;"/>
+                </apex:pageblockButtons>
+                </apex:pageblock>
+              </apex:form>
+<!-- HERE END -->
+<!-- here START-->                    
+                <apex:form >
+                 <apex:pageblock title="{!mt07}">
+<!-- here -->   <apex:pageblockTable value="{!list07}" var="c" styleClass="column">          
+                    <apex:column headerValue="Contract Name" onclick="window.open('/{!c.Id}')" styleClass="column" width="300">
+                            <apex:outputField value="{!c.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Next" styleClass="column" width="40px" onclick="window.open('{!c.Next_Contract_ID__c}')">
+                           <apex:image url="{!$Resource.noFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,false,true)}"/>
+                           <apex:image url="{!$Resource.blueFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Start Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.StartDate}" />
+                    </apex:column>
+                    <apex:column headerValue="End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.EndDate}" />
+                    </apex:column>
+                    <apex:column headerValue="Billing Status" onclick="window.open('/{!c.Id}')" styleClass="column" width="170">
+                            <apex:outputField value="{!c.Current_Billing_Status__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Past End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Active_Past_End_Date__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Easy Renew" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Easy_Renewal__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Renewal Notes" onclick="window.open('/{!c.Id}')" styleClass="column">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!c.Renewal_Notes__c}" styleClass="column">
+<!-- here -->                 <apex:inlineEditSupport event="onClick" showOnEdit="save07,cancel07" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column> 
+                </apex:pageblockTable>
+                <apex:pageblockButtons location="top" >
+<!-- here -->   <apex:commandButton action="{!save}" id="save07" value="Save" style="display: none;"/>
+<!-- here -->   <apex:commandButton onclick="resetInlineEdit()" id="cancel07" value="Cancel" style="display: none;"/>
+                </apex:pageblockButtons>
+                </apex:pageblock>
+              </apex:form>
+<!-- HERE END -->
+<!-- here START-->                    
+                <apex:form >
+                 <apex:pageblock title="{!mt08}">
+<!-- here -->   <apex:pageblockTable value="{!list08}" var="c" styleClass="column">          
+                    <apex:column headerValue="Contract Name" onclick="window.open('/{!c.Id}')" styleClass="column" width="300">
+                            <apex:outputField value="{!c.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Next" styleClass="column" width="40px" onclick="window.open('{!c.Next_Contract_ID__c}')">
+                           <apex:image url="{!$Resource.noFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,false,true)}"/>
+                           <apex:image url="{!$Resource.blueFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Start Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.StartDate}" />
+                    </apex:column>
+                    <apex:column headerValue="End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.EndDate}" />
+                    </apex:column>
+                    <apex:column headerValue="Billing Status" onclick="window.open('/{!c.Id}')" styleClass="column" width="170">
+                            <apex:outputField value="{!c.Current_Billing_Status__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Past End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Active_Past_End_Date__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Easy Renew" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Easy_Renewal__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Renewal Notes" onclick="window.open('/{!c.Id}')" styleClass="column">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!c.Renewal_Notes__c}" styleClass="column">
+<!-- here -->                 <apex:inlineEditSupport event="onClick" showOnEdit="save08,cancel08" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column> 
+                </apex:pageblockTable>
+                <apex:pageblockButtons location="top" >
+<!-- here -->   <apex:commandButton action="{!save}" id="save08" value="Save" style="display: none;"/>
+<!-- here -->   <apex:commandButton onclick="resetInlineEdit()" id="cancel08" value="Cancel" style="display: none;"/>
+                </apex:pageblockButtons>
+                </apex:pageblock>
+              </apex:form>
+<!-- HERE END -->
+<!-- here START-->                    
+                <apex:form >
+                 <apex:pageblock title="{!mt09}">
+<!-- here -->   <apex:pageblockTable value="{!list09}" var="c" styleClass="column">          
+                    <apex:column headerValue="Contract Name" onclick="window.open('/{!c.Id}')" styleClass="column" width="300">
+                            <apex:outputField value="{!c.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Next" styleClass="column" width="40px" onclick="window.open('{!c.Next_Contract_ID__c}')">
+                           <apex:image url="{!$Resource.noFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,false,true)}"/>
+                           <apex:image url="{!$Resource.blueFileIcon}" width="20" rendered="{!IF(LEN(c.Next_Contract_ID__c)<60,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Start Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.StartDate}" />
+                    </apex:column>
+                    <apex:column headerValue="End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="80">
+                            <apex:outputField value="{!c.EndDate}" />
+                    </apex:column>
+                    <apex:column headerValue="Billing Status" onclick="window.open('/{!c.Id}')" styleClass="column" width="170">
+                            <apex:outputField value="{!c.Current_Billing_Status__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Past End Date" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Active_Past_End_Date__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Easy Renew" onclick="window.open('/{!c.Id}')" styleClass="column" width="95">
+                            <apex:outputField value="{!c.Easy_Renewal__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Renewal Notes" onclick="window.open('/{!c.Id}')" styleClass="column">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!c.Renewal_Notes__c}" styleClass="column">
+<!-- here -->                 <apex:inlineEditSupport event="onClick" showOnEdit="save09,cancel09" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column> 
+                </apex:pageblockTable>
+                <apex:pageblockButtons location="top" >
+<!-- here -->   <apex:commandButton action="{!save}" id="save09" value="Save" style="display: none;"/>
+<!-- here -->   <apex:commandButton onclick="resetInlineEdit()" id="cancel09" value="Cancel" style="display: none;"/>
+                </apex:pageblockButtons>
+                </apex:pageblock>
+              </apex:form>
+<!-- HERE END -->
+
+</apex:page>

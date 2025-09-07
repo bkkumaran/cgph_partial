@@ -1,0 +1,259 @@
+<apex:page standardController="Case" standardStylesheets="false" lightningStylesheets="true">
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+#b {white-space: nowrap; text-decoration:none; font-size: 10pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid rgb(37,113,170); border-bottom: 1.5px solid rgb(37,113,170); border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#b:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+#bb {white-space: nowrap; text-decoration:none; font-size: 10pt; color: green; font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid green; border-bottom: 1.5px solid green; border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#bb:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: green; font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+#bbb {white-space: nowrap; text-decoration:none; font-size: 10pt; color: purple; font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid purple; border-bottom: 1.5px solid purple; border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#bbb:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: purple; font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+#TopHead {white-space: nowrap; font-size: 25pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px; }
+#BlockHead {white-space: nowrap; font-size: 13pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+#BlockHead2 {white-space: nowrap; font-size: 13pt; color: green; font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+#BlockHead3 {white-space: nowrap; font-size: 13pt; color: purple; font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+</style>
+
+
+<apex:outputPanel rendered="{!IF($CurrentPage.parameters.s='1',false,true)}">
+<TABLE border="0">
+<TR>
+<TD>
+<div id="BlockHead">
+<br/>
+ADMIN STAFF NEW CASE
+</div>
+<a id="b"  target="_blank" href="/apex/JBLinks?s=1&owner=Stephanie+Rubin&type=0123m000000UAZk&origin=Staff">STEPH</a>
+<a id="b"  target="_blank" href="/apex/JBLinks?s=1&owner=Kim+Hamlett&type=0123m000000UAZk&origin=Staff">KIM</a>
+
+<div id="BlockHead">
+<br/>
+FINANCE STAFF NEW CASE
+</div>
+
+<a id="b"  target="_blank" href="/apex/JBLinks?s=1&owner=Matt+Pitrus&type=0123m000000UAZk&origin=Staff">MATT</a>
+<a id="b"  target="_blank" href="/apex/JBLinks?s=1&owner=Sal+Trapani&type=0123m000000UAZk&origin=Staff">SAL</a>
+<a id="b"  target="_blank" href="/apex/JBLinks?s=1&owner=Jo+Ellen+Burton&type=0123m000000UAZk&origin=Staff">JO ELLEN</a>
+
+<div id="BlockHead">
+<br/>
+TECH STAFF NEW CASE
+</div>
+
+<a id="b" target="_blank" href="/apex/NSLinks?s=1&owner=Nick+Sciortino&type=0123m000000UAZk&origin=Staff">NICK</a>
+<a id="b" target="_blank" href="/apex/NSLinks?s=1&owner=Cathrine+Abdelmessih&type=0123m000000UAZk&origin=Staff">CATHRINE</a>
+<a id="b" target="_blank" href="/apex/NSLinks?s=1&owner=Bryan+Pena&type=0123m000000UAZk&origin=Staff">BRYAN</a>
+<a id="b" target="_blank" href="/apex/NSLinks?s=1&owner=David+Bopp&type=0123m000000UAZk&origin=Staff">DAVID B</a>
+
+</TD>
+<td width="100px">
+</td>
+
+
+
+
+<TD>
+<div id="BlockHead2">
+<br/>
+ADMIN STAFF CASE REPORTS
+</div>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpGp">STEPH REPORT</a>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/500?fcf=00B1N000005EAAM">STEPH LIST VIEW</a><br/><br/>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpLp?pv2=">KIM</a>
+
+<div id="BlockHead2">
+<br/>
+FINANCE STAFF CASE REPORTS
+</div>
+
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpNH?pv0=Matt+Pitrus">MATT</a>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpNM?pv0=Sal+Trapani">SAL</a>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpOF?pv0=Jo+Ellen+Burton">JO ELLEN</a>
+
+<div id="BlockHead2">
+<br/>
+TECH STAFF CASE REPORTS
+</div>
+
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009Lpdj">NICK</a>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpdA">CATHRINE</a>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009Lpn0">BRYAN</a>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009Lpmv">DAVID B</a>
+<br/>
+<br/>
+<br/>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/01Z6O000001QpWy">DASHBOARD</a> &nbsp; &nbsp;
+<a id="bb" target="_blank" href="/apex/ImprovementCalendar">IMPROVEMENT CALENDAR</a>
+
+
+
+
+
+</TD>
+</TR>
+<tr>
+<td>
+<div id="BlockHead">
+<br/>
+<i>GENERIC CASES</i>
+</div>
+<a id="b"  target="_blank" href="/apex/JBLinks?s=1&type=0123m000000UAZk&origin=Staff">OFFICE INTERNAL</a>
+<a id="b" target="_blank" href="/apex/JBLinks?s=1&type=0121N000000ybeI&origin=Staff">IMPROVEMENT TICKET</a>
+
+</td>
+<td>
+</td>
+<td>
+<div id="BlockHead2">
+<br/>
+ADDITIONAL REPORTS
+</div>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpOj">NEEDS DECISION</a><br/><br/>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000005N3gL">PROCESS IMPROVEMENTS</a><br/><br/>
+<a id="bb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009Lpnt">JB IN PROGRESS</a>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<div id="BlockHead3">
+<br/>
+SPECIAL PROGRAMS
+</div>
+
+<a id="bbb" target="_blank" href="/apex/JBLinks?s=1&owner=Katherine+Ritenband&type=0123m000000UAZk&origin=Staff">NEW KATHERINE CASE</a>
+<a id="bbb" target="_blank" href="https://cgph.my.salesforce.com/00O6O000008SZBq">KATHERINE CASES</a><br/><br/>
+<a id="bbb" target="_blank" href="/apex/JBLinks?s=1&owner=John+Burton&type=0123m000000UAZk&origin=Staff&category=On+Radar">NEW JOHN CASE</a>
+<a id="bbb" target="_blank" href="https://cgph.my.salesforce.com/00O6O000008SZPi">JOHN CASES</a><br/><br/>
+
+<br/>
+<a id="bbb" target="_blank" href="https://cgph.my.salesforce.com/00O3m000009Lnv7">SP PROJECT ITEMS</a><br/><br/>
+</td>
+<td>
+<br/>
+<br/>
+<br/>
+<a id="bbb" target="_blank" href="https://cgph.my.salesforce.com/00O6O000008SaLX">EDISON  MTA</a><br/><br/>
+<a id="bbb" target="_blank" href="https://cgph.my.salesforce.com/00O6O000008SaUy">LIGHTNING</a><br/><br/>
+</td>
+</tr>
+
+
+</TABLE>
+ </apex:outputPanel>
+ 
+
+<script>
+        window.onload=function()
+        {
+
+         document.getElementById(type).value = "{!$CurrentPage.parameters.type}";
+         document.getElementById(owner).value = "{!$CurrentPage.parameters.owner}";
+         document.getElementById(origin).value = "{!$CurrentPage.parameters.origin}";
+         document.getElementById(category).value = "{!$CurrentPage.parameters.category}";
+        };
+    </script>    
+
+<apex:form > 
+        <apex:pageBlock Title="Case Edit" rendered="{!IF($CurrentPage.parameters.s='1',true,false)}"> 
+            <apex:pageBlockSection > 
+                <apex:inputField value="{!case.Ownerid}" id="owner"/><br/>
+                <apex:inputField value="{!case.Subject}" /> <br/>
+                <apex:inputField value="{!case.Agenda_Category__c}" id="category"/> <br/>
+                <apex:inputField value="{!case.Origin}" id="origin" /> <br/>
+                <apex:inputField value="{!case.RecordTypeId}" id="type"/> <br/>
+
+ <script>
+            var type= "{!$Component.type}";
+            var owner= "{!$Component.owner}";
+            var origin= "{!$Component.origin}";
+            var category= "{!$Component.category}";
+        </script>
+                <apex:commandButton value="Save" action="{!Save}"/> 
+            </apex:pageBlockSection> 
+        </apex:pageBlock> 
+    </apex:form> 
+    
+
+    
+    
+<!--    
+ <apex:outputPanel onclick="sforce.one.navigateToURL('https://www.google.com')">
+    <img src="https://www.sd308.org/cms/lib/IL01906463/Centricity/Domain/97/SD308%20Budget%20Icon%201.jpg" width="150"/>
+</apex:outputPanel>   
+    -->
+    
+    
+    <!--
+    sforce.one.navigateToURL('/apex/CGPHfin1')
+    navigateToURL(​url​[, isredirect])
+    -->
+    
+    
+
+<!--
+<apex:outputPanel onclick="ClickLink1();">
+    <img src="https://www.sd308.org/cms/lib/IL01906463/Centricity/Domain/97/SD308%20Budget%20Icon%201.jpg" width="150"/>
+</apex:outputPanel>
+
+<apex:outputPanel onmouseover="" onclick="Edison();">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Edison%2C_NJ_Seal.svg/220px-Edison%2C_NJ_Seal.svg.png" width="150"/>
+</apex:outputPanel>
+
+<apex:outputPanel onmouseover="" onclick="Folder();">
+    <img src="https://tr3.cbsistatic.com/hub/i/r/2013/08/14/323c0504-7196-4958-8fcf-2648ebc2114c/thumbnail/770x578/34a6cd336becf92218a931f583d09e4d/manila-file-folder_8-14.jpg" width="150"/>
+</apex:outputPanel>
+
+<apex:outputPanel onmouseover="" onclick="Invoice();">
+    <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/193480-200.png" width="150"/>
+</apex:outputPanel>
+
+<apex:outputPanel onmouseover="" onclick="Recon();">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaKPp9NHbBM0FJ1ABDcYlJBCM5A_RjplEnIqfHAyh9iO7PDZng" width="150"/>
+</apex:outputPanel>
+
+
+
+
+<script>
+     function ClickLink1()
+       {
+        var w = window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&Id=800o0000000Ben1&OFN=2018+Income+Projections&TemplateId=a291N000003gk55&QueryID=[OppAA]a211N000001ewzr,[OppGS]a211N000001ewzw,[OppHR]a211N000001ex01,[BudgetAA]a211N000001etqx,[BudgetGS]a211N000001euAP,[BudgetHR]a211N000001euAe,[Invoices]a211N000001etrl,[NTEAA]a211N000001euAj,[NTEGS]a211N000001euB8,[NTEHR]a211N000001euBD&DS7=3',"MsgWindow", target='_blank')
+        return w;      
+        }
+     function Edison()
+       {
+        var w = window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&Id=a1Fo0000001A6ha&QueryId=[Mort]a211N000001eJ2c,[TaxInc]a211N000001eJ2h&TemplateId=[Edison+AHP+Calculator+{!RIGHT(TEXT(YEAR(TODAY())),2)}_{!MONTH(TODAY())}_{!DAY(TODAY())}]a291N000003ftG2&DS7=3',"MsgWindow", target='_blank')
+        return w;      
+        }
+     function Folder()
+       {
+        var w = window.open('https://cgph.sharepoint.com/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2FShared%20Documents%2FO_Drive%2FOffice_Admin%2FBilling%2FTest%20Applicant%20Folder&FolderCTID=0x0120001264C58D727837418D772AE7A40C0870', target='_blank')
+        return w;      
+        }
+    function Invoice()
+       {
+        var w = window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&id=800o0000000Ben1&OFN=Invoicing+Current&TemplateId=a291N000003gk55&QueryID=[TS1]a211N000002DXz0,[TS2]a211N000002DXzF,[TS3]a211N000002DXzK,[TS4]a211N000002DXzP,[TS5]a211N000002DXzU&DxS7=3',"MsgWindow", target='_blank')
+        return w;      
+        }
+    function Recon()
+       {
+        var w = window.open('https://cgph.my.salesforce.com/flow/SFTSRecon/3011N0000007aJmQAI')
+        return w;      
+        }
+</script>
+
+-->
+
+<!--
+
+<a href="mailto:strapani@cgph.net; stephanie@cgph.net?subject=CGPH Invoice&body=Hello,%0D%0A%0D%0APlease find attached the XXXMONTHXXX 2023 Invoice XXXX. Kindly confirm that you have received the attached invoice.%0D%0A%0D%0AIf you have any questions, do not hesitate to contact me.%0D%0A%0D%0AThank you,%0D%0A%0D%0A
+">TEST LINK</a>
+-->
+
+</apex:page>

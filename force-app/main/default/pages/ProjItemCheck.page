@@ -1,0 +1,184 @@
+<apex:page standardController="Account">
+<div style="font-size: 17pt; font-weight: bold;">
+Account: {!Account.Name}
+</div>
+<br/>
+<table border="1" style="font-size:13pt;">
+    <th width="250px">
+        SERVICE
+    </th>
+    <th width="40px">
+        ACTIVE
+    </th>
+    <th width="200px">
+        NOTES
+    </th>
+    <tr>
+        <td>
+            AA Setup
+        </td>
+        <td>
+            Yes
+        </td>
+        <td>
+            Habitat
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            AA General Services
+        </td>
+        <td>
+            Yes
+        </td>
+        <td>
+            
+        </td>
+    </tr>    
+    <tr>
+        <td>
+            AA Monitoring Tracking
+        </td>
+        <td>
+            Yes
+        </td>
+        <td>
+            2021
+        </td>
+    </tr>
+    <tr>
+        <td>
+            AA Monitoring Mid-Point
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            AA Affordability Assistance
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            AA Accessory Apartment
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            AA Market to Affordable
+        </td>
+        <td>
+            Yes
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            AA Group Home Related
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            HR Project Setup
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            HR Own/Rent Program
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            HR Rental Only Program
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Grant Writing
+        </td>
+        <td>
+            Yes
+        </td>
+        <td>
+            Small Cities
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Grant Admin
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Planning (Non AA)
+        </td>
+        <td>
+            Yes
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Other
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+    
+</table>
+</apex:page>

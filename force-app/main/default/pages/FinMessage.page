@@ -1,0 +1,73 @@
+<apex:page standardController="Account" standardStylesheets="false" lightningStylesheets="true">
+<style>
+#X {font-size: 12pt;font-weight: bold;}
+</style>
+
+
+<table border="0" width="100%">
+<tr>
+
+    <td width="50%">
+        <div id="X">
+        <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000002WHK7MAO/view?queryScope=userFolders" target="_blank">
+        CLICK HERE FOR INVOICES PAID IN LAST 7 DAYS REPORT
+        </a>
+        </div>
+        <br/>
+    </td>
+    <td>
+        <div id="X" width="50%"  style="{!IF(OR($User.LastName='Rubin',$User.LastName='Burton'),'','display:none;')}">
+        <a href="https://cgph--c.vf.force.com/flow/Invoice_Generate_Private_Admin_Fee_Cases?retURL= https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FReport%2F00OUq000002kCnHMAU%2Fview%3FqueryScope%3DuserFolders" target="_blank">
+        GENERATE AA PRIVATE RENTAL RECURRING FEE CASES
+        </a>
+        </div>
+        <br/></td>
+</tr>
+<tr>
+    <td>
+        <div id="X">
+        <a href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008nf5UUAQ/view?queryScope=userFolders" target="_blank">
+        CLICK HERE FOR CONTRACT ACCOUNTS REPORT
+        </a>
+        </div>
+        <br/>
+    </td>
+    <td>
+        <div id="X" width="50%" style="">
+        <a href="https://cgph--c.vf.force.com/flow/Invoice_Generate_HR_Admin_Flat_Fees?retURL= https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FReport%2F00OUq000002n9gvMAA%2Fview%3FqueryScope%3DuserFolders" target="_blank">
+        GENERATE HR MONTHLY ADMIN FEE CASES
+        </a>
+        </div>
+        <br/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <div id="X">
+        <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000001o4xVMAQ/view?queryScope=userFolders" target="_blank">
+        CLICK HERE FOR ELECTRONIC ACH PAYMENT ACCOUNTS REPORT
+        </a>
+        </div>
+        <br/>
+    </td>
+    <td>
+        <div id="X" width="50%" >
+        <a href="https://cgph--c.vf.force.com/flow/Invoices_Setup_Invoicing_Month?retURL=https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FReport%2F00OUq000003HXSTMA4%2Fview%3FqueryScope%3DuserFolders" target="_blank">
+        SETUP INVOICING MONTH
+        </a>
+        ---
+        <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003HXSTMA4/view?queryScope=userFolders" target="_blank">
+        INVOICING WORKBOOK
+        </a>
+        ---
+        <a href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=a" target="_blank">
+        NO SLIP CHECK
+        </a>
+        </div>
+        <br/>
+    </td>
+
+</tr>
+</table>
+
+</apex:page>

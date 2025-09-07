@@ -1,0 +1,6 @@
+<apex:page controller="AA_Service_Delivery_Controller">
+{!CaseAvg} <br/>
+{!testString}
+
+
+</apex:page>

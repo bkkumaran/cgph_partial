@@ -1,0 +1,17 @@
+<apex:page >
+
+<div style="display:{!IF(
+OR(
+$User.LastName = 'Burton',
+$User.LastName = 'Rubin'
+),'','none;')}">
+
+Flow for updating contract pricing:<br/>
+"Opp, Contract Template Trigger"<br/>
+<br/>
+Custom Settings
+
+</div>
+
+
+</apex:page>

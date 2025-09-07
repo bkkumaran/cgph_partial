@@ -1,0 +1,173 @@
+<apex:page standardcontroller="HR_Case_File__c" extensions="HRCompInspTrackExt" sidebar="false">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        .tableStyle { font-family: 'Open Sans'; font-size: 10pt;}
+        .column {line-height: 1.5;}
+        #b {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px;}
+        #bA {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px; background-color: rgb(222, 255, 254);}
+        #bC {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px; background-color: rgb(222, 255, 236);}
+        #bT {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px; background-color: rgb(255, 222, 222);}
+        #bO {white-space: nowrap; text-decoration:none; font-size: 12pt; color: gray; font-family: 'Open Sans'; font-weight: bold; padding: 0px 10px 0px 10px; background-color: rgb(237,237,237);}
+    </style>
+<apex:variable var="colorDean" value="rgb(181, 230, 255)" />
+<apex:variable var="colorMatt" value="rgb(181, 255, 181)" />
+<apex:variable var="colorLinda" value="rgb(255, 219, 181)" />
+<apex:variable var="colorNone" value="rgb(255, 255, 181)" />
+
+
+<table border="0">
+<tr>
+<td>
+    <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />
+    </td>
+    <td align="center">
+    <div style="font-size: 30pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 0px 0px 100px;">
+        Comp Inspection Tracker ({!countHRCF})
+    </div>
+    <br/>
+    <table border="1" style="border-color:purple;">
+    <tr>
+    <td style="padding:5px 20px 5px 20px; background-color:{!colorDean}; font-weight: bold;">
+    Dean
+    </td>
+    <td style="padding:5px 20px 5px 20px; background-color:{!colorMatt}; font-weight: bold;">
+    Matt
+    </td>
+    <td style="padding:5px 20px 5px 20px; background-color:{!colorLinda}; font-weight: bold;">
+    Linda
+    </td>
+    <td style="padding:5px 20px 5px 20px; background-color:{!colorNone}; font-weight: bold;">
+    Unassigned
+    </td>
+    </tr>
+    </table>
+    
+    </td>
+    <!--
+    <td width="500" style="text-align: right; vertical-align: top;">
+    <apex:outputLink rendered="false" target="_blank" value="https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&Id={!listHRCF[0].Id}&TemplateId=a293m000004m9b9&QueryId=[HRCF]a213m000003YOtf?pv0={!logName}&OFN=CASE+LOG+{!logName}+{!TODAY()}&ExcelAutoFitRows=1&DS7=3">
+        <apex:image url="{!$Resource.ExcelDownloadIcon}" width="80px" />
+    </apex:outputLink>
+    </td>
+    -->
+    </tr>
+    </table>
+
+
+<apex:form >
+    <apex:pageBlock > 
+        <apex:pageBlockTable value="{!listHRCF}" var="a" id="table">
+
+           <apex:column value="{!a.Municipality__c}" headerValue="Municipality/County" style="font-weight: bold;" width="125" />
+                  
+            <apex:column width="150px" styleClass="column" headerValue="Case File" style="font-weight: bold; background-color:{!CASE(a.Inspector__r.Staff_Initials__c,'MH',colorMatt,'DF',colorDean,'LG',colorLinda,colorNone)};">
+               <apex:actionRegion >
+                   <apex:outputPanel onDblClick="window.open('/{!a.Id}',target='_blank')" >
+                         {!a.name}
+                     </apex:outputPanel>
+                    </apex:actionRegion>  
+                </apex:column>
+                
+                <apex:column headerValue="Files">
+                <apex:outputLink value="/apex/AttachList?p={!a.Id}&n={!a.Name}" target="_blank"><apex:image url="{!$Resource.icon_PDF}" /></apex:outputLink>
+                </apex:column>
+                              
+                <apex:column width="300px" styleClass="column" headerValue="Homeowners" style="font-weight: bold;">
+               <apex:actionRegion >
+                   <apex:outputPanel onDblClick="window.open('/{!a.Id}',target='_blank')" >
+                         {!a.HR_Homeowners__c}
+                     </apex:outputPanel>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column width="200px" styleClass="column" headerValue="Street Address" style="font-weight: bold;">
+               <apex:actionRegion >
+                   <apex:outputPanel onDblClick="window.open('/{!a.Id}',target='_blank')" >
+                         {!a.Property__r.Name}
+                     </apex:outputPanel>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column width="50px" styleClass="column" headerValue="CM" style="font-weight: bold;">
+               <apex:actionRegion >
+                   <apex:outputPanel onDblClick="window.open('/{!a.Id}',target='_blank')" >
+                         {!a.HR_Case_Manager_Initials__c}
+                     </apex:outputPanel>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column width="75" styleClass="column" headerValue="Cert of Eligibility" style="font-weight: bold;">
+               <apex:actionRegion >
+                   <apex:outputPanel onDblClick="window.open('/{!a.Id}',target='_blank')" >
+                   <apex:outputText value="{0,date,M/d/YYYY}">
+                        <apex:param value="{!a.Cert_of_Eligibility__c}" /> 
+                    </apex:outputText>
+                     </apex:outputPanel>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column width="100" headerValue="Questionaire Sent" style="">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Pre_Inspection_Q_sent_to_HMR__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column width="100" headerValue="Questionaire Recieved" style="">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Pre_Inspection_Q_Rec_d_from_HMR__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+
+                <apex:column width="50px" styleClass="column" headerValue="Insp." style="font-weight: bold; background-color:{!CASE(a.Inspector__r.Staff_Initials__c,'MH',colorMatt,'DF',colorDean,'LG',colorLinda,colorNone)};">
+               <apex:actionRegion >
+                   <apex:outputPanel onDblClick="window.open('/{!a.Id}',target='_blank')" >
+                         {!a.Inspector__r.Staff_Initials__c}
+                     </apex:outputPanel>
+                    </apex:actionRegion>  
+                </apex:column>
+                
+                <apex:column width="100" headerValue="Request to Insp." style="">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Date_Request_Sent_to_Inspector__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                
+                <apex:column width="125" headerValue="Comp Inspection Date" style="background-color: {!IF(ISBLANK(a.Comp_Inspection_Date__c),'yellow','')}">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Comp_Inspection_Date__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column width="500px" styleClass="column" headerValue="Case File Comments" style="font-weight: bold;" rendered="false">
+                 <apex:actionRegion >
+                        <apex:outputField value="{!a.HR_Case_File_Comments__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+           
+                <apex:column width="500px" styleClass="column" headerValue="Inspector Notes" style="font-weight: bold;" rendered="false">
+                 <apex:actionRegion >
+                        <apex:outputField value="{!a.Inspector_Log_Notes__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Last Insp Log Entry">
+                        <apex:outputField value="{!a.Last_Insp_Log_Entry_Record__r.Entry_Text__c}"/>
+                </apex:column>
+                <apex:column headerValue="Last Case Log Entry" rendered="true">
+                        <apex:outputField value="{!a.Last_Case_Log_Entry_Record__r.Entry_Text__c}"/>
+                </apex:column>
+                
+         </apex:pageBlockTable>
+         <apex:pageBlockButtons > 
+                <apex:commandButton value="Save" action="{!save}" id="Save" style="display: none;"/>
+                <apex:commandButton value="Cancel" id="Cancel" immediate="true" style="display: none;"/>
+            </apex:pageBlockButtons> 
+    </apex:pageBlock>
+</apex:form>
+
+</apex:page>

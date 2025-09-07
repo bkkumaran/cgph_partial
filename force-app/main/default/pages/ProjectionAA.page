@@ -1,0 +1,373 @@
+<apex:page controller="ProjectionAA">
+
+<!-- color variables -->
+<apex:variable id="CGPHblue" var="CGPHblue" value="rgb(0, 101, 168)"/>
+<apex:variable id="BorderColor" var="BorderColor" value="#cccccc"/>
+
+
+<style>
+    table{
+        border-collapse:collapse;
+        border-color:{!BorderColor};
+        }
+    th {
+        padding: 4px 5px 4px 5px;
+        font-size:10pt;
+        font-weight: bold;
+        }
+    td {
+        padding: 4px 5px 4px 5px;
+        font-size:10pt;
+        text-align:right;
+        }
+    .notes {
+        font-size:8pt;
+        text-align:left;
+        }
+    .left{
+        text-align:left;
+        }
+    .right{
+        text-align:right;
+        }
+    .center{
+        text-align:center;
+        }
+    .header {
+        font-size:12pt;
+        font-weight: bold;
+        text-align:center;
+        color:{!CGPHblue};
+        }
+    .lastRow {
+        font-weight:bold;
+        border-top: double black;
+        }
+</style>
+
+<apex:variable var="CertAdj" value="{!ROUND(100 / ($Setup.CGPH_Metrics__c.AA_Cert__c * 100),1)}"/>
+
+<table border="1">
+    <tr>
+        <td colspan="9" class="header">
+            OUTREACH ACTIVITIES 6-MONTH PROJECTION
+        </td>
+    </tr>
+    <tr>
+        <th>
+            ACTIVITY
+        </th>
+        <th class="left">
+            TEAM
+        </th>
+        <th>
+            {!Month1}
+        </th>
+        <th>
+            {!Month2}
+        </th>
+        <th>
+            {!Month3}
+        </th>
+        <th>
+            {!Month4}
+        </th>
+        <th>
+            {!Month5}
+        </th>
+        <th>
+            {!Month6}
+        </th>
+        <th class="left">
+            NOTES
+        </th>
+    </tr>
+    <tr>
+        <td class="left">
+            <b>Development Intro Calls</b>
+        </td>
+        <td class="left">
+            Outreach
+        </td>
+        <td>
+            {!Intro1}
+        </td>
+        <td>
+             {!Intro2}
+        </td>
+        <td>
+             {!Intro3}
+        </td>
+        <td>
+             {!Intro4}
+        </td>
+        <td>
+             {!Intro5}
+        </td>
+        <td>
+             {!Intro6}
+        </td>
+        <td class="notes">
+            Developments with scheduled Intro Call Date
+        </td>
+    </tr>
+    <tr>
+        <td class="left">
+            <b>Outreach Begins</b>
+        </td>
+        <td class="left">
+            Outreach
+        </td>
+        <td>
+            {!Outreach1}
+        </td>
+        <td>
+            {!Outreach2}
+        </td>
+        <td>
+            {!Outreach3}
+        </td>
+        <td>
+            {!Outreach4}
+        </td>
+        <td>
+            {!Outreach5}
+        </td>
+        <td>
+            {!Outreach6}
+        </td>
+        <td class="notes">
+            Properties with a scheduled Outreach Start Date.
+        </td>
+    </tr>
+<!--
+    <tr>
+        <td class="left">
+            <b>Full Apps to Send</b>
+        </td>
+        <td class="left">
+            Outreach
+        </td>
+        <td>
+            {!FullApps1}
+        </td>
+        <td>
+            {!FullApps2}
+        </td>
+        <td>
+            {!FullApps3}
+        </td>
+        <td>
+            {!FullApps4}
+        </td>
+        <td>
+            {!FullApps5}
+        </td>
+        <td>
+            {!FullApps6}
+        </td>
+    </tr>
+-->
+    <tr>
+        <td class="left">
+            <b>Applicants to Tracker</b>
+        </td>
+        <td class="left">
+            Outreach
+        </td>
+        <td>
+            {!Tracker1}
+        </td>
+        <td>
+            {!Tracker2}
+        </td>
+        <td>
+            {!Tracker3}
+        </td>
+        <td>
+            {!Tracker4}
+        </td>
+        <td>
+            {!Tracker5}
+        </td>
+        <td>
+            {!Tracker6}
+        </td>
+        <td class="notes">
+            Properties with a scheduled date for applicants to be added to the Tracker
+        </td>
+    </tr>
+    <tr>
+        <td class="left">
+            <b>Ready for Cert</b>
+        </td>
+        <td class="left">
+            Eligibility
+        </td>
+        <td>
+            {!Ready1}
+        </td>
+        <td>
+            {!Ready2}
+        </td>
+        <td>
+            {!Ready3}
+        </td>
+        <td>
+            {!Ready4}
+        </td>
+        <td>
+            {!Ready5}
+        </td>
+        <td>
+            {!Ready6}
+        </td>
+        <td class="notes">
+            Properties with dates where Landlord/Developer is scheduled to approve applicants for certification
+        </td>
+    </tr>
+    <tr>
+        <td class="left">
+            <b>Properties Needing Certs</b>
+        </td>
+        <td class="left">
+            Eligibility
+        </td>
+        <td>
+            {!Cert1}
+        </td>
+        <td>
+            {!Cert2}
+        </td>
+        <td>
+            {!Cert3}
+        </td>
+        <td>
+            {!Cert4}
+        </td>
+        <td>
+            {!Cert5}
+        </td>
+        <td>
+            {!Cert6}
+        </td>
+        <td class="notes">
+            Properties with dates that a certified applicant is expected
+        </td>
+    </tr>
+
+<!-- TOTALS WITH FULLAPPS   
+    <tr class="lastRow">
+        <td class="left">
+            TOTALS
+        </td>
+        <td>
+            {!Intro1+Outreach1+FullApps1+Tracker1+Ready1+Cert1}
+        </td>
+        <td>
+            {!Intro2+Outreach2+FullApps2+Tracker2+Ready2+Cert2}
+        </td>
+        <td>
+            {!Intro3+Outreach3+FullApps3+Tracker3+Ready3+Cert3}
+        </td>
+        <td>
+            {!Intro4+Outreach4+FullApps4+Tracker4+Ready4+Cert4}
+        </td>
+        <td>
+            {!Intro5+Outreach5+FullApps5+Tracker5+Ready5+Cert5}
+        </td>
+        <td>
+            {!Intro6+Outreach6+FullApps6+Tracker6+Ready6+Cert6}
+        </td>
+        <td class="notes">
+            WORDS
+        </td>
+    </tr>
+ -->
+<!-- TOTALS WITHOUT FULL APPS  
+    <tr class="lastRow">
+        <td class="left">
+            TOTALS
+        </td>
+        <td>
+        </td>
+        <td>
+            {!Intro1+Outreach1+Tracker1+Ready1+Cert1}
+        </td>
+        <td>
+            {!Intro2+Outreach2+Tracker2+Ready2+Cert2}
+        </td>
+        <td>
+            {!Intro3+Outreach3+Tracker3+Ready3+Cert3}
+        </td>
+        <td>
+            {!Intro4+Outreach4+Tracker4+Ready4+Cert4}
+        </td>
+        <td>
+            {!Intro5+Outreach5+Tracker5+Ready5+Cert5}
+        </td>
+        <td>
+            {!Intro6+Outreach6+Tracker6+Ready6+Cert6}
+        </td>
+        <td class="notes">
+            WORDS
+        </td>
+    </tr>
+ -->
+ <!-- TOTALS OUTREACH  -->
+    <tr class="lastRow">
+        <td class="left" colspan="2">
+            TOTAL OUTREACH ACTIVITIES
+        </td>
+        <td>
+            {!Intro1+Outreach1+Tracker1}
+        </td>
+        <td>
+            {!Intro2+Outreach2+Tracker2}
+        </td>
+        <td>
+            {!Intro3+Outreach3+Tracker3}
+        </td>
+        <td>
+            {!Intro4+Outreach4+Tracker4}
+        </td>
+        <td>
+            {!Intro5+Outreach5+Tracker5}
+        </td>
+        <td>
+            {!Intro6+Outreach6+Tracker6}
+        </td>
+        <td class="notes">
+            Intro Calls + Outreach Starts + Applicants to Tracker
+        </td>
+    </tr>
+<tr style="font-weight:bold;">
+        <td class="left" colspan="2">
+            <b>PROJECTED ELIGIBILITIES</b>
+        </td>
+        <td>
+            {!ROUND(Cert1 * CertAdj,0)}
+        </td>
+        <td>
+            {!ROUND(Cert2 * CertAdj,0)}
+        </td>
+        <td>
+            {!ROUND(Cert3 * CertAdj,0)}
+        </td>
+        <td>
+            {!ROUND(Cert4 * CertAdj,0)}
+        </td>
+        <td>
+            {!ROUND(Cert5 * CertAdj,0)}
+        </td>
+        <td>
+            {!ROUND(Cert6 * CertAdj,0)}
+        </td>
+        <td class="notes">
+            Certifications needed x multiplier ({!CertAdj}) to account for terminations
+        </td>
+    </tr> 
+     
+</table>
+
+</apex:page>

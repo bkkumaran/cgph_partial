@@ -1,0 +1,163 @@
+<apex:page standardcontroller="HR_Case_File__c" extensions="HR_Payments_Ext" sidebar="false" standardStylesheets="false" showheader="false">
+
+<apex:variable var="w1" value="1%"/>
+<apex:variable var="w2" value="10%"/>
+<apex:variable var="importColor" value="#dedede"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    table {border-collapse:collapse;}
+    td    {height:30px; padding-left:10px; font-size:10.5pt; font-family:Open Sans; border-bottom: 1px solid #c9c9c9;}
+    th    {height:30px; padding-left:10px; font-size:10.5pt; font-family:Open Sans; border-bottom: 1px solid #c9c9c9;}
+    tr:hover {font-weight:bold;}
+    a     {color:#0b5cab;text-decoration:none;}
+    .head {background-color:#f3f3f3;}
+    .center {text-align:center}
+    .right  {text-align:right}
+    .left   {text-align:left}
+    .b1 {padding:5px 10px 5px 10px; background-color:#c9c9c9;font-weight:bold; font-size:10.5pt; font-family:Open Sans; border: 1px solid #c9c9c9;border-radius:6px;}
+    .b1:hover {background-color:#0b5cab;color:white;text-decoration:none;}
+    .save {color:green;}
+    .noBottom {border-bottom: 0px solid white;}
+    .missing {background-color:orange; border-left:2px solid white; border-right:2px solid white;}
+    .import {background-color:{!importColor};}
+
+</style>
+
+
+<apex:form >
+<table width="100%" border="0">
+    <tr>
+        <th width="{!w1}" class="center">
+            &nbsp;
+        </th>
+        <th width="{!w1}" class="center">
+            #
+        </th>
+        <th width="{!w2}" class="center">
+            Payment Type
+        </th>
+        <th width="{!w2}" class="center">
+            Inspection Date
+        </th>
+        <th width="{!w2}" class="center">
+            Approved Date
+        </th>
+        <th width="{!w2}" class="center">
+            Sent Date
+        </th>
+        <th width="{!w2}" class="center">
+            Action
+        </th>
+        <th width="{!w2}" class="center">
+            Transmittal
+        </th>
+        <th width="{!w2}" class="right">
+            Payment Amount
+        </th>
+    </tr>
+<apex:repeat var="p" value="{!listPays}">
+    <tr style="{!IF(p.Imported_for_Records__c=true,'background-color:'+importColor,IF(ISBLANK(p.Request_Sent_to_Muni__c)=true, 'background-color:yellow',''))}">
+        <td class="center">
+            <a href="/{!p.id}" target="_blank">
+                <apex:image url="{!$Resource.blueFileIcon}" height="20px"/>
+            </a>
+        </td>
+        <td class="{!IF(p.Imported_for_Records__c=true,'import center',IF(ISBLANK(p.Payment_Number__c)=true,'missing center','center'))}">
+            <apex:actionRegion >
+                  <apex:outputField value="{!p.Payment_Number__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+        <td class="{!IF(p.Imported_for_Records__c=true,'import center',IF(ISBLANK(p.Payment_Type__c)=true,'missing center','center'))}">
+            <apex:actionRegion >
+                  <apex:outputField value="{!p.Payment_Type__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+        <td class="{!IF(p.Imported_for_Records__c=true,'import center',IF(ISBLANK(p.Inspection_Date__c)=true,'missing center','center'))}">
+            <apex:actionRegion >
+            <apex:outputField value="{!p.Inspection_Date__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+        <td class="{!IF(p.Imported_for_Records__c=true,'import center',IF(ISBLANK(p.Approval_Date__c)=true,'missing center','center'))}">
+            <apex:actionRegion >
+            <apex:outputField value="{!p.Approval_Date__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+        <td class="{!IF(p.Imported_for_Records__c=true,'import center',IF(ISBLANK(p.Request_Sent_to_Muni__c)=true,'missing center','center'))}">
+            <apex:actionRegion >
+            <apex:outputField value="{!p.Request_Sent_to_Muni__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>        
+<!-- REQUEST TO MUNI -->        
+        <td class="center" style="{!IF(p.Imported_for_Records__c=true,'color:black;',IF(ISBLANK( p.Approval_Date__c )=true,'color:red;font-weight:bold;',
+IF(ISBLANK( p.Request_Sent_to_Muni__c )=false,'color:green;font-weight:bold;',
+IF(TODAY()<= p.Request_to_Muni_Deadline__c,'color:red;font-weight:bold;',"background-color:red;color:white;font-weight:bold;"))))}">
+            <apex:outputfield value="{!p.Request_To_Muni__c}"/>
+        </td>
+        
+        
+        
+        <td class="center">
+            <span style="{!IF(p.Payment_Type__c='HMR Contribution','display:none;','')}">
+                <a href="/apex/APXTConga4__Conga_Composer?serverUrl={!$Api.Partner_Server_URL_370}&Id={!p.Id}&TemplateId=a29Uq00000081jhIAA&OFN={!SUBSTITUTE(p.Payment_Type__c,' ','+')}+{!TEXT(MONTH(TODAY()))}-{!TEXT(DAY(TODAY()))}-{!TEXT(YEAR(TODAY()))}&QueryId=[MUNI]a213m000003YObR?pv0={!HR_Case_File__c.Municipality__r.Id},[HRCF]a21Uq000000AF93IAG?pv0={!HR_Case_File__c.Id}&EC={!IF(ISBLANK(p.Payment_Amount__c),'0','1')}&ECL=ENTER+PAYMENT+AMOUNT&DS7=3" target="_blank">
+                    LETTER
+                </a>
+<!--                &nbsp;-&nbsp;
+                <a href="mailto:john@cgph.net">
+                    EMAIL
+                </a>
+-->            </span>
+            <span style="{!IF(p.Payment_Type__c='HMR Contribution','','display:none;')}">
+                <a href="/apex/APXTConga4__Conga_Composer?serverUrl={!$Api.Partner_Server_URL_370}&Id={!p.Id}&TemplateId=a29Uq00000089qvIAA&OFN={!SUBSTITUTE(p.Payment_Type__c,' ','+')}+{!TEXT(MONTH(TODAY()))}-{!TEXT(DAY(TODAY()))}-{!TEXT(YEAR(TODAY()))}&QueryId=[MUNI]a213m000003YObR?pv0={!HR_Case_File__c.Municipality__r.Id},[HRCF]a21Uq000000AF93IAG?pv0={!HR_Case_File__c.Id}&EC={!IF(ISBLANK(p.Payment_Amount__c),'0','1')}&ECL=ENTER+PAYMENT+AMOUNT&DS7=3" target="_blank">
+                    LETTER
+                </a>
+            </span>
+            
+        </td>
+        <td class="{!IF(p.Imported_for_Records__c=true,'import right',IF(ISBLANK(p.Payment_Amount__c)=true,'missing right','right'))}">
+            <apex:actionRegion >
+            <apex:outputField value="{!p.Payment_Amount__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+        </td>
+    </tr>
+</apex:repeat>
+    <tr>
+        <td colspan="8" class="noBottom"></td>
+        <td class="right noBottom" style="font-weight:bold">
+        TOTAL: &nbsp;
+            <apex:outputfield value="{!HR_Case_File__c.Contractor_Payments_Total__c}"/>
+        </td>
+    </tr>
+</table>
+    <a class="b1" id="test" href="https://cgph--c.vf.force.com/flow/HR_Contractor_Payment_Request?varHRCFID={!HR_Case_File__c.Id}&retURL=%2F{!HR_Case_File__c.Id}" target="_top"> ADD PAYMENT </a>
+    &nbsp;&nbsp;&nbsp;
+    <apex:commandButton id="saveButton" value="SAVE" action="{!save}" styleClass="b1 save" style="display: none;"/>
+    &nbsp;&nbsp;&nbsp;
+    <apex:commandButton id="cancelButton" value="CANCEL" styleClass="b1" style="display: none"/>
+   
+    <br/><br/>
+    <span style="{!IF($User.LastName='Burton','','display:none')}">
+    <a class="b1" href="https://cgph--c.vf.force.com/apex/HR_Payments?id={!HR_Case_File__c.Id}" target="_top"> VF </a>
+    </span>
+    <br/>
+    <br/>
+
+<!-- SOQL FIX -->
+<div style="display:none">
+{!HR_Case_File__c.Municipality__r.Id}
+</div>
+
+</apex:form>
+</apex:page>

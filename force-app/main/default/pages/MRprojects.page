@@ -1,0 +1,382 @@
+<apex:page standardcontroller="Municipality__c" extensions="MRprojExt">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        #TopHead { white-space: nowrap; font-size: 20pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; vertical-align: bottom;}
+        .SubHead { white-space: normal; font-size: 10pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 4px 10px 10px 5px; vertical-align: top; text-align: left; border-bottom: 1.5px solid rgb(37,113,170);}
+        #Label { white-space: normal; font-family: Montserrat; font-size: 9pt;color: black; padding: 2px 10px 0px 0px; font-weight:bold; vertical-align:top; text-align: right; border-bottom: 0.5px solid rgb(206, 228, 245);border-collapse: collapse;}
+        #Text { white-space: normal; font-family: Montserrat; font-size: 9pt;color: black; padding: 2px 0px 10px 0px; vertical-align:top;border-bottom: 0.5px solid rgb(206, 228, 245);border-collapse: collapse;}
+        #TextSmall {white-space:normal;font-family: Montserrat; font-size: 8pt;color: black; padding: 2px 0px 10px 0px; vertical-align:top;border-bottom: 0.5px solid rgb(206, 228, 245);border-collapse: collapse;}
+        #BoxH {white-space: nowrap;font-family: Montserrat; font-size: 9pt;color: black; font-weight:bold; vertical-align:middle; text-align: center; border-bottom: 0.5px solid rgb(206, 228, 245);border-collapse: collapse;color: rgb(37,113,170); border-left: 0.5px solid rgb(206, 228, 245)}
+        #BoxA { white-space: nowrap; font-family: Montserrat; font-size: 10pt;color: black; font-weight:bold; vertical-align:middle; text-align: center; border-bottom: 0.5px solid rgb(206, 228, 245); border-left: 0.5px solid rgb(206, 228, 245)}
+        #BoxB { white-space: nowrap; font-family: Montserrat; font-size: 10pt;color: black; font-weight:bold; vertical-align:middle; text-align: center; border-bottom: 1px solid rgb(37,113,170); border-left: 0.5px solid rgb(206, 228, 245)}
+        #tbl { border: 2px solid rgb(37,113,170); display: inline-table;}
+        
+    </style>
+    
+    <apex:variable var="openMuni" value="window.open('/{!Id}','_parent')" />
+    
+    
+    <table><tr><td>
+        <apex:image url="{!$Resource.cgphLOGOgif}" width="275px" />
+        </td>
+        <td id="TopHead" >
+            <apex:outputPanel layout="block" onDblclick="{!openMuni}">
+                <div id="TopHead" style="width: 900px; padding-left: 20px;">
+                    {!Municipality__c.Name} {!Municipality__c.Municipal_Type__c} - {!Municipality__c.County_Lookup__r.Name} County<br />
+                    <i>Monitoring Projects</i>
+                </div>
+            </apex:outputPanel>
+        </td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+    
+    <div style="white-space: nowrap;">
+        <apex:variable value="{!0}" var="count" />
+        
+        <!----------------------------------------------------START REPEAT / TABLE --------------------------------------------->
+        
+        <apex:repeat var="x" value="{!Projects}">
+            <apex:variable var="openProj" value="window.open('/{!x.Id}','_blank')" />
+            <apex:variable var="openDev" value="window.open('/{!x.MR_Development__r.Id}','_blank')" />
+            <apex:variable var="labelHide" value="{!IF(xx='1',IF(count/5 == FLOOR(count/5),'','display: none;'),'')}" />
+            <apex:variable var="col1" value="width: 125px;" />
+            <apex:variable var="col2" value="width: 35px;" />
+            <apex:variable var="heightHead" value="height: 30px;" />
+            <apex:variable var="heightNorm" value="height: 15px;" />            
+            <apex:variable var="heightMed" value="height: 50px;" />
+            <apex:variable var="heightBig" value="height: 70px;" />
+            <apex:variable var="heightBlockH" value="height: 35px;" />
+            <apex:variable var="heightBlock" value="height: 25px;" />
+            
+            <table id="tbl" style="table-layout:fixed">
+            <col style="{!col1}" />
+            <col style="{!col2}" />
+            <col style="{!col2}" />
+            <col style="{!col2}" />
+            <col style="{!col2}" />
+            <col style="{!col2}" />
+            
+                <tr>
+ 
+ <!--
+ {!IF(ISBLANK(x.XXXXXXXX),'background: yellow;','')};
+ -->
+ 
+                    <!--
+                    <td style="{!labelHide}">
+                        <apex:outputPanel layout="block" styleclass="SubHead" style="text-align: right;" ondblclick="openProj">
+                            Project Name:
+                        </apex:outputPanel>
+                    </td>
+                    -->
+                    <td colspan="6">
+                    <apex:outputPanel layout="block" styleclass="SubHead" style="{!heightHead}" ondblclick="openProj">
+                        {!x.MR_Project_Number__c}. {!x.Name}
+                    </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}" >
+                            Project Type
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightHead}; {!IF(ISBLANK(x.MR_Project_Type__c),'background: yellow;','')};">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}" >
+                            {!x.MR_Project_Type__c}
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            Block &amp; Lot / Street
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightBig}; {!IF(ISBLANK(x.MR_Block_Lot_Street__c),'background: yellow;','')};">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            {!x.MR_Block_Lot_Street__c}
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Status
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}; {!IF(ISBLANK(x.MR_Project_Status__c),'background: yellow;','')};">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!x.MR_Project_Status__c}
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}" >
+                            Date
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextSmall" colspan="5" style="{!heightMed}; {!IF(ISBLANK(x.MR_Controls_Date__c),'background: yellow;','')};">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}"> 
+                            {!x.MR_Controls_Date__c}
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide} ">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Length of Controls
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}; {!IF(x.MR_Length_of_Controls_Text__c='0 Years','background: yellow;','')};">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!x.MR_Length_of_Controls_Text__c}
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            Admin Agent
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextSmall" colspan="5" style="{!heightBig}; {!IF(ISBLANK(x.MR_Administrative_Agent_Info__c),'background: yellow;','')};">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            <apex:outputText escape="false" value="{!x.MR_Administrative_Agent_Info__c}" />
+                        </apex:outputPanel>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide} ">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            RCA Contribution
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}; {!IF(ISBLANK(x.MR_Contribution__c),'background: yellow;','')};">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!x.MR_Contribution__c}
+                        </apex:outputPanel>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide} ">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            Type of Units
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}; {!IF(ISBLANK(x.MR_Unit_Type__c),'background: yellow;','')};">
+                        <apex:outputPanel layout="block" ondblclick="{!openDev}">
+                            {!x.MR_Unit_Type__c}
+                        </apex:outputPanel>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Total Affordable Units
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="Text" colspan="5" style="{!heightNorm}; {!IF(ISBLANK(x.MR_Total_Affordable_Units__c),'background: yellow;','')};">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_Total_Affordable_Units__c)} {!IF(ISBLANK(x.MR_Total_Affordable_Units__c),"",IF(x.MR_Total_Affordable_Units__c =1,"unit","units"))}
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="{!labelHide} border-bottom: 1px solid rgb(37,113,170);">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Unit Notes
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextSmall" colspan="5" style="{!heightBig} border-bottom: 1px solid rgb(37,113,170);">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!x.MR_Unit_Notes__c}
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td id="Label" style="{!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Income/Bedroom<br/>Distribution
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxH" style="{!heightBlockH}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            EFF.<br/>Std.
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxH">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            BR<br/>1
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxH">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            BR<br/>2
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxH">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            
+                        </apex:outputPanel>
+                        BR<br/>3
+                    </td>
+                    <td id="BoxH">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            BR<br/>4
+                        </apex:outputPanel>
+                        
+                    </td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td id="Label"  style="{!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Very-Low-Income  
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA" style="{!heightBlock}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_Eff_Very_Low__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_1_Br_Very_Low__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            
+                        </apex:outputPanel>
+                        {!FLOOR(x.MR_2_Br_Very_Low__c)}
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_3_Br_Very_Low__c)}    
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_4_BR_Very_Low__c)}    
+                        </apex:outputPanel>
+                        
+                    </td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td id="Label" style="{!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Low-Income  
+                        </apex:outputPanel>
+                    </td>
+                    <td id="BoxA" style="{!heightBlock}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_Eff_Low__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            
+                        </apex:outputPanel>
+                        {!FLOOR(x.MR_1_Br_Low__c)}
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_2_Br_Low__c)}    
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_3_Br_Low__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxA">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_4_BR_Low__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td id="Label" style="border-bottom: 1px solid rgb(37,113,170); {!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            Moderate-Income  
+                        </apex:outputPanel>
+                    </td>
+                    <td id="BoxB" style="{!heightBlock}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_Eff_Moderate__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxB">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_1_Br_Moderate__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxB">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_2_Br_Moderate__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxB">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_3_Br_Moderate__c)}  
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="BoxB">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!FLOOR(x.MR_4_BR_Moderate__c)}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Label" style="border: none;height:60px;  {!labelHide}">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            <i>Monitoring Notes:</i>  
+                        </apex:outputPanel>
+                        
+                    </td>
+                    <td id="TextSmall" colspan="5" style="border: none; {!heightBig};">
+                        <apex:outputPanel layout="block" ondblclick="{!openProj}">
+                            {!x.MR_Development__r.Monitoring_Notes__c}   
+                        </apex:outputPanel>
+                        
+                    </td>
+                </tr>
+            </table>
+            <apex:variable value="{!count+1}" var="count" />
+        </apex:repeat>
+    </div>
+</apex:page>

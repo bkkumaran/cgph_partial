@@ -1,0 +1,123 @@
+<apex:page standardcontroller="Account" extensions="ImpCalExt" sidebar="false">
+
+<apex:variable var="font" value="Archivo Narrow"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family={!font}');
+    @import url('https://fonts.googleapis.com/css?family=Montserrat');
+    #head    {white-space: nowrap; font-family: '{!font}'; font-weight: bold; text-transform: uppercase; padding: 2px 5px 2px 5px; font-size: 10pt;}
+    #subject {white-space: nowrap; font-family: '{!font}'; font-size: 10pt; padding: 2px 5px 2px 5px; }
+    #owners  {white-space: nowrap; font-family: '{!font}'; font-size: 10pt; padding: 2px 5px 2px 5px; }
+    #doers   {white-space: nowrap; font-family: '{!font}'; font-size: 10pt; padding: 2px 5px 2px 5px; }
+    #date    {white-space: nowrap; font-family: '{!font}'; font-size: 11pt; padding: 2px 5px 2px 5px; text-align: center;}
+    #link { color: rgb(0, 101, 168) }
+    #iplink { color: rgb(255, 255, 255) }
+    #b {white-space: nowrap; text-decoration:none; font-size: 10pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid rgb(37,113,170); border-bottom: 1.5px solid rgb(37,113,170); border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+    #b:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+    table {border-collapse:collapse;}
+    
+</style>
+
+
+<apex:form >
+<apex:pageblock >
+    <br/>
+    <span style="font-family: Montserrat; font-size: 18pt; color: rgb(0, 101, 168); padding: 10px 5px 2px 5px; font-weight: bold;">
+        Tech Improvements Calendar
+    </span>
+        
+    &nbsp;&nbsp;
+    <a id="b" href="https://cgph.my.salesforce.com/00O6O000008SXv3" target="_blank">SMALL PROJECTS</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a id="b" href="https://cgph.my.salesforce.com/kA76O000000fxSV" target="_blank">KNOWLEDGE</a>
+    
+    <!--
+    <span style="font-family: Montserrat; font-size: 11pt; color: rgb(0, 101, 168); padding: 10px 5px 2px 5px; font-weight: bold;">
+    <a id="link" href="https://cgph.my.salesforce.com/00O6O000008SXv3" target="_blank"><i>Click here for a report of small tech improvements</i></a>
+    </span>
+    <br/>
+    <span style="font-family: Montserrat; font-size: 11pt; color: rgb(0, 101, 168); padding: 10px 5px 2px 5px; font-weight: bold;">
+    <a id="link" href="https://cgph.my.salesforce.com/kA76O000000fxSV" target="_blank"><i>Click here for an article re: the tech improvement process</i></a>
+    </span>
+    -->
+    <br/>
+    <br/>
+
+
+<table BORDER="1">
+    <tr>
+        <td id="head"> <b>IMPROVEMENT</b> </td>
+        <td id="head"> <b>OWNERS</b> </td>
+        <td id="head"> DOERS </td>
+        <td id="head"> #</td>
+        <td id="head"> START<span style="font-family: Montserrat; font-size: 11pt; color: rgb(0, 101, 168); padding: 3px 3px 3px 3px;">*</span></td>
+        <td id="head"> END<span style="font-family: Montserrat; font-size: 11pt; color: rgb(0, 101, 168); padding: 3px 3px 3px 3px;">*</span></td>
+        
+        <apex:repeat var="mod" value="{!Mod}">
+            <apex:variable id="mod2" var="mod2" value="{!mod}" />
+            <td id="head" style="background-color: {!IF(AND(MONTH(ADDMONTHS(TODAY(),mod2))=MONTH(TODAY()),YEAR(ADDMONTHS(TODAY(),mod2))=YEAR(TODAY())),'rgb(0, 101, 168); color: white;','')}"><apex:outputText value="{0, date, MMMyy}"><apex:param value="{!ADDMONTHS(TODAY(),mod2)}"/></apex:outputText></td>
+        </apex:repeat>
+    </tr>
+
+    <apex:repeat value="{!listAll}" var="x">
+        <apex:variable id="color" var="color" value="{!CASE(x.Owner.Name, 
+            'John Burton','RGB(255, 204, 204)',
+            'Ximena Calle','RGB(204, 236, 255)',
+            'Megan York','RGB(255, 236, 204)',
+            'Corinne Markulin','RGB(255, 255, 204)',
+            'Randy Gottesman','RGB(204, 255, 204)',
+            'RGB(207, 207, 207)')}"/>
+        
+    <tr>
+        <td id="subject" style="background-color: {!IF(x.List_Determination__c='In Progress','RGB(0, 101, 168)','')}"><a id="{!IF(x.List_Determination__c='In Progress','iplink','')}" href="https://cgph.my.salesforce.com/{!x.Id}" target="_blank">{!x.Subject}</a></td>
+        <td id="owners" style="background-color: {!color}">{!x.Owner.Name}</td>
+        <td id="doers" style="background-color: {!color}">{!x.Project_Doers__c}</td>
+        <td id="priority">{!x.Priority_Num__c}</td>
+        <td id="Start" style="background-color: {!IF(ISNULL(x.Planned_Start_Date__c),'yellow','')}">
+            <apex:outputpanel > 
+                <apex:actionRegion >
+                     <apex:outputField value="{!x.Planned_Start_Date__c}">
+                           <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton" />
+                     </apex:outputField>
+                </apex:actionRegion>
+            </apex:outputpanel>
+        </td>
+        <td id="End" style="background-color: {!IF(ISNULL(x.Planned_End_Date__c),'yellow',IF(x.Planned_End_Date__c<ADDMONTHS(TODAY(),-2),'Red; color: white; font-weight: bold;',''))}">
+            <apex:outputpanel > 
+                <apex:actionRegion >
+                     <apex:outputField value="{!x.Planned_End_Date__c}">
+                           <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton" />
+                     </apex:outputField>
+                </apex:actionRegion>
+            </apex:outputpanel>
+        </td>
+        
+        <apex:repeat var="mod3" value="{!Mod}"> 
+        <td id="date" style="background-color: {!IF(OR(ISNULL(x.Planned_End_Date__c),ISNULL(x.Planned_Start_Date__c)),'gray',IF(OR(AND(ADDMONTHS(TODAY(),mod3)>= x.Planned_Start_Date__c,ADDMONTHS(TODAY(),mod3) <= x.Planned_End_Date__c),AND(MONTH(ADDMONTHS(TODAY(),mod3))=MONTH(x.Planned_Start_Date__c),YEAR(ADDMONTHS(TODAY(),mod3))=YEAR(x.Planned_Start_Date__c)),AND(MONTH(ADDMONTHS(TODAY(),mod3))=MONTH(x.Planned_End_Date__c),YEAR(ADDMONTHS(TODAY(),mod3))=YEAR(x.Planned_End_Date__c))),color,''))}" >
+            {!IF(ISNULL(x.Planned_Start_Date__c),'',IF(AND(MONTH(ADDMONTHS(TODAY(),mod3))=MONTH(x.Planned_Start_Date__c),YEAR(ADDMONTHS(TODAY(),mod3))=YEAR(x.Planned_Start_Date__c)),TEXT(MONTH(x.Planned_Start_Date__c))&'/'&TEXT(DAY(x.Planned_Start_Date__c)),''))}
+            {!IF(ISNULL(x.Planned_End_Date__c),'',IF(AND(MONTH(ADDMONTHS(TODAY(),mod3))=MONTH(x.Planned_End_Date__c),YEAR(ADDMONTHS(TODAY(),mod3))=YEAR(x.Planned_End_Date__c)),TEXT(MONTH(x.Planned_End_Date__c))&'/'&TEXT(DAY(x.Planned_End_Date__c)),''))}
+            
+        </td>
+        </apex:repeat>
+     </tr>
+</apex:repeat>
+
+
+</table>
+
+<br/>
+<span style="font-family: Montserrat; font-size: 11pt; color: rgb(0, 101, 168); padding: 10px 5px 2px 5px;">
+    <i>*Double-click on the START or END dates to change.</i>
+    </span>
+
+<apex:pageBlockButtons location="Bottom">
+    <apex:commandButton id="saveButton" value="Save" action="{!save}" styleClass="button" style="display: none;"/>  
+    <apex:commandButton id="cancelButton" value="Cancel" styleClass="button" style="display: none"/>
+</apex:pageBlockButtons>
+</apex:pageblock>
+</apex:form>
+
+
+</apex:page>

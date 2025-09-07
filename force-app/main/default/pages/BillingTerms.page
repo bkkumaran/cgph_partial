@@ -1,0 +1,734 @@
+<apex:page standardController="Contract" showHeader="true" sidebar="true" extensions="extBT" >
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        .tableStyle { font-family: 'Open Sans'; font-size: 9pt;};
+        .button { font-size: 15pt !important; }
+    </style>
+<apex:variable id="nameFixed" value="{!SUBSTITUTE(SUBSTITUTE(Contract.Name,'&','%26'),' ','+')}" var="nameFix"/>
+
+<apex:form > 
+         <apex:outputPanel style="font-size:75pt; background-color: rgb(234, 251, 255); height:100;" layout="block" rendered="{!showRefreshBT}" onclick="window.open('apex/BillingTerms?Id={!Contract.Id}','_parent')" >
+         Saving... <br/>
+         Click here to refresh.
+      </apex:outputPanel>
+</apex:form>    
+<!-- HEADER TABLE ----- HEADER TABLE ------ HEADER TABLE ------ HEADER TABLE ------ HEADER TABLE ------ HEADER TABLE ------ HEADER TABLE ---------------------------------------- -->
+<apex:outputPanel rendered="{!hideRefreshBT}">
+<table border="0">
+    <tr>
+        <td height="60px" width="600px" style="vertical-align: middle;">
+            <apex:outputPanel layout="block" rendered="{!hideRefreshBT}" onDblclick="window.open('/{!Contract.Id}','_PARENT')">
+                <div style="font-size: 20pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold;">
+                    {!Contract.Name} Billing Terms
+                </div>
+                <span style="font-size: 10pt;"><i>double-click name above to return to contract</i></span>
+            </apex:outputPanel>
+        </td>
+        <td width="100px" rowspan="2" >
+        </td>
+        <td rowspan="2" style="vertical-align: middle;">
+            <apex:outputPanel onclick="window.open('/apex/BillingTermsCondensed?Id={!Contract.Id}','_PARENT')">
+                <apex:image url="{!$Resource.SummaryIcon}" width="100"/>
+            </apex:outputPanel>
+            </td>
+        <td rowspan="2" style="vertical-align: middle;">
+            <apex:outputPanel onclick="newIS()">
+                <apex:image url="{!$Resource.NewBillingTermIcon}"/>
+            </apex:outputPanel>
+            </td>
+            <td rowspan="2" style="vertical-align: middle;">
+        <apex:outputPanel onclick="window.open('/apex/BTEditTable?Id={!Contract.Id}','MsgWindow', 'width=600,height=400',target='_blank')">
+                <apex:image url="{!$Resource.TableIcon}"/>
+        </apex:outputPanel>
+        </td>
+        <td rowspan="2" width="50px" style="vertical-align: middle;">
+        </td>
+<!--
+        <td rowspan="2" style="vertical-align: middle;">
+            <apex:outputPanel onclick="window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&id={!Contract.Id}&QueryID=[BT]a211N000001eHuK,[BTA]a211N000001eHvh?pv0={!Contract.Id}~pv1=A,[BTB]a211N000001eHvh?pv0={!Contract.Id}~pv1=B,[BTC]a211N000001eHvh?pv0={!Contract.Id}~pv1=C,[BTD]a211N000001eHvh?pv0={!Contract.Id}~pv1=D,[BTE]a211N000001eHvh?pv0={!Contract.Id}~pv1=E&TemplateID=a291N000003foNk&OFN={!Contract.Name}+Billing+Terms&DS7=3','MsgWindow', target='_blank')">
+                <apex:image url="{!$Resource.WordDownloadIcon}"/>
+            </apex:outputPanel>
+            </td>
+-->
+        <td rowspan="2" style="vertical-align: middle;">
+        <apex:outputPanel onclick="window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&id={!Contract.Id}&OFN={!nameFix}+Billing+Terms&QueryID=[BT]a211N000001eHuK,[BTA]a211N000001eHvh?pv0={!Contract.Id}~pv1=A,[BTB]a211N000001eHvh?pv0={!Contract.Id}~pv1=B,[BTC]a211N000001eHvh?pv0={!Contract.Id}~pv1=C,[BTD]a211N000001eHvh?pv0={!Contract.Id}~pv1=D,[BTE]a211N000001eHvh?pv0={!Contract.Id}~pv1=E,[BTHR1]a211N000001eHvh?pv0={!Contract.Id}~pv1=HR1,[BTHR2]a211N000001eHvh?pv0={!Contract.Id}~pv1=HR2,[UNCAT]a211N000001eHvh?pv0={!Contract.Id}~pv1=&TemplateID=a291N000003foNp&DS7=3','MsgWindow', target='_blank')">
+                <apex:image url="{!$Resource.ExcelDownloadIcon}"/>
+        </apex:outputPanel>
+        </td>
+        </tr>
+        <tr>
+        <td  height="40px" style="vertical-align: middle;">
+        <div style="font-size: 16pt; color: black; font-family: 'Open Sans'; font-weight: bold;">
+        Total Not-to-Exceed = &nbsp;
+        <apex:outputText value="{0, number, currency}">
+            <apex:param value="{!Contract.Billing_Terms_NTE__c}" />
+        </apex:outputText>
+        </div>
+        </td>
+        </tr>
+    </table>
+
+ <script>
+            function newIS()
+            {
+                var w = window.open('/a1s/e?CF00N1N00000FGTiu={!Contract.Name}&retURL=apex/BillingTerms?Id={!Contract.Id}&saveURL=apex/BillingTerms?Id={!Contract.Id}', target='_parent')
+                return w;      
+            }
+ </script>
+
+    
+    
+  
+<!-- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- -->   
+<table>
+<tr>
+<td style="width:900;">
+    <apex:form >
+        <apex:pageBlock id="BTBlockA" rendered="{!listBTA.size != 0}" title="Table A: {!Contract.Table_A__c}">
+           <apex:pageBlockTable value="{!listBTA}" var="a" styleClass="tableStyle">
+               <apex:column width="20px" onclick="window.open('/{!a.Id}','MsgWindow', target='_blank')">
+                      <apex:image url="{!$Resource.blueFileIcon}" width="20" />
+               </apex:column>
+                <apex:column headerValue="Table"  width="40">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Table_Number__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonA,cancelButtonA" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="List Order"  width="100">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.List_Order__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonA,cancelButtonA" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Category"  width="125">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Category__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonA,cancelButtonA" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Billing Term"  width="125" style="font-weight:bold;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Name}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonA,cancelButtonA"  />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Service(s)"  width="50" style="text-align:center;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BTService__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonA,cancelButtonA" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Term Description"  width="400" rendered="true" style="font-size: 10pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Description__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonA,cancelButtonA" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Fee Budget Text"  width="300">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Fee_Budget_Text__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonA,cancelButtonA" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Not to Exceed Amount"  width="100" style="font-size:14pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Not_to_Exceed_Amount__c}">                             
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonA,cancelButtonA" />
+                        </apex:outputField>
+                    </apex:actionRegion>
+                    <apex:facet name="footer" >
+                        <apex:outputText value="{0, number, currency}" style="color:blue; font-size:14pt;">
+                            <apex:param value="{!Contract.Table_A_Sum__c}" />
+                        </apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable> 
+            <apex:pageBlockButtons location="both">
+                   <apex:commandButton id="saveButtonA" value="Save" action="{!saveBTA}" styleClass="button" style="display: none;"/>
+                   <apex:commandButton id="cancelButtonA" value="Cancel" styleClass="button" style="display: none"/>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    </td>
+    </tr>
+    </table>
+
+<!-- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -->
+<!-- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- -->   
+<table>
+<tr>
+<td style="width:900;">
+    <apex:form >
+        <apex:pageBlock id="BTBlockB" rendered="{!listBTB.size != 0}" title="Table B: {!Contract.Table_B__c}">
+           <apex:pageBlockTable value="{!listBTB}" var="a" styleClass="tableStyle">
+               <apex:column width="20px" onclick="window.open('/{!a.Id}','MsgWindow', target='_blank')">
+                      <apex:image url="{!$Resource.blueFileIcon}" width="20" />
+               </apex:column>
+                <apex:column headerValue="Table"  width="40">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Table_Number__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonB,cancelButtonB" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="List Order"  width="100">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.List_Order__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonB,cancelButtonB" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Category"  width="125">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Category__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonB,cancelButtonB" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Billing Term"  width="125" style="font-weight:bold;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Name}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonB,cancelButtonB"  />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Service(s)"  width="50" style="text-align:center;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BTService__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonB,cancelButtonB" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Term Description"  width="400" rendered="true" style="font-size: 10pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Description__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonB,cancelButtonB" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Fee Budget Text"  width="300">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Fee_Budget_Text__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonB,cancelButtonB" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Not to Exceed Amount"  width="100" style="font-size:14pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Not_to_Exceed_Amount__c}">                             
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonB,cancelButtonB" />
+                        </apex:outputField>
+                    </apex:actionRegion>
+                    <apex:facet name="footer" >
+                        <apex:outputText value="{0, number, currency}" style="color:blue; font-size:14pt;">
+                            <apex:param value="{!Contract.Table_B_Sum__c}" />
+                        </apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable> 
+            <apex:pageBlockButtons location="both">
+                   <apex:commandButton id="saveButtonB" value="Save" action="{!saveBTB}" styleClass="button" style="display: none;"/>
+                   <apex:commandButton id="cancelButtonB" value="Cancel" styleClass="button" style="display: none"/>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    </td>
+    </tr>
+    </table>
+
+<!-- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -->
+<!-- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- -->   
+<table>
+<tr>
+<td style="width:900;">
+    <apex:form >
+        <apex:pageBlock id="BTBlockC" rendered="{!listBTC.size != 0}" title="Table C: {!Contract.Table_C__c}">
+           <apex:pageBlockTable value="{!listBTC}" var="a" styleClass="tableStyle">
+               <apex:column width="20px" onclick="window.open('/{!a.Id}','MsgWindow', target='_blank')">
+                      <apex:image url="{!$Resource.blueFileIcon}" width="20" />
+               </apex:column>
+                <apex:column headerValue="Table"  width="40">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Table_Number__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonC,cancelButtonC" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="List Order"  width="100">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.List_Order__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonC,cancelButtonC" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Category"  width="125">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Category__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonC,cancelButtonC" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Billing Term"  width="125" style="font-weight:bold;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Name}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonC,cancelButtonC"  />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Service(s)"  width="50" style="text-align:center;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BTService__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonC,cancelButtonC" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Term Description"  width="400" rendered="true" style="font-size: 10pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Description__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonC,cancelButtonC" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Fee Budget Text"  width="300">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Fee_Budget_Text__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonC,cancelButtonC" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Not to Exceed Amount"  width="100" style="font-size:14pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Not_to_Exceed_Amount__c}">                             
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonC,cancelButtonC" />
+                        </apex:outputField>
+                    </apex:actionRegion>
+                    <apex:facet name="footer" >
+                        <apex:outputText value="{0, number, currency}" style="color:blue; font-size:14pt;">
+                            <apex:param value="{!Contract.Table_C_Sum__c}" />
+                        </apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable> 
+            <apex:pageBlockButtons location="both">
+                   <apex:commandButton id="saveButtonC" value="Save" action="{!saveBTC}" styleClass="button" style="display: none;"/>
+                   <apex:commandButton id="cancelButtonC" value="Cancel" styleClass="button" style="display: none"/>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    </td>
+    </tr>
+    </table>
+
+<!-- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -->
+<!-- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- -->   
+<table>
+<tr>
+<td style="width:900;">
+    <apex:form >
+        <apex:pageBlock id="BTBlockD" rendered="{!listBTD.size != 0}" title="Table D: {!Contract.Table_D__c}">
+           <apex:pageBlockTable value="{!listBTD}" var="a" styleClass="tableStyle">
+               <apex:column width="20px" onclick="window.open('/{!a.Id}','MsgWindow', target='_blank')">
+                      <apex:image url="{!$Resource.blueFileIcon}" width="20" />
+               </apex:column>
+                <apex:column headerValue="Table"  width="40">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Table_Number__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonD,cancelButtonD" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="List Order"  width="100">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.List_Order__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonD,cancelButtonD" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Category"  width="125">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Category__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonD,cancelButtonD" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Billing Term"  width="125" style="font-weight:bold;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Name}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonD,cancelButtonD"  />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Service(s)"  width="50" style="text-align:center;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BTService__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonD,cancelButtonD" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Term Description"  width="400" rendered="true" style="font-size: 10pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Description__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonD,cancelButtonD" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Fee Budget Text"  width="300">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Fee_Budget_Text__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonD,cancelButtonD" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Not to Exceed Amount"  width="100" style="font-size:14pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Not_to_Exceed_Amount__c}">                             
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonD,cancelButtonD" />
+                        </apex:outputField>
+                    </apex:actionRegion>
+                    <apex:facet name="footer" >
+                        <apex:outputText value="{0, number, currency}" style="color:blue; font-size:14pt;">
+                            <apex:param value="{!Contract.Table_D_Sum__c}" />
+                        </apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable> 
+            <apex:pageBlockButtons location="both">
+                   <apex:commandButton id="saveButtonD" value="Save" action="{!saveBTD}" styleClass="button" style="display: none;"/>
+                   <apex:commandButton id="cancelButtonD" value="Cancel" styleClass="button" style="display: none"/>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    </td>
+    </tr>
+    </table>
+
+<!-- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -->
+<!-- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- -->   
+<table>
+<tr>
+<td style="width:900;">
+    <apex:form >
+        <apex:pageBlock id="BTBlockE" rendered="{!listBTE.size != 0}" title="Table E: {!Contract.Table_E__c}">
+           <apex:pageBlockTable value="{!listBTE}" var="a" styleClass="tableStyle">
+               <apex:column width="20px" onclick="window.open('/{!a.Id}','MsgWindow', target='_blank')">
+                      <apex:image url="{!$Resource.blueFileIcon}" width="20" />
+               </apex:column>
+                <apex:column headerValue="Table"  width="40">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Table_Number__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonE,cancelButtonE" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="List Order"  width="100">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.List_Order__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonE,cancelButtonE" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Category"  width="125">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Category__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonE,cancelButtonE" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Billing Term"  width="125" style="font-weight:bold;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Name}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonE,cancelButtonE"  />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Service(s)"  width="50" style="text-align:center;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BTService__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonE,cancelButtonE" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Term Description"  width="400" rendered="true" style="font-size: 10pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Term_Description__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonE,cancelButtonE" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Fee Budget Text"  width="300">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.Fee_Budget_Text__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonE,cancelButtonE" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Not to Exceed Amount"  width="100" style="font-size:14pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!a.BT_Not_to_Exceed_Amount__c}">                             
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonE,cancelButtonE" />
+                        </apex:outputField>
+                    </apex:actionRegion>
+                    <apex:facet name="footer" >
+                        <apex:outputText value="{0, number, currency}" style="color:blue; font-size:14pt;">
+                            <apex:param value="{!Contract.Table_E_Sum__c}" />
+                        </apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable> 
+            <apex:pageBlockButtons location="both">
+                   <apex:commandButton id="saveButtonE" value="Save" action="{!saveBTE}" styleClass="button" style="display: none;"/>
+                   <apex:commandButton id="cancelButtonE" value="Cancel" styleClass="button" style="display: none"/>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    </td>
+    </tr>
+    </table>
+
+<!-- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -->
+<!-- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- -->   
+<table>
+<tr>
+<td style="width:900;">
+    <apex:form >
+        <apex:pageBlock id="BTBlockN" rendered="{!listBT.size != 0}" title="Not Included in Tables">
+           <apex:pageBlockTable value="{!listBT}" var="x" styleClass="tableStyle">
+               <apex:column width="20px" onclick="window.open('/{!x.Id}','MsgWindow', target='_blank')">
+                      <apex:image url="{!$Resource.blueFileIcon}" width="20" />
+               </apex:column>
+                <apex:column headerValue="Table"  width="40">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.BT_Table_Number__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonN,cancelButtonN" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="List Order"  width="100">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.List_Order__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonN,cancelButtonN" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Category"  width="125">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Term_Category__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonN,cancelButtonN" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Billing Term"  width="125" style="font-weight:bold;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Name}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonN,cancelButtonN"  />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Service(s)"  width="50" style="text-align:center;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.BTService__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonN,cancelButtonN" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Term Description"  width="400" rendered="true" style="font-size: 10pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Term_Description__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonN,cancelButtonN" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Fee Budget Text"  width="300">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Fee_Budget_Text__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonN,cancelButtonN" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Not to Exceed Amount"  width="100" style="font-size:14pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.BT_Not_to_Exceed_Amount__c}">                             
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonN,cancelButtonN" />
+                        </apex:outputField>
+                    </apex:actionRegion>
+                </apex:column>
+            </apex:pageBlockTable> 
+            <apex:pageBlockButtons location="both">
+                   <apex:commandButton id="saveButtonN" value="Save" action="{!saveBT}" styleClass="button" style="display: none;"/>
+                   <apex:commandButton id="cancelButtonN" value="Cancel" styleClass="button" style="display: none"/>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    </td>
+    </tr>
+</table>
+
+<!-- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -->
+<!-- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- -->   
+<table>
+<tr>
+<td style="width:900;">
+    <apex:form >
+        <apex:pageBlock id="BTBlockHR1" rendered="{!listHR1.size != 0}" title="Housing Rehabilitation Contingencies">
+           <apex:pageBlockTable value="{!listHR1}" var="x" styleClass="tableStyle">
+               <apex:column width="20px" onclick="window.open('/{!x.Id}','MsgWindow', target='_blank')">
+                      <apex:image url="{!$Resource.blueFileIcon}" width="20" />
+               </apex:column>
+                <apex:column headerValue="Table"  width="40">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.BT_Table_Number__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR1,cancelButtonHR1" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="List Order"  width="100">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.List_Order__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonN,cancelButtonN" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Category"  width="125">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Term_Category__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR1,cancelButtonHR1" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Billing Term"  width="125" style="font-weight:bold;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Name}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR1,cancelButtonHR1"  />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Service(s)"  width="50" style="text-align:center;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.BTService__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR1,cancelButtonHR1" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Term Description"  width="400" rendered="true" style="font-size: 10pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Term_Description__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR1,cancelButtonHR1" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Fee Budget Text"  width="300">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Fee_Budget_Text__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR1,cancelButtonHR1" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Not to Exceed Amount"  width="100" style="font-size:14pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.BT_Not_to_Exceed_Amount__c}">                             
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR1,cancelButtonHR1" />
+                        </apex:outputField>
+                    </apex:actionRegion>
+                </apex:column>
+            </apex:pageBlockTable> 
+            <apex:pageBlockButtons location="both">
+                   <apex:commandButton id="saveButtonHR1" value="Save" action="{!saveHR1}" styleClass="button" style="display: none;"/>
+                   <apex:commandButton id="cancelButtonHR1" value="Cancel" styleClass="button" style="display: none"/>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    </td>
+    </tr>
+</table>
+
+<!-- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -->
+<!-- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- TABLE STARTS HERE -- -->   
+<table>
+<tr>
+<td style="width:900;">
+    <apex:form >
+        <apex:pageBlock id="BTBlockHR2" rendered="{!listHR2.size != 0}" title="Housing Rehabilitation Contractor Penalties">
+           <apex:pageBlockTable value="{!listHR2}" var="x" styleClass="tableStyle">
+               <apex:column width="20px" onclick="window.open('/{!x.Id}','MsgWindow', target='_blank')">
+                      <apex:image url="{!$Resource.blueFileIcon}" width="20" />
+               </apex:column>
+                <apex:column headerValue="Table"  width="40">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.BT_Table_Number__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR2,cancelButtonHR2" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="List Order"  width="100">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.List_Order__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR2,cancelButtonHR2" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Category"  width="125">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Term_Category__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR2,cancelButtonHR2" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Billing Term"  width="125" style="font-weight:bold;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Name}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR2,cancelButtonHR2"  />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Service(s)"  width="50" style="text-align:center;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.BTService__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR2,cancelButtonHR2" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Term Description"  width="400" rendered="true" style="font-size: 10pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Term_Description__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR2,cancelButtonHR2" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Fee Budget Text"  width="300">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.Fee_Budget_Text__c}">
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR2,cancelButtonHR2" />
+                        </apex:outputField>
+                    </apex:actionRegion>  
+                </apex:column>
+                <apex:column headerValue="Not to Exceed Amount"  width="100" style="font-size:14pt;">
+                    <apex:actionRegion >
+                        <apex:outputField value="{!x.BT_Not_to_Exceed_Amount__c}">                             
+                             <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonHR2,cancelButtonHR2" />
+                        </apex:outputField>
+                    </apex:actionRegion>
+                </apex:column>
+            </apex:pageBlockTable> 
+            <apex:pageBlockButtons location="both">
+                   <apex:commandButton id="saveButtonHR2" value="Save" action="{!saveHR2}" styleClass="button" style="display: none;"/>
+                   <apex:commandButton id="cancelButtonHR2" value="Cancel" styleClass="button" style="display: none"/>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    </td>
+    </tr>
+</table>
+
+<!-- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -- TABLE ENDS HERE -->
+
+ 
+</apex:outputpanel>
+</apex:page>

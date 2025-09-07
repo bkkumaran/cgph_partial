@@ -1,0 +1,608 @@
+<apex:page standardcontroller="HOMEtracker__Property__c" extensions="GroupTimelineExt" standardStylesheets="false">
+
+<!-- VARIABLES -->
+<apex:variable id="FontFamily" var="font" value="Roboto"/>
+<apex:variable id="BorderColor" var="borderColor" value="#c8c8c8"/>
+<apex:variable id="TodayColor" var="todayColor" value="#fcffa8"/>
+<apex:variable id="rowHoverColor" var="rowHover" value="#ebebff"/>
+<apex:variable id="PassedColor" var="passedColor" value="white"/>
+<apex:variable id="MissingColor" var="missingColor" value="red"/>
+<apex:variable id="ActualColor" var="actualColor" value="#8bf0b0"/>
+<apex:variable id="NotApplicableColor" var="naColor" value="#ebebeb"/>
+<apex:variable id="OKColor" var="okColor" value="white"/>
+<apex:variable id="WarningColor" var="warningColor" value="RGB(255,183,93)"/>
+<apex:variable id="TargetColorGood" var="targetGood" value="Green"/>
+<apex:variable id="TargetColorBad" var="targetBad" value="red"/>
+<apex:variable id="HeaderColor" var="headerColor" value="rgb(0, 101, 168)"/>
+<apex:variable id="HeaderColorGroup" var="headerColorGroup" value="rgb(0,113,107)"/>
+<apex:variable id="HeaderColorGroupUnit" var="headerColorGroupUnit" value="#70005b"/>
+<apex:variable id="HeaderColorUnit" var="headerColorUnit" value="rgb(0, 101, 168)"/>
+
+<apex:variable var="buttonWhite" value="#fceded"/>
+<apex:variable var="buttonLight" value="#f2a6a6"/>
+<apex:variable var="buttonDark" value="#c22d2d"/>
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family={!font}');
+
+    td    {
+        padding: 3px 5px 3px 5px;
+        font-family:{!font};
+        font-size:9pt;
+        }
+    a {
+        color:black;
+    }
+        
+    .ghead    {
+        padding: 6px 5px 6px 5px;
+        font-family:{!font};
+        font-size:12pt !important;
+        font-weight: bold;
+        color:{!headerColorGroup};
+        }
+    .head {
+        padding: 7px 5px 7px 5px;
+        font-weight:bold;
+        font-size:13pt;
+        color:white;
+        }
+    .groupHead {
+        font-size:10pt;
+        font-weight:bold;
+        }
+    .headUnit {
+        background-color:{!headerColorUnit};
+        color:white;
+        }        
+    .headGroup {
+        background-color:{!headerColorGroup};
+        color:white;
+        }
+    .headGroupUnit {
+        background-color:{!headerColorGroupUnit};
+        color:white;
+        }        
+    .button{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: 12pt;
+            color: {!buttonDark};
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient({!buttonWhite},{!buttonWhite});
+            border-radius: 3px; 
+            border-top: 1px solid {!buttonLight}; 
+            border-right: 1.5px solid {!buttonDark}; 
+            border-bottom: 1.5px solid {!buttonDark}; 
+            border-left: 1px solid {!buttonLight}; 
+            padding: 5px 10px 5px 10px;
+            }
+     .button:hover{
+            color:white;
+            background-image: linear-gradient({!buttonDark},{!buttonDark});
+            text-decoration:none;
+                }
+    .javaButton:hover{
+            cursor: pointer;
+            }
+    .bottom {
+        font-weight:bold;
+        font-size:10pt;
+        }
+    table {
+        border-collapse:collapse;
+        font-family:{!font};
+        border-color:{!borderColor};
+        }
+    .right {
+        text-align: right;
+        }
+    .center {
+        text-align: center;
+        }
+    .todayRow {
+        background-color:{!todayColor};
+        font-weight:bold;
+        
+        }
+    .todayTd {
+        color: blue;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 10pt;
+        }
+    .passed {
+        background-color:{!passedColor};
+        }
+    .missing {
+        background-color:{!missingColor};
+        font-weight:bold;
+        }
+    .dateMissing {
+        background-color:red;
+        font-weight:bold;
+        color:white !important;
+        }
+    .actual {
+        background-color:{!actualColor};
+        }
+    .na {
+        background-color:{!naColor};
+        }
+    .ok {
+        background-color:{!okColor};
+        }
+    .target {
+        padding-top:7px;
+        font-style: italic;
+        }
+    .tGood {
+        color:{!targetGood};
+        }
+    .tBad {
+        color:{!targetBad};
+        }
+    .warning {
+        background-color:{!warningColor};
+        height: 30px;
+        }
+    tr:hover {
+        background-color:yellow !important;
+        }
+
+
+
+
+</style>
+<apex:variable var="show2" value=" {!IF(AND(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c)=false,TODAY() < HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c),'','display:none;')}"/>
+<apex:variable var="show3" value=" {!IF(AND(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c)=false,ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c)=false,TODAY()> HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c,TODAY() <= HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c),'','display:none;')}"/>
+<apex:variable var="show4" value=" {!IF(AND(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c)=false,ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c)=false,TODAY()> HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c,TODAY() <= HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c),'','display:none;')}"/>
+<apex:variable var="show5" value=" {!IF(AND(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c)=false,ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c)=false,TODAY()> HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c,TODAY() <= HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c),'','display:none;')}"/>
+<apex:variable var="show6" value=" {!IF(AND(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c)=false,ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c)=false,TODAY()> HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c,TODAY() <= HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c),'','display:none;')}"/>
+<apex:variable var="show7" value=" {!IF(AND(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c)=false,TODAY()> HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c),'','display:none;')}"/>
+
+<apex:variable var="rowClass3"
+    value="{!IF(OR(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c)=true,HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date_Status__c=""),'missing',
+            CASE(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date_Status__c,
+            'Projected by CGPH',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c < TODAY(),'passed','ok'),
+            'Estimated by Client',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c < TODAY(),'passed','ok'),
+            'Firm Deadline',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c < TODAY(),'passed','ok'),
+            'Actual Date','actual',
+            'Not Applicable','na',
+            '')
+            )}"/>                
+<apex:variable var="rowClass4"
+    value="{!IF(OR(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c)=true,HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date_Status__c=""),'missing',
+            CASE(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date_Status__c,
+            'Projected by CGPH',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c< TODAY(),'passed','ok'),
+            'Estimated by Client',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c< TODAY(),'passed','ok'),
+            'Firm Deadline',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c< TODAY(),'passed','ok'),
+            'Actual Date','actual',
+            'Not Applicable','na',
+            '')
+            )}"/>
+<apex:variable var="rowClass5"
+    value="{!IF(OR(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c)=true,HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date_Status__c=""),'missing',
+            CASE(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date_Status__c,
+            'Projected by CGPH',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c< TODAY(),'passed','ok'),
+            'Estimated by Client',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c< TODAY(),'passed','ok'),
+            'Firm Deadline',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c< TODAY(),'passed','ok'),
+            'Actual Date','actual',
+            'Not Applicable','na',
+            '')
+            )}"/>
+<apex:variable var="rowClass6"
+    value="{!IF(OR(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c)=true,HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date_Status__c=""),'missing',
+            CASE(HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date_Status__c,
+            'Projected by CGPH',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c< TODAY(),'passed','ok'),
+            'Estimated by Client',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c< TODAY(),'passed','ok'),
+            'Firm Deadline',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c< TODAY(),'passed','ok'),
+            'Actual Date','actual',
+            'Not Applicable','na',
+            '')
+            )}"/>
+<apex:variable var="rowClass7"
+    value="{!IF(OR(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c)=true,HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date_Status__c=""),'missing',
+            CASE(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date_Status__c,
+            'Projected by CGPH',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c< TODAY(),'passed','ok'),
+            'Estimated by Client',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c< TODAY(),'passed','ok'),
+            'Firm Deadline',IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c< TODAY(),'passed','ok'),
+            'Actual Date','actual',
+            'Not Applicable','na',
+            '')
+            )}"/>
+<apex:variable var="rowClass8"
+    value="{!IF(OR(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Target_Outreach_Date__c)=true,HOMEtracker__Property__c.Current_Outreach_Timeline__r.Target_Outreach_Status__c=""),'missing',
+            IF(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Target_Outreach_Date__c<HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c,'tBad','tGood'))
+            }"/>
+
+<!-- CREATE OUTREACH TIMELINE DIV -->
+<div style="{!IF(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__c)=true,'','display:none;')}">
+    <br/><br/>
+    <a href="https://cgph--c.vf.force.com/flow/Outreach_Timelines_Create_OT?varID={!HOMEtracker__Property__c.Id}&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top" class="button">
+        CREATE Outreach Timeline
+    </a>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+
+<!-- SHOW/HIDE GROUP PROPERTY -->
+
+            <span id="GroupProperty" class="head headGroup" style="{!IF(AND(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__c)=false,HOMEtracker__Property__c.Group_Property__c=true),'','display:none;')}">
+                <apex:outputPanel styleclass="javaButton" onclick="window.open('https://cgph--c.vf.force.com/apex/GroupTimeline?id={!HOMEtracker__Property__c.Id}','_blank')">
+                    <apex:image url="{!$Resource.Group_Property_White}" height="15px"/>
+                </apex:outputPanel>
+                <b>GROUP PROPERTY:&nbsp;<apex:outputfield value="{!HOMEtracker__Property__c.Name}"/></b>
+            </span>
+<!--
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000000S0xxMAC/view?queryScope=userFolders&fv0={!id}&fv1={!id}" target="_blank" style="text-decoration:none;">
+                <apex:image url="{!$Resource.blueFileIcon}" height="20px"/>
+            </a>
+            &nbsp; &nbsp;
+-->
+<br/>
+<br/>
+
+
+<!-- ----------------------------------------------------------------- -->
+<!--                    GROUP PROPERTY TABLE                           -->
+<!-- ----------------------------------------------------------------- -->
+
+<div style="{!IF(OR(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__c)=true,HOMEtracker__Property__c.Group_Property__c=false),'display:none;','')}">
+
+<table border="1" width="100%">
+    <tr class="ghead">
+        <td colspan="9" class="ghead">
+            <table border="0" style="border-color:blue;border-collapse:collapse;">
+                <tr>
+                    <td class="ghead">            
+                        GROUP PROPERTY DETAILS:
+                    </td>
+                    <td class="ghead">
+                        Date Outreach Began:&nbsp;
+                        <apex:outputField value="{!HOMEtracker__Property__c.Date_Outreach_began__c}"/>
+                        {!IF(ISBLANK(HOMEtracker__Property__c.Date_Outreach_began__c),'NO DATE','')}
+                    </td>
+                    <td class="ghead">
+                        First Full App Invitations Sent:&nbsp;
+                        <apex:outputField value="{!HOMEtracker__Property__c.First_Full_App_Invites_Sent__c}"/>
+                        {!IF(ISBLANK(HOMEtracker__Property__c.First_Full_App_Invites_Sent__c),'NO DATE','')}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="ghead">
+                    </td>
+                    <td class="ghead">
+                        <span class="dateMissing" style="{!IF(AND(ISBLANK(HOMEtracker__Property__c.Date_Outreach_Began__c)=false,countOut>0),'','display:none;')}">
+                        <a href="https://cgph--c.vf.force.com/flow/Outreach_Timelines_Update_Group_Property_Units?varID={!id}&varType=Outreach&varOverride=0&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top" style="text-decoration:none; color:white;">
+                            OUTREACH START DATES MISSING
+                        </a>
+                        </span>
+                    </td>
+                    <td class="ghead">
+                        <span class="dateMissing" style="{!IF(AND(ISBLANK(HOMEtracker__Property__c.First_Full_App_Invites_Sent__c)=false,countApp>0),'','display:none;')}">
+                        <a href="https://cgph--c.vf.force.com/flow/Outreach_Timelines_Update_Group_Property_Units?varID={!id}&varType=FirstApps&varOverride=0&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top" style="text-decoration:none; color:white;">
+                            FIRST APP INVITES MISSING
+                        </a>
+                        </span>
+                        <span class="dateMissing" style="{!IF($User.LastName='Burton','','display:none;')}">
+                        <a href="https://cgph--c.vf.force.com/flow/Outreach_Timelines_Update_Group_Property_Units?varID={!id}&varType=FirstApps&varOverride=1&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top" style="text-decoration:none; color:white;">
+                            [X]
+                        </a>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="groupHead" style="text-align:center">
+        <b>Links</b>
+        </td>
+        <td class="groupHead">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Change_Group_Sort?varID={!id}&varValue=0&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top">
+            <b>Property</b>
+            <span style="{!IF(OR(HOMEtracker__Property__c.Group_Property_Sort__c=1,HOMEtracker__Property__c.Group_Property_Sort__c=2),'display:none;','')}">▼</span>
+            </a>
+        </td>
+        <td class="groupHead">
+            <b>Next Step</b>
+        </td>
+        <td class="groupHead">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Change_Group_Sort?varID={!id}&varValue=2&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top">
+            <b>Next Date</b>
+            <span style="{!IF(HOMEtracker__Property__c.Group_Property_Sort__c=2,'','display:none;')}">▼</span>
+            </a>
+        </td>
+        <td class="groupHead">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Change_Group_Sort?varID={!id}&varValue=1&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top">
+            <b>Target Cert Date</b>
+            <span style="{!IF(HOMEtracker__Property__c.Group_Property_Sort__c=1,'','display:none;')}">▼</span>
+            </a>
+        </td>
+        <td class="groupHead">
+            <b>Target Cert Status</b>
+        </td>
+        <td class="groupHead">
+            <b>Projected Cert Date</b>
+        </td>
+<!--
+        <td class="groupHead">
+            <b>Certification Status</b>
+        </td>
+-->
+        <td class="groupHead">
+            <b>Cert Warning</b>
+        </td>
+    </tr>
+    
+<apex:repeat var="x" value="{!unitList}">
+    <tr>
+        <td style="text-align:center;">
+        <nobr>
+            <a href="/{!x.Id}" target="_blank" style="text-decoration:none;">
+                <apex:image url="https://upload.wikimedia.org/wikipedia/commons/b/bc/House_image_icon.png" height="20px"/>
+            </a>
+            <a href="/{!x.Current_Outreach_Timeline__r.Id}" target="_blank" style="text-decoration:none;">
+                <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/30/Icons8_flat_clock.svg" height="20px"/>
+            </a>
+        </nobr>
+        </td>
+        <td>
+            {!x.name}
+        </td>
+        <td>
+            {!x.Current_Outreach_Timeline__r.Next_Step__c}
+        </td>
+        <td>
+            <apex:outputfield value="{!x.Current_Outreach_Timeline__r.Next_Step_Date__c}"/>
+        </td>
+        <td>
+            <apex:outputfield value="{!x.Current_Outreach_Timeline__r.Target_Outreach_Date__c}"/>
+        </td>
+        <td>
+            {!x.Current_Outreach_Timeline__r.Target_Outreach_Status__c}
+        </td>
+        <td>
+            <apex:outputfield value="{!x.Current_Outreach_Timeline__r.Certification_Date__c}"/>
+        </td>
+<!--
+        <td>
+            {!x.Current_Outreach_Timeline__r.Certification_Date_Status__c}
+        </td>
+-->
+        <td>
+            {!x.Current_Outreach_Timeline__r.Cert_Warning__c}
+        </td>
+<!--
+        <td>
+            {!x.Current_Outreach_Timeline__r.Group_Sort_Order__c}
+        </td>
+-->
+    </tr>
+</apex:repeat>
+</table>
+
+
+</div>
+
+
+
+<!-- SHOW/HIDE TIMELINE TABLE DIV -->
+<div style="{!IF(OR(ISBLANK(HOMEtracker__Property__c.Current_Outreach_Timeline__c)=true,HOMEtracker__Property__c.Group_Property__c=true),'display:none;','')}">
+
+<table border="1">
+
+<!-- HEADER ROW -->
+<apex:variable var="unitType" value="{!IF(HOMEtracker__Property__c.Group_Property__c=true,'group',IF(ISBLANK(HOMEtracker__Property__c.Group_Property_Parent__c)=true,'unitSingle','unitGroup'))}"/>
+
+    <tr>
+        <td colspan="3" class="head {!CASE(unitType,'group','headGroup','unitGroup','headGroupUnit','unitSingle','headUnit','')}">
+<!--            <div id="GroupProperty" style="{!IF(unitType='group','','display:none')}">
+                <apex:outputPanel styleclass="javaButton" onclick="window.open('https://cgph--c.vf.force.com/apex/GroupTimeline?id={!HOMEtracker__Property__c.Id}','_blank')">
+                    <apex:image url="{!$Resource.Group_Property_White}" height="15px"/>
+                </apex:outputPanel>
+                <b>GROUP PROPERTY:&nbsp;<apex:outputfield value="{!HOMEtracker__Property__c.Name}"/></b>
+            </div>
+-->            
+            <div id="GroupUnit" style="{!IF(unitType='unitGroup','','display:none')}">
+                <apex:outputPanel styleclass="javaButton" onclick="window.open('/{!HOMEtracker__Property__c.Group_Property_Parent__r.Id}','_blank')">
+                    <apex:image url="{!$Resource.Group_Property_White}" height="15px"/>
+                </apex:outputPanel>
+                <b>UNIT IN GROUP:&nbsp;<apex:outputfield value="{!HOMEtracker__Property__c.Name}"/></b>
+            </div>
+           <div id="SingleUnit" style="{!IF(unitType='unitSingle','','display:none')}">
+                <a href="/{!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Id}" target="_Blank" style="text-decoration:none;">
+                    <apex:image url="{!$Resource.Single_Property_White}" height="15px"/>
+                </a>
+               <b> SINGLE UNIT:&nbsp;<apex:outputfield value="{!HOMEtracker__Property__c.Name}"/> </b>
+           </div>
+                
+        </td>
+    </tr>
+
+<!-- TODAY ROW 2 -->
+    <tr style="{!show2}" class="todayRow">
+        <td class="todayTd right" style="border-right:0px;" colspan="2">
+            TODAY: {!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}
+        </td>
+    <td style="border-left:0px;" class="todayTd">
+        NEXT STEP: {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c - TODAY()} days
+    </td>
+    </tr>
+
+<!-- Outreach Start Date Row -->
+    <tr class="{!rowClass3}">
+        <td width="175px">
+            Outreach Start Date
+        </td>
+        <td class="right" width="75px">
+            <apex:outputField value="{!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date__c}"/>
+        </td>
+        <td width="135px">
+            {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Start_Date_Status__c}
+        </td>
+    </tr>
+
+<!-- TODAY ROW 3 -->
+    <tr style="{!show3}" class="todayRow">
+        <td class="todayTd right" style="border-right:0px;" colspan="2">
+            TODAY: {!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}
+        </td>
+    <td style="border-left:0px;" class="todayTd">
+        NEXT STEP: {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c - TODAY()} days
+    </td>
+    </tr>
+
+<!-- Full Apps Sent Date Row -->
+    <tr class="{!rowClass4}">
+        <td>
+            First Full Apps Sent Date
+        </td>
+        <td class="right">
+            <apex:outputField value="{!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date__c}"/>
+        </td>
+        <td width="100px">
+            {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Full_Apps_Sent_Date_Status__c}
+        </td>
+    </tr>
+
+<!-- TODAY ROW 4 -->
+    <tr style="{!show4}" class="todayRow">
+        <td class="todayTd right" style="border-right:0px;" colspan="2">
+            TODAY: {!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}
+        </td>
+    <td style="border-left:0px;" class="todayTd">
+        NEXT STEP: {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c- TODAY()} days
+    </td>
+    </tr>
+    
+<!-- Applicants to Tracker Date Row -->
+    <tr class="{!rowClass5}">
+        <td>
+            Applicants to Tracker Date
+        </td>
+        <td class="right">
+            <apex:outputField value="{!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date__c}"/>
+        </td>
+        <td width="100px">
+            {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Applicants_to_Tracker_Date_Status__c}
+        </td>
+    </tr>
+
+<!-- TODAY ROW 5 -->
+    <tr style="{!show5}" class="todayRow">
+        <td class="todayTd right" style="border-right:0px;" colspan="2">
+            TODAY: {!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}
+        </td>
+    <td style="border-left:0px;" class="todayTd">
+        NEXT STEP: {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c - TODAY()} days
+    </td>
+    </tr>
+    
+<!-- LL / Dev Approval Date Row -->
+    <tr class="{!rowClass6}">
+        <td>
+            LL / Dev Approval Date
+        </td>
+        <td class="right">
+            <apex:outputField value="{!HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date__c}"/>
+        </td>
+        <td width="100px">
+            {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.LL_Dev_Approval_Date_Status__c}
+        </td>
+    </tr>
+
+<!-- TODAY ROW 6 -->
+    <tr style="{!show6}" class="todayRow">
+        <td class="todayTd right" style="border-right:0px;" colspan="2">
+            TODAY: {!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}
+        </td>
+    <td style="border-left:0px;" class="todayTd">
+        NEXT STEP: {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c - TODAY()} days
+    </td>
+    </tr>
+    
+<!-- Certification Date Row -->
+    <tr class="{!rowClass7}">
+        <td>
+            Certification Date
+        </td>
+        <td class="right">
+            <apex:outputField value="{!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date__c}"/>
+        </td>
+        <td width="100px">
+            {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Certification_Date_Status__c}
+        </td>
+    </tr>
+    <tr class="{!rowClass8}" style="font-weight:bold;">
+        <td>
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Timelines_New_Target_Date?varID={!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Id}&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top" style="text-decoration:none;">
+                <apex:image url="{!$Resource.Target_Icon}" width="15"/>
+            </a>
+            &nbsp;Target Certification Date
+            
+        </td>
+        <td class="right">
+            <apex:outputField value="{!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Target_Outreach_Date__c}"/>
+        </td>
+        <td width="100px">
+            {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Target_Outreach_Status__c}
+        </td>
+    </tr>
+
+
+
+<!-- TODAY ROW 7 -->
+    <tr style="{!show7}" class="todayRow">
+        <td class="todayTd right" style="border-right:0px;" colspan="2">
+            TODAY: {!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}
+        </td>
+    <td style="border-left:0px;" class="todayTd">
+        &nbsp;
+    </td>
+    </tr>
+    
+    
+    
+    
+    
+<!-- WARNING: OUT OF ORDER ONLY 
+    <tr style="{!IF(CONTAINS(HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Dates_Warning__c,'DATES OUT OF ORDER')=true, '', 'display:none;')}" class="warning">
+        <td colspan="4">
+            {!HOMEtracker__Property__c.Current_Outreach_Timeline__r.Outreach_Dates_Warning__c}
+        </td>
+    </tr>
+-->
+ 
+  
+<!-- CREATE NEW OUTREACH TIMELINE ROW 
+    <tr>
+        <td colspan="4" class="bottom left" style="padding-top:10px;">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Save_and_Replace?varID={!HOMEtracker__Property__c.Id}&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top" style=" color:{!headerColor};">
+                CREATE NEW OUTREACH TIMELINE
+            </a> 
+        </td>
+    </tr>
+-->
+</table>
+</div> <!-- SHOW/HIDE TABLE DIV -->
+
+<!-- get fields for div formulas to avoid SOQL error -->
+    <span style="display:none;">
+        {!HOMEtracker__Property__c.Group_Property__c}
+    </span>
+    
+<div style="{!IF($User.LastName = 'Burton','','display:none')}">
+<br/>
+<a href="https://cgph--c.vf.force.com/apex/OutreachTimeline?id={!id}" target="_blank" class="button">
+VF
+</a>
+</div>    
+
+<div style="display:none">
+{!HOMEtracker__Property__c.Group_Property_Sort__c}
+</div>
+</apex:page>

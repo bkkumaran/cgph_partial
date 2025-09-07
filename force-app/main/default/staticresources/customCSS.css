@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Kalam:300|Open+Sans|Oswald');
+h1 { font-size: 250%; color: #0669B3; font-family: 'Oswald', sans-serif; font-weight: 300; letter-spacing: -0.5px; }
+h2 { font-size: 200%; color: #0669B3; font-family: 'Open Sans' , sans-serif; font-weight: 400; }
+h3 { font-size: 125%; color: #0669B3; font-family: 'Open Sans' , sans-serif; font-weight: 300; 
+.hand {font-family: 'Kalam', cursive;}

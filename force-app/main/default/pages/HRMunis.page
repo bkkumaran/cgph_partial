@@ -1,0 +1,233 @@
+<apex:page standardController="Municipality__c" extensions="HRMuniExt">
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+#TopHead { white-space: nowrap; font-size: 30pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; vertical-align: bottom;}
+#ContList { white-space: nowrap; padding: 0px 0px 0px 80px; font-size: 15pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; vertical-align: bottom;}
+#CaseLogs { white-space: nowrap; padding: 0px 0px 0px 10px; font-size: 15pt; color: rgb(37,113,170); font-family: 'Montserrat'; vertical-align: bottom;}
+.Block { white-space: nowrap; float: left; }
+.Row { white-space: nowrap; font-family: Montserrat; font-size: 10pt;color: black; width: 875 px; padding: 2px 10px 2px 10px;}
+
+</style>
+
+<apex:variable var="n" value="{!if(over = null,'/apex/HRMunis?name=all','/apex/HRMunis')}" />
+    
+<table><tr><td>
+<apex:image url="{!$Resource.cgphLOGOgif}" width="275px" />
+</td>
+<td id="TopHead" >
+<apex:outputPanel layout="block" onDblclick="window.open('{!n}','_parent')"
+>
+<div id="TopHead" style="width: 900px;">
+HR Municipalities ( {!displayName} )<br />
+</div>
+</apex:outputPanel>
+
+
+<!--
+
+HR Municipalities ( {!displayName} ) <br /> -->
+
+</td></tr></table>
+<br/>
+<div style="padding: 0px 0px 0px 70px;">
+<!----------------------------------------------------------------------hiding the case log links here----------------------------------------------->
+<table>
+<tr>
+<td id="CaseLogs">
+<b>CASE LOGS:</b>
+</td>
+
+<td id="CaseLogs">
+<apex:outputPanel onclick="window.open('https://cgph.my.salesforce.com/apex/HRCaseLog?d=A&name=Beth+McCann','_blank')" >
+BETH
+</apex:outputPanel>
+</td>
+
+<td id="CaseLogs">
+<apex:outputPanel onclick="window.open('https://cgph.my.salesforce.com/apex/HRCaseLog?d=A&name=Brittany+Sanchez','_blank')" >
+BRITTANY
+</apex:outputPanel>
+</td>
+
+<td id="CaseLogs">
+<apex:outputPanel onclick="window.open('https://cgph.my.salesforce.com/apex/HRCaseLog?d=A&name=Celina+Rivera','_blank')" >
+CELINA
+</apex:outputPanel>
+</td>
+
+
+<td id="CaseLogs">
+<apex:outputPanel onclick="window.open('https://cgph.my.salesforce.com/apex/HRCaseLog?d=A&name=David+Landri','_blank')" >
+DAVID
+</apex:outputPanel>
+</td>
+
+<td id="CaseLogs">
+<apex:outputPanel onclick="window.open('https://cgph.my.salesforce.com/apex/HRCaseLog?d=A&name=Migdalia+Guzman','_blank')" >
+MICKEY
+</apex:outputPanel>
+</td>
+
+</tr>
+<tr>
+<td id="CaseLogs" colspan="5" style="padding-top: 10px;">
+
+<apex:outputPanel onclick="window.open('/apex/HRCompInspectionTracker','_blank')" >
+<b>Comprehensive Inspection Tracker</b>
+</apex:outputPanel>
+
+</td>
+</tr>
+</table>
+</div>
+<br/>
+
+
+
+
+
+<!-------- CONTRACTORS ----------->
+
+<div id="ContList">
+<apex:image url="{!$Resource.ContractorLogo}" width="30px"/>
+<apex:outputPanel onclick="window.open('/00O3m000005MsVB','_blank')">
+CONTRACTOR LIST
+</apex:outputPanel>
+&nbsp;&nbsp;&nbsp;
+<apex:image url="{!$Resource.ContractorLogo}" width="30px" />
+<apex:outputPanel onclick="window.open('https://www.tfaforms.com/4912376','_blank')" >
+ADD NEW CONTRACTOR
+</apex:outputPanel>
+<br/>
+<br/>
+</div>
+
+<!-- -------------------------------------------R variable--------------- -->
+<apex:variable var="r" value="{!0}"/>
+
+
+<apex:repeat value="{!listMunis}" var="m">
+
+<div style="padding: 0px 0px 0px 75px;">
+<apex:outputPanel layout="block" 
+    styleClass="Row" 
+    onmouseover="style='white-space: nowrap; float: left;background-color: #70cfff;'" 
+    onmouseout="style='white-space: nowrap; float: left; background-color: #f0faff ;'"
+                style="white-space: nowrap; float: left; background-color: #f0faff ;"
+    >
+
+<!------------------------------------------------MUNI NAME------------------------------->                               
+<apex:outputPanel layout="block" 
+    onclick="window.open('/{!m.Id}','_blank')"
+    style="text-align: left; width: 180px; "
+    styleClass="Block">
+<b>{!m.Name}</b>
+</apex:outputPanel>
+
+<apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+
+<!-------------------------------------NEW PRE-APP-------------------------------->
+<apex:outputPanel layout="block" 
+    onclick="window.open('http://www.tfaforms.com/4916002?tfa_380={!m.Id}&tfa_382={!m.Name}&tfa_54={!$User.FirstName}+{!$User.LastName}&tfa_55={!TODAY()}','_blank')"
+    style="text-align: center; width: 120px;" 
+    styleclass="Block">
+New Pre-App
+</apex:outputPanel>
+
+<apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+
+<!-------------------------------------Applicant Pool---------------------------->
+<apex:outputPanel layout="block"
+    onclick="window.open('/apex/HRAppPool?muni={!m.Id}&act=0&cf=0&cl=0&dp=1&tm=1&flip=0','_blank')"
+    style="text-align: center; width: 150px;"
+    styleclass="Block">
+Applicant Pool
+</apex:outputPanel>
+
+<!--
+add this text to the panel above if bring back the "no applicant pool" option:
+rendered="{!IF(m.HR_Active_Applicant_Pool__c=true,true,false)}"
+-->
+
+<!--
+<apex:outputPanel layout="block"
+    rendered="{!IF(m.HR_Active_Applicant_Pool__c=true,false,true)}"
+    onclick=""
+    style="text-align: center; width: 150px; color:#c4c4c4;"
+    styleclass="Block">
+<i> No Applicant Pool </i>
+</apex:outputPanel>
+-->
+
+<apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+
+<!-------------------------------WEBSITE LINK------------------------->
+<apex:outputPanel layout="block"
+    rendered="{!IF(ISBLANK(m.HR_Program_Website_Link__c),false,true)}"
+    onclick="window.open('{!m.HR_Program_Website_Link__c}','_blank')"
+    style="text-align: center; width: 120px;"
+    styleclass="Block">
+Website Link
+</apex:outputPanel>
+
+<apex:outputPanel layout="block"
+    rendered="{!IF(ISBLANK(m.HR_Program_Website_Link__c),true,false)}"
+    onclick=""
+    style="text-align: center; width: 120px; color:#c4c4c4;"
+    styleclass="Block">
+<i> No Website </i>
+</apex:outputPanel>
+
+<apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+<!-------------------------WAITLIST REPORT----------------------------->
+
+<apex:outputPanel layout="block"
+    onclick="window.open('/00O1N000009JOt1?pv0={!m.Name}','_blank')"
+    style="text-align: center; width: 135px;"
+    styleclass="Block">
+Waitlist Report
+</apex:outputPanel>
+
+<apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+
+
+<!-------------------------CASE FILES REPORT----------------------------->
+
+<apex:outputPanel layout="block"
+    onclick="window.open('/00O3m000005Mtpl?pv0={!m.Name}','_blank')"
+    style="text-align: center; width: 135px;"
+    styleclass="Block">
+<b>CASE FILES</b>
+</apex:outputPanel>
+
+<apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+
+
+
+<!---------------------------------PRE-APP REPORT-------------------------->
+<!--
+<apex:outputPanel layout="block"
+    onclick="window.open('/00O1N000009JOWn?pv0={!m.Name}&pv1=Active&pv2=Case+File&pv3=Closed&pv4=Duplicate','_blank')"
+    style="text-align: center; width: 120px;"
+    styleclass="Block">
+Pre-App Report
+</apex:outputPanel>
+
+<apex:outputpanel layout="block" style="white-space: nowrap; background-color: white; float: left;" >&nbsp;</apex:outputpanel>
+-->
+
+
+<!-- LAST OUTPUT PANEL CLOSE -->
+</apex:outputPanel>
+<br/>
+<br/>
+</div>
+<!-- ---------------------------------------R VARIABLE ---------------- -->
+<apex:variable var="r" value="{!r+1}"/>
+
+</apex:repeat>
+
+
+
+</apex:page>

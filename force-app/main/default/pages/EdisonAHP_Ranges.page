@@ -1,0 +1,579 @@
+<apex:page controller="EdisonAHPranges" standardstylesheets="false" showheader="false">
+
+<!-- ---------------------STYLE VARIABLES-------------------------------------------------- -->
+<apex:variable id="goodGreen" var="goodGreen" value="#53e09d"/>
+<apex:variable id="darkGreen" var="darkGreen" value="rgb(0,113,107)"/>
+<apex:variable id="colorBlue" var="colorBlue" value="rgb(0, 101, 168)"/>
+<apex:variable id="colorLightBlue" var="colorLightBlue" value="#a4d9fc"/>
+
+<apex:variable var="TopHeader" value="rgb(0, 101, 168)"/>
+<apex:variable var="colorTH" value="#ececec"/>
+<apex:variable var="Eligible" value="#75f6ad"/>
+<apex:variable var="TooLow" value="#b7cad7"/>
+<apex:variable var="TooHigh" value="#cdadb8"/>
+
+<apex:variable var="tableWidth" value="100%"/>
+<apex:variable var="width1" value="15%"/>
+<apex:variable var="width2" value="60%"/>
+
+<apex:variable var="fontSizeHead" value="18pt"/>
+<apex:variable var="fontSizeHeading" value="15pt"/>
+<apex:variable var="fontSizeTH" value="10pt"/>
+<apex:variable var="fontSizeTD" value="8pt"/>
+<apex:variable var="fontSizeButton" value="14pt"/>
+
+<apex:variable var="buttonPadding" value="14px 20px 14px 20px"/>
+<!-- ------------------------------------------------------------------------------------- -->
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    table {border-collapse:collapse;}
+    .head {padding: 3px 3px 3px 3px; font-family:'Open Sans'; font-size:{!fontSizeHeading}; text-align:center; font-weight:bolder; background-color:{!TopHeader};color:white;}
+    th {padding: 3px 3px 3px 3px; font-family:'Open Sans'; font-size:{!fontSizeTH}; text-align:center; font-weight:bold; background-color:{!colorTH};}
+    td {padding: 3px 3px 3px 3px; font-family:'Open Sans'; font-size:{!fontSizeTD}; text-align:center;}
+    .topHead {font-weight: bold; font-size:{!fontSizeHead}; font-family:'Open Sans'; color:{!colorBlue};text-align:left;}
+    .Eligible {background-color:{!Eligible}; font-weight:bold;}
+    .TooLow {background-color:{!TooLow};}
+    .TooHigh {background-color:{!TooHigh};}
+    
+</style>
+
+<table>
+<tr>
+<td>
+<apex:image url="https://cms2.revize.com/revize/townshipofedison/_assets_/images/ftr-logo.png" height="60px"/>
+</td>
+<td class="topHead">
+The Township of Edison <br/>Affordable Homeownership Program
+</td>
+</tr>
+</table>
+<br/>
+
+<table border="1">
+    <tr>
+        <td colspan="6" class="head">1 Bedroom Property Eligibility Chart</td>
+    </tr>
+    <tr style="border-bottom:2px double black;">
+        <th width="{!width1}">LIST PRICE</th>
+        <th width="{!width1}">HOA $0</th>
+        <th width="{!width1}">HOA $100</th>
+        <th width="{!width1}">HOA $200</th>
+        <th width="{!width1}">HOA $300</th>
+        <th width="{!width1}">HOA $400</th>
+    </tr>
+    <tr>
+        <th>
+            {!B1L1}
+        </th>
+        <td class="{!CASE(B1R1C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R1C1}
+        </td>
+        <td class="{!CASE(B1R1C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R1C2}
+        </td>
+        <td class="{!CASE(B1R1C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R1C3}
+        </td>
+        <td class="{!CASE(B1R1C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R1C4}
+        </td>
+        <td class="{!CASE(B1R1C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R1C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B1L2}
+        </th>
+        <td class="{!CASE(B1R2C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R2C1}
+        </td>
+        <td class="{!CASE(B1R2C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R2C2}
+        </td>
+        <td class="{!CASE(B1R2C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R2C3}
+        </td>
+        <td class="{!CASE(B1R2C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R2C4}
+        </td>
+        <td class="{!CASE(B1R2C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R2C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B1L3}
+        </th>
+        <td class="{!CASE(B1R3C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R3C1}
+        </td>
+        <td class="{!CASE(B1R3C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R3C2}
+        </td>
+        <td class="{!CASE(B1R3C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R3C3}
+        </td>
+        <td class="{!CASE(B1R3C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R3C4}
+        </td>
+        <td class="{!CASE(B1R3C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R3C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B1L4}
+        </th>
+        <td class="{!CASE(B1R4C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R4C1}
+        </td>
+        <td class="{!CASE(B1R4C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R4C2}
+        </td>
+        <td class="{!CASE(B1R4C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R4C3}
+        </td>
+        <td class="{!CASE(B1R4C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R4C4}
+        </td>
+        <td class="{!CASE(B1R4C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R4C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B1L5}
+        </th>
+        <td class="{!CASE(B1R5C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R5C1}
+        </td>
+        <td class="{!CASE(B1R5C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R5C2}
+        </td>
+        <td class="{!CASE(B1R5C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R5C3}
+        </td>
+        <td class="{!CASE(B1R5C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R5C4}
+        </td>
+        <td class="{!CASE(B1R5C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B1R5C5}
+        </td>
+    </tr>
+</table>
+<br/>
+<br/>
+
+
+<table border="1">
+    <tr>
+        <td colspan="6" class="head">2 Bedroom Property Eligibility Chart</td>
+    </tr>
+    <tr style="border-bottom:2px double black;">
+        <th width="{!width1}">LIST PRICE</th>
+        <th width="{!width1}">HOA $0</th>
+        <th width="{!width1}">HOA $100</th>
+        <th width="{!width1}">HOA $200</th>
+        <th width="{!width1}">HOA $300</th>
+        <th width="{!width1}">HOA $400</th>
+    </tr>
+    <tr>
+        <th>
+            {!B2L1}
+        </th>
+        <td class="{!CASE(B2R1C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R1C1}
+        </td>
+        <td class="{!CASE(B2R1C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R1C2}
+        </td>
+        <td class="{!CASE(B2R1C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R1C3}
+        </td>
+        <td class="{!CASE(B2R1C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R1C4}
+        </td>
+        <td class="{!CASE(B2R1C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R1C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B2L2}
+        </th>
+        <td class="{!CASE(B2R2C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R2C1}
+        </td>
+        <td class="{!CASE(B2R2C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R2C2}
+        </td>
+        <td class="{!CASE(B2R2C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R2C3}
+        </td>
+        <td class="{!CASE(B2R2C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R2C4}
+        </td>
+        <td class="{!CASE(B2R2C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R2C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B2L3}
+        </th>
+        <td class="{!CASE(B2R3C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R3C1}
+        </td>
+        <td class="{!CASE(B2R3C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R3C2}
+        </td>
+        <td class="{!CASE(B2R3C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R3C3}
+        </td>
+        <td class="{!CASE(B2R3C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R3C4}
+        </td>
+        <td class="{!CASE(B2R3C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R3C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B2L4}
+        </th>
+        <td class="{!CASE(B2R4C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R4C1}
+        </td>
+        <td class="{!CASE(B2R4C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R4C2}
+        </td>
+        <td class="{!CASE(B2R4C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R4C3}
+        </td>
+        <td class="{!CASE(B2R4C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R4C4}
+        </td>
+        <td class="{!CASE(B2R4C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R4C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B2L5}
+        </th>
+        <td class="{!CASE(B2R5C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R5C1}
+        </td>
+        <td class="{!CASE(B2R5C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R5C2}
+        </td>
+        <td class="{!CASE(B2R5C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R5C3}
+        </td>
+        <td class="{!CASE(B2R5C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R5C4}
+        </td>
+        <td class="{!CASE(B2R5C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R5C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B2L6}
+        </th>
+        <td class="{!CASE(B2R6C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R6C1}
+        </td>
+        <td class="{!CASE(B2R6C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R6C2}
+        </td>
+        <td class="{!CASE(B2R6C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R6C3}
+        </td>
+        <td class="{!CASE(B2R6C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R6C4}
+        </td>
+        <td class="{!CASE(B2R6C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B2R6C5}
+        </td>
+    </tr>
+</table>
+<br/>
+<br/>
+
+
+<table border="1">
+    <tr>
+        <td colspan="6" class="head">3 Bedroom Property Eligibility Chart</td>
+    </tr>
+    <tr style="border-bottom:2px double black;">
+        <th width="{!width1}">LIST PRICE</th>
+        <th width="{!width1}">HOA $0</th>
+        <th width="{!width1}">HOA $100</th>
+        <th width="{!width1}">HOA $200</th>
+        <th width="{!width1}">HOA $300</th>
+        <th width="{!width1}">HOA $400</th>
+    </tr>
+    <tr>
+        <th>
+            {!B3L1}
+        </th>
+        <td class="{!CASE(B3R1C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R1C1}
+        </td>
+        <td class="{!CASE(B3R1C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R1C2}
+        </td>
+        <td class="{!CASE(B3R1C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R1C3}
+        </td>
+        <td class="{!CASE(B3R1C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R1C4}
+        </td>
+        <td class="{!CASE(B3R1C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R1C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B3L2}
+        </th>
+        <td class="{!CASE(B3R2C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R2C1}
+        </td>
+        <td class="{!CASE(B3R2C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R2C2}
+        </td>
+        <td class="{!CASE(B3R2C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R2C3}
+        </td>
+        <td class="{!CASE(B3R2C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R2C4}
+        </td>
+        <td class="{!CASE(B3R2C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R2C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B3L3}
+        </th>
+        <td class="{!CASE(B3R3C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R3C1}
+        </td>
+        <td class="{!CASE(B3R3C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R3C2}
+        </td>
+        <td class="{!CASE(B3R3C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R3C3}
+        </td>
+        <td class="{!CASE(B3R3C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R3C4}
+        </td>
+        <td class="{!CASE(B3R3C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R3C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B3L4}
+        </th>
+        <td class="{!CASE(B3R4C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R4C1}
+        </td>
+        <td class="{!CASE(B3R4C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R4C2}
+        </td>
+        <td class="{!CASE(B3R4C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R4C3}
+        </td>
+        <td class="{!CASE(B3R4C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R4C4}
+        </td>
+        <td class="{!CASE(B3R4C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R4C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B3L5}
+        </th>
+        <td class="{!CASE(B3R5C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R5C1}
+        </td>
+        <td class="{!CASE(B3R5C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R5C2}
+        </td>
+        <td class="{!CASE(B3R5C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R5C3}
+        </td>
+        <td class="{!CASE(B3R5C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R5C4}
+        </td>
+        <td class="{!CASE(B3R5C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R5C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B3L6}
+        </th>
+        <td class="{!CASE(B3R6C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R6C1}
+        </td>
+        <td class="{!CASE(B3R6C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R6C2}
+        </td>
+        <td class="{!CASE(B3R6C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R6C3}
+        </td>
+        <td class="{!CASE(B3R6C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R6C4}
+        </td>
+        <td class="{!CASE(B3R6C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B3R6C5}
+        </td>
+    </tr>
+</table>
+<br/>
+<br/>
+
+
+<table border="1">
+    <tr>
+        <td colspan="6" class="head">4 Bedroom Property Eligibility Chart</td>
+    </tr>
+    <tr style="border-bottom:2px double black;">
+        <th width="{!width1}">LIST PRICE</th>
+        <th width="{!width1}">HOA $0</th>
+        <th width="{!width1}">HOA $100</th>
+        <th width="{!width1}">HOA $200</th>
+        <th width="{!width1}">HOA $300</th>
+        <th width="{!width1}">HOA $400</th>
+    </tr>
+    <tr>
+        <th>
+            {!B4L1}
+        </th>
+        <td class="{!CASE(B4R1C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R1C1}
+        </td>
+        <td class="{!CASE(B4R1C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R1C2}
+        </td>
+        <td class="{!CASE(B4R1C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R1C3}
+        </td>
+        <td class="{!CASE(B4R1C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R1C4}
+        </td>
+        <td class="{!CASE(B4R1C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R1C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B4L2}
+        </th>
+        <td class="{!CASE(B4R2C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R2C1}
+        </td>
+        <td class="{!CASE(B4R2C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R2C2}
+        </td>
+        <td class="{!CASE(B4R2C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R2C3}
+        </td>
+        <td class="{!CASE(B4R2C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R2C4}
+        </td>
+        <td class="{!CASE(B4R2C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R2C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B4L3}
+        </th>
+        <td class="{!CASE(B4R3C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R3C1}
+        </td>
+        <td class="{!CASE(B4R3C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R3C2}
+        </td>
+        <td class="{!CASE(B4R3C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R3C3}
+        </td>
+        <td class="{!CASE(B4R3C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R3C4}
+        </td>
+        <td class="{!CASE(B4R3C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R3C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B4L4}
+        </th>
+        <td class="{!CASE(B4R4C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R4C1}
+        </td>
+        <td class="{!CASE(B4R4C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R4C2}
+        </td>
+        <td class="{!CASE(B4R4C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R4C3}
+        </td>
+        <td class="{!CASE(B4R4C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R4C4}
+        </td>
+        <td class="{!CASE(B4R4C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R4C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B4L5}
+        </th>
+        <td class="{!CASE(B4R5C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R5C1}
+        </td>
+        <td class="{!CASE(B4R5C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R5C2}
+        </td>
+        <td class="{!CASE(B4R5C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R5C3}
+        </td>
+        <td class="{!CASE(B4R5C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R5C4}
+        </td>
+        <td class="{!CASE(B4R5C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R5C5}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            {!B4L6}
+        </th>
+        <td class="{!CASE(B4R6C1,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R6C1}
+        </td>
+        <td class="{!CASE(B4R6C2,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R6C2}
+        </td>
+        <td class="{!CASE(B4R6C3,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R6C3}
+        </td>
+        <td class="{!CASE(B4R6C4,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R6C4}
+        </td>
+        <td class="{!CASE(B4R6C5,'TOO LOW','TooLow','TOO HIGH','TooHigh','Eligible')}">
+            {!B4R6C5}
+        </td>
+    </tr>
+</table>
+
+
+</apex:page>

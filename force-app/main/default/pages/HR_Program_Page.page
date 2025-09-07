@@ -1,0 +1,357 @@
+<apex:page standardcontroller="HR_Program__c" showHeader="false">
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat');
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+    body {
+        font-family: Roboto;
+        font-size: 1em;
+        }
+    h1 {
+        display: block;
+        font-family: Montserrat;
+        font-size: 2.5em;
+        margin-top: 0.5em;
+        margin-bottom: 0.83em;
+        margin-left: 0;
+        margin-right: 0;
+        }
+    h2 {
+        display: block;
+        font-family: Montserrat;
+        font-size: 1.5em;
+        margin-top: 1.5em;
+        margin-bottom: 0.67em;
+        margin-left: 0;
+        margin-right: 0;
+        }   
+    h3 {
+        display: block;
+        font-family: Montserrat;
+        font-size: 1em;
+        margin-top: 0.67em;
+        margin-bottom: 0.67em;
+        margin-left: 0;
+        margin-right: 0;
+        }
+    p {
+        line-height: 1.75em;
+        }
+    table {
+        border-collapse: collapse;
+        }
+    th {
+        text-align: center;
+        padding: 5px 5px 5px 5px;
+        }
+    td {
+        padding: 5px 5px 5px 5px;
+        }
+        
+    #pubY {
+        display: block;
+        font-family: Montserrat;
+        font-size: 1.5em;
+        color:GREEN;
+        text-align:center;
+        }
+    #pubN {
+        display: block;
+        font-family: Montserrat;
+        font-size: 1.5em;
+        color:RED;
+        text-align:center;
+        }
+    #bigTD {
+        width: 50%;
+        padding: 0px 20px 20px 20px;
+        vertical-align: top;
+        }
+    #empty {
+        color: red;
+        background-color: yellow;
+        }
+    #textOK {
+        color: blue;
+        font-weight: bold;
+        }
+    #HHS {
+        text-align: center;}
+    #Inc {
+        text-align: left;
+        padding-left:20px;
+        }
+        
+
+</style>
+
+<body>
+
+<table border="1"> <!-- split page in 2 -->
+<tr>
+<td id="bigTD">
+
+<!-- ----------------------------------------- -->
+<!--          ENGLISH PAGE                     -->
+<!-- ----------------------------------------- -->
+
+<span id="pubN" style="{!IF(HR_Program__c.HR_Website__c = false, '', 'display:none;')}">PROGRAM PAGE IS NOT PUBLIC ON WEBSITE</span>
+<span id="pubY" style="{!IF(HR_Program__c.HR_Website__c = true, '', 'display:none;')}">PROGRAM PAGE IS PUBLIC ON WEBSITE</span>
+
+<h1> {!HR_Program__c.Name} </h1>
+
+<a href="https://cgph--c.vf.force.com/flow/HR_Program_Add_Website_Defaults?varID={!HR_Program__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FHR_Program_Page%3Fid%3D{!HR_Program__c.Id}" target="_top">UPDATE WITH STANDARDS</a>
+
+
+<h2>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Web_Intro_Line__c)=true,'','display:none;')}">[WEB INTRO LINE]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Web_Intro_Line__c)=true,'display:none;','')}">{!HR_Program__c.Web_Intro_Line__c}</span>
+</h2>
+
+<h2>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Web_Invite_Line__c)=true,'','display:none;')}">[WEB INVITE LINE]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Web_Invite_Line__c)=true,'display:none;','')}">{!HR_Program__c.Web_Invite_Line__c}</span>
+</h2>
+
+<h2>You can receive up to
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Single_Family_Funding_Limit__c)=true,'','display:none;')}">[FUNDING LIMIT]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Single_Family_Funding_Limit__c)=true,'display:none;','')}"><apex:outputfield value="{!HR_Program__c.Single_Family_Funding_Limit__c}"/></span>
+in repairs!
+</h2>
+<br/>
+
+<h3> Eligible uses of the funds include replacement or repair to:</h3>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Web_Eligible_Uses__c)=true,'','display:none;')}">[WEB ELIGIBLE USES]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Web_Eligible_Uses__c)=true,'display:none;','')}"><apex:outputText escape="false" value="{!HR_Program__c.Web_Eligible_Uses__c}"/></span>
+
+<p>If you live in
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Municipality__c)=true,'','display:none;')}">[MUNICIPALITY]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Municipality__c)=true,'display:none;','')}">{!HR_Program__c.Municipality__r.Name}</span>,
+    own your home and your total gross annual household income falls below the income limit for your household size, you may qualify to participate in the Program.</p>
+
+<span id="empty" style="{!IF(ISBLANK(HR_Program__c.Income_Limits__c)=true,'','display:none;')}">[CURRENT INCOME LIMITS]</span>
+<table border="1" style="margin-left:50px;{!IF(ISBLANK(HR_Program__c.Income_Limits__c)=true,'display:none;','')}">
+    <tr>
+        <th>Household Size</th><th>Maximum Income</th></tr>
+    <tr>
+        <td id="HHS">1</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH1_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">2</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH2_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">3</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH3_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">4</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH4_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">5</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH5_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">6</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH6_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">7</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH7_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">8</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH8_Moderate__c}"/></span></td>
+    </tr>
+</table>
+<br/>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Web_Highlights__c)=true,'','display:none;')}">[WEB HIGHLIGHTS]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Web_Highlights__c)=true,'display:none;','')}"><apex:outputText escape="false" value="{!HR_Program__c.Web_Highlights__c}" /></span>
+
+
+    <span id="empty" style="color: #d9dbdb;{!IF(ISBLANK(HR_Program__c.Program_Handout_URL__c)=true,'','display:none;')}">
+        <h2> Homeowner Handout (HIDDEN)</h2>
+    </span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Program_Handout_URL__c)=true,'display:none;','')}">
+        <h2> Homeowner Handout </h2>
+        <a href="{!HR_Program__c.Program_Handout_URL__c}" target="_blank" id="textOK">
+            <h3>For more program information, click here to read the Program Information Handout.</h3>
+        </a>
+        <br/>
+    </span>
+
+
+<h2>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Web_Call_To_Action__c)=true,'','display:none;')}">[WEB CALL TO ACTION]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Web_Call_To_Action__c)=true,'display:none;','')}">{!HR_Program__c.Web_Call_To_Action__c}</span>
+</h2>
+
+<p>
+    Submit an easy one page pre-application from the top bar of this website’s home page.  If you have additional questions, please contact the Program Administrator, Community Grants Planning &amp; Housing at
+        
+            
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Current_Case_Manager__c)=true,'','display:none;')}">[PRIMARY STAFF MEMBER PHONE]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Current_Case_Manager__c)=true,'display:none;','')}">{!HR_Program__c.Primary_Staff_Phone__c}</span>
+    or email
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Current_Case_Manager__c)=true,'','display:none;')}">[PRIMARY STAFF MEMBER EMAIL]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Current_Case_Manager__c)=true,'display:none;','')}">{!HR_Program__c.Primary_Staff_Email__c}</span>   
+    .
+</p>
+
+<br/>
+
+<h3>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Web_Rental_Line__c)=true,'','display:none;')}">[RENTAL LINE]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Web_Rental_Line__c)=true,'display:none;','')}">{!HR_Program__c.Web_Rental_Line__c}</span>
+</h3>
+<br/>
+
+<h3>
+    The Home Improvement Program is sponsored by the
+        <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Municipality__c)=true,'','display:none;')}">[MUNICIPALITY]</span>
+        <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Municipality__c)=true,'display:none;','')}">{!HR_Program__c.Muni_Official_Name__c}.</span>
+</h3>
+
+</td>
+
+
+
+
+
+
+
+<!-- ----------------------------------------- -->
+<!--          SPANISH PAGE                     -->
+<!-- ----------------------------------------- -->
+
+<td id="bigTD">
+<span id="pubN" style="{!IF(HR_Program__c.HR_Website__c = false, '', 'display:none;')}">PROGRAM PAGE IS NOT PUBLIC ON WEBSITE</span>
+<span id="pubY" style="{!IF(HR_Program__c.HR_Website__c = true, '', 'display:none;')}">PROGRAM PAGE IS PUBLIC ON WEBSITE</span>
+
+<h1> {!HR_Program__c.Spanish_Program_Name__c} </h1>
+
+<a href="https://cgph--c.vf.force.com/flow/HR_Program_Add_Website_Defaults_Spanish?varID={!HR_Program__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FHR_Program_Page%3Fid%3D{!HR_Program__c.Id}" target="_top">UPDATE WITH SPANISH STANDARDS</a>
+
+
+
+<h2>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Intro_Line__c)=true,'','display:none;')}">[SPANISH WEB INTRO LINE]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Intro_Line__c)=true,'display:none;','')}">{!HR_Program__c.Spanish_Web_Intro_Line__c}</span>
+</h2>
+
+<h2>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Invite_Line__c)=true,'','display:none;')}">[SPANISH WEB INVITE LINE]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Invite_Line__c)=true,'display:none;','')}">{!HR_Program__c.Spanish_Web_Invite_Line__c}</span>
+</h2>
+
+<h2>¡Puede recibir hasta
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Single_Family_Funding_Limit__c)=true,'','display:none;')}">[FUNDING LIMIT]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Single_Family_Funding_Limit__c)=true,'display:none;','')}"><apex:outputfield value="{!HR_Program__c.Single_Family_Funding_Limit__c}"/></span>
+en reparaciones!
+</h2>
+<br/>
+
+<h3> Usos elegibles de los fondos incluyen:</h3>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Eligible_Uses__c)=true,'','display:none;')}">[SPANISH WEB ELIGIBLE USES]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Eligible_Uses__c)=true,'display:none;','')}"><apex:outputText escape="false" value="{!HR_Program__c.Spanish_Web_Eligible_Uses__c}"/></span>
+
+<p>Si vive en
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Municipality__c)=true,'','display:none;')}">[MUNICIPALITY]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Municipality__c)=true,'display:none;','')}">{!HR_Program__c.Municipality__r.Name}</span>,
+    es dueño de su casa y su ingreso familiar anual bruto total está por debajo del límite de ingresos para el tamaño de su hogar, puede calificar para participar en el programa.
+</p>
+
+<span id="empty" style="{!IF(ISBLANK(HR_Program__c.Income_Limits__c)=true,'','display:none;')}">[CURRENT INCOME LIMITS]</span>
+<table border="1" style="margin-left:50px;{!IF(ISBLANK(HR_Program__c.Income_Limits__c)=true,'display:none;','')}">
+    <tr>
+        <th>Tamaño del hogar</th><th>Ingreso Máximo</th></tr>
+    <tr>
+        <td id="HHS">1</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH1_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">2</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH2_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">3</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH3_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">4</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH4_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">5</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH5_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">6</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH6_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">7</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH7_Moderate__c}"/></span></td>
+    </tr>
+    <tr>
+        <td id="HHS">8</td>
+        <td id="Inc"><span id="textOK"><apex:outputfield value="{!HR_Program__c.Income_Limits__r.HH8_Moderate__c}"/></span></td>
+    </tr>
+</table>
+<br/>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Highlights__c)=true,'','display:none;')}">[SPANISH WEB HIGHLIGHTS]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Highlights__c)=true,'display:none;','')}"><apex:outputText escape="false" value="{!HR_Program__c.Spanish_Web_Highlights__c}" /></span>
+
+
+    <span id="empty" style="color: #d9dbdb;{!IF(ISBLANK(HR_Program__c.Spanish_Program_Handout_URL__c)=true,'','display:none;')}">
+        <h2> Homeowner Handout (SPANISH HIDDEN)</h2>
+    </span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Spanish_Program_Handout_URL__c)=true,'display:none;','')}">
+        <h2> Homeowner Handout </h2>
+        <a href="{!HR_Program__c.Spanish_Program_Handout_URL__c}" target="_blank" id="textOK">
+            <h3>For more program information, click here to read the Program Information Handout.</h3>
+        </a>
+        <br/>
+    </span>
+
+
+<h2>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Call_To_Action__c)=true,'','display:none;')}">[SPANISH WEB CALL TO ACTION]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Call_To_Action__c)=true,'display:none;','')}">{!HR_Program__c.Spanish_Web_Call_To_Action__c}</span>
+</h2>
+
+<p>
+    Llene la Pre-Solicitud en la barra superior (oprima el enlace: Pre-Application). De tener preguntas o si no tiene acceso al internet, puede llamar al representante del programa al 
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Current_Case_Manager__c)=true,'','display:none;')}">[PRIMARY STAFF MEMBER PHONE]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Current_Case_Manager__c)=true,'display:none;','')}">{!HR_Program__c.Primary_Staff_Phone__c}</span>
+    o envíe un correo electrónico a
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Current_Case_Manager__c)=true,'','display:none;')}">[PRIMARY STAFF MEMBER EMAIL]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Current_Case_Manager__c)=true,'display:none;','')}">{!HR_Program__c.Primary_Staff_Email__c}</span>,
+    para ayuda. 
+</p>
+
+<br/>
+
+<h3>
+    <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Rental_Line__c)=true,'','display:none;')}">[SPANISH RENTAL LINE]</span>
+    <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Spanish_Web_Rental_Line__c)=true,'display:none;','')}">{!HR_Program__c.Spanish_Web_Rental_Line__c}</span>
+</h3>
+<br/>
+
+<h3>
+    Este programa está patrocinado por  
+        <span id="empty" style="{!IF(ISBLANK(HR_Program__c.Municipality__c)=true,'','display:none;')}">[MUNICIPALITY]</span>
+        <span id="textOK" style="{!IF(ISBLANK(HR_Program__c.Municipality__c)=true,'display:none;','')}">{!HR_Program__c.Municipality__r.Name}.</span>
+</h3>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+
+
+</apex:page>

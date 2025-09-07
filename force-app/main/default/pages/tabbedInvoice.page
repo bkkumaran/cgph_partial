@@ -1,0 +1,44 @@
+<apex:page standardController="Contract" showHeader="true" sidebar="false">
+<head>
+<apex:stylesheet value="{!$Resource.customCSS}" />
+</head>
+    <style>
+        .activeTab {background-color: rgb(44, 73, 129); color:white;background-image:none; font-size: 12pt; font-family: 'Open Sans'; font-weight: bold}
+        .inactiveTab { background-color: rgb(234, 238, 247); color:black; background-image:none; font-size: 12pt; font-family: 'Open Sans'; font-weight: normal}
+    </style>
+    <apex:tabPanel switchType="client" selectedTab="tabdetails" id="ContractTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+
+        <apex:tab label="Contract" name="ContDetails" id="tabdetails">
+            <h1> CONTRACT = {!Contract.Name} </h1>
+            <div style="font-size: 10pt; font-family: 'Open Sans'; font-weight: normal;">
+            <apex:detail subject="{!Contract.ID}" relatedList="false" title="true" inlineEdit="true"/>
+                </div>
+        </apex:tab>
+        
+        <apex:tab label="Account" name="Account" id="tabAcct">
+                    <h1> ACCOUNT = {!Contract.Account.Name} </h1>
+            <div style="font-size: 10pt; font-family: 'Open Sans'; font-weight: normal;">
+            <apex:detail subject="{!Contract.Account.Id}" relatedList="true" title="false" inlineEdit="true"/>
+                </div>
+        </apex:tab>
+        
+        <apex:tab label="Invoices" name="Invoices" id="tabOpps">
+            <h2> Total Billed Invoices = ${!Contract.Total_Billed_Invoices__c}</h2><br />
+            <h2> Total Paid Invoices = ${!Contract.Total_Paid_Invoices__c}</h2><br />
+            <h2> Total Unpaid Invoices = ${!Contract.Total_Unpaid_Invoices__c}</h2><br />
+            <h2> Invoice to Check Average = {!Contract.Invoice_to_Check_Average__c}</h2><br />
+            <h2>.</h2>
+            
+            <div style="font-size: 10pt; font-family: 'Open Sans'; font-weight: normal;">
+            <apex:relatedList subject="{!Contract}" list="Invoices__r" />
+            </div>
+        </apex:tab>
+    
+        <apex:tab label="Notes and Attachments" name="NotesAndAttachments" id="tabNoteAtt">
+            <div style="font-size: 10pt; font-family: 'Open Sans'; font-weight: normal;">
+            <apex:relatedList subject="{!Contract}" list="CombinedAttachments" />
+             </div>
+        </apex:tab>
+
+    </apex:tabPanel>
+</apex:page>

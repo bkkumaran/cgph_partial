@@ -1,0 +1,43 @@
+<apex:page controller="getApp" tabStyle="HOMEtracker__Service_File__c" showHeader="false" sidebar="false">
+
+<style>
+    #txt {font-size: 15pt; line-height: 2; padding-left: 20px;}
+</style>
+
+<div id="txt">
+Oldest App Not Processed <br/>
+<apex:outputText style="" value="{0, date, M'/'d'/'YYYY}">
+<apex:param value="{!SF[0].PHA__Application_Submitted__c}" />
+</apex:outputText>
+{!TODAY() - SF[0].PHA__Application_Submitted__c} days ago
+</div>
+<br/>
+<br/>
+
+<div id="txt">
+Apps Ready for Review Last Week <br/>
+{!LWplus.size} <br/>
+
+Apps Completed Last Week <br/>
+ {!LWminus.size} <br/>
+
+Reduction in Backlog <br/>
+{!0-(LWplus.size - LWminus.size)}
+ <br/>
+ 
+Remaining Backlog <br/>
+
+ </div>
+
+<!--
+<analytics:reportChart reportId="00O3m000005Mtuq" size="small" showRefreshButton="true" rendered="false"/>
+
+ <apex:pageBlock >
+        <apex:pageBlockTable value="{!SF}" var="x">     
+            <apex:column value="{!x.Id}"/>
+            <apex:column value="{!x.Name}"/>
+            <apex:column value="{!x.PHA__Application_Submitted__c}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    -->
+</apex:page>

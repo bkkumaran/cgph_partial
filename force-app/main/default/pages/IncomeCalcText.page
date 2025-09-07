@@ -1,0 +1,5 @@
+<apex:page sidebar="false" showheader="false">
+    <flow:interview name="IncomeCalc" finishLocation="{!URLFOR('/a0N1N00000GxhFk')}">
+        <apex:param value="a0N1N00000GxhFk" name="SFID" />
+    </flow:interview>
+</apex:page>

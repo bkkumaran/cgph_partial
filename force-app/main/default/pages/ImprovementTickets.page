@@ -1,0 +1,117 @@
+<apex:page standardcontroller="Case" extensions="ImpTickExt">
+<apex:variable var="Button" value="white-space: nowrap; text-decoration:none; font-size: 15pt; font-family: 'Open Sans'; border-top: 2px solid #CCCCCC; border-left: 2px solid #CCCCCC; border-right: 2px solid #333333; border-bottom: 2px solid #333333; border-radius: 5px; padding: 2px 6px 2px 6px;"/>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.bigHeader { font-family: 'Open Sans'; font-size: 17pt; font-weight: bold; color: rgb(0, 101, 168); text-decoration:none}
+.medHeader { font-family: 'Open Sans'; font-size: 12pt; font-weight: bold; color: rgb(0, 101, 168); text-align: right; }
+.column { font-family: 'Open Sans' !important; font-size: 10pt !important; }
+.columnS { font-family: 'Open Sans' !important; font-size: 9pt !important; }
+#b {{!Button} background-color: rgb(37,113,170); color: white; font-weight: bold; text-align:center;}
+#bb {{!Button} background-color: rgb(240,240,240); color: rgb(37,113,170); font-weight: bold; text-align:center;}
+</style>
+
+<apex:variable var="color1" value="rgb(247, 255, 248)" />
+<apex:variable var="color2" value="rgb(232, 247, 255)" />
+<apex:variable var="color3" value="rgb(239, 232, 255)" />
+<apex:variable var="color4" value="rgb(255, 235, 240)" />
+<apex:variable var="color5" value="rgb(255, 255, 138)" />
+<apex:variable var="TextColor" value="rgb(37,113,170)" />
+<apex:variable var="Header" value="{!CASE(getX,'1','1 (Small/Quick)','2','2 (Moderate)','3','3 (Big Project)','4','4 (Massive)','TICKETS')}" />
+
+<table>
+<tr>
+<td>
+<apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />
+</td>
+<td>
+<div style="font-size: 30pt; color: {!TextColor}; font-family: 'Open Sans'; font-weight: bold; padding: 0px 0px 0px 100px;">
+Improvement Tickets <br/>
+</div>
+<div style="font-size: 20pt; color: {!TextColor}; font-family: 'Open Sans'; font-weight: bold; padding: 0px 0px 0px 100px;">
+Project Size: 
+<a id="{!IF(getX='1','b','bb')}" target="_top" href="/apex/ImprovementTickets?x=1">1</a>
+<a id="{!IF(getX='2','b','bb')}" target="_top" href="/apex/ImprovementTickets?x=2">2</a>
+<a id="{!IF(getX='3','b','bb')}" target="_top" href="/apex/ImprovementTickets?x=3">3</a>
+<a id="{!IF(getX='4','b','bb')}" target="_top" href="/apex/ImprovementTickets?x=4">4</a>
+<a id="{!IF(getX='5','b','bb')}" target="_top" href="/apex/ImprovementTickets?x=5">ALL</a>
+</div>   
+</td>
+</tr>
+</table>
+<br/>
+<br/>
+
+<apex:form >
+<apex:pageBlock >
+
+<apex:outputpanel styleclass="medHeader"> {!Header} </apex:outputpanel>
+<div style="font-size: 6pt"> <br /> </div>
+<apex:pageblocktable styleclass="column" id="table" var="a" value="{!CASE(getX,'1',listX,'2',listX,'3',listX,'4',listX,listAll)}">
+
+<apex:column width="20" styleClass="column" style="">
+<apex:facet name="header"> </apex:facet>                    
+<apex:outputPanel onClick="window.open('/{!a.Id}',target='_blank')" >
+<apex:image url="{!$Resource.blueFileIcon}" width="15px" />
+</apex:outputPanel>
+</apex:column>
+
+<apex:column headerValue="Subject" styleclass="column" width="200">
+<apex:actionRegion >
+<apex:outputField value="{!a.Subject}">
+<apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Priority" styleclass="column" width="200">
+<apex:actionRegion >
+<apex:outputField value="{!a.Priority}">
+<apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+
+<apex:column headerValue="Order Number" width="75" style="{!IF(ISBLANK(a.Priority_Num__c),'background-color: yellow;','')}">
+<apex:actionRegion >
+<apex:outputField value="{!a.Priority_Num__c}">
+<apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Project Size" styleclass="column" width="200">
+<apex:actionRegion >
+<apex:outputField value="{!a.Project_Size__c}">
+<apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+<apex:column headerValue="Action Taken" styleclass="column" width="200">
+<apex:actionRegion >
+<apex:outputField value="{!a.Action_Taken__c}">
+<apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+
+<apex:column headerValue="Action Notes" styleclass="column" width="200">
+<apex:actionRegion >
+<apex:outputField value="{!a.Action_Notes__c}">
+<apex:inlineEditSupport event="onDblClick" showOnEdit="Save,Cancel" />
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column>
+
+</apex:pageblocktable>
+<apex:pageBlockButtons location="bottom" styleClass="column"> 
+<apex:commandButton value="Save" action="{!save}" id="Save" style="display: none;" />
+<apex:commandButton value="Cancel" id="Cancel" immediate="true" style="display: none;"/>
+</apex:pageBlockButtons> 
+</apex:pageBlock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,994 @@
+/* rentalApplicantTrackerMockup.css */
+
+/* Property Section Styling */
+.property-section {
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    background-color: #fafafa;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.property-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.property-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Section Headers */
+.section-header {
+    background-color: #f3f2f2;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px 8px;
+    border: 1px solid #d8dde6;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Background Colors for Different Sections */
+.filled-cgph {
+    background-color: #e8f4fd;
+}
+
+.filled-landlord {
+    background-color: #ffeaa7;
+}
+
+/* Column Headers */
+.column-header {
+    background-color: #fafaf9;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px 8px;
+    border: 1px solid #d8dde6;
+    font-size: 11px;
+    white-space: normal;
+    line-height: 1.2;
+}
+
+/* Table Container with improved scrolling */
+.table-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 80vh;
+    min-height: 500px;
+    border: 1px solid #d8dde6;
+    border-radius: 0 0 6px 6px;
+    background-color: white;
+    width: 100%;
+    position: relative;
+}
+
+/* Custom scrollbar for webkit browsers - Enhanced visibility */
+.table-container::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #6c757d;
+    border-radius: 8px;
+    border: 2px solid #f8f9fa;
+    min-height: 30px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #495057;
+}
+
+.table-container::-webkit-scrollbar-thumb:active {
+    background: #343a40;
+}
+
+.table-container::-webkit-scrollbar-corner {
+    background: #f8f9fa;
+}
+
+.table-container table {
+    min-width: 2800px;
+    width: max-content;
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Improved Email Field Width */
+.editable-field-email {
+    width: 100%;
+    min-width: 180px;
+}
+
+.editable-field-email .slds-input {
+    border: 2px solid #d8dde6 !important;
+    padding: 6px 12px;
+    font-size: 12px;
+    min-height: 32px;
+    width: 100%;
+    min-width: 180px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+/* Improved Name Field Width - Single line with proper borders */
+.editable-field-wide {
+    width: 100%;
+    min-width: 200px;
+}
+
+.editable-field-wide .slds-input {
+    border: 2px solid #d8dde6 !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    min-height: 32px !important;
+    width: 100% !important;
+    min-width: 200px !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Number of People in Household Field */
+.editable-field-household {
+    width: 100%;
+    min-width: 80px;
+}
+
+.editable-field-household .slds-input {
+    border: 2px solid #d8dde6 !important;
+    padding: 6px 12px;
+    font-size: 12px;
+    min-height: 32px;
+    width: 100%;
+    min-width: 80px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.editable-field-phone {
+    width: 100%;
+    min-width: 150px;
+}
+
+.editable-field-phone .slds-input {
+    border: 2px solid #d8dde6 !important;
+    padding: 6px 12px;
+    font-size: 12px;
+    min-height: 32px;
+    width: 100%;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.editable-field-standard {
+    width: 100%;
+    min-width: 120px;
+}
+
+.editable-field-standard .slds-combobox,
+.editable-field-standard .slds-input,
+.editable-field-standard .slds-select {
+    border: 2px solid #d8dde6 !important;
+    padding: 6px 12px;
+    font-size: 12px;
+    min-height: 32px;
+    width: 100%;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.editable-field-date {
+    width: 100%;
+    min-width: 150px;
+}
+
+.editable-field-date .slds-input {
+    border: 2px solid #d8dde6 !important;
+    padding: 6px 12px;
+    font-size: 12px;
+    min-height: 32px;
+    width: 100%;
+    min-width: 150px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.editable-field-narrow {
+    width: 100%;
+    min-width: 80px;
+}
+
+.editable-field-narrow .slds-input {
+    border: 1px solid #d8dde6;
+    padding: 6px 12px;
+    font-size: 12px;
+    min-height: 32px;
+    width: 100%;
+}
+
+.editable-field-notes {
+    width: 100%;
+    min-width: 80px;
+}
+
+.editable-field-notes .slds-textarea {
+    border: 2px solid #d8dde6 !important;
+    padding: 6px 12px;
+    font-size: 12px;
+    min-height: 60px;
+    width: 100%;
+    resize: vertical;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.editable-field-checkbox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 110px;
+    border: 2px solid #d8dde6 !important;
+    background-color: white !important;
+    padding: 6px 12px !important;
+    min-height: 32px !important;
+    box-sizing: border-box !important;
+    border-top: 2px solid #d8dde6 !important;
+    border-bottom: 2px solid #d8dde6 !important;
+    border-left: 2px solid #d8dde6 !important;
+    border-right: 2px solid #d8dde6 !important;
+}
+
+.editable-field-checkbox .slds-checkbox {
+    transform: scale(1.2);
+}
+
+.editable-field-checkbox .slds-form-element__control,
+.editable-field-checkbox lightning-input,
+.editable-field-checkbox * {
+    border: none !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+}
+
+/* Focus states for all editable fields */
+.editable-field-wide .slds-input:focus,
+.editable-field-email .slds-input:focus,
+.editable-field-phone .slds-input:focus,
+.editable-field-household .slds-input:focus,
+.editable-field-standard .slds-input:focus,
+.editable-field-standard .slds-combobox:focus,
+.editable-field-standard .slds-select:focus,
+.editable-field-date .slds-input:focus,
+.editable-field-narrow .slds-input:focus,
+.editable-field-notes .slds-textarea:focus,
+.editable-field-checkbox:focus {
+    border-color: #0176d3 !important;
+    box-shadow: 0 0 3px rgba(1, 118, 211, 0.3) !important;
+}
+
+/* All Input Fields - Unified Border Styling */
+.editable-field-wide .slds-input,
+.editable-field-email .slds-input,
+.editable-field-phone .slds-input,
+.editable-field-household .slds-input,
+.editable-field-standard .slds-input,
+.editable-field-standard .slds-combobox,
+.editable-field-standard .slds-select,
+.editable-field-date .slds-input,
+.editable-field-narrow .slds-input,
+.editable-field-notes .slds-textarea {
+    border: 2px solid #d8dde6 !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    min-height: 32px !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+
+/* Specific field adjustments */
+.editable-field-wide .slds-input {
+    min-height: 40px !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.3 !important;
+}
+
+/* Sticky table headers for better navigation */
+.editable-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: white;
+}
+
+.editable-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: inherit;
+    z-index: 11;
+}
+
+/* Section headers sticky positioning */
+.section-header {
+    position: sticky;
+    top: 0;
+    z-index: 12;
+    background-color: inherit;
+}
+
+/* Column headers sticky positioning - ensure always visible */
+.column-header {
+    position: sticky;
+    top: 41px; /* Height of section header */
+    z-index: 11;
+    background-color: #fafaf9 !important; /* Ensure background color is set */
+}
+
+/* Ensure flag column header stays visible */
+.editable-table th:nth-child(1).column-header {
+    position: sticky;
+    top: 41px;
+    z-index: 15; /* Higher z-index for flag column */
+    background-color: #fafaf9 !important;
+}
+
+/* Improved column widths for better data visibility */
+.editable-table th:nth-child(1) { 
+    min-width: 80px !important; 
+    width: 80px !important;
+    max-width: 80px !important;
+    text-align: center !important;
+    border: 2px solid #d8dde6 !important;
+    white-space: nowrap !important; /* Prevent text wrapping */
+} /* Flag column */
+
+.editable-table th:nth-child(2) { 
+    min-width: 130px; 
+    width: 130px;
+    border: 2px solid #d8dde6 !important; 
+} /* Status */
+
+.editable-table th:nth-child(3) { 
+    min-width: 100px; 
+    width: 100px;
+    border: 2px solid #d8dde6 !important; 
+} /* Unit */
+
+.editable-table th:nth-child(4) { 
+    min-width: 110px; 
+    width: 110px;
+    border: 2px solid #d8dde6 !important; 
+} /* Priority */
+
+.editable-table th:nth-child(5) { 
+    min-width: 200px; 
+    width: 200px;
+    max-width: 250px;
+    border: 2px solid #d8dde6 !important; 
+} /* Applicant Name */
+
+.editable-table th:nth-child(6) { 
+    min-width: 90px; 
+    width: 90px;
+    border: 2px solid #d8dde6 !important; 
+} /* Number of People in Household */
+
+.editable-table th:nth-child(7) { 
+    min-width: 200px; 
+    width: 200px;
+    max-width: 250px;
+    border: 2px solid #d8dde6 !important; 
+} /* Email */
+
+.editable-table th:nth-child(8) { 
+    min-width: 160px; 
+    width: 160px;
+    border: 2px solid #d8dde6 !important; 
+} /* Phone */
+
+.editable-table th:nth-child(9) { 
+    min-width: 150px; 
+    width: 150px;
+    border: 2px solid #d8dde6 !important; 
+} /* Date CGPH Added */
+
+.editable-table th:nth-child(10) { 
+    min-width: 150px; 
+    width: 150px;
+    border: 2px solid #d8dde6 !important; 
+} /* Date Marked Primary */
+
+.editable-table th:nth-child(11) { 
+    min-width: 140px; 
+    width: 140px;
+    border: 2px solid #d8dde6 !important; 
+} /* Approval/Denial */
+
+.editable-table th:nth-child(12) { 
+    min-width: 150px; 
+    width: 150px;
+    border: 2px solid #d8dde6 !important; 
+} /* Approve/Deny Date */
+
+.editable-table th:nth-child(13) { 
+    min-width: 120px; 
+    width: 120px;
+    border: 2px solid #d8dde6 !important; 
+} /* Notes */
+
+.editable-table th:nth-child(14) { 
+    min-width: 130px; 
+    width: 130px;
+    border: 2px solid #d8dde6 !important; 
+} /* Approved for Full Review */
+
+.editable-table th:nth-child(15) { 
+    min-width: 160px; 
+    width: 160px;
+    border: 2px solid #d8dde6 !important; 
+} /* Full Review CGPH Began */
+
+.editable-table th:nth-child(16) { 
+    min-width: 140px; 
+    width: 140px;
+    border: 2px solid #d8dde6 !important; 
+} /* CGPH Determination */
+
+.editable-table th:nth-child(17) { 
+    min-width: 160px; 
+    width: 160px;
+    border: 2px solid #d8dde6 !important; 
+} /* Date of Determination */
+
+/* Corresponding TD widths - Match TH widths exactly */
+.editable-table td:nth-child(1) { 
+    min-width: 80px !important; 
+    width: 80px !important;
+    max-width: 80px !important;
+    text-align: center !important;
+    border: 2px solid #d8dde6 !important; 
+} /* Flag column */
+
+.editable-table td:nth-child(2) { 
+    min-width: 130px; 
+    width: 130px;
+    border: 2px solid #d8dde6 !important; 
+} /* Status */
+
+.editable-table td:nth-child(3) { 
+    min-width: 100px; 
+    width: 100px;
+    border: 2px solid #d8dde6 !important; 
+} /* Unit */
+
+.editable-table td:nth-child(4) { 
+    min-width: 110px; 
+    width: 110px;
+    border: 2px solid #d8dde6 !important; 
+} /* Priority */
+
+.editable-table td:nth-child(5) { 
+    min-width: 200px; 
+    width: 200px;
+    max-width: 250px;
+    border: 2px solid #d8dde6 !important; 
+} /* Applicant Name */
+
+.editable-table td:nth-child(6) { 
+    min-width: 90px; 
+    width: 90px;
+    border: 2px solid #d8dde6 !important; 
+} /* Number of People in Household */
+
+.editable-table td:nth-child(7) { 
+    min-width: 200px; 
+    width: 200px;
+    max-width: 250px;
+    border: 2px solid #d8dde6 !important; 
+} /* Email */
+
+.editable-table td:nth-child(8) { 
+    min-width: 160px; 
+    width: 160px;
+    border: 2px solid #d8dde6 !important; 
+} /* Phone */
+
+.editable-table td:nth-child(9) { 
+    min-width: 150px; 
+    width: 150px;
+    border: 2px solid #d8dde6 !important; 
+} /* Date CGPH Added */
+
+.editable-table td:nth-child(10) { 
+    min-width: 150px; 
+    width: 150px;
+    border: 2px solid #d8dde6 !important; 
+} /* Date Marked Primary */
+
+.editable-table td:nth-child(11) { 
+    min-width: 140px; 
+    width: 140px;
+    border: 2px solid #d8dde6 !important; 
+} /* Approval/Denial */
+
+.editable-table td:nth-child(12) { 
+    min-width: 150px; 
+    width: 150px;
+    border: 2px solid #d8dde6 !important; 
+} /* Approve/Deny Date */
+
+.editable-table td:nth-child(13) { 
+    min-width: 120px; 
+    width: 120px;
+    border: 2px solid #d8dde6 !important; 
+} /* Notes */
+
+.editable-table td:nth-child(14) { 
+    min-width: 130px; 
+    width: 130px;
+    border: 2px solid #d8dde6 !important; 
+} /* Approved for Full Review */
+
+.editable-table td:nth-child(15) { 
+    min-width: 160px; 
+    width: 160px;
+    border: 2px solid #d8dde6 !important; 
+} /* Full Review CGPH Began */
+
+.editable-table td:nth-child(16) { 
+    min-width: 140px; 
+    width: 140px;
+    border: 2px solid #d8dde6 !important; 
+} /* CGPH Determination */
+
+.editable-table td:nth-child(17) { 
+    min-width: 160px; 
+    width: 160px;
+    border: 2px solid #d8dde6 !important; 
+} /* Date of Determination */
+
+/* Scroll indicators */
+.table-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.table-container:not([scrollLeft="0"])::before {
+    opacity: 1;
+}
+
+.table-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Table Cells - Enhanced for better data visibility */
+.editable-table td {
+    padding: 6px 8px;
+    vertical-align: middle;
+    border: 1px solid #d8dde6;
+    background-color: white;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.3;
+}
+
+/* Ensure text content doesn't overflow */
+.editable-table td div,
+.editable-table td span {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+}
+
+/* Special handling for long text fields */
+.editable-table td:nth-child(1),  /* Unit Type */
+.editable-table td:nth-child(5),  /* Applicant Name */
+.editable-table td:nth-child(7)   /* Email */
+{
+    word-break: break-word;
+    white-space: normal;
+}
+
+/* Dynamic Row Background Colors based on Tracker_Status__c and Landlord_Developer_Determination__c */
+
+/* PRIMARY STATUS COMBINATIONS */
+.status-primary {
+    background-color: #b7e1cd !important; /* Green for Primary */
+}
+
+.status-primary td {
+    background-color: #b7e1cd !important;
+}
+
+.status-primary-approved {
+    background-color: #b7e1cd !important; /* Green for Primary + Approved */
+    font-weight: bold !important;
+    color: blue !important;
+}
+
+.status-primary-approved td {
+    background-color: #b7e1cd !important;
+}
+
+/* BACKUP STATUS COMBINATIONS */
+.status-backup {
+    background-color: #ffeebc !important; /* Yellow for Backup */
+}
+
+.status-backup td {
+    background-color: #ffeebc !important;
+}
+
+.status-backup-approved {
+    background-color: #ffb75d !important; /* Orange warning for Backup + Approved (mismatch) */
+    font-weight: bold !important;
+    color: blue !important;
+}
+
+.status-backup-approved td {
+    background-color: #ffb75d !important;
+}
+
+/* HIDDEN STATUS COMBINATIONS */
+.status-hidden {
+    background-color: #e0dce6 !important; /* Gray for Hidden */
+}
+
+.status-hidden td {
+    background-color: #e0dce6 !important;
+}
+
+.status-hidden-approved {
+    background-color: #e0dce6 !important; /* Gray for Hidden + Approved */
+    font-weight: bold !important;
+    color: blue !important;
+}
+
+.status-hidden-approved td {
+    background-color: #e0dce6 !important;
+}
+
+/* FLAGGED STATUS COMBINATIONS */
+.status-flagged {
+    background-color: #ffb75d !important; /* Orange for Flagged */
+    font-weight: bold !important;
+}
+
+.status-flagged td {
+    background-color: #ffb75d !important;
+}
+
+.status-flagged-approved {
+    background-color: #ffb75d !important; /* Orange for Flagged + Approved */
+    font-weight: bold !important;
+    color: blue !important;
+}
+
+.status-flagged-approved td {
+    background-color: #ffb75d !important;
+}
+
+/* REMOVED STATUS COMBINATIONS */
+.status-removed {
+    background-color: #FF00FF !important; /* Magenta for Removed */
+    font-weight: bold !important;
+    color: white !important;
+}
+
+.status-removed td {
+    background-color: #FF00FF !important;
+}
+
+.status-removed-approved {
+    background-color: #FF00FF !important; /* Magenta for Removed + Approved */
+    font-weight: bold !important;
+    color: white !important;
+}
+
+.status-removed-approved td {
+    background-color: #FF00FF !important;
+}
+
+/* Text Styling for Approved Applicants - Following Visualforce Logic */
+.approved-text,
+.approved-text .slds-input,
+.approved-text .slds-combobox,
+.approved-text .slds-textarea,
+.approved-text input,
+.approved-text textarea {
+    font-weight: bold !important;
+    color: blue !important; /* Blue for all approved applicants */
+}
+
+/* Override for removed status - white text on magenta background */
+.status-removed-approved,
+.status-removed-approved .slds-input,
+.status-removed-approved .slds-combobox,
+.status-removed-approved .slds-textarea,
+.status-removed-approved input,
+.status-removed-approved textarea,
+.status-removed,
+.status-removed .slds-input,
+.status-removed .slds-combobox,
+.status-removed .slds-textarea,
+.status-removed input,
+.status-removed textarea {
+    color: white !important; /* White text for removed status */
+}
+
+/* Read-only field styling (matching Visualforce permissions) */
+.readonly-field .slds-input,
+.readonly-field .slds-combobox,
+.readonly-field .slds-textarea,
+.readonly-field input,
+.readonly-field textarea,
+.readonly-field select {
+    background-color: #f4f6f9 !important; /* Light gray background for readonly */
+    color: #5c6b73 !important; /* Darker gray text */
+    cursor: not-allowed !important;
+    border-color: #c9cccf !important; /* Muted border */
+}
+
+/* Ensure readonly fields don't show focus states */
+.readonly-field .slds-input:focus,
+.readonly-field .slds-combobox:focus,
+.readonly-field .slds-textarea:focus,
+.readonly-field input:focus,
+.readonly-field textarea:focus,
+.readonly-field select:focus {
+    border-color: #c9cccf !important;
+    box-shadow: none !important;
+}
+
+/* Special handling for readonly checkboxes */
+.readonly-field .slds-checkbox {
+    opacity: 0.6;
+    cursor: not-allowed !important;
+}
+
+/* Flagged Applicant Indicator Styling (matching Visualforce red flag functionality) */
+.flag-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 32px;
+    width: 100%;
+}
+
+.flagged-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.no-flag-spacer {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* Ensure flag indicator is visible on all row backgrounds */
+.flagged-indicator lightning-helptext {
+    --slds-c-icon-color-foreground-default: #e74c3c; /* Red color matching Visualforce */
+}
+
+/* Override helptext icon styling to match Visualforce red flag */
+.flagged-indicator .slds-icon {
+    fill: #e74c3c !important;
+    color: #e74c3c !important;
+}
+
+
+/* Row Hover Effects - Updated to work with new combined status classes */
+.editable-row:hover:not([class*="status-"]) {
+    background-color: #f8f9fa;
+}
+
+.editable-row:hover:not([class*="status-"]) td {
+    background-color: #f8f9fa;
+}
+
+/* Hover effects for all status combinations */
+.status-primary:hover,
+.status-primary-approved:hover {
+    background-color: #a8d4bf !important; /* Slightly darker green */
+}
+
+.status-primary:hover td,
+.status-primary-approved:hover td {
+    background-color: #a8d4bf !important;
+}
+
+.status-backup:hover {
+    background-color: #fde68a !important; /* Slightly darker yellow */
+}
+
+.status-backup:hover td {
+    background-color: #fde68a !important;
+}
+
+.status-backup-approved:hover {
+    background-color: #ff9f43 !important; /* Darker orange for backup approved */
+}
+
+.status-backup-approved:hover td {
+    background-color: #ff9f43 !important;
+}
+
+.status-hidden:hover,
+.status-hidden-approved:hover {
+    background-color: #d1cdd6 !important; /* Slightly darker gray */
+}
+
+.status-hidden:hover td,
+.status-hidden-approved:hover td {
+    background-color: #d1cdd6 !important;
+}
+
+.status-flagged:hover,
+.status-flagged-approved:hover {
+    background-color: #ff9f43 !important; /* Slightly darker orange */
+}
+
+.status-flagged:hover td,
+.status-flagged-approved:hover td {
+    background-color: #ff9f43 !important;
+}
+
+.status-removed:hover,
+.status-removed-approved:hover {
+    background-color: #e600e6 !important; /* Slightly darker magenta */
+}
+
+.status-removed:hover td,
+.status-removed-approved:hover td {
+    background-color: #e600e6 !important;
+}
+
+/* Contact Button Styling */
+.contact-button {
+    background-color: #ffffff;
+    color: #0176d3;
+    border: 1px solid #0176d3;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.contact-button:hover {
+    background-color: #f3f2f2;
+}
+
+.add-property-button {
+    min-width: 200px;
+    padding: 12px 24px;
+    font-weight: 600;
+}
+
+/* Table Layout */
+.slds-table_fixed-layout .slds-cell-wrap {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .table-container table {
+        min-width: 3000px;
+    }
+    
+    .column-header {
+        min-width: 130px;
+        font-size: 10px;
+    }
+}
+
+/* Spinner */
+.slds-spinner_container {
+    position: relative;
+    height: 200px;
+}
+
+/* Improved cell spacing for better readability */
+.editable-table tbody tr td {
+    border-right: 2px solid #e5e5e5;
+}
+
+.editable-table tbody tr td:last-child {
+    border-right: 1px solid #d8dde6;
+}
+
+/* Header section styling improvements */
+.slds-card__header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.slds-card__header .slds-card__header-title {
+    color: white;
+    font-weight: 600;
+}
+
+/* Enhanced visual separation between properties */
+.property-section:last-of-type {
+    margin-bottom: 1rem;
+}
+
+/* Improve button grouping */
+.slds-button-group .slds-button {
+    margin-right: 0;
+}
+
+/* Property header button styling */
+.property-header lightning-button-icon {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.property-header lightning-button-icon:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Full page width for property sections */
+.slds-p-horizontal_medium {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* Ensure property headers span full width */
+.property-section {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    width: calc(100% + 1rem);
+}
+
+.property-header {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}

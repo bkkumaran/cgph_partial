@@ -1,0 +1,665 @@
+<apex:page standardcontroller="CampaignMember" extensions="OAext">
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+td { padding: 3px 4px 3px 4px; font-family: 'Open Sans'; font-size: 9pt;}
+table {border-color:#ededed;}
+#header { padding: 10px 5px 10px 5px; font-family: 'Montserrat'; font-weight: bold; background-color: rgb(0, 101, 168); color:white; font-size: 16pt;}
+#tableHead { padding: 3px 4px 3px 4px; font-family: 'Open Sans'; font-size: 12pt;font-weight:bold; background-color:rgb(0, 101, 168);color:white;}
+#tableHeadAlt { padding: 3px 4px 3px 4px; font-family: 'Open Sans'; font-size: 12pt;font-weight:bold; background-color:rgb(255,183,93);color:black;}
+#NoSF { padding: 3px 4px 3px 20px; font-family: 'Open Sans'; font-size: 18pt;font-weight:bold; background-color:red;color:white;}
+#bold {font-weight:bold;}
+</style>
+
+<apex:variable id="colorCheck" var="colorCheck" value="background-color:#faff75;"/>
+<apex:variable id="colorGood" var="colorGood" value="background-color:#a1ff9c;"/>
+<apex:variable id="colorBad" var="colorBad" value="background-color:#ff7575;"/>
+
+<apex:variable id="checkSF" var="checkSF" value="{!IF(ISNULL(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__c),'null','ok')}"/>
+<apex:variable id="alternate" var="alt" value="{!IF(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Status__c='Application In Process - Alternate Property',1,0)}" />
+
+
+<table border="1">
+    <tr>
+        <td colspan="4" id="header">
+            OUTREACH APPLICANT: {!CampaignMember.FirstName} {!CampaignMember.LastName} - {!CampaignMember.Campaign.Name}
+        </td>
+    </tr>
+    <tr>
+        <td id="bold">
+            Camaign Member
+        </td>
+        <td>
+            <a href="/{!CampaignMember.id}" target="_blank">
+            {!CampaignMember.FirstName} {!CampaignMember.LastName}
+            </a>
+        </td>
+        <td id="bold">
+            Pre-Applicant
+        </td>
+        <td>
+            <a href="/{!CampaignMember.Pre_Applicant__r.id}" target="_blank">
+            {!CampaignMember.Pre_Applicant__r.Name}
+            </a>
+        </td>
+     
+    </tr>
+    <tr>
+        <td id="bold">
+            Campaign
+        </td>
+        <td>
+            <a href="/{!CampaignMember.Campaign.id}" target="_blank">
+            {!CampaignMember.Campaign.Name}
+            </a>
+        </td>
+        <td id="bold">
+            Preliminary Submission
+        </td>
+        <td>
+            <a href="/{!CampaignMember.Campaign_Preliminary_Submission__r.id}" target="_blank">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Name}
+            </a>
+        </td>
+<!--        
+        <td id="bold">
+            IF Deadline
+        </td>
+        <td>
+            <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!CampaignMember.Deadline_Date__c}" />
+            </apex:outputText>
+        </td>
+-->        
+    </tr>
+    <tr>
+        <td id="bold">
+            Property
+        </td>
+        <td style="{!IF(ISNULL(CampaignMember.Campaign.Campaign_Property__c),colorBad,'')}">
+            <a href="/{!CampaignMember.Campaign.Campaign_Property__r.id}" target="_blank">
+            {!CampaignMember.Campaign.Campaign_Property__r.Name}
+            </a>
+        </td>
+        <td id="bold">
+            Service File
+        </td>
+        <td style="{!IF(ISNULL(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__c),'background-color:red;','')}">
+            <a href="/{!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.id}" target="_blank">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Name}
+            </a>
+        </td>
+    </tr>
+    <tr>
+<!--    
+            <td id="bold">
+            EA Sort
+        </td>
+        <td>
+            {!CampaignMember.EA_Sort__c}
+        </td>
+-->        
+        <td id="bold">
+            Priority Order
+        </td>
+        <td style="{!IF(eaNum=1,colorGood,colorBad)}" id="bold">
+            {!eaNum}
+        </td>
+        <td id="bold">
+            Primary Service File                                            <!-- -----------addtl service file --------- -->
+        </td>
+        <td style="{!IF(alt=1,colorCheck,'')}">
+<span style="{!IF(alt=1,'display:none;','')}">
+N/A
+</span>
+<div style="{!IF(alt=1,'','display:none;')}">
+        <span style="{!IF(ISBLANK(CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__c),'display:none;','')}">
+            <a style="text-decoration: none;" href="https://cgph--c.vf.force.com/flow/Outreach_Add_Primary_Service_File?varPSID={!CampaignMember.Campaign_Preliminary_Submission__r.id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOutreachApplicants%3Fid%3D{!CampaignMember.Id}"
+                target="_blank"><apex:image url="{!$Resource.blueFileIcon}" width="15px" />
+            </a>
+            <a href="/{!CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.Id}" target="_blank">
+                {!CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.Name}
+            </a>
+        </span>
+        <span style="{!IF(ISBLANK(CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__c),'','display:none;')}">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Add_Primary_Service_File?varPSID={!CampaignMember.Campaign_Preliminary_Submission__r.id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOutreachApplicants%3Fid%3D{!CampaignMember.Id}" target="_top">
+                <b>CLICK HERE TO ADD</b>
+<span style="text-decoration:none;">                &nbsp;/&nbsp;</span>
+            </a>
+            <a href="https://cgph.lightning.force.com/lightning/r/PreApplicants__c/{!CampaignMember.Pre_Applicant__r.Id}/related/Services__r/view" target="_blank">
+                <b>SEE ALL SERVICE FILES</b>
+                </a>
+        </span>
+</div>        
+        </td>
+    </tr>
+    <tr>
+        <td id="bold">
+            Outreach Notes:        
+        </td>
+        <td id="bold" colspan="3" style="color:red; {!IF(CampaignMember.Outreach_Notes__c='','',colorCheck)}">
+            <a style="text-decoration: none;" href="/{!CampaignMember.Id}" target="_blank"><apex:image url="{!$Resource.blueFileIcon}" width="15px" /></a>
+            {!CampaignMember.Outreach_Notes__c}
+        </td>
+    </tr>
+
+
+
+</table>
+
+
+<br/>
+
+<span id="NoSF" style="{!IF(checkSF='null','','display:none;')}">
+NO SERVICE FILE
+</span>
+
+
+
+<br/><br/>
+
+
+<!-- -----------------------------------------------COLOR LEGEND ------------------------------------- -->
+<div id="main" style="{!IF(checkSF='null','display:none;','')}">
+<table border="1">
+    <tr>
+        <td id="bold" width="145" style="background-color: rgb(0, 101, 168); color:white; text-align: center;">
+            COLOR LEGEND
+        </td>
+        <td id="bold" style="{!colorGood}; text-align: center;" width="145">
+            No Problems
+        </td>
+        <td id="bold" style="{!colorCheck}; text-align: center;" width="145">
+            Check Potential Issues
+        </td>
+        <td id="bold" style="{!colorBad}; text-align: center;" width="145">
+            Problem Found
+        </td>
+    </tr>
+</table>
+
+<br/>
+
+<!-- -------------------------------------------------SUBMISSION CHECK -------------------------------- -->
+<table border="1">
+    <tr>
+        <td colspan="2" id="tableHead" >
+            SUBMISSION CHECK
+        </td>
+    </tr>
+    <tr>
+        <td id="bold">
+            Application Due
+        </td>
+<apex:variable value="{!IF(OR(ISNULL(CampaignMember.Campaign_Preliminary_Submission__r.Application_Due__c),CampaignMember.Campaign_Preliminary_Submission__r.Application_Due__c>TODAY()-1),1,0)}" var="AppDue"/>
+        <td style="{!IF(AppDue=1,colorBad,colorGood)}">
+            <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                <apex:param value="{!CampaignMember.Campaign_Preliminary_Submission__r.Application_Due__c}" />
+            </apex:outputText>
+            <b>{!IF(ISNULL(CampaignMember.Campaign_Preliminary_Submission__r.Application_Due__c),'NO APPLICATION DUE DATE','')}</b>
+        </td>
+    </tr>
+    <tr>
+        <td width="200"  id="bold">
+            Status (PS)
+        </td>
+        <td width="400">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Status__c}
+        </td>
+    </tr>
+    <tr>
+        <td id="bold">
+            Status (SF)
+        </td>
+        <td style="{!IF(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Status__c='Application In Process - Alternate Property',colorCheck,'')}">
+           <b> {!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Status__c} </b>
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold">
+            App Workflow Status
+        </td>
+        <td>
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Application_Workflow_Status__c}
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold">
+            Application Status
+        </td>
+        <td style="{!IF(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Status__c='Document Review',colorGood,colorBad)}">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Status__c}
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold">
+            Application Submitted
+        </td>
+        <td style="{!IF(ISBLANK(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Submitted__c),colorBad,colorGood)}">
+            <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                <apex:param value="{!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Submitted__c}" />
+            </apex:outputText>
+        </td>
+    </tr>
+    <tr>
+        <td id="bold">
+            Portal Visit
+        </td>
+        <td>
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Portal_Visits__c}
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold">
+            Application URL Internal
+        </td>
+        <td id="bold" style="{!IF(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Portal_Visits__c=0,'',IF(ISBLANK(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Submitted__c),colorCheck,''))}">
+            <apex:outputField value="{!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Application_URL_Internal__c}"/>
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold">
+            Cases Check
+        </td>
+        <td id="bold" style="{!IF(ISBLANK(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Submitted__c),colorCheck,'')}">
+            <apex:outputField value="{!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Cases_Check__c}"/>
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold">
+            MAKE SUBMISSION FIX CASE
+        </td>
+        <td if="bold">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Submission_Check_Followup_Case?varType=PA&varCID={!CampaignMember.ContactId}&varCMID={!CampaignMember.Id}&varPAID={!CampaignMember.Pre_Applicant__r.Id}&varSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOutreachApplicants%3Fid%3D{!CampaignMember.Id}" target="_Top">
+            <b>CLICK HERE</b>
+            </a>
+        </td>
+    </tr>
+
+</table>
+
+
+<!-- -------------------------------------------------TABLE: PRESSCREEN -------------------------------- -->
+
+<div id="PreSreenHide" style="{!IF(alt=1,'',IF(ISNULL(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Submitted__c),'display:none',''))}">
+<!--
+<div id="PreSreenHide">
+-->
+
+<br/>
+<table border="1">
+    <tr>
+        <td colspan="2" id="tableHead" style="{!if(alt=1,'display:none;','')}">
+            PRE-SCREEN CHECK
+        </td>
+        <td colspan="2" id="tableHeadAlt" style="{!if(alt=1,'','display:none;')}">
+            PRE-SCREEN CHECK - ALTERNATE SERVICE FILE
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200" id="bold">
+            Pre-Screen
+        </td>
+        <td width="400" style="{!IF(alt=1,'display:none;','')}{!IF(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Pre_App_to_Full_App_Changes__c='',colorGood,colorCheck)}">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Pre_App_to_Full_App_Changes__c}
+            {!IF(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Pre_App_to_Full_App_Changes__c='','PRESCREEN OK','')}
+        </td>
+        <td width="400" style="{!IF(alt=1,'','display:none;')}">
+            N/A
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold">
+            Property Income Level
+    </td>
+        <td>
+            {!CampaignMember.Campaign.Campaign_Property__r.Income_Level__c}
+        </td>
+    </tr>
+
+<tr>
+
+<!-- ------ANNUAL INCOME CHECK ----------- -->
+
+<apex:variable id="HHSIZE" var="HHSIZE"
+    value="{!IF(alt=1,CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.HOMEtracker__Household_Size__c,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Household_Size__c)}"
+    />
+    
+<apex:variable var="IncLimit"
+value="{!CASE(CampaignMember.Campaign.Campaign_Property__r.Income_Level__c,
+    'Very Low',
+        CASE(HHSIZE,
+            1,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH1_Very_Low__c,
+            2,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH2_Very_Low__c,
+            3,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH3_Very_Low__c,
+            4,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH4_Very_Low__c,
+            5,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH5_Very_Low__c,
+            6,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH6_Very_Low__c,
+            7,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH7_Very_Low__c,
+            8,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH8_Very_Low__c,
+            0),
+    'Low',
+        CASE(HHSIZE,
+            1,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH1_Low__c),
+            2,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH2_Low__c),
+            3,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH3_Low__c),
+            4,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH4_Low__c),
+            5,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH5_Low__c),
+            6,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH6_Low__c),
+            7,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH7_Low__c),
+            8,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH8_Low__c),
+            0),
+    'Moderate',
+        CASE((HHSIZE),
+            1,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH1_Moderate__c),
+            2,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH2_Moderate__c),
+            3,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH3_Moderate__c),
+            4,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH4_Moderate__c),
+            5,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH5_Moderate__c),
+            6,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH6_Moderate__c),
+            7,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH7_Moderate__c),
+            8,(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH8_Moderate__c),
+            0),
+    0)}"
+/>
+
+<!-- ------------------------------VARIABLES ------------------------------- -->
+
+<apex:variable var="IncAnnual" value="{!IF(ISNULL(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Annual_Income_Eligibility__c),0,CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Annual_Income_Eligibility__c)}" />
+<apex:variable var="IncAnnualPrime" value="{!IF(ISNULL(CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.HOMEtracker__Annual_Income_Eligibility__c),0,CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.HOMEtracker__Annual_Income_Eligibility__c)}" />
+<apex:variable var="IncDiff" value="{!IncLimit-IncAnnual}" />
+<apex:variable var="IncDiffPrime" value="{!IncLimit-IncAnnualPrime}" />
+
+
+        <td id="bold" style="{!IF(alt=1,'display:none;','')}">
+            Annual Income
+        </td>
+        <td id="bold" style="{!IF(alt=1,'','display:none;')}">
+            Annual Income (Primary)
+        </td>
+        <td  style="{!IF(alt=1,'display:none;','')}">
+            <apex:outputText value="{0, number, $###}">
+                <apex:param value="{!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Annual_Income_Eligibility__c}"/>
+            </apex:outputText>
+
+        </td>
+        <td  style="{!IF(alt=1,'','display:none;')}{!colorCheck}">
+            <apex:outputText value="{0, number, $###}">
+                <apex:param value="{!CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.HOMEtracker__Annual_Income_Eligibility__c}"/>
+            </apex:outputText>
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold" style="{!IF(alt=1,'display:none;','')}">
+            Max Income Limit (Calc)
+        </td>
+        <td id="bold" style="{!IF(alt=1,'','display:none;')}">
+            Max Income Limit Calc (Primary)
+        </td>
+
+
+        
+        <td style="{!IF(alt=1,colorCheck,'')}">
+{!CASE(CampaignMember.Campaign.Campaign_Property__r.Income_Level__c,
+    'Very Low',
+        CASE(TEXT(HHSIZE),
+            '1','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH1_Very_Low__c),
+            '2','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH2_Very_Low__c),
+            '3','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH3_Very_Low__c),
+            '4','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH4_Very_Low__c),
+            '5','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH5_Very_Low__c),
+            '6','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH6_Very_Low__c),
+            '7','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH7_Very_Low__c),
+            '8','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH8_Very_Low__c),
+            '?'),
+    'Low',
+        CASE(TEXT(HHSIZE),
+            '1','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH1_Low__c),
+            '2','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH2_Low__c),
+            '3','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH3_Low__c),
+            '4','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH4_Low__c),
+            '5','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH5_Low__c),
+            '6','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH6_Low__c),
+            '7','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH7_Low__c),
+            '8','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH8_Low__c),
+            '?'),
+    'Moderate',
+        CASE(TEXT(HHSIZE),
+            '1','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH1_Moderate__c),
+            '2','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH2_Moderate__c),
+            '3','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH3_Moderate__c),
+            '4','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH4_Moderate__c),
+            '5','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH5_Moderate__c),
+            '6','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH6_Moderate__c),
+            '7','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH7_Moderate__c),
+            '8','$'&TEXT(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.HH8_Moderate__c),
+            '?'),
+'?'
+)}
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold" style="{!IF(alt=1,'display:none;','')}">
+            Income Comparison
+        </td>
+        <td id="bold" style="{!IF(alt=1,'','display:none;')}">
+            Income Comparison (Primary)
+        </td>
+        <td style="{!IF(alt=1,'display:none;','')}{!IF(IncAnnual=0,colorBad&' font-weight:bold;',IF(IncDiff<0,colorBad&' font-weight:bold;',colorGood))}">
+            <apex:outputpanel >
+                {!IF(IncAnnual=0,'ZERO INCOME',IF(IncDiff<0,'INCOME EXCEEDS LIMT','INCOME OK'))}
+            </apex:outputpanel>
+        </td>
+        <td style="{!IF(alt=1,'','display:none;')}{!IF(IncAnnualPrime=0,colorBad&' font-weight:bold;',IF(IncDiffPrime<0,colorBad&' font-weight:bold;',colorGood))}">
+            <apex:outputpanel >
+                {!IF(IncAnnualPrime=0,'ZERO INCOME',IF(IncDiffPrime<0,'PRIMARY SERVICE FILE INCOME EXCEEDS LIMT','PRIMARY SERVICE FILE INCOME OK'))}
+            </apex:outputpanel>
+        </td>
+    </tr>
+    <tr>
+        <td id="bold">
+            Listing Stage
+        </td>
+        <td>
+            {!CampaignMember.Campaign.Campaign_Property__r.Listing_Stage__c}
+        </td>
+    </tr>    
+
+    <tr>
+        <td id="bold">
+            Income Limit
+        </td>
+        <td style="{!IF(CONTAINS(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Pre_App_to_Full_App_Changes__c,'REG'),colorCheck,'')}">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.IAW_Income_Limit__r.Name}
+        </td>
+    </tr>
+    
+    <tr>
+        <td id="bold">
+            COAH Regions
+        </td>
+        <td style="{!IF(CONTAINS(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Pre_App_to_Full_App_Changes__c,'REG'),colorCheck,'')}">
+            {!CampaignMember.Campaign.Campaign_Property__r.COAH_Regions__c}
+        </td>
+    </tr>
+    <tr>
+        <td id="bold" style="{!IF(alt=1,'display:none;','')}">
+            Applicant County
+        </td>
+        <td id="bold" style="{!IF(alt=1,'','display:none;')}">
+            Applicant County (Primary)
+        </td>
+        <td style="{!IF(alt=1,'display:none;','')}{!IF(CONTAINS(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Pre_App_to_Full_App_Changes__c,'REG'),colorCheck,'')}">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Applicant_County_at_Application__c}
+        </td>
+        <td style="{!IF(alt=1,'','display:none;')}{!colorCheck}">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.HOMEtracker__Applicant_County_at_Application__c}
+        </td>
+    </tr>
+    <tr>
+        <td id="bold" style="{!IF(alt=1,'display:none;','')}">
+            Work In County
+        </td>
+        <td id="bold" style="{!IF(alt=1,'','display:none;')}">
+            Work In County (Primary)
+        </td>
+        <td style="{!IF(alt=1,'display:none;','')}{!IF(CONTAINS(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Pre_App_to_Full_App_Changes__c,'REG'),colorCheck,'')}">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Work_in_County__c}
+        </td>
+        <td style="{!IF(alt=1,'','display:none;')}{!colorCheck}">
+            {!CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.HOMEtracker__Work_in_County__c}
+        </td>
+    </tr>
+    <tr>
+        <td id="bold">
+            Household Size (PA)
+        </td>
+        <td style="{!IF(alt=1,colorCheck,'')}">
+            {!CampaignMember.Pre_Applicant__r.Household_Size__c}
+        </td>
+    </tr>
+    <tr>
+        <td id="bold" style="{!IF(alt=1,'display:none;','')}">
+            Household Size (SF)
+        </td>
+        <td id="bold" style="{!IF(alt=1,'','display:none;')}">
+            Household Size (PRIMARY SF)
+        </td>
+        <td style="{!IF(alt=1,'display:none;',IF(CONTAINS(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Pre_App_to_Full_App_Changes__c,'HH#'),colorCheck,''))}">
+            <apex:outputText value="{0, number, ###}">
+                <apex:param value="{!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Household_Size__c}"/>
+            </apex:outputText>
+        </td>
+        <td style="{!IF(alt=1,colorCheck,'display:none;')}">
+            <apex:outputText value="{0, number, ###}">
+                <apex:param value="{!CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.HOMEtracker__Household_Size__c}"/>
+            </apex:outputText>
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold">
+            # of Bedrooms
+        </td>
+        <td>
+            {!CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Number_of_Bedrooms__c}
+        </td>
+    </tr>
+
+    <tr>
+        <td id="bold">
+            SEND PRE-SCREEN FIX EMAIL
+        </td>
+        <td id="bold"  style="{!IF(alt=1,'display:none;','')}">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Pre_Screen_Followup_Email?varPAID={!CampaignMember.Pre_Applicant__r.Id}&varCMID={!CampaignMember.Id}&varSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&varPSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&varPSID={!CampaignMember.Campaign_Preliminary_Submission__r.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOutreachApplicants%3Fid%3D{!CampaignMember.Id}" target="_Top">
+            <b>CLICK HERE</b>
+            </a>
+        </td>
+        <td id="bold"  style="{!IF(alt=1,'','display:none;')}">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Pre_Screen_Followup_Email?varPAID={!CampaignMember.Pre_Applicant__r.Id}&varCMID={!CampaignMember.Id}&varSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&varPSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.Id}&varPSID={!CampaignMember.Campaign_Preliminary_Submission__r.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOutreachApplicants%3Fid%3D{!CampaignMember.Id}" target="_Top">
+            <b>CLICK HERE</b>
+            </a>
+        </td>
+    </tr>
+</table>
+
+</div> <!-- hide prescreen div end -->
+
+<!-- ---------------------------------------------SERVICE FILE CHECK----------------------------------- -->
+<br/>
+<table border="1">
+    <tr>
+        <td colspan="2" id="tableHead">
+            SERVICE FILES CHECK
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200" id="bold">
+            Check All Service Files
+        </td>
+        <td width="400" style="{!IF(alt=1,colorCheck,'')}">
+            <a href="https://cgph.lightning.force.com/lightning/r/PreApplicants__c/{!CampaignMember.Pre_Applicant__r.Id}/related/Services__r/view" target="_blank">
+                <b>click to see all service files</b>
+                </a>
+        </td>
+    </tr>
+</table>
+<br/>
+
+<!-- ---------------------------------------------IMPORTANT NOTES----------------------------------- -->
+<br/>
+<table border="1">
+    <tr>
+        <td colspan="2" id="tableHead">
+            IMPORTANT OUTREACH NOTES FROM PRE-APPLICANT
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200" id="bold">
+            Important Outreach notes
+        </td>
+        <td width="400" style="{!IF(CampaignMember.Pre_Applicant__r.Important_Outreach_Notes__c='','','background-color:yellow;color:red;font-weight:bold;font-size:11pt;')}">
+           {!CampaignMember.Pre_Applicant__r.Important_Outreach_Notes__c}
+        </td>
+    </tr>
+</table>
+<br/>
+
+<!-- -------------------------------------------------TABLE FINAL BUTTONS -------------------------------- -->
+<table border="1">
+    <tr>
+        <td colspan="2" id="tableHead">
+            COMPLETE PROCESSING
+        </td>
+    </tr>
+    <tr>
+        <td width="200" id="bold" style="font-size:12pt;padding: 10px 0px 10px 5px;{!IF(alt=1,'',IF(ISNULL(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Submitted__c),'display:none;',''))}">
+            APPROVE APPLICANT
+        </td>
+        <td width="200" id="bold"  style="{!IF(alt=1,'',IF(ISNULL(CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Submitted__c),'display:none;',''))}font-size:12pt;{!colorGood}">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Approve_for_Referral?varCMID={!CampaignMember.Id}&varSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&varPSID={!CampaignMember.Campaign_Preliminary_Submission__r.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOutreachApplicants%3Fid%3D{!CampaignMember.Id}" target="_Top">
+            <b>CLICK HERE</b>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td id="bold" width="200" style="font-size:12pt;padding: 10px 0px 10px 5px;">
+            REMOVE OR ON-HOLD
+        </td>
+        <td id="bold" width="200" style="{!IF(alt=1,'display:none;','')}font-size:12pt;{!colorBad}">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Remove_Applicant_Before_Referral?varCMID={!CampaignMember.Id}&varSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&varPSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&varPSID={!CampaignMember.Campaign_Preliminary_Submission__r.Id}&retURL=https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FPreApplicants__c%2F{!CampaignMember.Pre_Applicant__r.Id}%2Frelated%2FServices__r%2Fview" target="_Top">
+            <b>CLICK HERE</b>
+            </a>
+        </td>
+        <td id="bold" width="200" style="{!IF(alt=1,'','display:none;')}font-size:12pt;{!colorBad}">
+            <a href="https://cgph--c.vf.force.com/flow/Outreach_Remove_Applicant_Before_Referral?varCMID={!CampaignMember.Id}&varSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Service_File__r.Id}&varPSFID={!CampaignMember.Campaign_Preliminary_Submission__r.Primary_Service_File__r.Id}&varPSID={!CampaignMember.Campaign_Preliminary_Submission__r.Id}&retURL=https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FPreApplicants__c%2F{!CampaignMember.Pre_Applicant__r.Id}%2Frelated%2FServices__r%2Fview" target="_Top">
+            <b>CLICK HERE</b>
+            </a>
+        </td>
+    </tr>
+</table>
+<br/>
+<br/>
+<br/>
+
+
+</div> <!-- hide main if no SF div end -->
+
+
+
+
+</apex:page>

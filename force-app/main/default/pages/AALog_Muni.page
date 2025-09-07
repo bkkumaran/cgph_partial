@@ -1,0 +1,89 @@
+<apex:page standardController="Municipality__c" extensions="AALogExt_Muni">
+
+<apex:variable var="font" value="Roboto Condensed"/>
+<apex:variable var="iconSize" value="15px"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family={!font}');
+    
+    body {
+        font-family: {!font};
+        font-size: 9pt;
+        {!IF(OR(
+            $User.LastName = 'Burton',
+            $User.LastName = 'Carbone'
+            ), '','display:none;')}
+        }
+    table {
+        border-collapse: collapse;
+        border-top: 0.5px solid #e3e3e3;
+        }
+    td {
+        border-bottom: 0.5px solid #e3e3e3;
+        vertical-align: top;
+        padding-bottom: 7px;
+        }
+    tr:hover {
+        background-color: #ffffd7;
+        }
+    a {
+        text-decoration: none !important;
+        background-color:none;
+        opacity: 0.5;
+        }
+    a:hover {
+        opacity: 1;
+        }
+    
+</style>
+
+<body>
+
+<div width="100%" style="text-align: center;">
+    <apex:outputLink onclick="window.location.reload">
+        <apex:image url="https://upload.wikimedia.org/wikipedia/commons/0/05/View-refresh_Gion_simple.svg" height="20px"/>
+    </apex:outputLink>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq0000038zNyMAI/view?queryScope=userFolders&fv0={!Municipality__c.Id}" target="_blank">
+        <apex:image url="https://upload.wikimedia.org/wikipedia/commons/8/8a/Icon-doc.svg" height="20px"/>
+    </a>
+    
+</div>
+    <table width="100%">
+        <apex:repeat var="x" value="{!logList}">
+        <tr>
+            <td width="1px" style="padding-right: 4px;">
+                {!MONTH(x.Log_Date__c)}/{!DAY(x.Log_Date__c)}/{!RIGHT(TEXT(YEAR(x.Log_Date__c)),2)}
+            </td>
+            <td width="1px" style="padding-right: 4px;">
+                {!x.Staff_Initials__c}
+            </td>
+            <td width="1px" style="padding-right: 4px;">
+                <apex:outputfield value="{!x.Record_Link__c}" />
+            </td>
+            <td style="padding-right: 6px;">
+                {!x.Description_2__c}
+            </td>
+            <td width="1px" style="text-align: right;">
+                <nobr>
+                <!-- https%3A%2F%2Fcgph.lightning.force.com %2Flightning%2Fr%2FMunicipality__c%2F{!Municipality__c.Id}%2Fview -->
+                <a href="https://cgph.lightning.force.com/lightning/r/AA_Log_Entry__c/{!x.Id}/edit?count=1&backgroundContext=%2Flightning%2Fr%2FMunicipality__c%2F{!Municipality__c.Id}%2Fview" target="_self">
+                    <apex:image url="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Pencil_edit_icon.svg/20px-Pencil_edit_icon.svg.png" height="{!iconSize}"/>
+                </a>
+                &nbsp;
+                <a href="https://cgph.lightning.force.com/lightning/r/AA_Log_Entry__c/{!x.Id}/view" target="_blank">
+                    <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/38/Zorin_Icon_Themes_%E2%80%93_document-send-symbolic.svg" height="{!iconSize}"/>
+                </a>
+                <span style="color:gray; {!IF($User.FirstName = 'John' , '' , 'display:none;')}">
+                    <span style="{!IF(x.Invoice_Entry__c = 'Created' , '' , 'display:none;')}"> ☑ </span>
+                    <span style="{!IF(x.Invoice_Entry__c = 'Created' , 'display:none;' , '')}"> ☐ </span>
+                </span>
+                </nobr>
+            </td>
+        </tr>
+        </apex:repeat>
+    </table>
+
+</body>
+
+</apex:page>

@@ -1,0 +1,334 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="EAPage2nExt"  showHeader="false" applyhtmltag="false" applyBodyTag="false">
+    <!-- STYLE -->
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'></link>
+    <style>
+@import url(https://fonts.googleapis.com/css?family=Open+Sans); 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed);
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+        .iTable {
+            counter-reset: rowCounter;
+        }
+        .iTable .row {
+        counter-increment: rowCounter;
+        }
+        .iTable .row .counter::before {
+            content: counter(rowCounter);
+        }       
+        .rowInvited {
+            background-color:#F1FBF6;
+            font-size: 1.2em;
+            font-family: 'Open Sans';
+            padding: 2px 0px 2px 0px;
+            text-align: center;
+        }       
+        .rowNotInvited {
+            background-color:#FBE9E9;
+            font-size: 1.2em;
+            font-family: 'Open Sans';
+            text-align: center;
+        }
+        .TableTitle{
+            font-size: 1.3em !important;
+            font-family: 'Open Sans';
+            font-weight: bold;
+            text-align: center;
+        }
+         .TableTitleL{
+            font-size: 1.3em !important;
+            font-family: 'Open Sans';
+            font-weight: bold;
+            text-align: left;
+        }
+        .tooltip-wrap {
+            position: relative;
+        }
+        .tooltip-wrap .tooltip-content {
+          display: none;
+          position: absolute;
+          bottom: 5%;
+          left: 5%;
+          right: 5%;
+          background-color: #fff;
+          padding: .5em;
+          min-width: 10rem;
+        }
+        .tooltip-wrap:hover .tooltip-content {
+          display: block;
+          }
+        #SectionHeader {          
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #007cc2;
+            color: white;
+            padding: 2px;
+            padding-bottom: 2px;
+            width: 90%;
+            height: 50px;
+            font-size: 1.6em;
+            font-family: "Oswald", sans-serif;
+        }
+      
+        #thCenter {
+            text-align: center;
+            font-size: 1.6em;
+            font-weight: 100;            
+        }
+         #HeaderInfo {          
+            margin-left: auto;
+            margin-right: auto;
+            color: white#007cc2;
+            padding: 2px;
+            padding-bottom: 2px;
+            width: 90%;
+            height: 20px;
+
+        }
+        #InfoText {
+            text-align: right;
+            font-size: 1.3em;
+            font-family: "Oswald";           
+        }
+        
+        #HelpLink {          
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 5px;
+            padding-bottom: 10px;
+            width: 90%;
+            height: 75px;
+            font-size: 1.0em;
+            font-family: "Oswald", sans-serif;
+        }
+        
+        #PropertyDetails {          
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 5px;
+            padding-bottom: 10px;
+            width: 90%;
+            height: 75px;
+            font-size: 1.0em;
+            font-family: "Oswald", sans-serif;
+        }
+        
+        #PropertyText {          
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 100; 
+        }
+        #clickInvited {          
+            white-space: nowrap;
+            line-height: 2;
+            background-color: #00B050;
+            outline-style:solid;
+            outline-color:#00B050;
+            font-family: "Oswald";
+            font-size: 1.8em;
+            color: White;
+            width: 875 px;
+            padding: 2px 20px 2px 20px;
+        }
+        #Invited {          
+            white-space: nowrap;
+            line-height: 2;
+            color: #00B050;
+            outline-style:solid;
+            outline-color:#00B050;
+            font-family: "Oswald";
+            font-size: 1.8em;
+            background-color: White;
+            width: 875 px;
+            padding: 2px 20px 2px 20px;
+
+        }
+        #clickNotInvited {          
+            white-space: nowrap;
+            line-height: 2;
+            background-color: #DD4477;
+            outline-style:solid;
+            outline-color:#DD4477;
+            font-family: "Oswald";
+            font-size: 1.8em;
+            color: white;
+            width: 875 px;
+            padding: 2px 20px 2px 20px;
+        }
+        #NotInvited {          
+            white-space: nowrap;
+            line-height: 2;
+            color: #DD4477;
+            outline-style:solid;
+            outline-color:#DD4477;
+            font-family: "Oswald";
+            font-size: 1.8em;
+            background-color: white;
+            width: 875 px;
+            padding: 2px 20px 2px 20px;
+        }
+          #SendInvites {          
+            white-space: nowrap;
+            line-height: 2;
+            background-color: #DD4477;
+            font-family: "Oswald";
+            font-size: 1.2em;
+            color: white;
+            width: 875 px;
+            padding: 2px 20px 2px 20px;
+        }
+        #FixMPs {          
+            white-space: nowrap;
+            line-height: 1;
+            background-color: #ffffc9;
+            outline-style:double;
+            outline-color:black;
+            font-family: "Open Sans";
+            font-size: .8 em;
+            color: black;
+            width: 875 px;
+            padding: 5px 10px 5px 10px;
+        }
+        #warnInvited{          
+            font-family: "Oswald";
+            font-size: 1.6em;
+            color: #00B050;
+        }
+          #warnNotInvited{          
+            font-family: "Oswald";
+            font-size: 1.6em;
+            color: #DD4477;
+        }
+  
+    </style>
+
+  
+    <!-- Header -->
+    <table id="SectionHeader">
+    <th id="thCenter">Eligible Applicants</th>
+    </table>
+    
+    <table id="HeaderInfo">
+    <tr id="InfoText">
+        <td style="text-align: left;">
+
+           <a href="" onclick="window.open('https://cgph--c.vf.force.com/apex/EAPage2?core.apexpages.devmode.url=1','name','width=600,height=200')"><u>click here for email limit</u></a>
+        </td>
+        <td>
+            Last Criteria Calculated On : 
+            {!CASE(WEEKDAY(DATEVALUE(HOMEtracker__Property__c.Last_Calculation__c)),1,'Sun',2,'Mon',3,'Tue',4,'Wed',5,'Thu',6,'Fri',7,'Sat','')} &nbsp;
+            <apex:outputField value="{!HOMEtracker__Property__c.Last_Calculation__c}"/>
+        </td>
+    </tr>
+    </table>
+
+    <!-- HELP ARTICLE LINK 
+    <table id="HelpLink">
+    <th id="thCenter"><a href="https://cgph.my.salesforce.com/articles/Homekeeper_knowledge/Eligible-Applicants-Console-Help-Text" target="_blank">EA Page Help Article</a></th>
+    </table>   -->
+  
+  
+    <!-- PROPERTY DETAILS -->
+    <table id="PropertyDetails">
+    <tr>
+    <th id="thCenter">
+    <a style="font-size: 1.4em;" href="https://cgph.lightning.force.com/{!HOMEtracker__Property__c.Id}" target="_top">{!HOMEtracker__Property__c.Name}</a>
+    </th>
+    </tr>
+    <tr>
+    <td id="PropertyText">
+    {!HOMEtracker__Property__c.HOMEtracker__City__c}, {!HOMEtracker__Property__c.HOMEtracker__State__c}, {!HOMEtracker__Property__c.HOMEtracker__Postal_Code__c} in {!HOMEtracker__Property__c.Municipality_Name__r.Name}<br/>
+         {!HOMEtracker__Property__c.HOMEtracker__Number_of_Bedrooms__c}br &#183; {!HOMEtracker__Property__c.HOMEtracker__Number_of_Bathrooms__c}ba &#183; {!HOMEtracker__Property__c.Max_Income_Level__c}<br/>
+      {!HOMEtracker__Property__c.HOMEtracker__Property_Type__c} for  
+      <span style="display: {!IF(HOMEtracker__Property__c.HOMEtracker__Monthly_Rent__c = 0,'none','')}">
+          <apex:outputText value="{0, Number, Currency}">
+              <apex:param value="{!HOMEtracker__Property__c.HOMEtracker__Monthly_Rent__c}"/>
+          </apex:outputText>
+      </span>
+      <span style="display: {!IF(HOMEtracker__Property__c.HOMEtracker__List_Price__c = 0,'none','')}">
+          <apex:outputText value="{0, Number, Currency}">
+              <apex:param value="{!HOMEtracker__Property__c.HOMEtracker__List_Price__c }"/>
+          </apex:outputText>
+      </span><br/>
+      {!SUBSTITUTE(SUBSTITUTE(HOMEtracker__Property__c.Lottery_Number_for_Priority__c,'__c',''),'_',' ')}
+      <br/><br/>
+    </td>
+    </tr>
+    
+    <!--INVITED / NOT INVITED BUTTONS -->
+    <apex:variable value="{!IF(countBadMP>0,'','display:none;')}" var="FixMPShow" />
+    <apex:variable value="{!IF(countBadMP>0,'display:none;','')}" var="SendInvitesShow" />
+    
+    <tr>
+        <td id="PropertyText">
+            <a id="Invited" style="text-decoration: none;" href="/apex/EAPage2i?id={!HOMEtracker__Property__c.Id}&cId={!HOMEtracker__Property__c.Campaign__r.Id}" target="_top">INVITED {!ROUND(HOMEtracker__Property__c.Campaign__r.Applicants_Invited__c,0)}</a> &nbsp;
+            <span id="clickNotInvited" style="text-decoration: none;">NOT INVITED {!countNotInvited}</span> &nbsp;
+            <span style="{!SendInvitesShow}"><a id="SendInvites" style="text-decoration: none;" href="https://cgph--c.vf.force.com/flow/EA_Page_Email_Not_Invited?varID={!HOMEtracker__Property__c.Campaign__r.Id}&retURL=%2Fapex%2Feapage2n%3Fid%3D{!HOMEtracker__Property__c.Id}%26cId%3D{!HOMEtracker__Property__c.Campaign__r.Id}">SEND INVITES</a></span><br/>
+            <br/><span style="{!FixMPShow}">&nbsp;&nbsp;<a id="FixMPs" style="text-decoration: none;" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008nmwaUAA/view?queryScope=userFolders&fv0={!HOMEtracker__Property__c.Campaign__r.Id}">
+                <i>{!IF(countBadMP=1,"1 Campaign Member has a problem with their municipality preference",TEXT(countBadMP)&" Campaign Members have problems with their municipality preferences")}, click here or contact tech to resolve.</i></a><br/></span><br/>
+            <span id="warnNotInvited">{!IF(l2=1,"RESULTS LIMITED TO 800","")}</span>
+        </td>
+    </tr>
+    </table>
+
+
+<!-- ---------INVITED TABLE------------ -->
+<apex:variable var="badEmail" value="#fcf881" />
+<apex:variable var="flagged" value="#ffb999" />
+<apex:variable var="test" value="{!IF($CurrentPage.parameters.t='1','true','false')}" />
+
+ <apex:pageblock id="blockInvited">
+ 
+<center>
+
+      <apex:pageblocktable value="{!listNotInvited}" var="i" styleClass="iTable" style="width:75%" rowClasses="row">
+            <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headerValue="#"
+                style="width:40px;{!if(ISBLANK(i.Email),'background-color:'&badEmail,'')}">
+                    <span class="counter"></span></apex:column>
+             <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headerValue="CM"
+                style="width:20px; {!if(ISBLANK(i.Email),'background-color:'&badEmail,'')}">
+                <a style="text-decoration: none;" href="/{!i.Id}" target="_blank"><apex:image url="{!$Resource.blueFileIcon}" width="20px" /></a>
+                </apex:column>       
+            <apex:column styleclass="rowNotInvited" headerClass="TableTitleL" headerValue="PRE-APPLICANT"
+                style="width:180px; text-align: left;{!if(i.Pre_Applicant__r.Flagged_for_Outreach__c=true,'background-color:'&flagged,if(ISBLANK(i.Email),'background-color:'&badEmail,''))}">
+                    <apex:outputLink value="/{!i.Pre_Applicant__r.Id}" target="_blank">{!i.Name}</apex:outputLink></apex:column>
+                <apex:column styleclass="rowNotInvited" headervalue="FLAG" headerClass="TableTitle"  rendered="true" style="width:70px;{!if(i.Pre_Applicant__r.Flagged_for_Outreach__c=true,'background-color:'&flagged,if(ISBLANK(i.Email),'background-color:'&badEmail,''))}">
+                    <div class="tooltip-wrap" style="{!if(i.Pre_Applicant__r.Flagged_for_Outreach__c=true,'','display:none;')};">
+                          <img src="https://cgph--c.vf.force.com/resource/1681836048000/RedFlag" width="20px" />
+                        <div class="tooltip-content">
+                            {!i.Pre_Applicant__r.Flagged_for_Outreach_Notes__c}
+                        </div> 
+                    </div>
+                </apex:column>
+               <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headervalue="SKIP" rendered="true"
+                style="width:50px;{!if(i.Pre_Applicant__r.Flagged_for_Outreach__c=true,'background-color:'&flagged,if(ISBLANK(i.Email),'background-color:'&badEmail,''))}">
+                <img src="{!$Resource.NoMailIcon}" width="20px" style="{!IF(i.Exclude_from_Batch_Email__c=true,'','display:none;')}"/>
+            </apex:column>
+<!--                  
+            <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headervalue="FLAGGED" value="{!i.Pre_Applicant__r.Flagged_for_Outreach__c}"
+                style="width:70px; {!if(i.Pre_Applicant__r.Flagged_for_Outreach__c=true,'background-color:'&flagged,if(ISBLANK(i.Email),'background-color:'&badEmail,''))}"/>
+                -->
+            <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headervalue="LOTTERY#" value="{!i.Campaign_Member_Lottery_Number__c}"
+                style="width:70px;{!if(ISBLANK(i.Email),'background-color:'&badEmail,'')}"/>
+            <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headervalue="MUNI PREF" value="{!i.Muni_Pref__c}"
+                style="width:80px;{!if(ISBLANK(i.Email),'background-color:'&badEmail,'')}"/>
+            <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headervalue="EMAIL" value="{!i.Email_Verification__c}"
+                style="width: 80px;{!IF(ISBLANK(i.Email),'background-color:'&badEmail&';','')}{!if(i.Email_Verification__c='Confirmed','','color:red;')}"/>
+            <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headervalue="JOIN DATE" value="{!i.Campaign_Member_Join_Date__c}"
+                style="width:80px;{!if(ISBLANK(i.Email),'background-color:'&badEmail,'')}" />
+            <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headervalue="STATUS" value="{!i.Status}"
+                style="width:100px;{!if(ISBLANK(i.Email),'background-color:'&badEmail,'')}"/>
+            
+            <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headervalue="INVITE" value="{!i.Action__c}"
+                style="width:150px;{!if(ISBLANK(i.Email),'background-color:'&badEmail,'')}"/>
+<!--            <apex:column styleclass="rowNotInvited" headerClass="TableTitle" headervalue="TEST" value="{!i.JB_TEST__c}"
+                style="width:70px;{!if(ISBLANK(i.Email),'background-color:'&badEmail,'')}"/> -->
+     </apex:pageblocktable>
+</center>
+ </apex:pageblock>
+ 
+ 
+ 
+ 
+ 
+</apex:page>

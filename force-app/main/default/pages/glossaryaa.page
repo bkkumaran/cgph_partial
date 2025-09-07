@@ -1,0 +1,442 @@
+<apex:page >
+
+<style>
+     @import url('https://fonts.googleapis.com/css?family=Montserrat');
+     @import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
+     #TopHead {white-space: nowrap; font-size: 25pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px; } 
+     #letters {white-space: nowrap; font-size: 25pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; } 
+     #Term {font-size: 15pt; font-family: 'Montserrat'; font-weight: bold;} 
+     #Define {font-size: 10pt; font-family: 'Montserrat'!important;font-weight: bold; margin-left: 30px;}
+     
+     
+</style>
+
+
+
+ <div id="TopHead" >
+    <apex:image url="{!$Resource.cgphLOGOgif}" width="200px" />
+        Administrative Agent Glossary
+        <br />
+    </div>
+    
+
+  <a href="#a" id="letters">A </a>
+  <a href="#b" id="letters">B </a>
+  <a href="#c" id="letters">C </a> 
+  <a href="#d" id="letters">D </a>
+  <a href="#e" id="letters">E </a>
+  <a href="#f" id="letters">F </a>
+  <a href="#g" id="letters">G </a>
+  <a href="#h" id="letters">H </a>
+  <a href="#i" id="letters">I </a>
+  <a href="#j" id="letters">J </a>
+  <a href="#k" id="letters">K </a>
+  <a href="#l" id="letters">L </a>
+  <a href="#m" id="letters">M </a>
+  <a href="#n" id="letters">N </a>
+  <a href="#o" id="letters">O </a>
+  <a href="#p" id="letters">P </a>
+  <a href="#q" id="letters">Q </a>
+  <a href="#r" id="letters">R </a>
+  <a href="#s" id="letters">S </a>
+  <a href="#t" id="letters">T </a>
+  <a href="#u" id="letters">U </a>
+  <a href="#v" id="letters">V </a>
+  <a href="#w" id="letters">W </a>
+  <a href="#x" id="letters">X </a>
+  <a href="#y" id="letters">Y </a>
+  <a href="#z" id="letters">Z </a>
+  <br/>
+  <br/>
+ 
+  
+  <!------TERM AND DEFINE TEMPLATE-------------TERM AND DEFINE TEMPLATE---------->
+ <!-- ------------------------------------------------------------------------------------
+<div id="Term">
+Term: 
+</div>
+<br />
+<div id="Define">
+Text containted in the definition entry. 
+</div>
+<br /><br />
+----------------------------------------------------------------------------------------- -->      
+
+
+<a id="a"></a> <!--------A------>   
+
+<div id="Term">
+Activity Log: 
+</div>
+<br />
+<div id="Define">
+This is located on a Contact page and contains a historical log of communications to the applicant. 
+</div>
+<br /><br />
+
+<div id="Term">
+Administrative Agent: 
+</div>
+<br />
+<div id="Define">
+Is the entity responsible for the administration of Affordable Units in accordance with the Municipality’s Affordable Housing Ordinance  
+</div>
+<br /><br />
+
+<div id="Term">
+Affirmative Marketing: 
+</div>
+<br />
+<div id="Define">
+This is regional marketing strategy designed to attract buyers and/or renters of Affordable Units. We are required by law to provide this as the administrative agent of a municiaplity. 
+</div>
+<br /><br />
+
+<div id="Term">
+Affordable Housing: 
+</div>
+<br />
+<div id="Define">
+Means housing units restricted to income-eligible very-low, low and moderate income households. It is important to note that the rent or sales cost of the unit does not fluctuate based on the applicants income. Income only impacts the applicants eligibility for the home. 
+</div>
+<br /><br />
+
+<div id="Term">
+Age-Restricted Unit: 
+</div>
+<br />
+<div id="Define">
+Means a housing unit designed to meet the needs of, and exclusively for, the residents of an age-restricted segment of the population. There are different levels of age-restriction. Details of a units age restriction will be on the property and development pages. 
+</div>
+<br /><br />
+
+
+<a id="b"></a> <!--------B------>   
+<a id="c"></a> <!--------C------>   
+
+<div id="Term">
+Campaign: 
+</div>
+<br />
+<div id="Define">
+This is what we use to outreach to applicants on the waiting list when we have a new unit. It will review the waiting list for the municipality the unit is in and determine who is eligible. 
+</div>
+<br /><br />
+
+<div id="Term">
+Campaign Member:
+</div>
+<br />
+<div id="Define">
+This section is located on an applicant’s pre-applicant page. This will list any campaign from a municipality that the applicant is on a waiting list for and tell you their status. If an applicant does not have a campaign member object for a specific Campaign then they are either not on the appropriate waiting list or the EA Page has not been run for that property since they joined the waiting list. 
+</div>
+<br /><br />
+
+<div id="Term">
+Cases:
+</div>
+<br />
+ <div id="Define">
+ These objects are created either automatically by the system or manually by a staff member to represent a request for assistance by an applicant. 
+</div>
+<br /><br />
+
+<div id="Term">
+Certified Household: 
+</div>
+<br />
+<div id="Define">
+Means a Household has been certified by an Administrative Agent as A Very Low, Low-Income or Moderate-Income Household.  
+</div>
+<br /><br />
+
+<div id="Term">
+Chatter: 
+</div>
+<br />
+<div id="Define">
+This is a tool within Salesforce that allows us to create notes at the top of an object and direct them at eachother is needed.  To chatter you would click at the top of an object in the field that says Write something. To direct the chatter you would use the @ symbol followed by the username (this will autofill once you type the first few letters). 
+</div>
+<br /><br />
+
+<div id="Term">
+COAH: 
+</div>
+<br />
+<div id="Define">
+Is the Council on Affordable Housing, or successor agency, which is in, but not of the Department of Community Affairs of the State of New Jersey, that was established under the New Jersey Fair Housing Act “to have primary jurisdiction for the administration of housing obligations in accordance with sound regional planning considerations in this State 
+</div>
+<br /><br />
+
+<div id="Term">
+Contact: 
+</div>
+<br />
+<div id="Define">
+An object in Salesforce with applicant details such as contact information, their activity log, previous cases, and any service files they may have.  This is often, but not always, paired with a pre-applicant page. 
+</div>
+<br /><br />
+
+<div id="Term">
+Contract: 
+</div>
+<br />
+<div id="Define">
+When we make agreements with municipalities and private developments we work out contracts which stipulate what we can bill for and other details pertaining to services and billing. This affects what entry we make on timeslips as it would what contract we would bill our time under. 
+</div>
+<br /><br />
+
+<a id="d"></a> <!--------D------> 
+<a id="e"></a> <!--------E------> 
+
+<div id="Term">
+Eligible Applicants Page:
+</div>
+<br />
+<div id="Define">
+ This is usually referred to as an EA Page. The EA Page shows a list of applicants who have been invited to request to visit a unit and applicants who have not but are potentially eligible to.  It is where most outreach is accomplished. It can be reached by going to a property and click on the EA button at the top of the page. 
+</div>
+<br /><br />
+
+<a id="f"></a> <!--------F------> 
+
+<div id="Term">
+Full Application: 
+</div>
+<br />
+<div id="Define">
+When an applicant is next in line for a unit (and has been approved in the case of a rental unit), they are invited to submit a full application for income certification. This involves a much more detailed applicaiton than the preliminary submission and request to visit. It also requires the submission of supporting documents including mortgage pre-approvals (MPA) in the case of sales.   
+</div>
+<br /><br />
+
+
+<a id="g"></a> <!--------G------> 
+<a id="h"></a> <!--------H------> 
+
+<div id="Term">
+HOA:
+</div>
+<br />
+ <div id="Define">
+ Home Owners Association (DEFINE THIS BEFORE MAKING PUBLIC!!!) 
+</div>
+<br /><br />
+<div id="Term">
+Homekeeper/Salesforce:
+</div>
+<br />
+ <div id="Define">
+ The Database system that we use. Homekeeper is a module that we use for Salesforce to make it more useful for our purposes. 
+</div>
+<br /><br />
+
+<div id="Term">
+Household Waivers: 
+</div>
+<br />
+<div id="Define">
+Normally there is a minimum annual income that a household can make to qualify for an affordable unit based on the units rent/cost and household expenses. Household waivers are specific instances where that minimum income requirement would be adjusted. These include when the households current expenses are more than they would be paying in the affordable unit, they are currently living in substandard or overcrowded housing, and when they can document that they will be receiving assistance from others to help supliment their income. For more information on minimum income requirements see <a href="https://cgph.my.salesforce.com/kA0o0000000OotG" target="_blank">this page from our FAQ</a>.
+</div>
+<br /><br />
+
+<a id="i"></a> <!--------I------> 
+
+
+<div id="Term">
+Income Limits: 
+</div>
+<br />
+<div id="Define">
+The maximum income for a unit is determined by its designation (very low, low, or moderate), the region it is in, and the household size or the applicant. Depending on the municipality it may be based on 2014 income limits or on the updated 2019 income limits. The municipality page that the unit is in will have an entry for what income limits they are using.   
+</div>
+<br /><br />
+
+<div id="Term">
+Intent to Sell: 
+</div>
+<br />
+<div id="Define">
+When the owner of an affordable unit is ready to sell their unit they will requests what is called an intent to sell packet. CGP&amp;H will then generate this packet which has forms for the applicant to fill out and includes the maximum resale price for the unit. 
+</div>
+<br /><br />
+
+<a id="j"></a> <!--------J------> 
+<a id="k"></a> <!--------K------> 
+<a id="l"></a> <!--------L------> 
+
+<div id="Term">
+Lottery Number: 
+</div>
+<br />
+<div id="Define">
+Applicants are given random lottery numbers for a municipality when random drawings are held.  They will either apply to rental or sales opportunities but never both. When waiting lists are inherited from previous administrative agencies they will sometimes come with development specific lottery numbers which we are required to honor. However, our lottery numbers will always apply to the entire municipality.  
+</div>
+<br /><br />
+
+<a id="m"></a> <!--------M------>
+
+<div id="Term">
+Mortgage Pre-Approval (MPA): 
+</div>
+<br />
+<div id="Define">
+This is a pre-approval by a mortgage lender based on the applicants financial information and the details of the unit. Many mortgage providers will not work with affordable housing. There is a list of mortgage providers that do work with affordable homes on our FAQ.
+</div>
+<br /><br />
+
+<div id="Term">
+Municipality Preference Log: 
+</div>
+<br />
+<div id="Define">
+This is located on the Contact page and contains a historical log of applicant’s waitlist join dates, removal dates, and lottery numbers. There will only be a Municipality Preference Log when the applicant is archived or has been archived in the past. 
+</div>
+<br /><br />
+
+<a id="n"></a> <!--------N------> 
+<a id="o"></a> <!--------O------> 
+
+<div id="Term">
+Outreach: 
+</div>
+<br />
+<div id="Define">
+This is where we begin to send applicants invitations with more details about an affordable unit. We do so primarily through the EA Page.  
+</div>
+<br /><br />
+
+<a id="p"></a> <!--------P------> 
+
+
+
+<div id="Term">
+Pre-applicant Page: 
+</div>
+<br />
+<div id="Define">
+This is an object that is created when a contact has an active profile with us. It will contain the status of their profile, their interest in sales/rental, the details of their household, what waiting lists they have joined, and what preliminary submissions they have submitted. 
+</div>
+<br /><br />
+
+<div id="Term">
+Preliminary Submissions:
+</div>
+<br />
+<div id="Define">
+ This is created when an applicant either submits a pre-application with us, an update to their existing pre-application, or a request to visit a unit. It will contain their household details at the time of the submission. You can see all of an applicant’s preliminary submissions on their pre-applicant page. 
+</div>
+<br /><br />
+
+<div id="Term">
+Purchase Agreement: 
+</div>
+<br />
+<div id="Define">
+Once an applicant&#39;s household has been certified to purchase a home, we request that they and the seller fill out and return a purchase agreement which stipulates as the Maximum Restricted Sale Price (or Maximum Permitted Resale Price) of the unit, the agreed upon purchase price, the amount of good faith deposit, and the items to be included in the sale price of the unit. Note that this is not a legally binding document.. 
+</div>
+<br /><br />
+
+<a id="q"></a> <!--------Q------> 
+<a id="r"></a> <!--------R------> 
+
+<div id="Term">
+Random Selection Process: 
+</div>
+<br />
+<div id="Define">
+This is the process by which currently income-eligible households are selected for placement in Affordable Units such that no preference is given to one applicant over another except for purposes of matching household income and size with an appropriately priced and sized Affordable Unit (e.g., by lottery).   
+</div>
+<br /><br />
+
+<div id="Term">
+Regional Asset Limit: 
+</div>
+<br />
+<div id="Define">
+Each region places a limit on the maximum value of a home/homes owned by an applicant that do not have a mortgage. If the home has no mortgage and is over the regional asset limit then the applicant may not be eligible.  
+</div>
+<br /><br />
+
+<div id="Term">
+Regional Preference: 
+</div>
+<br />
+<div id="Define">
+This is when a municipality wishes to give preference to applicant households that a household member that lives or works in the the region of the municipality.  
+</div>
+<br /><br />
+
+<div id="Term">
+Request to Visit: 
+</div>
+<br />
+<div id="Define">
+Referred to frequently as an RTV. This object is created when an applicant responds to an invitation with more details about a home. They would click on a Request to Visit button and submit a preliminary submission via the form they are taken to. The RTVs would then be evaluated by the system to determine if the applicant is potentially eligible. 
+</div>
+<br /><br />
+
+<a id="s"></a> <!--------S------> 
+
+<div id="Term">
+Salesforce/Homekeeper: 
+</div>
+<br />
+<div id="Define">
+The Database system that we use. Homekeeper is a module that we use for Salesforce to make it more useful for our purposes.
+</div>
+<br /><br />
+
+<div id="Term">
+Service File: 
+</div>
+<br />
+<div id="Define">
+This object is created when an applicant submits an application for income certification. It keeps a record of their income certification process and results as well as making us aware of what applicant is residing in a unit. The status on the Service File will indicate whether an applicant has been approved of not. For rental units the service file will also contain the leases that have been executed for the unit by the applicant’s household.  Service files can be navigated to via the Contact page or the Property page. 
+</div>
+<br /><br />
+
+<a id="t"></a> <!--------T------> 
+<div id="Term">
+Timeslips: 
+</div>
+<br />
+<div id="Define">
+Timeslips is the program that we use to note where our time is spent and where that time should be billed. Each timeslip template has a Contract, Task, and Reference field as well a description on what work was accomplised.
+</div>
+<br /><br />
+
+<a id="u"></a> <!--------U------> 
+<a id="v"></a> <!--------V------> 
+<a id="w"></a> <!--------W------> 
+<a id="x"></a> <!--------X------> 
+<a id="y"></a> <!--------Y------> 
+<a id="z"></a> <!--------Z------> 
+
+  <a href="#a" id="letters">A </a>
+  <a href="#b" id="letters">B </a>
+  <a href="#c" id="letters">C </a> 
+  <a href="#d" id="letters">D </a>
+  <a href="#e" id="letters">E </a>
+  <a href="#f" id="letters">F </a>
+  <a href="#g" id="letters">G </a>
+  <a href="#h" id="letters">H </a>
+  <a href="#i" id="letters">I </a>
+  <a href="#j" id="letters">J </a>
+  <a href="#k" id="letters">K </a>
+  <a href="#l" id="letters">L </a>
+  <a href="#m" id="letters">M </a>
+  <a href="#n" id="letters">N </a>
+  <a href="#o" id="letters">O </a>
+  <a href="#p" id="letters">P </a>
+  <a href="#q" id="letters">Q </a>
+  <a href="#r" id="letters">R </a>
+  <a href="#s" id="letters">S </a>
+  <a href="#t" id="letters">T </a>
+  <a href="#u" id="letters">U </a>
+  <a href="#v" id="letters">V </a>
+  <a href="#w" id="letters">W </a>
+  <a href="#x" id="letters">X </a>
+  <a href="#y" id="letters">Y </a>
+  <a href="#z" id="letters">Z </a>
+  <br/>
+</apex:page>

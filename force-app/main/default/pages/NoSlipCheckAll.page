@@ -1,0 +1,433 @@
+<apex:page controller="InvSetupsActiveEXT" title="Invoicing Workbook" standardStylesheets="false">
+
+
+<!-- --------------------- -->
+<!--       VARIABLES       -->
+<!-- --------------------- -->
+
+<apex:variable var="cBlue" value="RGB(50, 100, 200)"/>
+<apex:variable var="rows" value="30"/>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto');
+
+    table {
+        border-collapse: collapse;
+    }
+    a {
+        text-decoration: none !important;
+        }
+    .head{
+        font-family: Roboto;
+        font-size: 18pt;
+        color:{!cBlue};
+        }
+    .alphaSelected{
+        background-color: {!cBlue};
+        width: 40px;
+        font-weight: bold;
+        border-radius: 2px;
+        border: 1px solid #f2f2f2;
+        color: white;
+        padding: 4px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 9pt;
+        font-family:'Roboto';
+            }
+    .alphaSelected:hover{
+        background-color: {!cBlue};
+        color: white;
+        cursor:pointer;
+            }
+    .alphaNotSelected{
+        background-color: RGB(242,247,255);
+        width: 40px;
+        border-radius: 2px;
+        border: 1px solid {!cBlue};
+        color: {!cBlue};
+        padding: 4px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 9pt;
+        font-family:'Roboto';
+            }
+    .alphaNotSelected:hover{
+        background-color: {!cBlue};
+        color: white;
+        cursor:pointer;
+            }
+    .alphaDone{
+        background-color: RGB(250, 250, 250);
+        width: 40px;
+        border-radius: 2px;
+        border: 1px solid white;
+        color: RGB(204,204,204);
+        padding: 4px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 9pt;
+        font-family:'Roboto';
+            }
+    .alphaDone:hover{
+        cursor:default;
+        }
+    .pageSelected{
+        background-color: {!cBlue};
+        width: 75px;
+        border-radius: 2px;
+        border: 1px solid #f2f2f2;
+        color: white;
+        padding: 4px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 9pt;
+        font-family:'Roboto';
+            }
+    .pageSelected:hover{
+        background-color: {!cBlue};
+        color: white;
+        cursor:pointer;
+            }
+    .pageNotSelected{
+        background-color: white;
+        width: 75px;
+        border-radius: 2px;
+        border: 1px solid #f2f2f2;
+        color: {!cBlue};
+        padding: 4px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 9pt;
+        font-family:'Roboto';
+            }
+    .pageNotSelected:hover{
+        background-color: {!cBlue};
+        color: white;
+        cursor:pointer;
+            }
+    
+    .pageHide { display:none; }
+    .mark{
+        background-color: #f7fffb;
+        width: 75px;
+        font-weight: bold;
+        border-radius: 4px;
+        border: 0.5px solid RGB(0,113,107);
+        color: RGB(0,113,107) !important;
+        padding: 4px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10pt;
+        font-family:'Roboto';
+        display:{!IF(setupCount = 0, 'none','normal')};
+            }
+    .mark:hover{
+        background-color: RGB(0,113,107);
+        color: white !important;
+        cursor:pointer;
+            }
+    .editMode{
+        display:{!IF($CurrentPage.parameters.e= '1', 'normal', 'none' )};
+        }
+    .editNo{
+        display:{!IF($CurrentPage.parameters.e= '1', 'none', 'normal' )};
+        }
+    .check {
+        color: RGB(230,76,76);
+        font-family: Roboto;
+        font-size: 8pt;
+        display:{!IF(setupCount > value(rows), 'normal','none')};
+        display:{!IF($CurrentPage.parameters.e= '1', 'none', 'normal' )};
+        }
+    .checkBox {
+        display:{!IF($CurrentPage.parameters.e= '1', 'normal', 'none' )};
+        vertical-align: top;
+        }
+    .notesText{
+        display:{!IF($CurrentPage.parameters.e= '1', 'none', 'normal' )};
+        vertical-align: top;
+        }
+    .notesEdit{
+        display:{!IF($CurrentPage.parameters.e= '1', 'normal', 'none' )};
+        vertical-align: top;
+        }
+    .buttonSave{
+        background-color: RGB(224, 255, 240);
+        color: black;
+        border-radius: 4px;
+        border: 1px solid #167045;
+        padding: 4px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10pt;
+        font-family:'Roboto';
+            }
+    .buttonSave:hover{
+        background-color: #167045;
+        color: white;
+        cursor:pointer;
+            }
+    .buttonCancel{
+        background-color: RGB(230,230,230);
+        color: black;
+        border-radius: 4px;
+        border: 1px solid #999999;
+        padding: 3px 7px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10pt;
+        font-family:'Roboto';
+            }
+    .buttonCancel:hover{
+        background-color: #999999;
+        color: white;
+        cursor:pointer;
+            }
+
+
+
+</style>
+
+
+
+<center>
+
+<!-- HEADER -->
+<div class="head">
+<br/>
+    INVOICING WORKBOOK - 
+    <apex:outputText value="{0, date, MMMM' 'yyyy}">
+                <apex:param value="{!$Setup.CGPH_General__c.Invoicing_Date__c}"/>
+            </apex:outputText>
+             - 
+             Review Remaining: {!setupCountAll} &nbsp;
+             <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003HXSTMA4/view?queryScope=userFolders" target="_blank">
+                 <apex:image value="{!$Resource.Blue_Report_Icon}" height="25px"/>
+             </a>
+</div>
+<br/>
+
+<!-- BUTTONS -->
+<a class="{!IF(count_A = 0, 'alphaDone',IF( alpha = 'A','alphaSelected','alphaNotSelected'))}" href="{!IF(count_A = 0, '','https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=A&e=0')}" target="_top">
+ <b>A</b> {!IF(count_A = 0, '', '- ' & TEXT(count_A))}
+ </a>
+<a class="{!IF(count_B = 0, 'alphaDone',IF( alpha = 'B','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=B&e=0" target="_top">
+ <b>B</b> {!IF(count_B = 0, '', '- ' & TEXT(count_B))}
+ </a>
+<a class="{!IF(count_C = 0, 'alphaDone',IF( alpha = 'C','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=C&e=0" target="_top">
+ <b>C</b> {!IF(count_C = 0, '', '- ' & TEXT(count_C))}
+ </a>
+<a class="{!IF(count_D = 0, 'alphaDone',IF( alpha = 'D','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=D&e=0" target="_top">
+ <b>D</b> {!IF(count_D = 0, '', '- ' & TEXT(count_D))}
+ </a>
+<a class="{!IF(count_E = 0, 'alphaDone',IF( alpha = 'E','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=E&e=0" target="_top">
+ <b>E</b> {!IF(count_E = 0, '', '- ' & TEXT(count_E))}
+ </a>
+<a class="{!IF(count_F = 0, 'alphaDone',IF( alpha = 'F','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=F&e=0" target="_top">
+ <b>F</b> {!IF(count_F = 0, '', '- ' & TEXT(count_F))}
+ </a>
+<a class="{!IF(count_G = 0, 'alphaDone',IF( alpha = 'G','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=G&e=0" target="_top">
+ <b>G</b> {!IF(count_G = 0, '', '- ' & TEXT(count_G))}
+ </a>
+<a class="{!IF(count_H = 0, 'alphaDone',IF( alpha = 'H','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=H&e=0" target="_top">
+ <b>H</b> {!IF(count_H = 0, '', '- ' & TEXT(count_H))}
+ </a>
+<a class="{!IF(count_I = 0, 'alphaDone',IF( alpha = 'I','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=I&e=0" target="_top">
+ <b>I</b> {!IF(count_I = 0, '', '- ' & TEXT(count_I))}
+ </a>
+<a class="{!IF(count_J = 0, 'alphaDone',IF( alpha = 'J','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=J&e=0" target="_top">
+ <b>J</b> {!IF(count_J = 0, '', '- ' & TEXT(count_J))}
+ </a>
+<a class="{!IF(count_K = 0, 'alphaDone',IF( alpha = 'K','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=K&e=0" target="_top">
+ <b>K</b> {!IF(count_K = 0, '', '- ' & TEXT(count_K))}
+ </a>
+<a class="{!IF(count_L = 0, 'alphaDone',IF( alpha = 'L','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=L&e=0" target="_top">
+ <b>L</b> {!IF(count_L = 0, '', '- ' & TEXT(count_L))}
+ </a>
+<a class="{!IF(count_M = 0, 'alphaDone',IF( alpha = 'M','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=M&e=0" target="_top">
+ <b>M</b> {!IF(count_M = 0, '', '- ' & TEXT(count_M))}
+ </a>
+ <br/>
+<a class="{!IF(count_N = 0, 'alphaDone',IF( alpha = 'N','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=N&e=0" target="_top">
+ <b>N</b> {!IF(count_N = 0, '', '- ' & TEXT(count_N))}
+ </a>
+<a class="{!IF(count_O = 0, 'alphaDone',IF( alpha = 'O','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=O&e=0" target="_top">
+ <b>O</b> {!IF(count_O = 0, '', '- ' & TEXT(count_O))}
+ </a>
+<a class="{!IF(count_P = 0, 'alphaDone',IF( alpha = 'P','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=P&e=0" target="_top">
+ <b>P</b> {!IF(count_P = 0, '', '- ' & TEXT(count_P))}
+ </a>
+<a class="{!IF(count_Q = 0, 'alphaDone',IF( alpha = 'Q','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=Q&e=0" target="_top">
+ <b>Q</b> {!IF(count_Q = 0, '', '- ' & TEXT(count_Q))}
+ </a>
+<a class="{!IF(count_R = 0, 'alphaDone',IF( alpha = 'R','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=R&e=0" target="_top">
+ <b>R</b> {!IF(count_R = 0, '', '- ' & TEXT(count_R))}
+ </a>
+<a class="{!IF(count_S = 0, 'alphaDone',IF( alpha = 'S','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=S&e=0" target="_top">
+ <b>S</b> {!IF(count_S = 0, '', '- ' & TEXT(count_S))}
+ </a>
+<a class="{!IF(count_T = 0, 'alphaDone',IF( alpha = 'T','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=T&e=0" target="_top">
+ <b>T</b> {!IF(count_T = 0, '', '- ' & TEXT(count_T))}
+ </a>
+<a class="{!IF(count_U = 0, 'alphaDone',IF( alpha = 'U','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=U&e=0" target="_top">
+ <b>U</b> {!IF(count_U = 0, '', '- ' & TEXT(count_U))}
+ </a>
+<a class="{!IF(count_V = 0, 'alphaDone',IF( alpha = 'V','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=V&e=0" target="_top">
+ <b>V</b> {!IF(count_V = 0, '', '- ' & TEXT(count_V))}
+ </a>
+<a class="{!IF(count_W = 0, 'alphaDone',IF( alpha = 'W','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=W&e=0" target="_top">
+ <b>W</b> {!IF(count_W = 0, '', '- ' & TEXT(count_W))}
+ </a>
+<a class="{!IF(count_X = 0, 'alphaDone',IF( alpha = 'X','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=X&e=0" target="_top">
+ <b>X</b> {!IF(count_X = 0, '', '- ' & TEXT(count_X))}
+ </a>
+<a class="{!IF(count_Y = 0, 'alphaDone',IF( alpha = 'Y','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=Y&e=0" target="_top">
+ <b>Y</b> {!IF(count_Y = 0, '', '- ' & TEXT(count_Y))}
+ </a>
+<a class="{!IF(count_Z = 0, 'alphaDone',IF( alpha = 'Z','alphaSelected','alphaNotSelected'))}" href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a=Z&e=0" target="_top">
+ <b>Z</b> {!IF(count_Z = 0, '', '- ' & TEXT(count_Z))}
+ </a>
+<br/><br/>
+<div style="{!IF(setupCount > value(rows), '', 'display:none')}">
+    <a  class="{!IF(rowStart = 0,'pageSelected','pageNotSelected')}"
+        href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a={!alpha}&e=0"
+        target="_top">
+        Page 1
+    </a>
+    <a  class="{!IF(rowStart = value(rows)+1,'pageSelected','pageNotSelected')}"
+        style="{!IF(setupCount > value(rows), '', 'display:none')}"
+        href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r={!value(rows)+1}&a={!alpha}&e=0"
+        target="_top">
+        Page 2
+    </a>
+    <a  class="{!IF(rowStart = value(rows)+value(rows)+1,'pageSelected','pageNotSelected')}"
+        style="{!IF(setupCount > value(rows)+value(rows), '', 'display:none')}"
+        href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r={!value(rows)+value(rows)+1}&a={!alpha}&e=0"
+        target="_top">
+        Page 3
+    </a>
+    <a  class="{!IF(rowStart = value(rows)+value(rows)+value(rows)+1,'pageSelected','pageNotSelected')}"
+        style="{!IF(setupCount > value(rows)+value(rows)+value(rows), '', 'display:none')}"
+        href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r={!value(rows)+value(rows)+value(rows)+1}&a={!alpha}&e=0"
+        target="_top">
+        Page 4
+    </a>
+</div>
+
+
+<apex:form >
+
+
+<br/><br/>
+<table border="0" width="400">
+
+<!-- --------------------------- -->
+<!--             EDIT            -->
+<!-- --------------------------- -->
+    <tr>
+        <td style="text-align: center; padding-bottom: 5px;">
+            <div class="editMode">
+                <apex:commandButton id="cancelButton" styleClass="buttonCancel" value="Cancel" action="{!cancel}"/>
+                &nbsp;&nbsp;
+            <apex:commandButton id="saveButton" styleClass="buttonSave" value="Save" action="{!save}"/>
+                </div>
+            <div class="editNo">
+                <a href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r={!rowStart}&a={!alpha}&e=1"
+                   class="mark"
+                   target="_top">
+                    ✏️ ROWS
+                </a>
+                &nbsp;&nbsp;
+                <a href="https://cgph--c.vf.force.com/flow/Invoices_Mark_All_As_Invoices_Completed_by_Alpha?varAlpha={!alpha}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FNoSlipCheckAll%3Fr%3D0%26a%3D{!alpha}%26e%3D0"
+                   class="mark"
+                   target="_top">
+                    ✏️ ALL
+                    <span style="color: red !important; {!IF(setupCount > value(rows), '','display:none;')}">
+                    <b>*</b>
+                    </span>
+                </a>
+            </div>
+        </td>
+        </tr>
+        <tr>
+            <td height="20" style="text-align: center;">
+                <div class="check">
+                   *Check all pages for letter <b>{!alpha}</b>
+                </div>
+            </td>
+        </tr>
+    <apex:repeat var="x" value="{!setupList}" rows="{!rows}">
+        <tr>
+            <td style="text-align:center;">
+                <apex:iframe src="https://cgph--c.vf.force.com/apex/NoSlipNumber?id={!x.id}&core.apexpages.devmode.url=0"
+                    scrolling="false"
+                    id="theIframe"
+                    height="20px"
+                    width="100%"
+
+                    frameborder="false"
+                />
+            </td>
+            <td class="checkBox" width="60px;">
+                <apex:actionRegion >
+                  <apex:outputField value="{!x.Mark_Complete__c}" >
+                      <apex:inlineEditSupport event="onMouseOver"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+            </td>
+        </tr>
+
+    </apex:repeat>
+
+</table>
+
+<br/>
+<div style="{!IF(setupCount > value(rows), '', 'display:none')}">
+    <a  class="{!IF(rowStart = 0,'pageSelected','pageNotSelected')}"
+        href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a={!alpha}&e=0"
+        target="_top">
+        Page 1
+    </a>
+    <a  class="{!IF(rowStart = value(rows)+1,'pageSelected','pageNotSelected')}"
+        style="{!IF(setupCount > value(rows), '', 'display:none')}"
+        href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r={!value(rows)+1}&a={!alpha}&e=0"
+        target="_top">
+        Page 2
+    </a>
+    <a  class="{!IF(rowStart = value(rows)+value(rows)+1,'pageSelected','pageNotSelected')}"
+        style="{!IF(setupCount > value(rows)+value(rows), '', 'display:none')}"
+        href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r={!value(rows)+value(rows)+1}&a={!alpha}&e=0"
+        target="_top">
+        Page 3
+    </a>
+    <a  class="{!IF(rowStart = value(rows)+value(rows)+value(rows)+1,'pageSelected','pageNotSelected')}"
+        style="{!IF(setupCount > value(rows)+value(rows)+value(rows), '', 'display:none')}"
+        href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r={!value(rows)+value(rows)+value(rows)+1}&a={!alpha}&e=0"
+        target="_top">
+        Page 4
+    </a>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+</apex:form>
+
+</center>
+
+
+</apex:page>

@@ -1,0 +1,38 @@
+<apex:page StandardController="Contract" sidebar="false" showHeader="false">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        .tableStyle { font-family: 'Open Sans'; font-size: 11pt; width: 400px;};
+        .button { font-size: 15pt !important; }
+    </style>
+
+<table>
+<tr>
+<td style="height: 100px; vertical-align: middle; text-align: center;">
+<apex:outputPanel layout="block" >
+                <div style="font-size: 20pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold;">
+                    {!Contract.Name} Billing Terms <br/>
+                    Table Headings Edit
+                </div>
+</apex:outputPanel>
+</td>
+</tr>
+<tr>
+<td width="700px">
+  <apex:form >
+    <apex:pageBlock mode="edit">
+      <apex:pageBlockButtons >
+        <apex:commandButton action="{!save}" value="Save"/>
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection columns="1" >
+        <apex:inputField value="{!Contract.Table_A__c}" styleClass="tableStyle" />
+        <apex:inputField value="{!Contract.Table_B__c}" styleClass="tableStyle" />
+        <apex:inputField value="{!Contract.Table_C__c}" styleClass="tableStyle" />
+        <apex:inputField value="{!Contract.Table_D__c}" styleClass="tableStyle"/>
+        <apex:inputField value="{!Contract.Table_E__c}" styleClass="tableStyle"/>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+</td>
+</tr>
+</table>
+</apex:page>

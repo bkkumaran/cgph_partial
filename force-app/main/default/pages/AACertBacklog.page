@@ -1,0 +1,85 @@
+<apex:page controller="getApp" tabStyle="HOMEtracker__Service_File__c">
+
+<style>
+    #txt {font-size: 12pt; line-height: 1.5; padding-left: 20px;}
+    #txt2 {font-size: 15pt; line-height: 1.5; font-weight: bold; padding-left: 20px;}
+    #tab  {font-size: 12pt; line-height: 1.5; text-align: right;}
+</style>
+
+<div id="txt2">
+AA Certifications Backlog Tracking
+</div>
+<br/>
+<div id="txt">
+Oldest App Not Processed <br/>
+<apex:outputText style="" value="{0, date, M'/'d'/'YYYY}">
+<apex:param value="{!SF[0].PHA__Application_Submitted__c}" />
+</apex:outputText>
+<br/>
+{!TODAY() - SF[0].PHA__Application_Submitted__c} days ago
+</div>
+<br/>
+<br/>
+
+<div style="padding-left: 20px">
+<table border="1" id="tab">
+<tr>
+<td width="250px">
+Apps Ready for Review Last Week
+</td>
+<td  width="25px">
+{!LWplus.size}
+</td>
+</tr>
+
+<tr>
+<td>
+Apps Completed Last Week
+</td>
+<td>
+{!LWminus.size}
+</td>
+</tr>
+
+<tr>
+<td>
+Reduction in Backlog Last Week
+</td>
+<td>
+{!0-(LWplus.size - LWminus.size)}
+</td>
+</tr>
+
+<tr>
+<td>
+<i>
+Remaining in Backlog
+</i>
+</td>
+<td>
+<i>
+{!Backlog.size}
+</i>
+</td>
+</tr>
+
+</table>
+</div>
+
+
+
+
+
+
+<!--
+<analytics:reportChart reportId="00O3m000005Mtuq" size="small" showRefreshButton="true" rendered="false"/>
+
+ <apex:pageBlock >
+        <apex:pageBlockTable value="{!SF}" var="x">     
+            <apex:column value="{!x.Id}"/>
+            <apex:column value="{!x.Name}"/>
+            <apex:column value="{!x.PHA__Application_Submitted__c}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    -->
+</apex:page>

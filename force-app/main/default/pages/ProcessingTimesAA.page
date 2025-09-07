@@ -1,0 +1,177 @@
+<apex:page standardController="CGPH_Info__c">
+
+<!-- color variables -->
+<apex:variable id="CGPHblue" var="CGPHblue" value="rgb(0, 101, 168)"/>
+<apex:variable id="BorderColor" var="BorderColor" value="#cccccc"/>
+
+<apex:variable var="GoalBelow" value="#8bf0b0"/>
+<apex:variable var="GoalAbove" value="RGB(255,183,93)"/>
+<apex:variable var="MaxAbove" value="#ff6c4f"/>
+
+
+<style>
+    table {
+        border-collapse:collapse;
+        border-color:{!BorderColor};
+        }
+    th {
+        padding: 3px 3px 3px 3px;
+        font-size:11pt;
+        font-weight:bold;
+        }
+    td {
+        padding: 3px 3px 3px 3px;
+        font-size:10pt;
+        }
+    .header{
+        font-size:12pt;
+        font-weight: bold;
+        text-align:center;
+        color:{!CGPHblue};
+        }
+    .center {
+        text-align:center;
+        }
+    .method {
+        font-size:9pt;
+        }
+    .GoalBelow{
+        background-color:{!GoalBelow};
+        }
+    .GoalAbove{
+        background-color:{!GoalAbove};
+        }
+    .MaxAbove{
+        background-color:{!MaxAbove};
+        }
+</style>
+
+<!-- METRIC VARIABLES -->
+<apex:variable var="AA1_AVG" value="{!$Setup.CGPH_AA_Processing_Times__c.AA1_AVG__c}"/>
+<apex:variable var="AA1_MAX" value="{!$Setup.CGPH_AA_Processing_Times__c.AA1_MAX__c}"/>
+<apex:variable var="AA1_CUR" value="{!$Setup.CGPH_AA_Processing_Times__c.AA1_CUR__c}"/>
+<apex:variable var="AA2_AVG" value="{!$Setup.CGPH_AA_Processing_Times__c.AA2_AVG__c}"/>
+<apex:variable var="AA2_MAX" value="{!$Setup.CGPH_AA_Processing_Times__c.AA2_MAX__c}"/>
+<apex:variable var="AA2_CUR" value="{!$Setup.CGPH_AA_Processing_Times__c.AA2_CUR__c}"/>
+<apex:variable var="AA3_AVG" value="{!$Setup.CGPH_AA_Processing_Times__c.AA3_AVG__c}"/>
+<apex:variable var="AA3_MAX" value="{!$Setup.CGPH_AA_Processing_Times__c.AA3_MAX__c}"/>
+<apex:variable var="AA3_CUR" value="{!$Setup.CGPH_AA_Processing_Times__c.AA3_CUR__c}"/>
+<apex:variable var="AA4_AVG" value="{!$Setup.CGPH_AA_Processing_Times__c.AA4_AVG__c}"/>
+<apex:variable var="AA4_MAX" value="{!$Setup.CGPH_AA_Processing_Times__c.AA4_MAX__c}"/>
+<apex:variable var="AA4_CUR" value="{!$Setup.CGPH_AA_Processing_Times__c.AA4_CUR__c}"/>
+<apex:variable var="AA5_AVG" value="{!$Setup.CGPH_AA_Processing_Times__c.AA5_AVG__c}"/>
+<apex:variable var="AA5_MAX" value="{!$Setup.CGPH_AA_Processing_Times__c.AA5_MAX__c}"/>
+<apex:variable var="AA5_CUR" value="{!$Setup.CGPH_AA_Processing_Times__c.AA5_CUR__c}"/>
+<apex:variable var="AA6_AVG" value="{!$Setup.CGPH_AA_Processing_Times__c.AA6_AVG__c}"/>
+<apex:variable var="AA6_MAX" value="{!$Setup.CGPH_AA_Processing_Times__c.AA6_MAX__c}"/>
+<apex:variable var="AA6_CUR" value="{!$Setup.CGPH_AA_Processing_Times__c.AA6_CUR__c}"/>
+
+<!-- OWNERS -->
+<apex:variable var="cases" value="JB"/>
+<apex:variable var="outreach" value="KR"/>
+<apex:variable var="eligibility" value="RJ"/>
+
+
+<table border="1">
+    <tr>
+        <td colspan="7" class="header">
+        <b>CURRENT PROCESSING TIMES</b>
+        </td>
+    </tr>
+    <tr>
+        <th width="300">Process</th>
+        <th width="45">Owner</th>
+        <th width="100">GOAL</th>
+        <th width="100">MAX</th>
+        <th width="100">CURRENT</th>
+        <th width="50">Report</th>
+        <th width="">Method</th>
+    </tr>
+    
+    <tr class="{!If(AA1_CUR>AA1_MAX,'MaxAbove',IF(AA1_CUR>AA1_AVG,'GoalAbove','GoalBelow'))}">
+        <td>1. General Case Response Time</td>
+        <td class="center">{!cases}</td>
+        <td>{!AA1_AVG} biz hours</td>
+        <td>{!AA1_MAX} biz hours</td>
+        <td>{!AA1_CUR} biz hours</td>
+        <td class="center"><a href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005yRRoUAM/view?queryScope=userFolders" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+            </a>
+        </td>
+        <td class="method">Biz Hours since oldest unanswered case was opened.</td>
+    </tr>
+    <tr class="{!If(AA2_CUR>AA2_MAX,'MaxAbove',IF(AA2_CUR>AA2_AVG,'GoalAbove','GoalBelow'))}">
+        <td>2. Begin outreach after notice to fill</td>
+        <td class="center">{!outreach}</td>
+        <td>{!AA2_AVG} biz days</td>
+        <td>{!AA2_MAX} biz days</td>
+        <td>{!AA2_CUR} biz days</td>
+        <td class="center"><a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq0000006avFMAQ/view?queryScope=userFolders" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+            </a>
+        </td>
+        <td class="method">LAST {!$Setup.CGPH_AA_Processing_Times__c.Last_X_Days__c} DAYS: Median Biz days between "Date notified to fill vacancy" and "Date outreach began"</td>
+    </tr>
+    <tr class="{!If(AA3_CUR>AA3_MAX,'MaxAbove',IF(AA3_CUR>AA3_AVG,'GoalAbove','GoalBelow'))}">
+        <td>3. CGPH Give names after publish listing</td>
+        <td class="center">{!outreach}</td>
+        <td>{!AA3_AVG} cal days</td>
+        <td>{!AA3_MAX} cal days</td>
+        <td>{!AA3_CUR} cal days</td>
+        <td class="center"><a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq0000006b1hMAA/view?queryScope=userFolders" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+            </a>
+        </td>
+        <td class="method" style="background-color:yellow">!!!! Google Tracker to Landlord Date not being used, need fix!!!! Update "Names after outreach" formula</td>
+    </tr>
+    <tr class="{!If(AA4_CUR>AA4_MAX,'MaxAbove',IF(AA4_CUR>AA4_AVG,'GoalAbove','GoalBelow'))}">
+        <td>4. Apps picked up after LL/Dev approval</td>
+        <td class="center">{!eligibility}</td>
+        <td>{!AA4_AVG} biz days</td>
+        <td>{!AA4_MAX} biz days</td>
+        <td>{!AA4_CUR} biz days</td>
+        <td class="center"><a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000000ExRdMAK/view?queryScope=userFolders" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+            </a>
+        </td>
+        <td class="method">LAST {!$Setup.CGPH_AA_Processing_Times__c.Last_X_Days__c} DAYS: Median days between "Ready for Income Cert" and "Income Cert Start Date"</td>
+    </tr>
+    <tr class="{!If(AA5_CUR>AA5_MAX,'MaxAbove',IF(AA5_CUR>AA5_AVG,'GoalAbove','GoalBelow'))}">
+        <td>5. Certified or Terminated after being picked up</td>
+        <td class="center">{!eligibility}</td>
+        <td>{!AA5_AVG} cal days</td>
+        <td>{!AA5_MAX} cal days</td>
+        <td>{!AA5_CUR} cal days</td>
+        <td class="center"><a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq0000006bJRMAY/view?queryScope=userFolders" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+            </a>
+        </td>
+        <td class="method">LAST {!$Setup.CGPH_AA_Processing_Times__c.Last_X_Days__c} DAYS: Median days between "Income Cert Start Date" and "Cert or Inelig Date"</td>
+    </tr>
+    <tr class="{!If((AA4_CUR + AA5_CUR)>(AA4_MAX + AA5_MAX),'MaxAbove',IF((AA4_CUR + AA5_CUR) > (AA4_AVG + AA5_AVG),'GoalAbove','GoalBelow'))}">
+        <td>6. Certified or Terminated after LL/Dev Approval</td>
+        <td class="center">{!eligibility}</td>
+        <td>{!AA6_AVG} cal days</td>
+        <td>{!AA6_MAX} cal days</td>
+        <td>{!AA6_CUR} cal days</td>
+        <td class="center"><a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000000EwliMAC/view?queryScope=userFolderss" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+            </a>
+        </td>
+        <td class="method">#4 Pickup Apps + 2 days for biz to cal days adjustment + #5 Certification</td>
+    </tr>
+    <tr>
+        <td colspan="7" style="line-height:13pt;">
+            <i>
+            <b>Processing times current as of 9:00pm yesterday.</b> <br/>
+            <span class="GoalBelow">GREEN</span> means current time is at or below goal.<br/>
+            <span class="GoalAbove">ORANGE</span> means current time exceeds goal but is below maximum.<br/>
+            <span class="MaxAbove">RED</span> means current time exceeds maximum.<br/>
+            LL/Dev = Landlord or Developer<br/>
+            Biz Hours = up to 24 hours on a buisness day, excluding weekends and holidays
+            </i>
+            </td>
+    </tr>
+</table>
+
+</apex:page>

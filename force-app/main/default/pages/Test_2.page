@@ -1,0 +1,5 @@
+<apex:page standardcontroller="TS_Contract__c" extensions="NoSlipCheckTotalExt">
+
+{!countTotal}
+
+</apex:page>

@@ -1,0 +1,10 @@
+<template>
+  <template if:false={verified}>
+    <c-email-gate onverified={handleVerified}></c-email-gate>
+  </template>
+  <template if:true={verified}>
+    <c-gated-content>
+      <p>Verified! Outreach tracker data can be accessed here.</p>
+    </c-gated-content>
+  </template>
+</template>

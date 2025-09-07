@@ -1,0 +1,47 @@
+<apex:page standardcontroller="TS_Contract__c" extensions="NoSlipCheckTotalExt">
+
+
+<style>
+
+    table {
+        border-collapse: collapse;
+        }
+    tr:hover {
+        background-color: RGB(255,255,179) !important;
+        }
+    
+    
+</style>
+
+<!--               ROW COLOR,                                complete -                                           has cert/milestone       needs review      -->
+<apex:variable var="rowColor" value="{!IF(countTotal=0,'RGB(224, 255, 240)',IF( OR( cHRMiles > 0 , cAAElig > 0 ) , 'RGB(255, 224, 156)' , 'RGB(242,247,255)'))}"/>
+<apex:variable var="certs" value="IF( OR( cHRMiles > 0 , cAAElig > 0 ), '1' , '0')}" />
+
+<table border="0" width="100%">
+    <tr style="vertical-align:top; background-color:{!rowColor};">
+        <td width="250px">
+            <a href="https://cgph.lightning.force.com/lightning/r/TS_Contract__c/{!TS_Contract__c.Id}/view" target="_blank">
+            {!TS_Contract__c.Name}
+            </a>
+        </td>
+        <td width="40px" style="text-align:left;">
+            {!IF(countTotal=0,'',countTotal)}{!IF(cAAElig > 0 , '🏠','')}{!IF(cHRMiles > 0 , '🔨','')}
+        </td>
+        <td style="text-align:left;">
+            <!--
+            <a href="https://cgph--c.vf.force.com/flow/Invoices_Quick_Update_Single_Setup_Status_to_Completed?varID={!TS_Contract__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FNoSlipCheckAll%3Fr%3D0%26a%3D{!LEFT(TS_Contract__c.Name,1)}" target="_top" style="{!IF(countTotal=0,'','display:none;')}">
+            COMPLETE
+            </a>
+            -->
+            <span style="opacity:0; {!IF(countTotal=0,'','display:none;')}">
+            REVIEW
+            </span>
+            <a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=0" target="_top" style="color:RGB(50,100,200);{!IF(countTotal=0,'display:none;','')}">
+            REVIEW
+            </a>        
+        </td>
+    </tr>
+</table>
+
+
+</apex:page>

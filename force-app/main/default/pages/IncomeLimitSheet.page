@@ -1,0 +1,1897 @@
+<apex:page standardController="Income_Limit_Calculations__c" sidebar="false">
+
+
+<style>
+ td {font-family: "Calibri";}
+ #Button {font-size: 20pt; color: blue; text-align: left;}
+ #ColHead {text-align: center; font-size: 12pt; font-weight: bold; white-space: nowrap;}
+ #Percent { text-align:center; vertical-align: middle; font-size: 14pt; padding-left: 10px; padding-right: 10px;}
+ #Asset { text-align:center; vertical-align: middle; font-size: 14pt; padding-left: 10px; padding-right: 10px;}
+ #Region {text-align: left; width: 50px; font-size: 13pt;}
+ #Cell {text-align: right; width: 85px; font-size: 11pt;}
+ #Level {text-align: left;}
+ #Divider {font-size: 3pt; background-color: rgb(200,200,200);}
+ #Bottom {text-align: left; font-size: 11pt; width: 1300px;}
+         
+</style>         
+
+<apex:variable var="HeadSize" value="10" />
+<apex:variable var="PercentSize" value="15" />
+          
+<!--    
+<div style="font-size: 20pt; color: blue; text-align: left;">
+<a href="/apex/IncomeLimitSheet?id=a2s3m000007jeZs">2014</a>
+<a href="/apex/IncomeLimitSheet?id=a2s3m000007jeZs">2016</a>
+<a href="/apex/IncomeLimitSheet?id=a2s3m000007jeZs">2017</a>
+<a href="/apex/IncomeLimitSheet?id=a2s3m000007jeZx">2018</a>
+<a href="/apex/IncomeLimitSheet?id=a2s3m000007jeZs">2019</a>
+</div>
+<br/>
+
+-->
+
+<table border="1">
+
+<tr>
+<td colspan="15" style="text-align: center; font-size: 11pt;">
+<i>
+Prepared by Affordable Housing Professionals of New Jersey (AHPNJ) - {!Income_Limit_Calculations__c.Month_Date_Finalized__c} 
+</i>
+</td>
+</tr>
+                                                 
+
+
+<tr>
+<td style="text-align: center; font-size: 20pt;" colspan="15">
+<b>
+{!Income_Limit_Calculations__c.Name} AFFORDABLE HOUSING REGIONAL INCOME LIMITS BY HOUSEHOLD SIZE
+</b>
+</td>
+</tr>
+
+<tr>
+<td colspan="15" style="text-align: center; font-size: 11pt;">
+<i>
+Income limits not officially adopted by the State of New Jersey.  Contact your municipality to see if applicable in your jurisdiction. Additional information about AHPNJ income limits is posted on AHPNJ.org
+</i>
+</td>
+</tr>
+<tr>
+           <td id="Divider" colspan="15">
+           &nbsp; 
+           </td>
+        </tr>
+
+<!-- REGION 1 -->        
+        <tr id="ColHead">
+            <td colspan="2" style="text-align: left;">
+                <b>Region 1: </b>
+            </td>
+            <td>
+                <b> 1 Person</b>
+            </td>
+            <td>
+                <b> *1.5 Person</b>
+            </td>
+            <td>
+                <b> 2 Person</b>
+            </td>
+            <td>
+                <b> 3 Person</b>
+            </td>
+            <td>
+                <b> 4 Person</b>
+            </td>
+            <td>
+                <b> *4.5 Person</b>
+            </td>
+            <td>
+                <b> 5 Person</b>
+            </td>
+            <td>
+                <b> 6 Person</b>
+            </td>
+            <td>
+                <b> 7 Person</b>
+            </td>
+            <td>
+                <b> 8+ Person</b>
+            </td>
+            <td>
+                <b> Rent (%)**</b>
+            </td>
+            <td>
+                <b> Sale (%)***</b>
+            </td>
+            <td>
+                <b> Asset Limit****</b>
+            </td>
+        </tr>
+        <tr>
+            <td id="Region" rowspan="4" >
+                <b>
+                    Bergen<br/>
+                    Hudson<br/>
+                    Passaic<br/>
+                    Sussex
+                </b>
+            </td>
+            <td id="Level">
+                <i>
+                    Median:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.9375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.25}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.35}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.45}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.55}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.65}" />
+                </apex:outputText>
+            </td>
+            
+            <td id="Percent" rowspan="4">
+            {!Income_Limit_Calculations__c.Rent_Increase__c}
+            </td>
+            <td id="Percent" rowspan="4">
+            {!Income_Limit_Calculations__c.Sale_Increase_Region_1__c}
+            </td>
+            <td id="Asset" rowspan="4">
+            <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Asset_Limit_Region_1__c}" />
+                </apex:outputText>
+            </td>
+            
+            
+            </tr>
+            <tr>
+ 
+            <td id="Level">
+                <i>
+                    Moderate:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.7}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.75}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.8}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.9}" />
+                </apex:outputText>
+            </td>
+            <td  id="Cell" style="background-color: yellow;">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.04}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.08}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.16}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.24}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*1.32}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Low:
+                </i>
+            </td>
+             <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.4375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.46875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.5}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.5625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.65}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.675}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.725}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.775}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.825}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Very Low:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.2625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.28125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.33750}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.39}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.405}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.435}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.465}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_1__c*0.495}" />
+                </apex:outputText>
+            </td>
+           </tr>
+           <tr>
+           <td colspan="15" id="Divider">
+           &nbsp; 
+           </td>
+        </tr>        
+        
+<!-- REGION 2 -->        
+        <tr id="ColHead">
+            <td colspan="2" style="text-align: left;">
+                <b>Region 2: </b>
+            </td>
+            <td>
+                <b> 1 Person</b>
+            </td>
+            <td>
+                <b> *1.5 Person</b>
+            </td>
+            <td>
+                <b> 2 Person</b>
+            </td>
+            <td>
+                <b> 3 Person</b>
+            </td>
+            <td>
+                <b> 4 Person</b>
+            </td>
+            <td>
+                <b> *4.5 Person</b>
+            </td>
+            <td>
+                <b> 5 Person</b>
+            </td>
+            <td>
+                <b> 6 Person</b>
+            </td>
+            <td>
+                <b> 7 Person</b>
+            </td>
+            <td>
+                <b> 8+ Person</b>
+            </td>
+            <td>
+                <b> Rent (%)**</b>
+            </td>
+            <td>
+                <b> Sale (%)***</b>
+            </td>
+            <td>
+                <b> Asset Limit****</b>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="4" id="Region" >
+                <b>
+                    Essex<br/>
+                    Morris<br/>
+                    Union<br/>
+                    Warren
+                </b>
+            </td>
+            <td id="Level">
+                <i>
+                    Median:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.9375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.25}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.35}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.45}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.55}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.65}" />
+                </apex:outputText>
+            </td>
+            
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Rent_Increase__c}
+            </td>
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Sale_Increase_Region_2__c}
+            </td>
+            <td rowspan="4" id="Asset" >
+            <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Asset_Limit_Region_2__c}" />
+                </apex:outputText>
+            </td>
+            
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Moderate:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.7}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.75}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.8}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.9}" />
+                </apex:outputText>
+            </td>
+            <td  id="Cell" style="background-color: yellow;">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.04}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.08}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.16}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.24}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*1.32}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Low:
+                </i>
+            </td>
+             <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.4375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.46875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.5}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.5625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.65}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.675}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.725}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.775}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.825}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Very Low:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.2625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.28125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.33750}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.39}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.405}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.435}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.465}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_2__c*0.495}" />
+                </apex:outputText>
+            </td>
+           </tr>
+           <tr>
+           <td colspan="15" id="Divider">
+           &nbsp; 
+           </td>
+        </tr>
+ 
+ <!-- REGION 3 -->        
+        <tr  id="ColHead">
+            <td colspan="2" style="text-align: left;">
+                <b>Region 3: </b>
+            </td>
+            <td>
+                <b> 1 Person</b>
+            </td>
+            <td>
+                <b> *1.5 Person</b>
+            </td>
+            <td>
+                <b> 2 Person</b>
+            </td>
+            <td>
+                <b> 3 Person</b>
+            </td>
+            <td>
+                <b> 4 Person</b>
+            </td>
+            <td>
+                <b> *4.5 Person</b>
+            </td>
+            <td>
+                <b> 5 Person</b>
+            </td>
+            <td>
+                <b> 6 Person</b>
+            </td>
+            <td>
+                <b> 7 Person</b>
+            </td>
+            <td>
+                <b> 8+ Person</b>
+                </td>
+                <td>
+                <b> Rent (%)**</b>
+            </td>
+            <td>
+                <b> Sale (%)***</b>
+            </td>
+            <td>
+                <b> Asset Limit****</b>
+            </td>
+            
+        </tr>
+        <tr>
+            <td rowspan="4" id="Region" >
+                <b>
+                    Hunterdon<br/>
+                    Middlesex<br/>
+                    Somerset
+                </b>
+            </td>
+            <td id="Level">
+                <i>
+                    Median:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.9375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.25}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.35}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.45}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.55}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.65}" />
+                </apex:outputText>
+            </td>
+            
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Rent_Increase__c}
+            </td>
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Sale_Increase_Region_3__c}
+            </td>
+            <td rowspan="4" id="Asset" >
+            <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Asset_Limit_Region_3__c}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Moderate:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.7}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.75}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.8}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.9}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell" style="background-color: yellow;">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.04}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.08}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.16}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.24}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*1.32}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Low:
+                </i>
+            </td>
+             <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.4375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.46875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.5}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.5625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.65}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.675}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.725}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.775}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.825}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Very Low:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.2625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.28125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.33750}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.39}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.405}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.435}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.465}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_3__c*0.495}" />
+                </apex:outputText>
+            </td>
+           </tr>
+           <tr>
+           <td colspan="15" id="Divider">
+           &nbsp; 
+           </td>
+        </tr>
+
+<!-- REGION 4 -->        
+        <tr  id="ColHead">
+            <td colspan="2" style="text-align: left;">
+                <b>Region 4: </b>
+            </td>
+            <td>
+                <b> 1 Person</b>
+            </td>
+            <td>
+                <b> *1.5 Person</b>
+            </td>
+            <td>
+                <b> 2 Person</b>
+            </td>
+            <td>
+                <b> 3 Person</b>
+            </td>
+            <td>
+                <b> 4 Person</b>
+            </td>
+            <td>
+                <b> *4.5 Person</b>
+            </td>
+            <td>
+                <b> 5 Person</b>
+            </td>
+            <td>
+                <b> 6 Person</b>
+            </td>
+            <td>
+                <b> 7 Person</b>
+            </td>
+            <td>
+                <b> 8+ Person</b>
+                </td>
+                <td>
+                <b> Rent (%)**</b>
+            </td>
+            <td>
+                <b> Sale (%)***</b>
+            </td>
+            <td>
+                <b> Asset Limit****</b>
+            </td>
+            
+        </tr>
+        <tr>
+            <td rowspan="4" id="Region" >
+                <b>
+                    Mercer<br/>
+                    Monmouth<br/>
+                    Ocean
+                </b>
+            </td>
+            <td id="Level">
+                <i>
+                    Median:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.9375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.25}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.35}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.45}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.55}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.65}" />
+                </apex:outputText>
+            </td>
+            
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Rent_Increase__c}
+            </td>
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Sale_Increase_Region_4__c}
+            </td>
+            <td rowspan="4" id="Asset" >
+            <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Asset_Limit_Region_4__c}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Moderate:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.7}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.75}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.8}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.9}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell" style="background-color: yellow;">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.04}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.08}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.16}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.24}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*1.32}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Low:
+                </i>
+            </td>
+             <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.4375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.46875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.5}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.5625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.65}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.675}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.725}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.775}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.825}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Very Low:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.2625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.28125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.33750}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.39}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.405}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.435}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.465}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_4__c*0.495}" />
+                </apex:outputText>
+            </td>
+           </tr>
+           <tr>
+           <td colspan="15" id="Divider">
+           &nbsp; 
+           </td>
+        </tr>
+
+<!-- REGION 5 -->        
+        <tr  id="ColHead">
+            <td colspan="2" style="text-align: left;">
+                <b>Region 5: </b>
+            </td>
+            <td>
+                <b> 1 Person</b>
+            </td>
+            <td>
+                <b> *1.5 Person</b>
+            </td>
+            <td>
+                <b> 2 Person</b>
+            </td>
+            <td>
+                <b> 3 Person</b>
+            </td>
+            <td>
+                <b> 4 Person</b>
+            </td>
+            <td>
+                <b> *4.5 Person</b>
+            </td>
+            <td>
+                <b> 5 Person</b>
+            </td>
+            <td>
+                <b> 6 Person</b>
+            </td>
+            <td>
+                <b> 7 Person</b>
+            </td>
+            <td>
+                <b> 8+ Person</b>
+            </td>
+            <td>
+                <b> Rent (%)**</b>
+            </td>
+            <td>
+                <b> Sale (%)***</b>
+            </td>
+            <td>
+                <b> Asset Limit****</b>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="4" id="Region" >
+                <b>
+                    Burlington<br/>
+                    Camden<br/>
+                    Gloucester
+                </b>
+            </td>
+            <td id="Level">
+                <i>
+                    Median:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.9375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.25}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.35}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.45}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.55}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.65}" />
+                </apex:outputText>
+            </td>
+            
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Rent_Increase__c}
+            </td>
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Sale_Increase_Region_5__c}
+            </td>
+            <td rowspan="4" id="Asset" >
+            <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Asset_Limit_Region_5__c}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Moderate:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.7}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.75}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.8}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.9}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell" style="background-color: yellow;">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.04}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.08}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.16}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.24}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*1.32}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Low:
+                </i>
+            </td>
+             <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.4375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.46875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.5}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.5625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.65}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.675}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.725}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.775}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.825}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Very Low:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.2625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.28125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.33750}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.39}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.405}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.435}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.465}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_5__c*0.495}" />
+                </apex:outputText>
+            </td>
+           </tr>
+           <tr>
+           <td colspan="15" id="Divider">
+           &nbsp; 
+           </td>
+        </tr>
+ 
+ <!-- REGION 6 -->        
+        <tr  id="ColHead">
+            <td colspan="2" style="text-align: left;">
+                <b>Region 6: </b>
+            </td>
+            <td>
+                <b> 1 Person</b>
+            </td>
+            <td>
+                <b> *1.5 Person</b>
+            </td>
+            <td>
+                <b> 2 Person</b>
+            </td>
+            <td>
+                <b> 3 Person</b>
+            </td>
+            <td>
+                <b> 4 Person</b>
+            </td>
+            <td>
+                <b> *4.5 Person</b>
+            </td>
+            <td>
+                <b> 5 Person</b>
+            </td>
+            <td>
+                <b> 6 Person</b>
+            </td>
+            <td>
+                <b> 7 Person</b>
+            </td>
+            <td>
+                <b> 8+ Person</b>
+            </td>
+            <td>
+                <b> Rent (%)**</b>
+            </td>
+            <td>
+                <b> Sale (%)***</b>
+            </td>
+            <td>
+                <b> Asset Limit****</b>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="4" id="Region" >
+                <b>
+                    Atlantic<br/>
+                    Cape May<br/>
+                    Cumberland<br/>
+                    Salem
+                </b>
+            </td>
+            <td id="Level">
+                <i>
+                    Median:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.9375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.25}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.35}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.45}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.55}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.65}" />
+                </apex:outputText>
+            </td>
+            
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Rent_Increase__c}
+            </td>
+            <td rowspan="4" id="Percent" >
+            {!Income_Limit_Calculations__c.Sale_Increase_Region_6__c}
+            </td>
+            <td rowspan="4" id="Asset" >
+            <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Asset_Limit_Region_6__c}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Moderate:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.7}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.75}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.8}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.9}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell" style="background-color: yellow;">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.04}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.08}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.16}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.24}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*1.32}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Low:
+                </i>
+            </td>
+             <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.4375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.46875}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.5}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.5625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.65}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.675}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.725}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.775}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.825}" />
+                </apex:outputText>
+            </td>
+            </tr>
+            <tr>
+            <td id="Level">
+                <i>
+                    Very Low:
+                </i>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.2625}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.28125}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.3}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.33750}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.375}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.39}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.405}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.435}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.465}" />
+                </apex:outputText>
+            </td>
+            <td id="Cell">
+                <apex:outputText value="{0, Number, $###,###}">
+                    <apex:param value="{!Income_Limit_Calculations__c.Income_Limits_Region_6__c*0.495}" />
+                </apex:outputText>
+            </td>
+           </tr>
+           <tr>
+           <td colspan="15" id="Divider">
+           &nbsp; 
+           </td>
+        </tr>
+        <tr>
+<td colspan="15" id="Bottom">
+<i>
+Moderate income is between 80 and 50 percent of the median income. Low income is 50 percent or less of median income. Very low income is 30 percent or less of median income.                                                       
+</i>
+</td>
+</tr>
+<tr>
+<td colspan="15" id="Bottom">
+* These columns are for calculating the pricing for one, two and three bedroom sale and rental units as per N.J.A.C. 5:80-26.4(a).
+</td>
+</tr>
+<tr>
+<td colspan="15" id="Bottom">
+{!Income_Limit_Calculations__c.Rental_Increase_Text__c}
+</td>
+</tr>
+<tr>
+<td colspan="15" id="Bottom">
+*** This column is used for calculating the pricing for resale increases for units (as previously calculated under N.J.A.C. 5:97-9.3).  The price of owner-occupied low and moderate income units may increase annually based on the percentage increase in the regional median income limit for each housing region.  In no event shall the maximum resale price established by the administrative agent be lower than the last recorded purchase price.
+</td>
+</tr>
+<tr>
+<td colspan="15" id="Bottom">
+Low income tax credit developments may increase based on the low income tax credit regulations.                                                     
+</td>
+</tr>
+<tr>
+<td colspan="15" id="Bottom">
+**** The Regional Asset Limit is used in determining an applicant's eligibility for affordable housing pursuant to N.J.A.C. 5:80-26.16(b)3.                                                     
+</td>
+</tr>
+ 
+        
+    </table>
+</apex:page>

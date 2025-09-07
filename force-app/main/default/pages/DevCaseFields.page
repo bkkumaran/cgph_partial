@@ -1,0 +1,63 @@
+<apex:page standardController="HOMEtracker__Property__c">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    table     {border-collapse: collapse;}
+    td        {font-family: 'Open Sans';}
+    #Label    {font-weight: bold; width: 275px;}
+    #Field    {width: 400px;}
+</style>
+
+
+<table border="1">
+<tr><td id="Label">Development Address</td>
+<td id="Field">{!HOMEtracker__Property__c.Name}</td></tr>
+<tr><td id="Label"># of Affordable Units</td>
+<td id="Field"><apex:outputfield value="{!HOMEtracker__Property__c.Number_of_units__c}"/></td></tr>
+<tr><td id="Label">Unit Type</td>
+<td id="Field">{!HOMETRACKER__Property__c.Rental_or_Sale_Development__c}</td></tr>
+<tr><td id="Label">Dev Block &amp; Lot, Address</td>
+<td id="Field">{!HOMETRACKER__Property__c.Block_Lot_Street__c}</td></tr>
+<tr><td id="Label">Municipality</td>
+<td id="Field"><apex:outputfield value="{!HOMEtracker__Property__c.Municipality_Name__c}"/></td></tr>
+<tr><td id="Label">Lottery Date</td>
+<td id="Field"><apex:outputfield value="{!HOMEtracker__Property__c.Lottery_Deadline_date__c}"/></td></tr>
+<tr><td id="Label">AMP Publish Date</td>
+<td id="Field"><apex:outputfield value="{!HOMEtracker__Property__c.Date_listings_must_go_live_on_website__c}"/></td></tr>
+<tr><td id="Label">Case Owner</td>
+<td id="Field"><apex:outputfield value="{!HOMEtracker__Property__c.Kick_off_Coordinator__c}"/></td></tr>
+<tr><td id="Label">Opportunity</td>
+<td id="Field"><apex:outputfield value="{!HOMEtracker__Property__c.Initial_New_Owner_Opp__c}"/></td></tr>
+<tr><td id="Label">Contact Name</td>
+<td id="Field"><apex:outputfield value="{!HOMEtracker__Property__c.Developer_Setup_Contact__c}"/></td></tr>
+<tr><td id="Label">Needs Follow-up Date</td>
+<td id="Field"><apex:outputfield value="{!HOMEtracker__Property__c.Kick_off_next_date__c}"/></td></tr>
+<tr><td id="Label">Contract Status</td>
+<td id="Field">{!HOMEtracker__Property__c.Contract_Status__c}</td></tr>
+<tr><td id="Label">Flyer notes</td>
+<td id="Field">{!HOMEtracker__Property__c.Flyer_status__c}</td></tr>
+<tr><td id="Label">Published (all dates added to prpty rcrd)</td>
+<td id="Field">{!HOMEtracker__Property__c.Posted_on_NJHRC_at_beg__c}</td></tr>
+<tr><td id="Label">Send flyer to muni for web publishing</td>
+<td id="Field">{!HOMEtracker__Property__c.Requested_town_post_flyer_on_website__c}</td></tr>
+<tr><td id="Label">Flyer mailed by admin</td>
+<td id="Field">{!HOMEtracker__Property__c.Flyers_Distributed__c}</td></tr>
+<tr><td id="Label">Send "Amp is Live" DR info rqst Email</td>
+<td id="Field">{!HOMEtracker__Property__c.Posted_on_NJHRC_at_beg__c}</td></tr>
+<tr><td id="Label">Proof of Ads Required</td>
+<td id="Field">{!HOMEtracker__Property__c.Paid_Advertising_Requirements__c}</td></tr>
+<tr><td id="Label">Proof of Ads Confirmed</td>
+<td id="Field">{!HOMEtracker__Property__c.Confirmed_all_proof_of_publication__c}</td></tr>
+<tr><td id="Label">Remove listing at end of AMP period</td>
+<td id="Field">{!HOMEtracker__Property__c.Removed_from_NJHRC__c}</td></tr>
+<tr><td id="Label">Needs Follow-up Date</td>
+<td id="Field"><apex:outputfield value="{!HOMEtracker__Property__c.Kick_off_next_date__c}"/></td></tr>
+<tr><td id="Label">HOA Fee &amp; Notes (for-sale units)</td>
+<td id="Field">{!HOMETRACKER__Property__c.HOMEtracker__Current_HOA_Condo_Fees__c}</td></tr>
+
+
+
+</table>
+
+
+</apex:page>

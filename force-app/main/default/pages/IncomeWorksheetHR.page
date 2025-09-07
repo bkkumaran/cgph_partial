@@ -1,0 +1,1141 @@
+<apex:page standardController="HOMEtracker__Service_File__c" extensions="IncomeWorksheetHRext" sidebar="false" showHeader="false" id="IAWpagePH">
+<head>
+
+</head>    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        
+        .bigHeader { font-family: 'Open Sans'; font-size: 17pt; font-weight: bold; color: rgb(0, 101, 168); text-decoration:none}
+        .medHeader { font-family: 'Open Sans'; font-size: 12pt; font-weight: bold; color: rgb(0, 101, 168); text-align: right; }
+        .elig { font-family: 'Open Sans'; font-size: 12pt; font-weight: bold; color: rgb(0, 101, 168); }
+        .column { font-family: 'Open Sans' !important; font-size: 10pt !important; }
+        .columnSmall { font-family: 'Open Sans' !important; font-size: 8.5pt !important; }
+        .lockRow { font-family: 'Open Sans' !important; font-size: 10pt !important; background-color: #d9f2f9 !important;}
+        .inTable{  font-family: 'Open Sans'; font-size: 11pt; padding: 10px 10px 10px 0px; text-align: left;}
+        .inTableEdit{  font-family: 'Open Sans'; font-size: 11pt; text-align: left;}
+        .button { font-size: 9pt !important; }
+        ul { list-style-type: circle; padding-left: 10px;}
+        li { margin: 0px 0px 1em 0px }
+        #miss {background-color: rgb(255, 195, 195); line-height: 1.5;}
+        #missO {background-color: rgb(255, 250, 85); line-height: 1.5;}
+        #b {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px; border-top: 1px solid #CCCCCC; border-right: 1.5px solid rgb(37,113,170); border-bottom: 1.5px solid rgb(37,113,170); border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+        #bb {white-space: nowrap; text-decoration:none; font-size: 12pt; background-color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; color: white; border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+        #br {white-space: nowrap; text-decoration:none; font-size: 12pt; color: white; font-family: 'Montserrat'; font-weight: bold; background-color: red; border-radius: 5px; border-top: 1px solid #a00404; border-right: 1.5px solid #a00404; border-bottom: 1.5px solid #a00404; border-left: 1px solid #a00404; padding: 3px 10px 3px 10px; }
+    </style>
+   <apex:variable var="cYellow" value="rgb(255, 250, 85)" />
+   <apex:variable var="cOrange" value="rgb(255, 185, 85)" />
+    <apex:variable var="SubOver" value="{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Subtotal_Override__c)=true,0,HOMEtracker__Service_File__c.HR_Subtotal_Override__c)}" />
+
+   
+
+<table id="prime" border="1" style="border-color: rgb(245, 255, 255);">
+<tr>  
+<td>
+    <table id="TOPHEADER" width="1100px">
+       
+        <tr valign="top">
+            <td width="350px"> 
+            <apex:outputpanel onDblClick="window.open('/home/home.jsp?sdtd=1','_parent')" >
+                        <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />          
+                    </apex:outputpanel>
+            </td>
+            <td>
+                <apex:form >  
+                    <apex:outputLink value="/{!HOMEtracker__Service_File__c.HR_Case_File__r.Id}" style="font-style: underline;" styleclass="bigHeader"><u>{!HOMEtracker__Service_File__c.HR_Case_File__r.Name}</u> </apex:outputLink> <br/>   
+                    <apex:outputPanel styleclass="bigHeader">{!HOMEtracker__Service_File__c.property_name_calc__c} </apex:outputPanel> <br/>
+                    <apex:outputPanel styleclass="bigHeader">{!HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Name} </apex:outputPanel>
+                    <div style="font-size: 12pt"> <br /> 
+                    </div>
+                </apex:form>
+            </td>
+            <td width="175" style="text-align: center;">
+                <apex:form >
+                    <apex:outputpanel onDblClick="window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&id={!HOMEtracker__Service_File__c.HR_Case_File__r.Id}&TemplateId={!HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Eligibility_Docs_ID__c}&TemplateGroup=HR+Eligibility+STANDARD,HR+Elig+{!HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.Name}&QueryId=[MUNI]a213m000003YObR?pv0={!HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.Id},[SF]a213m000003YOpK?pv0={!HOMEtracker__Service_File__c.Id},[PROG]a213m000003YPA2?pv0={!HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Id}&OFN={!HOMEtracker__Service_File__c.HR_Case_File__r.Name}+{Template.Label}&SelectTemplates=0')" >
+                        <apex:image url="{!$Resource.MergeFormsIcon}" width="60px" />           
+                    </apex:outputpanel>
+                    &nbsp;&nbsp;
+                    <apex:outputpanel onmouseover="document.getElementById('click').style.display = 'inline-block';"
+                                        onmouseout="document.getElementById('click').style.display = 'none'"
+                                        onDblClick="window.open('https://composer.congamerge.com/composer8/index.html?SessionId={!$Api.Session_ID}&ServerUrl={!$Api.Partner_Server_URL_290}&Id={!HOMEtracker__Service_File__c.Id}&TemplateId=a293m000004m9Zh&OFN={!HOMEtracker__Service_File__c.HR_Case_File__r.Name}+Income+Worksheet+{!TODAY()}&QueryId=[CertMunicipality]a211N000001eJlq?pv0={!HOMEtracker__Service_File__c.Municipality_ID__c},[PROG]a213m000003YPA2?pv0={!HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Id},[ISD]a213m000003YOSD?pv0={!HOMEtracker__Service_File__c.Id},[HRCF]a213m000003YLj7?pv0={!HOMEtracker__Service_File__c.HR_Case_File__r.Id}&FP0=1&SC0=1&SC1=Attachments&AttachmentParentID={!HOMEtracker__Service_File__c.HR_Case_File__r.Id}&ExcelAutoFitRows=1&DS7=3')" >
+                        <apex:image url="{!$Resource.PDF_icon_blue}" width="60px" />           
+                    </apex:outputpanel>
+                    
+                </apex:form>
+
+                <br/>
+                <apex:variable var="DONE" value="{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.HR_Homeowners__c),
+                    ISBLANK(HOMEtracker__Service_File__c.HR_HH_Override__c),
+                    HOMEtracker__Service_File__c.HR_HH_Override__c=0,
+                    HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c=0,
+                    ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c),
+                    HOMEtracker__Service_File__c.HR_Eligibility_Calculated__c='No HH Size',
+                    HOMEtracker__Service_File__c.HR_Eligibility_Calculated__c='No Income',
+                    ISBLANK(HOMEtracker__Service_File__c.IAW_Range_of_Affordability__c),
+                    HOMEtracker__Service_File__c.IAW_Range_of_Affordability__c=0,
+                    ISBLANK(HOMEtracker__Service_File__c.IAW_Income_Limit__r.Name),
+                    ISBLANK(HOMEtracker__Service_File__c.IAW_Median_Income__c),
+                    ISBLANK(HOMEtracker__Service_File__c.Moderate_Income_Limit__c),
+                    ISBLANK(HOMEtracker__Service_File__c.Low_Income_Limit__c),
+                    AND(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c='Yes',ISBLANK(HOMEtracker__Service_File__c.HR_Land_Value__c)),
+                    AND(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c='Yes',HOMEtracker__Service_File__c.HR_Subtotal__c=0),
+                    AND(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c='Yes',ISBLANK(HOMEtracker__Service_File__c.HR_Improvements__c)),
+                    AND(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c='Yes',ISBLANK(HOMEtracker__Service_File__c.HR_Mortgage__c)),
+                    AND(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c='Yes',HOMEtracker__Service_File__c.HR_Total_Value__c=0),
+                    AND(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c='Yes',ISBLANK(HOMEtracker__Service_File__c.HR_Unit_Type__c)),
+                    AND(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c='Yes',ISBLANK(HOMEtracker__Service_File__c.HR_Market_Ratio__c)),
+                    ISBLANK(HOMEtracker__Service_File__c.Application_Case_Manager_New__c),
+                    ISBLANK(HOMEtracker__Service_File__c.Peer_Reviewer_User__c),
+                    ISBLANK(HOMEtracker__Service_File__c.Peer_Review_Complete__c),
+                    ISBLANK(HOMEtracker__Service_File__c.Peer_Review_Notes__c),
+                    ISBLANK(HOMEtracker__Service_File__c.Date_Application_Sent_for_Final_Review__c),
+                    AND(ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c),ISBLANK(HOMEtracker__Service_File__c.Date_Application_Terminated_Withdrawn__c))
+                    ),'missing','complete')}"/>
+                    
+                <span id="click" style="text-align: center; font-size: 10pt; display: none;  font-weight: bold; {!if(DONE='missing','color: red; background-color: '+cYellow+';','color: rgb(0, 101, 168);')}">
+                {!IF(DONE = 'missing','MISSING INFORMATION!','READY TO EXPORT')}
+                </span>
+            </td>    
+        </tr>
+
+    </table>
+
+
+    
+<!-- HOUSEHOLD BLOCK -->                
+    <table width="1100px">
+        <tr>
+            <td width="550 px" valign="top">
+                <apex:form >
+                    <apex:pageBlock id="AnnualIncomeBlock" >
+
+                       <apex:outputpanel styleclass="medHeader"> Household Information </apex:outputpanel>
+                       <div style="font-size: 6pt"> <br /> </div>
+                      
+                        <table border="1" style="background-color: white; padding: 8px; border-color: rgb(242, 247, 255); ">
+                            <tr>
+                                <td width="200">
+                                    <apex:outputpanel styleClass="inTable" style="font-weight: bold;">
+                                        Homeowner(s)
+                                    </apex:outputpanel>
+                                </td>
+                                <td width="250" style="{!if(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.HR_Homeowners__c),'background-color: '+cOrange+';','')}">
+                                    <apex:outputpanel styleClass="inTable">
+                                        {!HOMEtracker__Service_File__c.HR_Case_File__r.HR_Homeowners__c}
+                                    </apex:outputpanel>                 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                        Household Size
+                                    </apex:outputpanel>
+                                </td>
+                                <td style="{!if(OR(ISBLANK(HOMEtracker__Service_File__c.HR_HH_Override__c),HOMEtracker__Service_File__c.HR_HH_Override__c=0),'background-color: '+cOrange+';','')}">
+                                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                        {!HOMEtracker__Service_File__c.HR_HH_Override__c}
+                                    </apex:outputpanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>                   
+                                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                        Gross Annual Income 
+                                    </apex:outputpanel>
+                                </td>
+                                <td style="{!if(OR(HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c=0,ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c)),'background-color: '+cOrange+';','')}">
+                                    <apex:outputText value="{0, Number, currency}" styleClass="inTable" style="font-weight: bold">
+                                        <apex:param value="{!HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold;">
+                                        Household Income Level
+                                    </apex:outputPanel>
+                                </td>
+                                <td style="{!if(OR(HOMEtracker__Service_File__c.HR_Eligibility_Calculated__c='No HH Size',HOMEtracker__Service_File__c.HR_Eligibility_Calculated__c='No Income'),'background-color: '+cOrange+';','')}{!IF(HOMEtracker__Service_File__c.HR_Eligibility_Calculated__c='Ineligible','background-color: red; color: white;','')}">
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        {!HOMEtracker__Service_File__c.HR_Case_File__r.Eligibility_Calculated__c}
+             
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        Range of Affordability
+                                    </apex:outputPanel>
+                                </td>
+                                <td style="{!if(OR(ISBLANK(HOMEtracker__Service_File__c.IAW_Range_of_Affordability__c),HOMEtracker__Service_File__c.IAW_Range_of_Affordability__c=0),'background-color: '+cOrange+';','')}">
+                                    <apex:outputText value="{0, Number, ##}%" styleClass="inTable" style="font-weight: bold">
+                                        <apex:param value="{!HOMEtracker__Service_File__c.IAW_Range_of_Affordability__c}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table>
+                            <tr>
+                                <td width="425" style="text-align: center;">
+                                    <apex:outputLink value="/flow/HRHHSize?varID={!HOMEtracker__Service_File__c.Id}&retURL=%2Fapex%2FIncomeWorksheetHR%3Fid%3D{!HOMEtracker__Service_File__c.Id}" style="font-style: underline; {!if(OR(ISBLANK(HOMEtracker__Service_File__c.HR_HH_Override__c),HOMEtracker__Service_File__c.HR_HH_Override__c=0),'background-color: '+cYellow+';','')}" styleclass="medHeader"><u>Edit Household Size</u> </apex:outputLink> <br/>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                        </apex:pageBlock>  
+                </apex:form>
+                               
+<!-- INCOME LIMITS BLOCK ---------------------->      
+                 <td width="550 px" valign="top">                         
+                     <apex:pageBlock id="IncomeLimitBlock" >
+                                    <apex:outputpanel styleclass="medHeader"> Income Limits </apex:outputpanel>
+                                    <apex:outputPanel rendered="{!IF(ISBLANK(HOMEtracker__Service_File__c.IAW_Income_Limit__r.Name),false,true)}" styleClass="inLine" style="font-style: italic; font-size: 10pt;">
+                                        To change the income limits used, go to the <a href="/{!HOMEtracker__Service_File__c.Id}">service file.</a>
+                                    </apex:outputPanel>
+                                    <div style="font-size: 6pt"> <br /> </div>
+                        
+                        <table border="1" style="background-color: white; padding: 8px; border-color: rgb(242, 247, 255); ">
+                            <tr>
+                                <td width="200">
+                                    <apex:outputpanel styleClass="inTable" style="font-weight: bold;">
+                                        Income Limits Used
+                                    </apex:outputpanel>
+                                </td>
+                                <td width="250" style="{!if(ISBLANK(HOMEtracker__Service_File__c.IAW_Income_Limit__r.Name),'background-color: '+cOrange+';','')}">        
+                                    <apex:outputPanel styleClass="inTable">
+                                        {!SUBSTITUTE(HOMEtracker__Service_File__c.IAW_Income_Limit__r.Name,'AA,','NJ - DCA')}
+                                    </apex:outputPanel>                
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                        Median Income
+                                    </apex:outputpanel>
+                                </td>
+                                <td style="{!if(ISBLANK(HOMEtracker__Service_File__c.IAW_Median_Income__c),'background-color: '+cOrange+';','')}">
+                                    <apex:outputText value="{0, Number, $###,###}" styleClass="inTable" style="">
+                                        <apex:param value="{!HOMEtracker__Service_File__c.IAW_Median_Income__c}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>                   
+                                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                        {!IF(CONTAINS(HOMEtracker__Service_File__c.IAW_Income_Limit__r.Name,'HUD'),'HUD Low Income', 'Moderate Income Limit')}
+                                    </apex:outputpanel>
+                                </td>
+                                <td style="{!if(ISBLANK(HOMEtracker__Service_File__c.Moderate_Income_Limit__c),'background-color: '+cOrange+';','')}">
+                                    <apex:outputText value="{0, Number, $###,###}" styleClass="inTable" style="">
+                                        <apex:param value="{!HOMEtracker__Service_File__c.Moderate_Income_Limit__c}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold;">
+                                        {!IF(CONTAINS(HOMEtracker__Service_File__c.IAW_Income_Limit__r.Name,'HUD'),'HUD Very Low Income', 'Low Income Limit')}
+                                    </apex:outputPanel>
+                                </td>
+                                <td style="{!if(ISBLANK(HOMEtracker__Service_File__c.Low_Income_Limit__c),'background-color: '+cOrange+';','')}">
+                                    <apex:outputText value="{0, Number, $###,###}" styleClass="inTable" style="">
+                                        <apex:param value="{!HOMEtracker__Service_File__c.Low_Income_Limit__c}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr style="{!IF(HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.Name = 'Passaic','','display: none;')}">
+                                <td>
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold;">
+                                        {!IF(HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.Name = 'Passaic','HUD Tenant Income 60%',IF(CONTAINS(HOMEtracker__Service_File__c.IAW_Income_Limit__r.Name,'HUD'),'HUD Extremely Low', 'Very Low Income Limit'))}
+                                    </apex:outputPanel>
+                                </td>
+                                <td style="{!if(ISBLANK(HOMEtracker__Service_File__c.Very_Low_Income_Limit__c),'background-color: '+cOrange+';','')}">
+                                    <apex:outputText value="{0, Number, $###,###}" styleClass="inTable" style="">
+                                        <apex:param value="{!HOMEtracker__Service_File__c.Very_Low_Income_Limit__c}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table>
+
+                            <tr>
+                            <div style="text-align: center;">
+                        <div id="warnIL" style="display: none;">
+                         <div style="text-align: center; font-weight: bold; color: blue; font-size: 11pt;">
+                                SAVING... please wait for the page to refresh.
+                          </div>
+                       </div>
+                       </div>
+                                <td width="450" style="text-align: center;{!if(OR(ISBLANK(HOMEtracker__Service_File__c.Low_Income_Limit__c),ISBLANK(HOMEtracker__Service_File__c.Moderate_Income_Limit__c),ISBLANK(HOMEtracker__Service_File__c.IAW_Median_Income__c),ISBLANK(HOMEtracker__Service_File__c.IAW_Income_Limit__r.Name)),'','display: none;')}">                                    
+                                    <apex:outputLink onclick="document.getElementById('warnIL').style.display = 'inline'" rendered="{!if(OR(ISNULL(HOMEtracker__Service_File__c.HR_HH_Override__c),HOMEtracker__Service_File__c.HR_HH_Override__c<1),false,true)}" value="/flow/HR_Income_Limits?varSFID={!HOMEtracker__Service_File__c.Id}&varHH={!HOMEtracker__Service_File__c.HR_HH_Override__c}&retURL=%2Fapex%2FIncomeWorksheetHR%3Fid%3D{!HOMEtracker__Service_File__c.Id}" style="font-style: underline; background-color:{!cYellow}" styleclass="medHeader"><u>Populate Income Limits</u> </apex:outputLink> <br/>
+                                    <apex:outputPanel style="color: red;" rendered="{!if(OR(ISNULL(HOMEtracker__Service_File__c.HR_HH_Override__c),HOMEtracker__Service_File__c.HR_HH_Override__c<1),true,false)}"> <i>Household Size needed before income limits can be entered.</i></apex:outputpanel>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        
+                        
+                        
+                        </apex:pageBlock>
+
+                         </td>
+            </td>
+        </tr>
+    </table>
+
+
+    
+<!-- EQUITY CALCULATION -->
+    <table width="1100px">
+    <tr>
+    <td style="{!if(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c = 'Yes','display: none;','')}">
+       <apex:pageBlock >
+                <apex:outputpanel styleclass="medHeader"> Equity Calculation Not Required</apex:outputpanel>
+                <div style="font-size: 6pt"> <br /> </div>
+                
+                    <div width="425" style="text-align: left;">
+                                    <apex:outputLink value="/{!HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Id}" target="_blank" style="font-style: underline; font-size: 10pt;" styleclass="medHeader">
+                                    <u>If sufficient equity is required for this case, click here to update program information</u>
+                                    </apex:outputLink> <br/>
+                                </div>
+                </apex:pageblock>
+                </td>
+                </tr>
+                <tr>
+                <td> 
+        <apex:form >          
+            <apex:pageBlock rendered="{!if(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c = 'Yes','true','false')}">
+                <apex:outputpanel styleclass="medHeader"> Equity Calculation </apex:outputpanel>
+                <div style="font-size: 6pt"> <br /> </div>
+                
+                <table>
+                    <tr>
+                        <td>
+                            <table border="1" style="background-color: white; padding: 8px;  border-color: rgb(242, 247, 255);">
+                                <tr>
+                                    <td width="150">
+                                        <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                            Land Value
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td width="200" style="{!IF(SubOver > 0, '', if(ISBLANK(HOMEtracker__Service_File__c.HR_Land_Value__c),'background-color: '+cYellow+';',''))}">
+                                    
+                                    <!-- 
+                                    SubOver
+                                    HOMEtracker__Service_File__c.HR_Subtotal_Override__c
+                                    HOMEtracker__Service_File__c.HR_Subtotal_Override__c -->
+                                        <apex:outputpanel styleClass="inTableEdit"> 
+                                            <apex:actionRegion >
+                                                <apex:outputField value="{!HOMEtracker__Service_File__c.HR_Land_Value__c}">
+                                                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonEQ,cancelButtonEQ" />
+                                                </apex:outputField>
+                                            </apex:actionRegion>
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td width="100">
+                                        <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                            Subtotal
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td width="200" style="{!IF(SubOver > 0, '',if(HOMEtracker__Service_File__c.HR_Subtotal__c=0,'background-color: '+cOrange+';',''))}">
+                                        <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="font-style: italic;">
+                                            <apex:param value="{!HOMEtracker__Service_File__c.HR_Subtotal__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <apex:outputPanel styleClass="inTable" style="font-weight: bold;">
+                                            Improvements
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td style="{!IF(SubOver > 0, '',if(ISBLANK(HOMEtracker__Service_File__c.HR_Improvements__c),'background-color: '+cYellow+';',''))}">
+                                        <apex:outputpanel styleClass="inTableEdit"> 
+                                            <apex:actionRegion >
+                                                <apex:outputField value="{!HOMEtracker__Service_File__c.HR_Improvements__c}">
+                                                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonEQ,cancelButtonEQ" />
+                                                </apex:outputField>
+                                            </apex:actionRegion>
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td>
+                                        <apex:outputPanel styleClass="inTable" style="font-weight: bold;">
+                                            Mortgage
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td style="{!if(ISBLANK(HOMEtracker__Service_File__c.HR_Mortgage__c),'background-color: '+cYellow+';','')}">
+                                        <apex:outputpanel styleClass="inTableEdit"> 
+                                            <apex:actionRegion >
+                                                <apex:outputField value="{!HOMEtracker__Service_File__c.HR_Mortgage__c}">
+                                                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonEQ,cancelButtonEQ" />
+                                                </apex:outputField>
+                                            </apex:actionRegion>
+                                        </apex:outputpanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                            Total Value
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td style="{!IF(SubOver > 0, '',if(HOMEtracker__Service_File__c.HR_Total_Value__c=0,'background-color: '+cOrange+';',''))}">
+                                        <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="font-style: italic;">
+                                            <apex:param value="{!HOMEtracker__Service_File__c.HR_Total_Value__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <td>
+                                        <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                            Equity
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td style="{!if(HOMEtracker__Service_File__c.HR_Equity__c=0,'background-color: '+cOrange+';','')}">
+                                        <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="font-style: italic; font-weight: bold;
+                                        {!IF(
+                                        OR(
+                                        AND(HOMEtracker__Service_File__c.HR_Unit_Type__c='Single-Family or Primary',AND(!ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Single_Family_Funding_Limit__c),HOMEtracker__Service_File__c.HR_Equity__c < HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Single_Family_Funding_Limit__c)),
+                                        AND(HOMEtracker__Service_File__c.HR_Unit_Type__c='Multi-Family Additional',AND(!ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Multi_Family_Funding_Limit__c),HOMEtracker__Service_File__c.HR_Equity__c < HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Multi_Family_Funding_Limit__c)),
+                                        AND(HOMEtracker__Service_File__c.HR_Unit_Type__c='Investor-Owned',AND(!ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Investor_Owned_Funding_Limit__c),HOMEtracker__Service_File__c.HR_Equity__c < HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Investor_Owned_Funding_Limit__c))
+                                        ),
+                                        'color: red;','')}">
+                                            <apex:param value="{!HOMEtracker__Service_File__c.HR_Equity__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <apex:outputPanel styleClass="inTable" style="font-weight: bold;">
+                                            Market Ratio
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td style="{!IF(SubOver > 0, '', if(ISBLANK(HOMEtracker__Service_File__c.HR_Market_Ratio__c),'background-color: '+cYellow+';',''))}">
+                                        <apex:outputpanel styleClass="inTableEdit"> 
+                                            <apex:actionRegion >
+                                                <apex:outputField value="{!HOMEtracker__Service_File__c.HR_Market_Ratio__c}">
+                                                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonEQ,cancelButtonEQ" />
+                                                </apex:outputField>
+                                            </apex:actionRegion>
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td>
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold;">
+                                            Unit Type
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td style="{!if(ISBLANK(HOMEtracker__Service_File__c.HR_Unit_Type__c),'background-color: '+cYellow+';','')}">
+                                    <apex:outputpanel styleClass="inTableEdit" style="font-size: 10pt;"> 
+                                            <apex:actionRegion >
+                                                <apex:outputField value="{!HOMEtracker__Service_File__c.HR_Unit_Type__c}">
+                                                    <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonEQ,cancelButtonEQ" />
+                                                </apex:outputField>
+                                            </apex:actionRegion>
+                                        </apex:outputpanel>
+                                    </td>
+                                    
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <Table border="0" style="background-color: white; padding: 8px;  border-color: rgb(242, 247, 255);">
+                                <tr>
+                                    <td style="{!if(HOMEtracker__Service_File__c.HR_Unit_Type__c='Single-Family or Primary','background-color: rgb(215,250,255); font-weight: bold;','')}">
+                                        <apex:outputpanel styleClass="inTable" style="font-style: italic;">
+                                            Single-Family Limit
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td width="175" style="{!if(HOMEtracker__Service_File__c.HR_Unit_Type__c='Single-Family or Primary','background-color: rgb(215,250,255); font-weight: bold;','')}">
+                                        <apex:outputText value="${0, Number, ###,###}" styleClass="inTable" style="font-style: italic; {!IF(AND(HOMEtracker__Service_File__c.HR_Unit_Type__c='Single-Family or Primary',AND(!ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Single_Family_Funding_Limit__c),HOMEtracker__Service_File__c.HR_Equity__c < HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Single_Family_Funding_Limit__c)),'color: red;','')}">
+                                            <apex:param value="{!HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Single_Family_Funding_Limit__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="{!if(HOMEtracker__Service_File__c.HR_Unit_Type__c='Multi-Family Additional','background-color: rgb(215,250,255); font-weight: bold;','')}">
+                                        <apex:outputpanel styleClass="inTable" style="font-style: italic;">
+                                            Multi-Family Limit
+                                        </apex:outputpanel>
+                                        
+                                    </td>
+                                    <td style="{!if(HOMEtracker__Service_File__c.HR_Unit_Type__c='Multi-Family Additional','background-color: rgb(215,250,255); font-weight: bold;','')}">
+                                        <apex:outputText value="${0, Number, ###,###}" styleClass="inTable" style="font-style: italic; {!IF(AND(HOMEtracker__Service_File__c.HR_Unit_Type__c='Multi-Family Additional',AND(!ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Multi_Family_Funding_Limit__c),HOMEtracker__Service_File__c.HR_Equity__c < HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Multi_Family_Funding_Limit__c)),'color: red;','')}">
+                                            <apex:param value="{!HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Multi_Family_Funding_Limit__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="{!if(HOMEtracker__Service_File__c.HR_Unit_Type__c='Investor-Owned','background-color: rgb(215,250,255); font-weight: bold;','')}">
+                                        <apex:outputpanel styleClass="inTable" style="font-style: italic;">
+                                            Investor-Owned Limit
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td style="{!if(HOMEtracker__Service_File__c.HR_Unit_Type__c='Investor-Owned','background-color: rgb(215,250,255); font-weight: bold;','')}">
+                                        <apex:outputText value="${0, Number, ###,###}" styleClass="inTable" style="font-style: italic; {!IF(AND(HOMEtracker__Service_File__c.HR_Unit_Type__c='Investor-Owned',AND(!ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Investor_Owned_Funding_Limit__c),HOMEtracker__Service_File__c.HR_Equity__c < HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Investor_Owned_Funding_Limit__c)),'color: red;','')}">
+                                            <apex:param value="{!HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Investor_Owned_Funding_Limit__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <apex:outputpanel styleClass="inTable" style="font-style: italic;">
+                                            Special Needs Waiver
+                                        </apex:outputpanel>
+                                    </td>
+                                    <td>
+                                        <apex:outputText value="${0, Number, ###,###}" styleClass="inTable" style="font-style: italic;">
+                                            <apex:param value="{!HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Special_Needs_Waiver_Limit__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Single_Family_Funding_Limit__c),ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Multi_Family_Funding_Limit__c),ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Investor_Owned_Funding_Limit__c),ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Special_Needs_Waiver_Limit__c)),'','display:none;')}">
+                    <td colspan="2" style="text-align: right;">
+                    <apex:outputLink value="/{!HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Id}" style="font-style: underline; font-size: 10pt;background-color: cYellow;" styleclass="medHeader"><u>click here to update program limits</u> </apex:outputLink>
+                    </td>
+                    </tr>
+                    
+                </table>
+                <apex:outputPanel styleClass="inLine" style="font-style: italic; font-size: 10pt;">
+                                        To overwrite the subtotal, go to the <a href="/{!HOMEtracker__Service_File__c.Id}">service file</a> and enter the value in the HR Subtotal Override field.
+                                    </apex:outputPanel> 
+                <div style="text-align: center;">
+                        <div id="warnEQ" style="display: none;">
+                         <div style="text-align: center; font-weight: bold; color: blue; font-size: 11pt;">
+                                SAVING... please wait for the page to refresh.
+                          </div>
+                       </div>
+                       </div>
+                       
+                
+                <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton id="saveButtonEQ" onClick="document.getElementById('warnEQ').style.display = 'inline'" value="Save" action="{!save}" styleClass="button" style="display: none;"/>  
+                    <apex:commandButton id="cancelButtonEQ" value="Cancel" styleClass="button" style="display: none"/>
+                </apex:pageBlockButtons>
+                
+            </apex:pageBlock>        
+        </apex:form>
+        </td></tr></table>
+    
+<!-- INCOME SOURCE -->
+<apex:variable value="{!0.00}" var="total"/>
+    <table width="1100px">
+        <tr>
+            <td>
+                <apex:form >          
+                    <apex:pageBlock >
+                        <apex:outputpanel styleclass="medHeader"> Income Sources </apex:outputpanel>
+                        <div style="font-size: 6pt"> <br /> </div>
+                        <apex:pageBlockTable value="{!listIS}" var="x" styleclass="column" > 
+                         
+ 
+                            
+<apex:column width="20px" styleClass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+<apex:facet name="header">
+<apex:image url="{!$Resource.padlockBlue}" width="10"/>
+</apex:facet>                    
+<apex:actionRegion >
+<apex:outputField value="{!x.Lock_Income_Source__c}" >
+<apex:inlineEditSupport event="onClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS"/>
+</apex:outputField>
+</apex:actionRegion>  
+</apex:column> 
+
+                    
+                            <apex:column width="20px" styleClass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                                <apex:facet name="header"> 
+                                </apex:facet>                    
+                                <apex:outputPanel onClick="window.open('/{!x.Id}',target='_blank')" >
+                                    <apex:image url="{!$Resource.blueFileIcon}" width="15px" />
+                                </apex:outputPanel>
+                            </apex:column>
+                            <apex:column headerValue="#" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.Order__c}" styleclass="column" styleClass="column">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                                    </apex:outputField>
+                                </apex:actionRegion>  
+                            </apex:column>                   
+                            <apex:column headerValue="Income Earner" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.IAW_Income_Earner__c}" styleclass="column" styleClass="column">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                                    </apex:outputField>
+                                </apex:actionRegion>  
+                            </apex:column>
+                            <apex:column headerValue="Employer/Business" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.HOMEtracker__Employer_Business_Name__c}" styleclass="column" styleClass="column">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" /> 
+                                    </apex:outputField>
+                                </apex:actionRegion>  
+                            </apex:column>
+                            <apex:column headerValue="Income Name" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.IAW_Income_Name__c}" styleclass="column" styleClass="column">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                                    </apex:outputField>
+                                </apex:actionRegion>  
+                            </apex:column>
+                            <apex:column headerValue="Asset Value" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.HR_Asset_Value__c}" styleclass="column" styleClass="column">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                                    </apex:outputField>
+                                </apex:actionRegion>
+<apex:variable var="total" value="{!total + IF(ISBLANK(x.HR_Asset_Value__c),0,x.HR_Asset_Value__c)}" />
+<apex:facet name="footer">
+$<span class="t1"></span>
+</apex:facet>
+                            </apex:column>                    
+                            <apex:column headerValue="Gross Annual Income" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.HOMEtracker__Pretax_Income_This_Year__c}" styleClass="column">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                                    </apex:outputField>
+                                </apex:actionRegion>
+<apex:facet name="footer">
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c}" />
+</apex:outputText>
+</apex:facet>
+                            </apex:column>                     
+                            <apex:column headerValue="Source Text" styleclass="columnSmall" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.Source_Text__c}" styleClass="column">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                                    </apex:outputField>
+                                </apex:actionRegion>  
+                            </apex:column>
+                            <apex:column headerValue="Do Not Include" rendered="false" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.HOMEtracker__Do_Not_Include_In_Rollup__c}" styleClass="column">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                                    </apex:outputField>
+                                </apex:actionRegion>  
+                            </apex:column>
+    <!--                        
+                            <apex:column headerValue="Income Calculations" styleclass="columnSmall" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white;' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.HOMEtracker__Income_Calculations__c}">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                                    </apex:outputField>
+                                </apex:actionRegion>  
+                            </apex:column>
+    -->                        
+                            <apex:column headerValue="Income Calculations" styleclass="columnSmall" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white;' )}">
+                                <apex:actionRegion >
+                                    <apex:outputField value="{!x.PHA__Explanation__c}">
+                                        <apex:inlineEditSupport disabled="{!IF(x.Lock_Income_Source__c=true,'true','false')}" event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                                    </apex:outputField>
+                                </apex:actionRegion>  
+                            </apex:column>
+                            
+                            <apex:column headerValue="" styleclass="columnSmall" style="{!IF(x.Income_Calcs_Count__c=0,'background-color: yellow;',IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white;' ))}">
+                            <apex:outputLink value="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Income_Source__c/{!x.Id}/related/Income_Calculations__r/view" target="_Blank">
+                            <apex:image url="{!$Resource.blueCalcIcon}" width="20px" />
+                            </apex:outputLink>
+                            </apex:column>
+
+                        </apex:pageBlockTable>
+                        
+                        <div style="text-align: center;">
+                        <div id="warnIS" style="display: none;">
+                         <div style="text-align: center; font-weight: bold; color: blue; font-size: 11pt;">
+                                SAVING... please wait for the page to refresh.
+                          </div>
+                       </div>
+                       </div>
+
+                                        
+                                        
+                        <apex:pageBlockButtons location="bottom">
+                            <apex:commandButton id="saveButtonIS" value="Save" onClick="document.getElementById('warnIS').style.display = 'inline'" action="{!saveIS}" styleClass="button" style="display: none;"/>  
+                            <apex:commandButton id="cancelButtonIS" value="Cancel" styleClass="button" style="display: none"/>
+                            <apex:commandButton id="newButtonISb" value="New Income Source" onClick="newISf(); return false;" styleClass="button" />
+                            <apex:commandButton id="newButtonISb2" value="Add Rows" onClick="addRows(); return false;" styleClass="button" /> 
+                        </apex:pageBlockButtons> 
+<script>
+    document.getElementsByClassName('t1')[0].innerHTML = '{!total}';
+</script>
+                        <script>
+                        function newISf()
+                        {
+                            var w = window.open('/flow/HRNewIS?varID={!HOMEtracker__Service_File__c.Id}&retURL=%2Fapex%2FIncomeWorksheetHR%3Fid%3D{!HOMEtracker__Service_File__c.Id}',target='_parent')
+                            return w;      
+                        }
+                        function addRows()
+                        {
+                            var w = window.open('https://cgph--c.vf.force.com/flow/HR_Add_Multiple_Income_Sources?varSFID={!HOMEtracker__Service_File__c.Id}&retURL=%2Fapex%2FIncomeWorksheetHR%3Fid%3D{!HOMEtracker__Service_File__c.Id}',target='_parent')
+                            return w;      
+                        }
+                        </script>                
+                        <br/>
+                        <apex:outputPanel styleClass="inLine" style="font-size: 11pt; {!IF(OR(ISNULL(HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c),ISNULL(HOMEtracker__Service_File__c.Moderate_Income_Limit__c)),'',(IF(HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c/HOMEtracker__Service_File__c.Moderate_Income_Limit__c<0.9,'','background-color:rgb(255, 250, 85); font-weight: bold;')))}">
+                                        <b>Deposit Verification:</b> Income is {!HOMEtracker__Service_File__c.HR_Case_File__r.Deposit_Alert__c}
+                                    </apex:outputPanel>
+                                    
+<!-- ------------------DOCUMENT DATES -------------- -->
+<br/>
+<br/>
+<table border="1">
+<tr>
+<td style="font-family: 'Open Sans'; font-size: 11pt; text-align: center; font-weight:bold;">App Rec'd</td>
+<td style="font-family: 'Open Sans'; font-size: 11pt; text-align: center; font-weight:bold;">120 Before</td>
+<td style="font-family: 'Open Sans'; font-size: 11pt; text-align: center; font-weight:bold;">90 Before</td>
+<td style="font-family: 'Open Sans'; font-size: 11pt; text-align: center; font-weight:bold;">120 After</td>
+</tr>
+<tr>
+<td>
+<apex:outputText styleClass="inTable" value="{0, date, MM'/'dd'/'yyyy}"><apex:param value="{!HOMEtracker__Service_File__c.HR_Case_File__r.Application_Received__c}" /></apex:outputText></td>
+<td ><apex:outputText styleClass="inTable" value="{0, date, MM'/'dd'/'yyyy}"><apex:param value="{!HOMEtracker__Service_File__c.HR_Case_File__r.X120_Days_Before_App_Received__c}" /></apex:outputText></td>
+<td><apex:outputText style="text-align: center;" styleClass="inTable" value="{0, date, MM'/'dd'/'yyyy}"><apex:param value="{!HOMEtracker__Service_File__c.HR_Case_File__r.X90_Days_Before_App_Receivd__c}" /></apex:outputText></td>
+<td><apex:outputText style="text-align: center;" styleClass="inTable" value="{0, date, MM'/'dd'/'yyyy}"><apex:param value="{!HOMEtracker__Service_File__c.HR_Case_File__r.Docs_Valid_Date__c}" /></apex:outputText></td>
+</tr>
+</table>                                    
+                                    
+                                    
+                                    
+                    </apex:pageBlock>        
+                </apex:form>
+            </td>
+        </tr>
+        
+    <tr>
+    <td>
+
+
+
+
+
+
+
+            
+            
+            
+            
+<!-- REVIEWER INFO BLOCK -->
+                <apex:form >
+                    <apex:pageBlock >
+                        <apex:outputpanel styleclass="medHeader">
+                        Eligibility Review &nbsp;&nbsp;
+                        </apex:outputpanel>
+                        <div style="font-size: 6pt"> <br /> </div>
+                        
+                        
+                        <table border="1" style="background-color: white; padding: 8px; border-color: rgb(242, 247, 255);">
+                            <tr>
+                            <td width="150">                        
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        Eligibility Criteria:
+                                    </apex:outputPanel>
+                                </td>
+                                <td colspan="5" style="background-color: {!IF(
+                                        AND(
+                                        CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Target'),
+                                        CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Taxes'),
+                                        CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Insurance'),
+                                        CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Water'),
+                                        CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Ownership'),
+                                        CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Equity')
+                                        ),
+                                  IF(
+                                  AND(
+                                        HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.Name = 'Stafford',
+                                        NOT(CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Flood'))
+                                        )
+                                  ,cYellow,'')
+                                  ,cYellow)
+                                  };">
+                                
+                                
+                                
+                                <apex:outputpanel styleClass="inTableEdit" style="font-size: 8pt"> 
+                                        <apex:actionRegion >
+                                            <apex:outputField value="{!HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c}">
+                                                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonONE,cancelButtonONE" />
+                                            </apex:outputField>
+                                        </apex:actionRegion>
+                                    </apex:outputpanel> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="150">                        
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        Primary Reviewer
+                                    </apex:outputPanel>
+                                </td>
+                                <td width="225" style="{!if(ISBLANK(HOMEtracker__Service_File__c.Application_Case_Manager_New__c),'background-color: '+cYellow+';','')}">            
+                                    <apex:outputpanel styleClass="inTableEdit"> 
+                                        <apex:actionRegion >
+                                            <apex:outputField value="{!HOMEtracker__Service_File__c.Application_Case_Manager_New__c}">
+                                                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonONE,cancelButtonONE" />
+                                            </apex:outputField>
+                                        </apex:actionRegion>
+                                    </apex:outputpanel> 
+                                </td>
+                                <td width="150">
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        Primary Complete
+                                    </apex:outputPanel>
+                                </td>
+                                <td width="225" style="{!if(ISBLANK(HOMEtracker__Service_File__c.Date_Application_Sent_for_Final_Review__c),'background-color: '+cYellow+';','')}">        
+                                    <apex:outputpanel styleClass="inTableEdit"> 
+                                        <apex:actionRegion >
+                                            <apex:outputField value="{!HOMEtracker__Service_File__c.Date_Application_Sent_for_Final_Review__c}">
+                                                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonONE,cancelButtonONE" />
+                                            </apex:outputField>
+                                        </apex:actionRegion>
+                                    </apex:outputpanel>                        
+                                </td>
+                                <td width="150">
+                                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                                        Certification Date
+                                    </apex:outputpanel>
+                                </td>
+                                <td width="225" style="{!if(AND(ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c),ISBLANK(HOMEtracker__Service_File__c.Date_Application_Terminated_Withdrawn__c)),'background-color: '+cYellow+';','')}">        
+                                    <apex:outputpanel styleClass="inTableEdit"> 
+                                        <apex:actionRegion >
+                                            <apex:outputField value="{!HOMEtracker__Service_File__c.Eligibility_Date__c}">
+                                                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonONE,cancelButtonONE" />
+                                            </apex:outputField>
+                                        </apex:actionRegion>
+                                    </apex:outputpanel>    
+                                </td>
+                                </tr>
+                                <tr>
+                                <td width="115">
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        Peer Reviewer
+                                    </apex:outputPanel>
+                                </td>
+                                <td width="200" style="{!if(ISBLANK(HOMEtracker__Service_File__c.Peer_Reviewer_User__c),'background-color: '+cYellow+';','')}">        
+                                    <apex:outputpanel styleClass="inTableEdit"> 
+                                        <apex:actionRegion >
+                                            <apex:outputField value="{!HOMEtracker__Service_File__c.Peer_Reviewer_User__c}">
+                                                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonONE,cancelButtonONE" />
+                                            </apex:outputField>
+                                        </apex:actionRegion>
+                                    </apex:outputpanel>                        
+                                </td>
+                                <td width="150">
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        Peer Complete
+                                    </apex:outputPanel>
+                                </td>
+                                <td width="200" style="{!if(ISBLANK(HOMEtracker__Service_File__c.Peer_Review_Complete__c),'background-color: '+cYellow+';','')}">        
+                                    <apex:outputpanel styleClass="inTableEdit"> 
+                                        <apex:actionRegion >
+                                            <apex:outputField value="{!HOMEtracker__Service_File__c.Peer_Review_Complete__c}">
+                                                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonONE,cancelButtonONE" />
+                                            </apex:outputField>
+                                        </apex:actionRegion>
+                                    </apex:outputpanel>                        
+                                </td>
+                                <td>
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        Termination Date
+                                    </apex:outputPanel>
+                                </td>
+                                <td style="{!if(AND(ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c),ISBLANK(HOMEtracker__Service_File__c.Date_Application_Terminated_Withdrawn__c)),'background-color: '+cYellow+';','')}">
+                                <apex:outputpanel styleClass="inTableEdit"> 
+                                        <apex:actionRegion >
+                                            <apex:outputField value="{!HOMEtracker__Service_File__c.Date_Application_Terminated_Withdrawn__c}">
+                                                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonONE,cancelButtonONE" />
+                                            </apex:outputField>
+                                        </apex:actionRegion>
+                                    </apex:outputpanel> 
+                                </td> 
+                                </tr>
+                                <tr>
+                                <td>
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        Peer Review Notes
+                                    </apex:outputPanel>
+                                </td>
+                                <td colspan="2" style="{!if(ISBLANK(HOMEtracker__Service_File__c.Peer_Review_Notes__c),'background-color: '+cYellow+';','')}">
+                                    <apex:outputpanel styleClass="inTableEdit" style="font-size: 9pt;"> 
+                                        <apex:actionRegion >
+                                            <apex:outputField value="{!HOMEtracker__Service_File__c.Peer_Review_Notes__c}">
+                                                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonONE,cancelButtonONE" />
+                                            </apex:outputField>
+                                        </apex:actionRegion>
+                                    </apex:outputpanel>
+                                </td>
+                                <td>
+                                    <apex:outputPanel styleClass="inTable" style="font-weight: bold">
+                                        Worksheet Notes
+                                    </apex:outputPanel>
+                                </td>
+                                <td colspan="2" style="{!if(ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Staff_Notes__c),'background-color: '+cYellow+';','')}">
+                                    <apex:outputpanel styleClass="inTableEdit" style="font-size: 9pt;"> 
+                                        <apex:actionRegion >
+                                            <apex:outputField value="{!HOMEtracker__Service_File__c.HOMEtracker__Staff_Notes__c}">
+                                                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonONE,cancelButtonONE" />
+                                            </apex:outputField>
+                                        </apex:actionRegion>
+                                    </apex:outputpanel>
+                                </td>
+                                                               
+                            </tr>
+
+
+                        </table>
+                        <div style="text-align: center;">
+                        <div id="warnIW" style="display: none;">
+                         <div style="text-align: center; font-weight: bold; color: blue; font-size: 11pt;">
+                                SAVING... please wait for the page to refresh.
+                          </div>
+                       </div>
+                       </div>
+                        
+                        <apex:pageBlockButtons location="bottom">
+                            <apex:commandButton id="saveButtonONE" onClick="document.getElementById('warnIW').style.display = 'inline'" value="Save" action="{!save}" styleClass="button" style="display: none;"/>  
+                            <apex:commandButton id="cancelButtonONE" value="Cancel" styleClass="button" style="display: none"/>
+                        </apex:pageBlockButtons>                       
+                                               
+                    </apex:pageBlock>
+                </apex:form>
+            </td>
+        </tr>
+        <tr>
+        <td>
+        <table border="1" >
+        <tr>
+        <td colspan="2">
+        <b>ELIGIBILITY DETERMINATION FORM CHECKLIST</b>
+        </td>
+        </tr>
+            <tr>
+                <td>
+                <b>TARGET AREA</b>
+                </td>
+                <td>{!HOMEtracker__Service_File__c.HR_Case_File__r.TARGET_AREA_CHECK__c}</td>
+            </tr>
+            <tr>
+                <td>
+          <b>HOUSEHOLD SIZE</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.HR_HH_OVERRIDE__c}</td>
+            </tr>
+            <tr>
+                <td>
+          <b>LIMITS (LOW)</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.LOW_INCOME_LIMIT__c}</td>
+            </tr>
+            <tr>
+                <td>
+          <b>LIMITS (MOD)</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.MODERATE_INCOME_LIMIT__c}</td>
+            </tr>
+            <tr>
+                <td>
+          <b>ELIGIBILITY</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.HR_Case_File__r.ELIGIBILITY_CALCULATED__c}</td>
+            </tr>
+            <tr>
+            <td>
+          <b>TOTAL VERIFIED INCOME</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c}</td>
+            </tr>
+           <tr>
+            <td>
+          <b>TITLE SEARCH RECEIVED</b>
+          </td>
+                <td>
+                
+                <apex:outputText value="{0, date, MM'/'d'/'yy}" >
+                                        <apex:param value="{!HOMEtracker__Service_File__c.HR_Case_File__r.Title_Search_Received__c}" />
+                                    </apex:outputText>
+                
+                             
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+          <b>TAXES</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.HR_Case_File__r.TAXES_CURRENT_CHECK__C}</td>
+            </tr>
+            <tr>
+                <td>
+          <b>INSURANCE</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.HR_Case_File__r.PROOF_OF_INSURANCE_CHECK__c}</td>
+            </tr>
+            <tr>
+                <td>
+          <b>WATER/SEWER/HOA</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.HR_Case_File__r.WATER_SEWER_HOA_CHECK__c}</td>
+            </tr>
+            <tr>
+            <td>
+          <b>PROOF OF OWNERSHIP</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.HR_Case_File__r.PROOF_OF_OWNERSHIP_CHECK__c}</td>
+            </tr>
+            <tr>
+                <td>
+          <b>SUFFICIENT EQUITY</b>
+          </td>
+                <td>{!HOMEtracker__Service_File__c.HR_Case_File__r.SUFFICIENT_EQUITY_CHECK__c}</td>
+            </tr>
+          </table>
+        </td>
+        </tr>
+        <tr style="text-align: center;" valign="top">
+        <td valign="top">
+          <div valign="top" style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Date_Application_Sent_for_Final_Review__c),'display: none;','display: inline;')}">
+               <img src="{!HOMEtracker__Service_File__c.HR_Case_File__r.Primary_Reviewer_Signature__c}" width="100"/> &nbsp;
+          </div>
+          <div valign="top" style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Peer_Review_Complete__c),'display: none;','display: inline;')}">
+               <img src="{!HOMEtracker__Service_File__c.HR_Case_File__r.Peer_Reviewer_Signature__c}" width="100"/> &nbsp;
+          </div>
+          
+        </td>
+             </tr>                
+    </table>
+</td>
+
+<!---------------------------------------------MERGE FIELD CHECK--------------------------------------------->
+
+<td valign="top" width="250">
+<apex:outputPanel styleclass="medHeader"> ELIGIBILITY MERGE CHECK </apex:outputPanel>
+<br/>
+<div style="font-size: 10pt;"><b> See missing fields below.<br/>Don't merge Elibility docs until<br/>these are all cleared.</b></div>
+<br/>
+
+<!--
+HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c = 'Yes'
+-->
+
+<div id="miss">{!IF(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Eligibility_Docs_ID__c='XXX','Eligibility Template - HR Program','')} </div>     
+<div id="miss">{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Flood_Zone_Type__c),HOMEtracker__Service_File__c.HR_Case_File__r.Flood_Zone_Type__c='100 year'),'FLOOD Insurance- HR Case File','')} </div>                     
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Sufficient_Equity_Required__c),'Sufficient Equity Required - HR Program','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.PROGRAM_NAME__r.Name),'Program Name - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.Name),'Municipality Name - Municipality','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.AA_Manual_Muniname__c),'Full Muni Name - Municipality','')} </div>
+<div id="miss">{!IF(HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.Muni_Account_Address__c=', ,','Municipal Address LINE - Municipality','')} </div>
+<div id="miss">{!IF(HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.HR_Signator_CALC__c=',','Program Agreement Signator - Municipality','')} </div>
+<div id="miss">{!IF(HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.HR_Attestor_CALC__c=',','Program Agreement Attestor - Municipality','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.County__c),'COUNTY - Municipality','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Funding_Terms__c),'Funding Terms - HR Program','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Lead_Program__c),'Lead Program? - HR Program','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.NAME),'Case File # - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.PROPERTY__r.Name),'Street Address - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.City__c),'City - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.State__c),'State - HR Case File','')}  </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.ZIP_code__c),'Zip - HR Case File','')} </div>
+<div id="miss">{!IF(AND(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Block__c),LEFT(HOMEtracker__Service_File__c.HR_Case_File__r.ZIP_code__c,1)!='1'),'Block - HR Case File','')} </div>
+<div id="miss">{!IF(AND(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Lot__c),LEFT(HOMEtracker__Service_File__c.HR_Case_File__r.ZIP_code__c,1)!='1'),'Lot - HR Case File','')} </div>
+<div id="miss">{!IF(AND(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.PA_Parcel_ID__c),LEFT(HOMEtracker__Service_File__c.HR_Case_File__r.ZIP_code__c,1)='1'),'PA Parcel ID - HR Case File','')} </div>
+<div id="miss">{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.HR_HH_Override__c),HOMEtracker__Service_File__c.HR_HH_Override__c=0),'Household Size- Income Worksheet','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.HR_Homeowners__c),'Homeowners - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.HOMEOWNER__r.NAME),'Homeowner Name - HR Case File','')} </div>
+
+<div id="miss">{!IF(AND(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.CO_OWNER__r.NAME),ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Confirm_Co_Owner__c)),'Co-Owner Name - HR Case File','')}</div>
+
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Homeowner_Email__c),'Homeowner Email - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.HR_CASE_MANAGER__r.NAME),'Case Manager Name - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Case_Manager_Title__c),'Case Manager Title - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Case_Manager_Phone__c),'Case Manager Phone - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.HR_Coordinator_Email__c),'Case Manager Email - HR Case File','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.HR_Case_Manager_Initials__c),'Case Manager Initials - HR Case File','')} </div>
+<div id="miss">{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Eligibility_Calculated__c),HOMEtracker__Service_File__c.HR_Case_File__r.Eligibility_Calculated__c='Income Calculation Incomplete'),'Eligibility - Income Worksheet','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Cert_of_Eligibility__c),'Cert of Eligibility - Income Worksheet','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.IAW_Income_Limit__r.Name),'Income Limits Used - Income Worksheet','')} </div>
+
+
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.Application_Case_Manager_New__r.Name),'Primary Reviewer - Income Worksheet','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.Date_Application_Sent_for_Final_Review__c),'Primary Review Complete - Income Worksheet','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.Peer_Reviewer_User__r.Name),'Peer Reviewer - Income Worksheet','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.Peer_Review_Complete__c),'Peer Review Complete - Income Worksheet','')} </div>
+
+<div id="miss">{!IF(OR(HOMEtracker__Service_File__c.IAW_Median_Income__c=0,ISBLANK(HOMEtracker__Service_File__c.IAW_Median_Income__c)),'Median Income - Income Worksheet','')} </div>
+<div id="miss">{!IF(OR(HOMEtracker__Service_File__c.HR_Case_File__r.Single_Family_Limit__c=0,ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Single_Family_Limit__c)),'Single Family Limit - HR Program','')} </div>
+<div id="miss">{!IF(OR(HOMEtracker__Service_File__c.HR_Case_File__r.Multi_Family_Limit__c=0,ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Multi_Family_Limit__c)),'Multi Family Limit - HR Program','')} </div>
+<div id="miss">{!IF(ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Investor_Owned_Limit__c),'Investor Limit - HR Program','')} </div>
+<div id="miss">{!IF(AND(!ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Investor_Owned_Limit__c),ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.Program_Name__r.Investor_Owned_of_Costs__c)),'Investor % of Costs- HR Program','')} </div>
+
+
+<div id="miss">{!IF(OR(HOMEtracker__Service_File__c.Moderate_Income_Limit__c=0,ISBLANK(HOMEtracker__Service_File__c.Moderate_Income_Limit__c)),'Moderate Income Limit - Income Worksheet','')} </div>
+<div id="miss">{!IF(OR(HOMEtracker__Service_File__c.Low_Income_Limit__c=0,ISBLANK(HOMEtracker__Service_File__c.Low_Income_Limit__c)),'Low Income Limit - Income Worksheet','')} </div>
+<div id="miss">{!IF(OR(HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c=0,ISBLANK(HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c)),'Applicant Income - Income Worksheet','')} </div>
+
+<div id="miss">{!IF(OR(!ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.HR_Case_Terminated_Date__c),!ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c)),'','Terminated Date - Income Worksheet')} </div>
+<div id="miss">{!IF(OR(!ISBLANK(HOMEtracker__Service_File__c.HR_Case_File__r.HR_Case_Terminated_Date__c),!ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c)),'','Certification Date - Income Worksheet')} </div>
+
+<div id="missO" style="font-weight: bold;">
+{!IF(AND(
+CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Target'),
+CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Taxes'),
+CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Insurance'),
+CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Water'),
+CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Ownership'),
+CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Equity')),
+'','Eligibility Criteria:')}
+</div>
+
+<div id="missO">{!IF(CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Target'),'','Target Area - HR Eligibility')} </div>
+<div id="missO">{!IF(CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Taxes'),'','Taxes Current - HR Eligibility')} </div>
+<div id="missO">{!IF(CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Insurance'),'','Proof of Insurance - HR Eligibility')} </div>
+<div id="missO">{!IF(CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Water'),'','Water/Sewer/HOA - HR Eligibility')} </div>
+<div id="missO">{!IF(CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Ownership'),'','Proof of Ownership - HR Eligibility')} </div>
+<div id="missO">{!IF(CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Equity'),'','Sufficient Equity - HR Eligibility')} </div>
+<div id="missO" style="display: {!IF(HOMEtracker__Service_File__c.HR_Case_File__r.Municipality__r.Name = 'Stafford','','none')}">{!IF(CONTAINS(HOMEtracker__Service_File__c.HR_Eligibility_Criteria__c,'Flood'),'','Substantial Flood - HR Eligibility')} </div>
+
+
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<!-- LEGEND -----------------    
+    <table width="1100">
+    <tr>
+    <td width="235">
+    .
+    </td>
+    <td>
+    <table border="1" style="text-align: center; border-color: rgb(73,53,51); font-weight: bold;">
+    <tr>
+    <td width="200" style="font-family: 'Open Sans'; padding: 3px 0px 3px 0px; background-color: {!cYellow}">
+    DOUBLE CLICK TO EDIT
+    </td>
+    <td width="200" style="font-family: 'Open Sans'; background-color: {!cOrange}">
+    CANNOT DIRECTLY EDIT
+    </td>
+    <td width="200">
+    INFORMATION ENTERED
+    </td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+-->
+
+</apex:page>

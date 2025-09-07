@@ -1,0 +1,25 @@
+<apex:page standardController="Contract">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Oswald');        
+    </style>
+    
+    <div style="font-size: 28pt; color: rgb(37,113,170); font-family: 'Oswald'; font-weight: light;">
+        Administrative Agent Department Custom Links
+        <br />
+    </div>
+
+<apex:outputPanel onmouseover="" onclick="Edison();">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Edison%2C_NJ_Seal.svg/220px-Edison%2C_NJ_Seal.svg.png" width="150"/>
+</apex:outputPanel>
+
+
+<script>
+     function Edison()
+       {
+        var w = window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&Id=a1Fo0000001A6ha&QueryId=[Mort]a211N000001eJ2c,[TaxInc]a211N000001eJ2h&TemplateId=[Edison+AHP+Calculator+{!RIGHT(TEXT(YEAR(TODAY())),2)}_{!MONTH(TODAY())}_{!DAY(TODAY())}]a291N000003ftG2&DxS7=3',"MsgWindow", target='_blank')
+        return w;      
+        }
+</script>
+
+</apex:page>

@@ -1,0 +1,233 @@
+<apex:page standardController="HOMEtracker__Service_File__c" showHeader="false">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    table {border-collapse:collapse;}
+    td    {height:30px; padding-left:10px; font-size:10.5pt; font-family:Open Sans; border-bottom: 1px solid #c9c9c9;}
+    a     {color:#0b5cab;}
+    .head {background-color:#f3f3f3; display:none;}
+    .head1 {background-color:#dcecfc; font-weight: bold;}
+    .head2 {background-color:#fce7dc; font-weight: bold;}
+    .missing {color:red; font-weight:bold;}
+    .noBottom {border-bottom: 0px solid white;}
+
+</style>
+
+<apex:variable var="width1" value="8%"/>
+<apex:variable var="width2" value="36%"/>
+<apex:variable var="width3" value="2%"/>
+<apex:variable var="match" value="!IF(HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = TRUE, '1','0')}"/>
+
+<!-- -----------------------LINK FORMULAS------------------------- -->
+
+<!-- Step 1 (B) Begin Certification Email Setup -->
+<apex:variable var="EmailSetup" value="mailto:{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}?cc={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_contact_email__c};
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Email_Recipients_for_Certs__c}
+&bcc=noreply@cgph.net;HousingEligibilities@cgph.net
+&subject={!HOMEtracker__Service_File__c.Municipality_Lookup__r.Name}
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c} Affordable Housing Program / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name} / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name} / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName} / Certification / 
+{!HOMEtracker__Service_File__c.Case_Number__c}
+"/>
+
+<!-- Step 1 (A) Generate Certification Documents For Mailing  -->
+<apex:variable var="CertLetter" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a291N000003fzMj
+&OFN=CERTIFICATION+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+&ReportId=[HHM]00O3m000006En1G?pv0={!LEFT(HOMEtracker__Service_File__c.Id,15)}~pv1=1
+&QueryId=[CertProperty]a211N000001eJlW?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Id},
+[CertMunicipality]a211N000001eJlq?pv0={!HOMEtracker__Service_File__c.Municipality_ID__c},
+[CertDevelContact]a211N000001eK2u?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_contact__r.Id},
+[CertCurrentOwner]a211N000001eK2z?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.HOMEtracker__Owner__r.Id},
+[CertCaseManager]a211N000001eK7k?pv0={!HOMEtracker__Service_File__c.Application_Case_Manager_New__r.Id},
+[CertCounty]a211N000001eKcL?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.County_Lookup__r.Id}
+&DS7=3"/> 
+
+<!-- Step 2 (Option 1) (D) Generate Certification Email Text -->
+<apex:variable var="EmailTextCert" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a291N000003fyHb
+&DS7=3
+&OFN=CERTIFICATION+EMAIL+TEXT+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+&ReportId=[HHM]00O3m000006En1G?pv0={!LEFT(HOMEtracker__Service_File__c.Id,15)}~pv1=1
+&QueryId=[CertProperty]a211N000001eJlW?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Id},
+[CertMunicipality]a211N000001eJlq?pv0={!HOMEtracker__Service_File__c.Municipality_ID__c},
+[CertDevelContact]a211N000001eK2u?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_contact__r.Id},
+[CertCurrentOwner]a211N000001eK2z?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.HOMEtracker__Owner__r.Id},
+[CertCaseManager]a211N000001eK7k?pv0={!HOMEtracker__Service_File__c.Application_Case_Manager_New__r.Id},
+[CertCounty]a211N000001eKcL?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.County_Lookup__r.Id}
+"/>
+
+<!-- Step 2 (Option 2) (J) Generate Backup Certification Email Text -->
+<apex:variable var="BackupCertEmail" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=00P3m000012ynqO
+&DS7=3
+&OFN=CERTIFICATION+EMAIL+TEXT+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+&ReportId=[HHM]00O3m000006En1G?pv0={!LEFT(HOMEtracker__Service_File__c.Id,15)}~pv1=1
+&QueryId=[CertProperty]a211N000001eJlW?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Id},
+[CertMunicipality]a211N000001eJlq?pv0={!HOMEtracker__Service_File__c.Municipality_ID__c},
+[CertDevelContact]a211N000001eK2u?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_contact__r.Id},
+[CertCurrentOwner]a211N000001eK2z?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.HOMEtracker__Owner__r.Id},
+[CertCaseManager]a211N000001eK7k?pv0={!HOMEtracker__Service_File__c.Application_Case_Manager_New__r.Id},
+[CertCounty]a211N000001eKcL?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.County_Lookup__r.Id}
+"/>
+
+<!-- Step 3 (A) Generate Certification [& Certificate J] -->
+<apex:variable var="Step3Cert" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a291N000003fwqW
+&DS7=3
+&OFN=CERTIFICATION+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+&ReportId=[HHM]00O3m000006En1G?pv0={!LEFT(HOMEtracker__Service_File__c.Id,15)}~pv1=1
+&QueryId=[CertProperty]a211N000001eJlW?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Id},
+[CertMunicipality]a211N000001eJlq?pv0={!HOMEtracker__Service_File__c.Municipality_ID__c}
+"/>
+
+
+<!-- -----------------------TABLE BEGINS------------------------- -->
+
+<table border="0" width="100%">
+    <tr>
+        <td colspan="5" class="head">
+            Application // 5a. Certification Communications [HOMEOWNERSHIP]
+            <a href="https://cgph--c.vf.force.com/apex/SF_Sale_Cert_Comm?id={!HOMEtracker__Service_File__c.Id}" target="_blank" style="{!IF(OR($User.LastName='Burton',$User.LastName='Sciortino'),'','display:none;')}">
+                VF PAGE
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="head1">
+            EMAIL CERTIFICATION
+        </td>
+        <td class="noBottom"></td>
+        <td colspan="2" class="head2">
+            NO EMAIL - MAILED CERTIFICATION
+        </td>
+        
+    </tr>
+    <tr style="{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c) = TRUE, HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = FALSE),'','display:none;')}">
+        <td colspan="5" class="missing">
+            <div style="{!IF(HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = FALSE, '','display:none;')}">
+                Verify Salesforce &amp; Public House Income Match
+            </div>
+            <div style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c) = TRUE, '','display:none;')}">
+                Eligibility Date Missing
+            </div>
+        </td>
+    </tr>       
+    <tr style="{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c) = TRUE, HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = FALSE),'display:none;','')}">
+        <td width="{!width1}">
+ <!-- Step 1 (B) Begin Certification Email Setup -->           
+            Step 1
+        </td>
+        <td width="{!width2}">
+            
+            <span style="{!IF( HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = TRUE, '','display:none;')}">
+                <apex:outputLink value="{!EmailSetup}">
+                    Begin Certification Email Setup
+                </apex:outputLink>
+            </span>
+            <span class="missing" style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__c),'','display:none')}">[ MUNI ]</span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c='','','display:none')}">[ MUNI TYPE ] </span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name='','','display:none')}">[ PROPERTY ]</span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name='','','display:none')}">[ DEVELOPMENT]</span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName='','','display:none')}">[ APPLICANT ]</span>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.Case_Number__c='','','display:none')}">[ CASE# ]</span>
+        </td>
+        <td width="{!width3}" class="noBottom">
+        </td>
+        <td width="{!width1}">
+        
+ <!-- Step 1 (A) Generate Certification Documents For Mailing  -->         
+            Step 1
+        </td>
+        <td width="{!width2}">
+            <a target="_blank" href="{!SUBSTITUTE(CertLetter,' ','')}" style="color:black;">
+                Generate Certification Documents For Mailing      
+            </a>
+        </td>
+    </tr>
+    <tr style="{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c) = TRUE, HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = FALSE),'display:none;','')}">
+        <td>
+<!-- Step 2 (Option 1) (D) Generate Certification Email Text -->         
+            Step 2<br/> (Option 1)
+        </td>
+        <td>
+            <a target="_blank" href="{!SUBSTITUTE(EmailTextCert,' ','')}">
+                Generate Certification Email Text
+            </a>
+        </td>
+        <td class="noBottom">
+        </td>
+        <td class="noBottom">
+        </td>
+        <td class="noBottom">
+        </td>
+    </tr>
+    <tr style="{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c) = TRUE, HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = FALSE),'display:none;','')}">
+        <td>
+<!-- Step 2 (Option 2) (J) Generate Backup Certification Email Text -->         
+            Step 2 <br/> (Option 2)
+        </td>
+        <td>
+            <a target="_blank" href="{!SUBSTITUTE(BackupCertEmail,' ','')}">
+                Generate Backup Certification Email Text
+            </a>
+
+        </td>
+        <td class="noBottom">
+        </td>
+        <td class="noBottom">
+        </td>
+        <td class="noBottom">
+        </td>
+    </tr>
+    
+    <tr style="{!IF(OR(ISBLANK(HOMEtracker__Service_File__c.Eligibility_Date__c) = TRUE, HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = FALSE),'display:none;','')}">
+        <td>
+<!-- Step 3 (A) Generate Certification [& Certificate J] --> 
+            Step 3
+        </td>
+        <td>
+            <a target="_blank" href="{!SUBSTITUTE(Step3Cert,' ','')}">
+                Generate Certification &amp; Certificate J
+            </a>
+        </td>
+        <td class="noBottom">
+        </td>
+        <td class="noBottom">
+        </td>
+        <td class="noBottom">
+        </td>
+    </tr> 
+</table>
+
+<br/>
+
+
+<div style="display:none"> <!-- for SOQL purposes -->
+{!HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_contact_email__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Email_Recipients_for_Certs__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Municipal_Type__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+{!HOMEtracker__Service_File__c.Case_Number__c}
+</div>
+
+</apex:page>

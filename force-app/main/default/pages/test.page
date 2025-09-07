@@ -1,0 +1,28 @@
+<apex:page controller="InvoiceSlipAmounts">
+
+<style>
+    table { border-collapse: collapse;}
+</style>
+
+<table>
+    <tr>
+        <td>
+            <apex:repeat var="a" value="{!listInv}">
+                {!a.Name}
+                <br/>
+            </apex:repeat>
+        </td>
+        <td>
+            {!listDiff}
+            <apex:repeat var="b" value="{!listSlipValues}">
+                {!b}
+                <br/>
+            </apex:repeat>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
+
+
+</apex:page>

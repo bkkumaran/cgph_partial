@@ -1,0 +1,282 @@
+<apex:page >
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+td {padding: 8px 8px 8px 8px;}
+#head {font-weight: bold; font-family: Montserrat; font-size: 14pt;}
+#b {white-space: nowrap; text-decoration:none; font-size: 10pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid rgb(37,113,170); border-bottom: 1.5px solid rgb(37,113,170); border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#b:hover {background-color:#ffffd7;}
+</style>
+
+
+<br/>
+
+
+
+<table border="" style="padding-left: 10px"> 
+    <tr>
+       
+        <td id="head" colspan="2">
+            A. Outreach Ineligible/Undetermined
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a id="b" style="color:green;" target="_blank" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005tlbBUAQ/view?queryScope=userFolders">
+                1. CHECK REPORT
+                </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a id="b" target="_top" href="https://cgph.lightning.force.com/flow/IF_Ineligible_Pending_Staff_Action_ALL?retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCaseProcessing">
+                2. PROCESS INELIGIBLES
+            </a>
+        </td>
+    
+    </tr>   
+    <tr>
+        
+        <td id="head" colspan="2">
+            B. AUTO-PROCESSED CASES
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a id="b" target="_top" href="https://cgph--c.vf.force.com/flow/Cases_Find_No_VMs?retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCaseProcessing">
+                1. CLOSE NO VOICEMAIL CASES
+            </a>
+        </td>
+        <td>
+            Last Run:
+            <SPAN style="color: green; font-weight: bold;">
+                {!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_No_VM__c -(4/24))=TODAY(),"TODAY","")}
+            </span>
+            <span style="color:red; font-weight: bold;">
+                <apex:outputText rendered="{!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_No_VM__c -(4/24))=TODAY(),false,true)}" value="{0,date, E MM'/'dd'/'yyyy}">
+                    <apex:param value="{!$Setup.CGPH_Case_AutoProcess__c.Last_No_VM__c -(4/24)}" /> 
+                </apex:outputText>
+            </span>
+        </td>
+    </tr>
+        <tr>
+        <td>
+            <a id="b" target="_top" href="https://cgph--c.vf.force.com/flow/CASES_Close_Empty_Email_Verification_Cases?retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCaseProcessing">
+                2. CLOSE BLANK EMAIL VERIFY CASES
+            </a>
+        </td>
+        <td>
+            Last Run:
+            <SPAN style="color: green; font-weight: bold;">
+                {!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Clear_Blank_Email_Verify__c -(4/24))=TODAY(),"TODAY","")}
+            </span>
+            <span style="color:red; font-weight: bold;">
+                <apex:outputText rendered="{!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Clear_Blank_Email_Verify__c -(4/24))=TODAY(),false,true)}" value="{0,date, E MM'/'dd'/'yyyy}">
+                    <apex:param value="{!$Setup.CGPH_Case_AutoProcess__c.Last_Clear_Blank_Email_Verify__c -(4/24)}" /> 
+                </apex:outputText>
+            </span>
+        </td>
+    </tr>  
+    <tr>
+        <td>
+            <a id="b" target="_top" href="https://cgph--c.vf.force.com/flow/Case_Tech_Transfer?retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCaseProcessing">
+                3. TRANSFER TECH CASES
+            </a>
+        </td>
+        <td>
+            Last Run:
+            <SPAN style="color: green; font-weight: bold;">
+                {!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Tech_Transfer__c -(4/24))=TODAY(),"TODAY","")}
+            </span>
+            <span style="color:red; font-weight: bold;">
+                <apex:outputText rendered="{!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Tech_Transfer__c -(4/24))=TODAY(),false,true)}" value="{0,date, E MM'/'dd'/'yyyy}">
+                    <apex:param value="{!$Setup.CGPH_Case_AutoProcess__c.Last_Tech_Transfer__c  -(4/24)}" /> 
+                </apex:outputText>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a id="b" target="_top" href="https://cgph--c.vf.force.com/flow/Cases_Assistant_FWD_Cases?retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCaseProcessing">
+                4. TRANSFER FWD CASES
+            </a>
+        </td>
+        <td>
+            Last Run:
+            <SPAN style="color: green; font-weight: bold;">
+                {!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Assistant_FWD_process__c-(4/24))=TODAY(),"TODAY","")}
+            </span>
+            <span style="color:red; font-weight: bold;">
+                <apex:outputText rendered="{!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Assistant_FWD_process__c-(4/24))=TODAY(),false,true)}" value="{0,date, E MM'/'dd'/'yyyy}">
+                    <apex:param value="{!$Setup.CGPH_Case_AutoProcess__c.Last_Assistant_FWD_process__c-(4/24)}" /> 
+                </apex:outputText>
+            </span>
+        </td>
+    </tr>
+        <tr>
+        <td>
+            <a id="b" target="_top" href="https://cgph--c.vf.force.com/flow/Cases_Front_Office_Transfer?retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCaseProcessing">
+                5. TRANSFER FRONT OFFICE CASES
+            </a>
+        </td>
+        <td>
+            Last Run:
+            <SPAN style="color: green; font-weight: bold;">
+                {!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Mark_Quick_Template__c-(4/24))=TODAY(),"TODAY","")}
+            </span>
+            <span style="color:red; font-weight: bold;">
+                <apex:outputText rendered="{!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Mark_Quick_Template__c-(4/24))=TODAY(),false,true)}" value="{0,date, E MM'/'dd'/'yyyy}">
+                    <apex:param value="{!$Setup.CGPH_Case_AutoProcess__c.Last_Mark_Quick_Template__c-(4/24)}" /> 
+                </apex:outputText>
+            </span>
+        </td>        
+    </tr>
+   
+        <tr>
+<!--
+        <td colspan="2" >
+            <a id="b"  style="color:green;" target="_blank" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005ySaSUAU/view?queryScope=userFolders">
+                <b>6. PRE ASSIGN REVIEW</b>
+            </a>
+        </td>
+        </tr>
+
+        <tr>
+     
+        <td colspan="2" >
+            <a id="b"  style="color:green;" target="_blank" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005thofUAA/view?queryScope=userFolders">
+                <b>QUICK TEMPLATE CASES</b>
+            </a>
+        </td>
+    </tr>    
+    <tr>
+        <td>
+            <a id="b"  style="color:green;" target="_blank" href="https://cgph.lightning.force.com/lightning/o/Case/list?filterName=00B6O00000AhngAUAR">
+                <b>7. NICKS OPEN CASES LIST VIEW</b>
+            </a>
+        
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" >
+            <a id="b"  style="color:green;" target="_blank" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005teMOUAY/view">
+                <b>8. AUTO-PROCESSED CASES REPORT</b>
+            </a>
+        </td>
+-->        
+    </tr>
+    <tr>
+        <td id="head" colspan="2">
+            C. CASE CONSOLIDATION
+        </td>
+    </tr>
+    <tr>
+        <td  colspan="2">
+            <a id="b"  style="color:green;" target="_blank" href="https://cgph.lightning.force.com/lightning/r/Dashboard/01Z6O000000kd70UAA/view?queryScope=userFolders">
+                1. CASE CONSOLIDATION DASHBOARD
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td id="head" colspan="2">
+            D. CASE SORTING
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a id="b" target="_top" href="https://cgph--c.vf.force.com/flow/Cases_Public_House_Categorization?retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCaseProcessing">
+                1. SORT PUBLIC HOUSE CASES
+            </a>
+        </td>
+        <td>
+            Last Run:
+            <SPAN style="color: green; font-weight: bold;">
+                {!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_PH_Eligibility_Sort__c -(4/24))=TODAY(),"TODAY","")}
+            </span>
+            <span style="color:red; font-weight: bold;">
+                <apex:outputText rendered="{!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_PH_Eligibility_Sort__c -(4/24))=TODAY(),false,true)}" value="{0,date, E MM'/'dd'/'yyyy}">
+                    <apex:param value="{!$Setup.CGPH_Case_AutoProcess__c.Last_PH_Eligibility_Sort__c -(4/24)}" /> 
+                </apex:outputText>
+            </span>
+        </td>
+    </tr>   
+    <tr>
+        <td>
+            <a id="b" target="_top" href="https://cgph--c.vf.force.com/flow/Cases_Closing_team_Sort?retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCaseProcessing">
+                2. SORT CLOSING CASES
+            </a>
+        </td>
+        <td>
+            Last Run:
+            <SPAN style="color: green; font-weight: bold;">
+                {!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Closing_Team_Sort__c -(4/24))=TODAY(),"TODAY","")}
+            </span>
+            <span style="color:red; font-weight: bold;">
+                <apex:outputText rendered="{!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Closing_Team_Sort__c -(4/24))=TODAY(),false,true)}" value="{0,date, E MM'/'dd'/'yyyy}">
+                    <apex:param value="{!$Setup.CGPH_Case_AutoProcess__c.Last_Closing_Team_Sort__c -(4/24)}" /> 
+                </apex:outputText>
+            </span>
+        </td>
+    </tr>
+
+    <tr>
+<!--
+        <td colspan="2">
+            <a id="b"  style="color:green;" target="_blank" href="https://cgph.lightning.force.com/lightning/r/Dashboard/01Z6O000000kd7tUAA/view?queryScope=userFolders">
+                <b>3. CASE SORTING DASHBOARD</b>
+            </a>
+        </td>
+    </tr>
+        <tr>
+        <td>
+            <a id="b" target="_blank" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005tmXZUAY/view?queryScope=userFolders">
+                <b>4. DELETE SPAM</b>
+            </a>
+        </td>
+
+        <td>
+            Last Run:
+            <SPAN style="color: green; font-weight: bold;">
+                {!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Delete_Spam_Date__c-(4/24))=TODAY(),"TODAY","")}
+            </span>
+            <span style="color:red; font-weight: bold;">
+                <apex:outputText rendered="{!IF(DATEVALUE($Setup.CGPH_Case_AutoProcess__c.Last_Delete_Spam_Date__c-(4/24))=TODAY(),false,true)}" value="{0,date, E MM'/'dd'/'yyyy}">
+                    <apex:param value="{!$Setup.CGPH_Case_AutoProcess__c.Last_Delete_Spam_Date__c-(4/24)}" /> 
+                </apex:outputText>
+            </span>
+        </td>
+-->
+    </tr>
+    <tr>
+        <td id="head" colspan="2">
+            E. CASE DISTRIBUTION
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a id="b"  style="color:red;" target="_top" href="https://cgph--c.vf.force.com/flow/Assign_Assistant_Cases_2?retURL=%2Flightning%2Fo%2FCase%2Flist%3FfilterName%3D00B6O00000BV7W8UAL">
+                <b>1. DISTRIBUTE CASES</b>
+            </a>
+        </td>
+        </tr>
+        <tr>
+            <td>
+            <a id="b"  style="color:red;" target="_top" href="https://cgph.lightning.force.com/lightning/o/Case/list?filterName=00B6O000008HnXoUAK">
+                <b>2. UNASSIGN CASES</b>
+            </a>
+        </td>
+    </tr>
+
+    
+</table>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<!--
+<a href="https://cgph--c.vf.force.com/flow/Cases_Run_All_Cleanup?retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCaseProcessing">TEST</a>
+-->
+</apex:page>

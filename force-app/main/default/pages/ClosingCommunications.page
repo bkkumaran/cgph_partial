@@ -1,0 +1,88 @@
+<apex:page standardController="Contact_List__c" lightningStylesheets="true">
+
+<style>
+#thead {font-size: 16pt; font-weight: bold; padding-bottom: 10px;}
+#text {font-size: 14pt;padding-bottom: 5px;}
+</style>
+
+<!-- ------------- GENERATE ATTORNEY INTRO EMAIL TEXT------------- -->
+<div id="text">
+<a href="/apex/APXTConga4__Conga_Composer?serverUrl=$Api.Enterprise_Server_URL_370&Id={!Contact_List__c.Id}
+&TemplateId=00P3m00001BQSn4
+&TemplateGroup=AA,Closing,Documents
+&OFN=ATTORNEY%20INTRO%20EMAIL%20TEXT+{!Contact_List__c.Buyer_Applicant__r.LastName}+
+&QueryId=[Municipality]a213m0000024b8s?pv0={!Contact_List__c.Property__r.Municipality_Name__r.Id},
+[Development]a213m0000024bAa?pv0={!Contact_List__c.Property__r.Development_address__r.Id},
+[Property]a213m0000024bAa?pv0={!Contact_List__c.Property__r.Id},
+[BuyerServiceFile]a213m0000024i1w?pv0={!Contact_List__c.Buyers_Service_File__r.Id},
+[BuyerApplicant]a213m0000024h5f?pv0={!Contact_List__c.Buyer_Applicant__r.Id},
+[BuyerCoApplicant]a213m0000024h5f?pv0={!Contact_List__c.Buyer_Co_Applicant__r.Id},
+[BuyerAttorney]a213m0000024h5f?pv0={!Contact_List__c.Buyer_s_Attorney__r.Id},
+[BuyerRealtor]a213m0000024h5f?pv0={!Contact_List__c.Buyer_s_Realtor__r.Id},
+[SellerApplicant]a213m0000024h5f?pv0={!Contact_List__c.Seller_Applicant__r.Id},
+[SellerCoApplicant]a213m0000024h5f?pv0={!Contact_List__c.Seller_Co_Applicant__r.Id},
+[SellerAttorney]a213m0000024h5f?pv0={!Contact_List__c.Seller_s_Attorney__r.Id},
+[SellerRealtor]a213m0000024h5f?pv0={!Contact_List__c.Seller_s_Realtor__r.Id},
+[TitleCompany]a213m0000024h5f?pv0={!Contact_List__c.Title_Company_Contact__r.Id},
+[InitialSeller]a213m0000024h5f?pv0={!Contact_List__c.Initial_Seller_Contact__r.Id}
+&DS7=3"
+>Generate Attorney Intro Email Text</a>
+</div>
+
+<!-- ------------- GENERATE CLOSING DOCUMENTS------------- -->
+<div id="text">
+<a href="
+/apex/APXTConga4__Conga_Composer?serverUrl=$Api.Enterprise_Server_URL_370&Id={!Contact_List__c.Id}
+&TemplateGroup=AA%20Closing%20Docs
+&OFN=CLOSING%20DOCUMENTS%20{!Contact_List__c.Buyer_Applicant__r.LastName},
+&QueryId=[PROPERTY]a213m000003YUUZ?pv0={!Contact_List__c.Property__r.Id},
+[BUYERSERVICEFILE]a213m000003YbyM?pv0={!Contact_List__c.Buyers_Service_File__r.Id},
+[BUYERAPPLICANT]a213m000003YbwC?pv0={!Contact_List__c.Buyer_Applicant__r.Id},
+[BUYERCOAPPLICANT]a213m000003YbwC?pv0={!Contact_List__c.Buyer_Co_Applicant__r.Id},
+[SELLERAPPLICANT]a213m000003YbwC?pv0={!Contact_List__c.Seller_Applicant__r.Id},
+[SELLERCOAPPLICANT]a213m000003YbwC?pv0={!Contact_List__c.Seller_Co_Applicant__r.Id},
+[CLOSINGCOORDINATOR]a213m000003YbyW?pv0={!Contact_List__c.Buyers_Service_File__r.Closing_Coordinator__r.Id}
+&DS7=3">
+Generate Closing Documents </a>
+</div>
+<br/>
+
+<!-- -------------BUYER PA and Attorney Email Setup------------- -->
+
+<!-- seller email CC -->
+<div id="text"  style="{!IF(ISBLANK(Contact_List__c.Seller_Applicant__r.Email),'display: none;','')}">
+<apex:outputLink value="mailto:{!Contact_List__c.Buyer_Applicant__r.Email}?cc={!Contact_List__c.Seller_Applicant__r.Email}&bcc=noreply@cgph.net&subject={!IF(Contact_List__c.Property__r.Name='','%21%21%21MISSING%20PROPERTY%21%21%21',Contact_List__c.Property__r.Name)} / Next Step/ Purchase Agreement/ Attorney Info ">
+BUYER &amp; SELLER PA and Attorney Email Setup
+</apex:outputLink>
+</div>
+
+<!-- no seller email, no cc -->
+<div id="text" style="{!IF(ISBLANK(Contact_List__c.Seller_Applicant__r.Email),'','display: none;')}">
+<apex:outputLink value="mailto:{!Contact_List__c.Buyer_Applicant__r.Email}?bcc=noreply@cgph.net&subject={!IF(Contact_List__c.Property__r.Name='','%21%21%21MISSING%20PROPERTY%21%21%21',Contact_List__c.Property__r.Name)} / Next Step/ Purchase Agreement/ Attorney Info ">
+BUYER &amp; SELLER PA and Attorney Email Setup
+</apex:outputLink>
+</div>
+
+
+<!--
+<div id="text">
+<apex:outputLink value="mailto:{!Contact_List__c.Seller_Applicant__r.Email}?bcc=noreply@cgph.net&subject={!IF(Contact_List__c.Property__r.Name ='','%21%21%21MISSING%20PROPERTY%21%21%21',Contact_List__c.Property__r.Name)}
+%20%2F%20Certified Applicant/ Next Step/ Purchase Agreement/ Attorney Info%20">
+SELLER PA and Attorney Email Setup
+</apex:outputLink>
+</div>
+-->
+<!-- -------------PA and Attorney Email Text------------- -->
+<div id="text">
+<a href="
+/apex/APXTConga4__Conga_Composer?serverUrl=$Api.Enterprise_Server_URL_370&Id={!Contact_List__c.Id}
+&TemplateId=a293m000004m7Z9
+&TemplateGroup=AA,Outreach,Documents
+&QueryId=[BuyerServiceFile]a213m0000024i1w?pv0={!Contact_List__c.Buyers_Service_File__r.Id}
+&OFN=PA%20and%20Attorney%20Email+{!Contact_List__c.Buyer_Applicant__r.LastName}
+&DS7=3
+">
+PA and Attorney Email Text</a>
+</div>
+
+</apex:page>

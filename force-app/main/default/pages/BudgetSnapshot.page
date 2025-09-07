@@ -1,0 +1,72 @@
+<apex:page >
+
+<head>
+<script src="/soap/ajax/20.0/connection.js" type="text/javascript"></script>
+    <script>
+        window.onload = function() {
+            var output = document.getElementById("output");
+            sforce.connection.sessionId = "{!$Api.Session_ID}";
+                var queryResult = sforce.connection.query("SELECT SUM(Amount_AA__c) FROM Invoice__c WHERE (Invoice_Date__c > 2016-12-31 AND (NOT Salesforce_Contract__r.Name LIKE '%Test%'))");
+                var queryResult2 = sforce.connection.query("SELECT SUM(Amount_GS__c) FROM Invoice__c WHERE (Invoice_Date__c > 2016-12-31 AND (NOT Salesforce_Contract__r.Name LIKE '%Test%'))");
+                var queryResult3 = sforce.connection.query("SELECT SUM(Amount_HR__c) FROM Invoice__c WHERE (Invoice_Date__c > 2016-12-31 AND (NOT Salesforce_Contract__r.Name LIKE '%Test%'))");
+                var queryResulta = sforce.connection.query("SELECT SUM(Amount_AA__c) FROM Invoice__c WHERE (Invoice_Date__c > 2016-12-31 AND (NOT Salesforce_Contract__r.Name LIKE '%Test%')) AND Invoice_Paid__c = true");
+                var queryResult2a = sforce.connection.query("SELECT SUM(Amount_GS__c) FROM Invoice__c WHERE (Invoice_Date__c > 2016-12-31 AND (NOT Salesforce_Contract__r.Name LIKE '%Test%')) AND Invoice_Paid__c = true");
+                var queryResult3a = sforce.connection.query("SELECT SUM(Amount_HR__c) FROM Invoice__c WHERE (Invoice_Date__c > 2016-12-31 AND (NOT Salesforce_Contract__r.Name LIKE '%Test%')) AND Invoice_Paid__c = true");
+                layoutResults(queryResult, output);
+                layoutResults2(queryResult2, output2);
+                layoutResults3(queryResult3, output3);
+                layoutResultsa(queryResulta, outputa);
+                layoutResults2a(queryResult2a, output2a);
+                layoutResults3a(queryResult3a, output3a);
+        }
+        
+                function layoutResults(queryResult, out) {
+                var output = "";
+                var records = queryResult.get('records').get('expr0');
+                output = Number(records).toLocaleString();
+                out.innerHTML = output ;
+        }
+                function layoutResults2(queryResult2, out2) {
+                var output2 = "";
+                var records2 = queryResult2.get('records').get('expr0');
+                output2 = Number(records2).toLocaleString();
+                out2.innerHTML = output2 ;
+        }  
+                function layoutResults3(queryResult3, out3) {
+                var output3 = "";
+                var records3 = queryResult3.get('records').get('expr0');
+                output3 = Number(records3).toLocaleString();
+                out3.innerHTML = output3 ;
+        }    
+                function layoutResultsa(queryResulta, outa) {
+                var outputa = "";
+                var recordsa = queryResulta.get('records').get('expr0');
+                outputa = Number(recordsa).toLocaleString();
+                outa.innerHTML = outputa ;
+        }
+                function layoutResults2a(queryResult2a, out2a) {
+                var output2a = "";
+                var records2a = queryResult2a.get('records').get('expr0');
+                output2a = Number(records2a).toLocaleString();
+                out2a.innerHTML = output2a ;
+        }  
+                function layoutResults3a(queryResult3a, out3a) {
+                var output3a = "";
+                var records3a = queryResult3a.get('records').get('expr0');
+                output3a = Number(records3a).toLocaleString();
+                out3a.innerHTML = output3a ;
+        }
+        
+</script>
+
+</head>
+<div style="font-family: Courier">
+Total 2017 Invoices (AA) $<span id="outputa" /> of $<span id="output" /><br /> 
+Total 2017 Invoices (GS) $<span id="output2a" /> of $<span id="output2" /><br />
+Total 2017  Invoices (HR) $<span id="output3a" /> of $<span id="output3" /><br />
+</div>
+
+
+
+
+</apex:page>

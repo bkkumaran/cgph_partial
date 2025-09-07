@@ -1,0 +1,313 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="OutreachInfoExt,OutreachTrackerUnitExt">
+
+<!-- VARIABLES -->
+<apex:variable var="font" value="Roboto"/>
+<apex:variable var="size" value="9pt"/>
+<apex:variable var="sizeH" value="10pt"/>
+<apex:variable var="Header" value="rgb(0, 101, 168)"/>
+<apex:variable var="Total" value="#fcffa8"/>
+<apex:variable var="Primary" value="#b7e1cd"/>
+<apex:variable var="Backup" value="#ffeebc"/>
+<apex:variable var="Hidden" value="#e0dce6"/>
+<apex:variable var="Flagged" value="#ffb75d"/>
+<apex:variable var="None" value="#d4d4d4"/>
+
+<apex:variable var="width1" value="100px"/>
+<apex:variable var="width2" value="50px"/>
+<apex:variable var="width12" value="150px"/>
+<apex:variable var="width3" value="125px"/>
+<apex:variable var="width4" value="100px"/>
+<apex:variable var="width34" value="240px"/>
+
+<apex:variable var="CGPHblue" value="rgb(0, 101, 168)"/>
+
+<style>
+   @import url('https://fonts.googleapis.com/css?family={!font}'); 
+    table {border-collapse: collapse;}
+    td {padding: 2px 7px 2px 7px;font-family:{!font};font-size: {!size};}
+    .header {font-weight:bold;font-size: {!sizeH};color:white; text-align:center;}
+
+    
+    .OutreachPrime {background-color:{!Primary}}
+    .OutreachFlag {background-color:{!Flagged}}
+    .OutreachBack {background-color:{!Backup}}
+    .OutreachHide {background-color:{!Hidden}}
+    .LandlordApproved {background-color:{!Primary}}
+    .LandlordNotApproved {background-color:{!Total}}
+    .CertDone{background-color:{!Primary}}
+    .CertNotDone{background-color:{!Total}}
+    
+</style>
+
+<table border="0" style="border-color:red"> <!-- META TABLE -->
+<tr>
+<td style="vertical-align:top;">
+
+<table border="0" style="border-color:blue;"> <!-- APPLICANTS TABLE -->
+<tr>
+<td>
+    <table border="2"> <!-- HEADER TABLE -->
+        <tr>
+            <td width="{!width1}">
+                <b>UNITS TO FILL</b>
+            </td>
+            <td width="{!width2}">
+                <b>{!IF(HOMEtracker__Property__c.Group_Property__c=true,groupPropsCount,'1')}</b>
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+
+<tr>
+<td>
+    <table border="1">
+        <tr style="background-color:{!Header}">
+            <td colspan="2" class="header">
+                <nobr>REFERRED APPLICANTS</nobr>
+            </td>
+        </tr>
+        <tr style="background-color:{!Primary}">
+            <td width="{!width1}">
+                Primary
+            </td>
+            <td width="{!width2}">
+                {!otPrimaryCount}
+            </td>
+        </tr>
+        <tr style="background-color:{!Backup}">
+            <td>
+                Backup
+            </td>
+            <td>
+                {!otBackupCount}
+            </td>
+        </tr>
+        <tr style="background-color:{!Flagged}">
+            <td>
+                Flagged
+            </td>
+            <td>
+                {!otFlaggedCount}
+            </td>
+        </tr>
+        <tr style="background-color:{!Total}">
+            <td>
+                <b>TOTAL</b>
+            </td>
+            <td>
+                <b>{!otPrimaryCount+otBackupCount+otFlaggedCount}</b>
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+<tr>
+<td>
+    <table border="1">
+        <tr style="background-color:{!Header}">
+            <td colspan="2" class="header">
+                <nobr>READY FOR REFFERAL</nobr>
+            </td>
+        </tr>
+        <tr style="background-color:{!Hidden}">
+            <td width="{!width1}">
+                Hidden
+            </td>
+            <td width="{!width2}">
+                {!otHiddenCount}
+            </td>
+        </tr>
+        <tr style="background-color:{!None};">
+            <td>
+                <i>-No Status-</i>
+            </td>
+            <td>
+                {!otNoneCount}
+            </td>
+        </tr>
+        <tr style="background-color:{!Total}">
+            <td>
+                <b>TOTAL</b>
+            </td>
+            <td>
+                <b>{!otHiddenCount+otNoneCount}</b>
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+<tr>
+<td>
+    <table border="1">
+        <tr style="background-color:{!Header}">
+            <td colspan="2" class="header">
+                <nobr>INVITED TO SUBMIT</nobr>
+            </td>
+        </tr>
+        <tr style="background-color:{!Total}">
+            <td width="{!width1}">
+                <b>INVITED</b>
+            </td>
+            <td width="{!width2}">
+               <b> {!fullInvitedCount} </b>
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+</table>
+</td>
+<td style="vertical-align:top;">
+
+<apex:variable var="OutreachClass" value="{!CASE(primary.Tracker_Status__c,'Primary','OutreachPrime','Flagged','OutreachFlag','Backup','OutreachBack','OutreachHide')}"/>
+<apex:variable var="LLClass" value="{!IF(primary.Landlord_Developer_Determination__c='Approved','LandlordApproved','LandlordNotApproved')}"/>
+<apex:variable var="CertClass" value="{!IF(primary.CGPH_Determination__c='Certified','CertDone','CertNotDone')}"/>
+
+<apex:variable var="group" value="{!IF(HOMEtracker__Property__c.Group_Property__c = true,1,0)}"/>
+
+<div style="{!IF(group = 1, '','display:none;')}">
+GROUP PROPERTY
+</div>
+
+<table border="0" style="{!IF(group = 1, 'display:none;','')}">
+<tr>
+<td>
+
+    <table border="2"> <!-- HEADER TABLE -->
+        <tr>
+            <td width="{!width34}" style="text-align:center;">
+                <b>FIRST PRIORITY APPLICANT</b>
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+<tr>
+<td>
+
+<table border="1">
+        <tr style="background-color:{!Header}">
+            <td colspan="2" class="header">
+                <nobr>OUTREACH STAGE</nobr>
+            </td>
+        </tr>
+        <tr class="{!OutreachClass}">
+            <td width="{!width3}">
+                Applicant Name
+            </td>
+            <td width="{!width4}">
+                <a href="/{!primary.Id}" target="_blank"> {!primary.Applicant_Name__c}</a>
+            </td>
+        </tr>
+   
+        <tr class="{!OutreachClass}">
+            <td>Status</td>
+            <td> {!primary.Tracker_Status__c} </td>
+        </tr>
+        <tr class="{!OutreachClass}">
+            <td>Priority</td>
+            <td> {!primary.SF_Priority__c} </td>
+        </tr>
+        <tr class="{!OutreachClass}">
+            <td>Date CGPH Added</td>
+            <td>
+                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!primary.Date_CGPH_Added_Name__c}" /> 
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr class="{!OutreachClass}">
+            <td>Date Marked Primary</td>
+            <td>
+                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!primary.Date_Marked_Primary__c}" /> 
+                </apex:outputText>
+            </td>
+        </tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<table border="1">
+        <tr style="background-color:{!Header}">
+            <td colspan="2" class="header">
+                <nobr>LANDLORD / DEVELOPER</nobr>
+            </td>
+        </tr>
+        <tr class="{!LLClass}">
+            <td width="{!width3}">
+                LL/DEV Approval
+            </td>
+            <td width="{!width4}">
+                {!primary.Landlord_Developer_Determination__c}
+            </td>
+        </tr>
+        <tr class="{!LLClass}">
+            <td>LL/DEV Date</td>
+            <td>
+                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!primary.Landlord_Developer_Determination_Date__c}" /> 
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr class="{!LLClass}">
+            <td colspan="2">
+                <i>LL/Dev Notes: {!primary.Landlord_Developer_Notes__c}</i>
+            </td>
+        </tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<table border="1">
+        <tr style="background-color:{!Header}">
+            <td colspan="2" class="header">
+                <nobr>CERTIFICATION STAGE</nobr>
+            </td>
+        </tr>        
+        <tr class="{!CertClass}">
+            <td width="{!width3}">
+                Ready for Cert
+            </td>
+            <td width="{!width4}">
+                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!primary.Date_Ready_for_Eligibility_Review__c}" /> 
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr class="{!CertClass}">
+            <td>Cert Begun</td>
+            <td>
+                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!primary.Date_Eligibility_Review_Began__c}" /> 
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr class="{!CertClass}">
+            <td>CGPH Determination</td>
+            <td>
+                {!primary.CGPH_Determination__c}
+            </td>
+        </tr>
+        <tr class="{!CertClass}">
+            <td>CGPH Date</td>
+            <td>
+                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!primary.CGPH_Approval_Denial_Date__c}" /> 
+                </apex:outputText>
+            </td>
+        </tr>
+</table>
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+</apex:page>

@@ -1,0 +1,118 @@
+<apex:page standardcontroller="Case" standardStylesheets="false" sidebar="false">
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+body {text-align: left; }
+table {border-collapse:collapse; border: 1px solid black; text-align: center;}
+th {border-collapse:collapse; border: 1px solid black; font-size: 12pt; color: #ff0000; font-family: 'Montserrat'; font-weight: bold; padding: 5px 5px 5px 5px; }
+td {border-collapse:collapse; border: 1px solid black; font-family: 'Montserrat'; font-size: 10pt; color: #008000; padding: 5px 5px 5px 5px; border-}
+TopHeader {font-family: 'Montserrat'; font-size: 18pt; font-weight: bold; text-decoration-line: underline; color: #90D5FF; }
+button {border: 2px solid #2a4880; font-family: 'Montserrat'; font-size: 10pt; background-color: #2970AA; text-align: center; display: inline-block; padding: 10px 24px;border-radius: 8px;}
+a:link{color: #FFFFFF ;font-family: 'Montserrat'; font-size: 18pt;}
+a:visited{color: #FFFFFF ;font-family: 'Montserrat'; font-size: 18pt;}
+</style>
+
+<!--
+create a visualforce page to see a table of selected fields on a single case
+add "?id=" plus the ID of any case to the end of the url, example:
+    https://cgph--c.vf.force.com/apex/TechTest?id=500Uq00000JqP97IAF
+follow the instructions below for setting up the page
+-->
+
+<!-- add a STYLE section -->
+    <!-- import a google font -->
+    <!-- define the BODY class with the text alignment centered -->
+    <!-- define the TABLE class to have collapsed borders -->
+    <!-- define the TH class
+        font is the google font you chose
+        font size is 12
+        font color is red
+        padding is 5px on all sides
+        font is bold
+        -->
+    <!-- define the TD class as follows:
+        font is the google font you chose
+        font size is 10
+        font color is green
+        padding is 5px on all sides
+        -->
+    <!-- define a custom style class called "TopHeader" with the following:
+        font is google font you chose
+        font size = 18
+        font is bold and underlined
+        font color is blue
+        -->
+<!-- end STYLE section -->
+
+<!-- start a BODY section -->
+
+
+<body> 
+
+<img src="https://cgph--c.vf.force.com/resource/1561162030000/cgphLOGOgif" alt="CGP&H Logo" style="width:400px;"/>
+<br/>
+<br/> 
+<br/>
+<TopHeader> Emily&#39;s Case Page </TopHeader>
+<br/>
+<br/> 
+<br/>
+
+<table style="width:60%"> 
+    <tr>
+        <th>FIELD LABEL</th>
+        <th>VALUE</th>
+    </tr>
+   
+    <tr>
+        <td>Case Owner</td>
+        <td>  <apex:outputField value="{!Case.Owner.FirstName}"/> &nbsp; <apex:outputField value="{!Case.Owner.LastName}"/> </td> 
+    </tr>
+    <tr>
+        <td>Date Opened</td>
+        <td>    <apex:outputField value="{!Case.CreatedDate}"/>    </td>
+    </tr> 
+    <tr>
+        <td>Subject</td>
+        <td>    <apex:outputField value="{!Case.Subject}"/>    </td>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td>    <apex:outputField value="{!Case.Status}"/>    </td>
+    </tr>
+        
+        
+        
+</table>
+<br/>
+<br/> 
+<br/>
+
+<button type="button"><a href="https://www.affordablehomesnewjersey.com" target="_blank">Affordable Homes New Jersey</a></button>
+</body>
+<!-- add our logo to the top of the page, 400px wide
+    URL for the logo is: https://cgph--c.vf.force.com/resource/1561162030000/cgphLOGOgif
+ -->
+<!-- add a header under the logo using the TopHeader styleclass saying "Emily's Case Page"
+<!-- add a 3 lines of blank space using the line break tag -->
+
+<!-- add a table that has a border with the width of 60% of the page
+    give the table 2 columns and 5 rows
+    The first row is a header row using TH, the remaining rows use TD
+    add the following to each cell (if I use " ", that means use the exact text in the quotes)
+    I will be asking you to add values from the fields provided. To do so, use this code:
+    <apex:outputField value="{!Case.FIELD_API_NAME}" />    (look in the object manager for the api name of case fields)
+    -->
+        <!-- Row 1:  Column 1: "FIELD LABEL" | Column 2: "VALUE" -->
+        <!-- Row 2:  Column 1: "Case Owner"  | Column 2: owner first and last name {!Case.Owner.FirstName} {!Case.Owner.LastName} -->
+        <!-- Row 3:  Column 1: "Date Opened" | Column 2: created date -->
+        <!-- Row 4:  Column 1: "Subject"     | Column 2: subject -->
+        <!-- Row 4:  Column 1: "Status"      | Column 2: status -->
+
+<!-- add a 3 lines of blank space using the line break tag --> 
+<!-- add a link to affordable homes new jersey --> 
+<!-- format the link as a button by adding a custom button class to the STYLE section above-->
+
+ 
+
+</apex:page>

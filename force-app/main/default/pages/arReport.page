@@ -1,0 +1,718 @@
+<apex:page standardController="Account" showHeader="true" sidebar="true" extensions="arReportExt">
+
+<head>
+<apex:stylesheet value="{!$Resource.customCSS}" />
+</head>
+
+<style>
+    .pDueNo { background-color: #ffffff; }
+    .pDue30 { background-color: #ffe6e6; }
+    .pDue60 { background-color: #ffb3b3; }
+    .pDue90 { background-color: #ff8080; }
+    .pDue120 { background-color: #ff3333; color: white !important; font-weight: bold; }
+    .togButtonActive { color: white !important; 
+                background: #0669B3 !important; 
+                border-left: 0px !important; 
+                border-top: 0px !important; 
+                border-bottom: 0px !important; 
+                border-right: 0px !important; 
+                font-size: 15pt !important; 
+                font-family:'Open Sans' !important; 
+                padding: 5px 21px 5px 21px !important; }
+    .togButtonInactive { color: #0669B3 !important; 
+                background: #cde2f2 !important; 
+                border-left: 0px !important; 
+                border-top: 0px !important; 
+                border-bottom: 0px !important; 
+                border-right: 0px !important; 
+                font-size: 11pt !important; 
+                font-family:'Open Sans' !important; 
+                padding: 2px 10px 2px 10px !important; }
+</style>
+    
+   
+    
+    
+ <h1>ACCOUNTS RECEIVABLE REPORT for {!TEXT(numAccts)} clients</h1>
+ <div style="color: white">.</div>
+
+
+<!-- REPEAT SECTION
+<apex:repeat value="{!aList}" var="accts" id="acctRepeat" >
+    <apex:pageBlock >
+        
+        <h2>{!accts.Name}</h2>
+            {!accts.Id}
+              <apex:pageBlockTable value="{!iList}" var="x" >
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>
+           </apex:repeat>
+ -->
+    <apex:form >
+            <apex:pageBlock id="inList0block" rendered="{!showIL0block}">
+                <apex:commandButton value="{!aList[0].name}" id="ShowHide0" action="{!switchRender0}" styleClass="{!IF(showIL0='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList0}" var="x"  rendered="{!showIL0}" >
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList1block" rendered="{!showIL1block}">
+             <apex:commandButton value="{!aList[1].name}" id="ShowHide1" action="{!switchRender1}" styleClass="{!IF(showIL1='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList1}" var="x" rendered="{!showIL1}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList2block" rendered="{!showIL2block}">
+             <apex:commandButton value="{!aList[2].name}" id="ShowHide2" action="{!switchRender2}" styleClass="{!IF(showIL2='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList2}" var="x" rendered="{!showIL2}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList3block" rendered="{!showIL3block}">
+             <apex:commandButton value="{!aList[3].name}" id="ShowHide3" action="{!switchRender3}" styleClass="{!IF(showIL3='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList3}" var="x" rendered="{!showIL3}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList4block" rendered="{!showIL4block}">
+             <apex:commandButton value="{!aList[4].name}" id="ShowHide4" action="{!switchRender4}" styleClass="{!IF(showIL4='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList4}" var="x" rendered="{!showIL4}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>            
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList5block" rendered="{!showIL5block}">
+             <apex:commandButton value="{!aList[5].name}" id="ShowHide5" action="{!switchRender5}" styleClass="{!IF(showIL5='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList5}" var="x" rendered="{!showIL5}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>            
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList6block" rendered="{!showIL6block}">
+             <apex:commandButton value="{!aList[6].name}" id="ShowHide6" action="{!switchRender6}" styleClass="{!IF(showIL6='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList6}" var="x" rendered="{!showIL6}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>           
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList7block" rendered="{!showIL7block}">
+             <apex:commandButton value="{!aList[7].name}" id="ShowHide7" action="{!switchRender7}" styleClass="{!IF(showIL7='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList7}" var="x" rendered="{!showIL7}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock> 
+    </apex:form>  
+    
+    <apex:form >      
+           <apex:pageBlock id="inList8block" rendered="{!showIL8block}">
+             <apex:commandButton value="{!aList[8].name}" id="ShowHide8" action="{!switchRender8}" styleClass="{!IF(showIL8='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList8}" var="x" rendered="{!showIL8}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>           
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList9block" rendered="{!showIL9block}">
+             <apex:commandButton value="{!aList[9].name}" id="ShowHide9" action="{!switchRender9}" styleClass="{!IF(showIL9='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList9}" var="x" rendered="{!showIL9}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>           
+    </apex:form>
+    
+    <!-- 10+ ######################################################## -->
+    
+    
+    <apex:form >
+            <apex:pageBlock id="inList10block" rendered="{!showIL10block}">
+                <apex:commandButton value="{!aList[10].name}" id="ShowHide10" action="{!switchRender10}" styleClass="{!IF(showIL10='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList10}" var="x"  rendered="{!showIL10}" >
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList11block" rendered="{!showIL11block}">
+             <apex:commandButton value="{!aList[11].name}" id="ShowHide11" action="{!switchRender11}" styleClass="{!IF(showIL11='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList11}" var="x" rendered="{!showIL11}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList12block" rendered="{!showIL12block}">
+             <apex:commandButton value="{!aList[12].name}" id="ShowHide12" action="{!switchRender12}" styleClass="{!IF(showIL12='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList12}" var="x" rendered="{!showIL12}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList13block" rendered="{!showIL13block}">
+             <apex:commandButton value="{!aList[13].name}" id="ShowHide13" action="{!switchRender13}" styleClass="{!IF(showIL13='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList13}" var="x" rendered="{!showIL13}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList14block" rendered="{!showIL14block}">
+             <apex:commandButton value="{!aList[14].name}" id="ShowHide14" action="{!switchRender14}" styleClass="{!IF(showIL14='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList14}" var="x" rendered="{!showIL14}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>            
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList15block" rendered="{!showIL15block}">
+             <apex:commandButton value="{!aList[15].name}" id="ShowHide15" action="{!switchRender15}" styleClass="{!IF(showIL15='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList15}" var="x" rendered="{!showIL15}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>            
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList16block" rendered="{!showIL16block}">
+             <apex:commandButton value="{!aList[16].name}" id="ShowHide16" action="{!switchRender16}" styleClass="{!IF(showIL16='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList16}" var="x" rendered="{!showIL16}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>           
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList17block" rendered="{!showIL17block}">
+             <apex:commandButton value="{!aList[17].name}" id="ShowHide17" action="{!switchRender17}" styleClass="{!IF(showIL17='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList17}" var="x" rendered="{!showIL17}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock> 
+    </apex:form>  
+    
+    <apex:form >      
+           <apex:pageBlock id="inList18block" rendered="{!showIL18block}">
+             <apex:commandButton value="{!aList[18].name}" id="ShowHide18" action="{!switchRender18}" styleClass="{!IF(showIL18='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList18}" var="x" rendered="{!showIL18}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>           
+    </apex:form>
+    
+    <apex:form >
+           <apex:pageBlock id="inList19block" rendered="{!showIL19block}">
+             <apex:commandButton value="{!aList[19].name}" id="ShowHide19" action="{!switchRender19}" styleClass="{!IF(showIL19='true','togButtonActive','togButtonInactive')}"/>
+               <apex:pageBlockTable value="{!invList19}" var="x" rendered="{!showIL19}">
+                 <apex:column value="{!x.Name}" onDblClick="window.open('/{!x.Id}');" style="width:90px; font-weight:bold; font-size:10pt;"
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('{!x.Invoice_Image_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                     <apex:facet name="header">PDF</apex:facet><apex:image url="{!$Resource.icon_PDF}" /> </apex:column>
+                 <apex:column value="{!x.Invoice_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Sent_Date__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Invoice_Amount__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column value="{!x.Days_Unpaid__c}" onDblClick="window.open('/{!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Purchase_Order__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.PO_Date_Sent__c}" onDblClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}" />
+                 <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}"/>
+                 <apex:column onDblClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" 
+                     styleclass="{!IF(x.Days_Unpaid__c < 30, 'pDueNo', IF(x.Days_Unpaid__c < 60, 'pDue30', IF(x.Days_Unpaid__c < 90, 'pDue60', IF(x.Days_Unpaid__c < 120, 'pDue90', 'pDue120'))))}">
+                 <apex:facet name="header">Current A/R Notes</apex:facet>
+                 {!x.Report_A_R_Notes__c}
+                 </apex:column>
+              </apex:pageBlockTable> 
+            </apex:pageBlock>           
+    </apex:form>
+
+</apex:page>

@@ -1,0 +1,150 @@
+<apex:page Controller="HRAppPoolCont" sidebar="false" showheader="false" lightningstylesheets="true">
+    
+    <apex:variable var="X" value="#a6a6a6"/><!--grey color-->
+    <apex:variable var="LG" value="#ededed"/><!--light grey color-->
+    <apex:variable var="Y" value="#ffff7d"/><!--yellow color-->
+    <apex:variable var="OY" value="#c7c767"/><!--off-yellow color-->
+    <apex:variable var="W" value="#ffffff"/><!--white color-->
+    <apex:variable var="OW" value="#f8f8f8"/><!--OFF-white color-->
+    <apex:variable var="G" value="#adc4b5"/><!--green color-->
+    <apex:variable var="B" value="#2571aa"/><!--blue color-->
+    <apex:variable var="P" value="#ffe6e6"/><!--pink color-->
+    <apex:variable var="GB" value="#3aafa9"/><!--Green Blue color-->
+    <apex:variable var="F" value="font-size: 10pt; font-color: black; font-family: 'Archivo';"/><!--font format REGULAR-->
+    <apex:variable var="FN" value="font-size: 10pt; font-color: black; font-family: 'Archivo Narrow';"/><!--font format Narrow-->
+    
+    <apex:variable var="Button" value="white-space: nowrap; text-decoration:none; font-size: 12pt; font-family: 'Archivo'; border-top: 2px solid #CCCCCC; border-left: 2px solid #CCCCCC; border-right: 2px solid #333333; border-bottom: 2px solid #333333; border-radius: 5px; padding: 5px 10px 3px 10px;"/>
+    <apex:variable var="ButtonR" value="white-space: nowrap; text-decoration:none; font-size: 10pt; font-family: Monospace; font-weight: bold; border-top: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-radius: 7px; padding: 5px 5px 5px 5px;"/>
+    
+    <apex:variable var="vACT" value="{!IF(actSH='','0',actSH)}" />
+    <apex:variable var="vCF" value="{!IF(caseSH='','0',caseSH)}" />
+    <apex:variable var="vTM" value="{!IF(termSH='','0',termSH)}" />
+    <apex:variable var="vDP" value="{!IF(dupeSH='','0',dupeSH)}" />
+    
+    <apex:variable var="vACTs" value="{!IF(actSH='1','0','1')}" />
+    <apex:variable var="vCFs" value="{!IF(caseSH='1','0','1')}" />
+    <apex:variable var="vTMs" value="{!IF(termSH='1','0','1')}" />
+    <apex:variable var="vDPs" value="{!IF(dupeSH='1','0','1')}" />
+    
+    <apex:variable var="tACT" value="{!IF(actSH='1','','Active')}" />
+    <apex:variable var="tCF" value="{!IF(caseSH='1','','Case+File')}" />
+    <apex:variable var="tTM" value="{!IF(termSH='1','','Term: PreApp')}" />
+    <apex:variable var="tDP" value="{!IF(dupeSH='1','','Duplicate')}" />
+    <apex:variable var="showAll" value="{!IF(OR(actSH='1',caseSH='1',termSH='1',dupeSH='1'),'true','false')}" />
+    <apex:variable var="hideAll" value="{!IF(OR(actSH!='1',caseSH!='1',termSH!='1',dupeSH!='1'),'true','false')}" />
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        @import url('https://fonts.googleapis.com/css?family=Archivo+Narrow');
+        @import url('https://fonts.googleapis.com/css?family=Archivo');
+        #TopHead { white-space: nowrap; font-size: 30pt; color: {!B}; font-family: 'Montserrat'; font-weight: bold; vertical-align:bottom;}
+        #Row {font-family: Montserrat; font-size: 9pt; color: black;}
+        
+        #bRANK {{!ButtonR} background-color: {!B}; color: white; text-align:center;}
+        #bACT {{!Button} background-color: {!OW}; color: black; }
+        #bCF {{!Button} background-color: {!Y}; color: black; }
+        #bTM {{!Button} background-color: {!X}; color: black; }
+        #bDP {{!Button} background-color: {!G}; color: black; }
+        #bTMCF {{!Button} background-color: {!OY}; color: black; }
+        #hiding {{!Button} background-color: {!LG}; color: {!X}; }
+        #All {{!Button} background-color: {!B}; color: white;}
+        #Report {{!Button} background-color: {!GB}; color: black;}
+        #ASC {{!Button} background-color: {!B}; background-image: linear-gradient({!GB},{!B});color: White;
+        border-top: 2px solid #26484a; border-left: 2px solid #26484a;  border-right: 2px solid #d2fafc; border-bottom: 2px solid #d2fafc;}
+        #DESC {{!Button} background-color: {!B}; background-image: linear-gradient({!B},{!GB});color: White;
+        border-top: 2px solid #d2fafc; border-left: 2px solid #d2fafc;  border-right: 2px solid #26484a; border-bottom: 2px solid #26484a;}
+    </style>             
+    
+    
+    <table>
+        <tr>
+            <td rowspan="2">
+            <!--
+                <apex:outputPanel layout="block" onclick="window.open('/','_parent')">
+                    <apex:image url="{!$Resource.cgphLOGOgif}" width="275px" />
+                </apex:outputPanel> 
+            -->
+            </td>
+            <td id="TopHead" >
+                <apex:outputPanel layout="block" onclick="window.open('/{!MuniId}','_parent')">
+                    HR Applicant Pool ( {!Muni.Name} )  ( {!sizePreApps} ) 
+                </apex:outputPanel>              
+            </td>
+            <td rowspan="2">
+                &nbsp;&nbsp;
+
+                <apex:outputPanel onclick="window.open('/00O1N000009JOWn?pv0={!Muni.Name}&pv1={!tACT}&pv2={!tCF}&pv3={!tTM}&pv4={!tDP}&flip={!flip}','_BLANK')">
+                    <apex:image url="{!$Resource.ReportIcon}" width="100"/>
+                </apex:outputPanel>&nbsp;&nbsp;
+                <apex:outputPanel onclick="window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&id={!MuniId}&QueryID=[HRPREAPPS]a211N000002oN0K?pv0={!MuniId}&TemplateId=a291N000004RFrO&OFN={!Muni.Name}+Applicant+Pool&DS7=3','MsgWindow', target='_blank')">
+                    <apex:image url="{!$Resource.ExcelDownloadIcon}"/>
+                </apex:outputPanel>&nbsp;&nbsp;
+                <apex:outputPanel onclick="window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&id={!MuniId}&QueryID=[HRPREAPPS]a213m000003YbV3?pv0={!MuniId}&TemplateId=a293m000004mBxC&OFN={!Muni.Name}+Applicant+Pool+{!TODAY()}&DS7=3','MsgWindow', target='_blank')">
+                    <apex:image url="{!$Resource.MuniDownloadIcon}" width="95"/>
+                </apex:outputPanel>
+
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: bottom; text-align: center;">
+                <br/>
+                
+                <a id="DESC" style="{!IF(flip='1','display: none;','')}" target="_top" href="/apex/HRAppPool?muni={!MuniId}&act={!vACT}&cf={!vCF}&tm={!vTM}&dp={!vDP}&flip=1"><b>▼</b></a>
+                <a id="ASC" style="{!IF(flip!='1','display: none;','')}" target="_top" href="/apex/HRAppPool?muni={!MuniId}&act={!vACT}&cf={!vCF}&tm={!vTM}&dp={!vDP}&flip=0"><b>▲</b></a>
+                <a id="{!IF(OR(vACT='0',vACT=''),'bACT','hiding')}" target="_top" href="/apex/HRAppPool?muni={!MuniId}&act={!vACTs}&cf={!vCF}&tm={!vTM}&dp={!vDP}&flip={!flip}">ACTIVE</a>
+                <a id="{!IF(OR(vCF='0',vCF=''),'bCF','hiding')}" target="_top" href="/apex/HRAppPool?muni={!MuniId}&act={!vACT}&cf={!vCFs}&tm={!vTM}&dp={!vDP}&flip={!flip}">CASES</a>
+                <a id="{!IF(OR(vTM='0',vTM=''),'bTM','hiding')}" target="_top" href="/apex/HRAppPool?muni={!MuniId}&act={!vACT}&cf={!vCF}&tm={!vTMs}&dp={!vDP}&flip={!flip}">TERM: PreApps</a>
+                <a id="{!IF(OR(vDP='0',vDP=''),'bDP','hiding')}" target="_top" href="/apex/HRAppPool?muni={!MuniId}&act={!vACT}&cf={!vCF}&tm={!vTM}&dp={!vDPs}&flip={!flip}">DUPLICATES</a>
+                &nbsp;&nbsp;
+                <a id="{!IF(showAll = 'true', 'All','hiding')}" target="_top" href="/apex/HRAppPool?muni={!MuniId}&act=0&cf=0&tm=0&dp=0&flip={!flip}"><b>SHOW ALL</b></a>
+                <a id="{!IF(hideAll = 'true', 'All','hiding')}" target="_top" href="/apex/HRAppPool?muni={!MuniId}&act=1&cf=1&tm=1&dp=1&flip={!flip}"><b>HIDE ALL</b></a>
+                &nbsp;&nbsp;
+                <br/><br/><i>click buttons above to HIDE rows</i>
+            </td>
+        </tr>
+    </table>
+    
+    <br/>
+    
+    <apex:variable var="count" value="{!IF(flip!='1',sizePreApps + 1,0)}" />
+<apex:form >
+    <apex:pageblock >
+        <div id="Row">
+            
+            <apex:pageblocktable width="1200" var="c" value="{!if(flip = '1', revPreApps,PreApps)}" style="font-family: Montserrat; font-size: 9pt; color: black;">
+              
+                <apex:column headerValue="Open" rendered="{!IF(OR(vACT='1',vCF='1'),true,false)}" styleClass="column" width="35px" onclick="window.open('/{!c.Id}','_blank')"  style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F};">
+                    <div id="bRANK" style="background-color: {!OW}; color: black;">OPEN</div>
+                </apex:column>              
+                <apex:column headerValue="New Rank" style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}" rendered="{!IF(AND(vACT='0',vCF='0'),true,false)}">
+                    <apex:outputtext >
+                        <apex:variable var="count" value="{!IF(flip='1',count + 1,count - 1)}"/>
+                        <div id="bRANK" style="font-size: 11pt;" onclick="window.open('/{!c.Id}','_blank')">{!count}</div>
+                    </apex:outputtext>
+                </apex:column>
+
+                <apex:column value="{!c.Waitlist_Number__c}" headerValue="Waitlist #"  style="text-align:center; background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}" />
+                <apex:column value="{!c.Pre_App_Status__c}" headerValue="Status"  style="white-space: nowrap; background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F};color:{!IF(OR(c.Pre_App_Status__c='Term: PreApp',c.Pre_App_Status__c='Term: Case'),'red','black')};" />
+                <apex:column headerValue="Contact Date" value="{!c.Contact_Date__c}" width="80" style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}" />
+                <apex:column headerValue="Contact" onclick="" ondblclick="" style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}">
+                    {!c.Contact__r.FirstName} {!c.Contact__r.LastName}
+                </apex:column>
+                <apex:column value="{!c.Contact__r.MailingStreet}" headerValue="Street"  style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}" />
+                <apex:column value="{!c.Contact__r.HR_Email__c}" headervalue="Email" style="white-space: nowrap; background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}" />
+<!-- units          <apex:column value="{!c.Number_of_Units__c}" headerValue="Units"  style="text-align: center; background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}" /> -->
+<!-- household      <apex:column value="{!c.Household_Size__c}" headerValue="Household #"  style="text-align: center; background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};" /> -->
+                
+                <apex:column value="{!c.Howell_Sewer__c}" rendered="{!if(MuniId = 'a1Fo0000000Oq8NEAS',true,false)}" headerValue="Sewer" width="50" style="background-color:{!IF(c.Howell_Sewer__c = true, 'red', CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G))};{!F}" />
+                <apex:column value="{!c.Restricted_affordable_when_purchased__c}" headerValue="Affordable Unit?" width="100" style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}" />
+                <apex:column value="{!c.Repairs_Requested__c}" width="300" style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}" />
+                <apex:column value="{!c.Application_Sent_Date__c}" headerValue="App. Sent Date"  style="background-color:{!CASE(c.Pre_App_Status__c,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,'Duplicate',G,IF(ISBLANK(c.Application_Sent_Date__c),P,W))};{!F}" />
+                <apex:column value="{!c.Comments__c}"  width="300" style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!FN}"/>
+                <apex:column value="{!c.Follow_Up__c}"  width="300" style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!FN}" />
+                <apex:column value="{!c.Follow_Up_Adtl__c}" width="300" headerValue="Adtl. Follow Up"   style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!FN}" />
+                <apex:column value="{!c.Case_File_Text__c}" headerValue="Case File"  style="background-color:{!CASE(c.Pre_App_Status__c,'Active',W,'Case File',Y,'Term: PreApp',X,'Term: Case',OY,G)};{!F}" />
+                
+            </apex:pageblocktable>
+        </div>
+    </apex:pageblock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,435 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0"
+    controller="CGPHDevelopmentController" cache="false">
+    <apex:variable var="d" value="{!objWrapperDevelopmentInfo.development}" />
+    <apex:variable var="di" value="{!d.Dev_Income_Limit__r}" />
+    <apex:variable var="m" value="{!objWrapperDevelopmentInfo.development.Municipality_Name__r}" />
+    <apex:variable var="mi" value="{!m.Income_Limit__r}" />
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Development Detail</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <!-- Import the Design System style sheet -->
+        <apex:slds />
+        <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+        <link rel='stylesheet' id='thegem-google-fonts-css' href='//fonts.googleapis.com/css?family=Oswald%3Aregular%7CMontserrat%3A700%2Cregular%7CSource+Sans+Pro%3A300%2Cregular&#038;subset=latin-ext%2Clatin%2Cvietnamese%2Ccyrillic%2Ccyrillic-ext%2Cgreek-ext%2Cgreek&#038'
+            type='text/css' media='all' />
+        <link rel="stylesheet" id="thegem-child-style-css" href="https://www.affordablehomesnewjersey.com/wp-content/plugins/js_composer/assets/lib/bower/font-awesome/css/font-awesome.min.css"
+            type="text/css" media="all" />
+        <link rel="stylesheet" id="thegem-style-css" href="https://www.affordablehomesnewjersey.com/wp-content/themes/thegem/style.css"
+            type="text/css" media="all" />
+        <link rel="stylesheet" id="thegem-child-style-css" href="https://www.affordablehomesnewjersey.com/wp-content/themes/thegem-child/style.css"
+            type="text/css" media="all" />
+    </head>
+
+    <body style="margin-left: 0;">
+
+        <apex:outputPanel >
+            <apex:pageMessages ></apex:pageMessages>
+        </apex:outputPanel>
+
+
+        <!-- REQUIRED SLDS WRAPPER -->
+        <div class="slds-scope">
+            <apex:outputPanel layout="block" rendered="{!objWrapperDevelopmentInfo.lstListings != null && objWrapperDevelopmentInfo.lstListings.size > 0 }">
+                <hr class="slds-m-top_small" style="border-top-width: 3px;" />
+                <span>
+                    <h4>CURRENT LISTINGS</h4>
+                </span>
+                <span>
+                    <br/>Click below for additional information on current affordable opportunities in this location. Join the
+                    waiting list to be considered.</span>
+                <ul class="slds-has-dividers_top-space slds-list_vertical-space-medium">
+                    <apex:repeat value="{!objWrapperDevelopmentInfo.lstListings}" var="curProp">
+                        <li class="slds-item cl-item">
+                            <a href="https://www.affordablehomesnewjersey.com/all-opportunities/current-listings/?lid={!curProp.Id}" onclick="lload(event,'{!curProp.Id}','{!d.Rental_or_Sale_Development__c}');">
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <div class="slds-col slds-show_small slds-size_1-of-1 slds-small-size_1-of-4 slds-medium-size_1-of-7 slds-text-align_center">
+                                        <i class="fa fa-home" style="font-size: 6.3rem;"></i>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-small-size_3-of-4 slds-medium-size_6-of-7">
+                                        {!d.Name}
+                                        <br/> {!d.Rental_or_Sale_Development__c}
+                                        <br/> {!curProp.Name}
+                                        <br/>
+                                        <apex:outputText value="{0, number, $###,##0}">
+                                            <apex:param value="{!curProp.HOMEtracker__List_Price__c}" /></apex:outputText>
+                                        <apex:outputText value="{0, number, $###,##0}">
+                                            <apex:param value="{!curProp.HOMEtracker__Monthly_Rent__c}" /></apex:outputText> | {!curProp.HOMEtracker__Number_of_Bedrooms__c} bed | {!curProp.HOMEtracker__Number_of_Bathrooms__c}
+                                        bath | {!curProp.Max_Income_Level__c}
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </apex:repeat>
+                </ul>
+            </apex:outputPanel>
+            <hr class="slds-m-top_x-small" style="border-top-width: 3px;" />
+
+            <apex:outputPanel styleClass="slds-grid slds-gutters slds-m-bottom_large slds-grid_align-center" layout="block" rendered="{!d.HOMEtracker__Image_URL__c != null}">
+                <div class="slds-col slds-small-size_2-of-3">
+                    <span>
+                        <apex:image url="{!d.HOMEtracker__Image_URL__c}" />
+                    </span>
+                </div>
+            </apex:outputPanel>
+
+            <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-top_large">
+                    <span>
+                        <h4>HIGHLIGHTS</h4>
+                        <ul class="slds-has-dividers_top">
+                            <li class="slds-item">{!d.Number_of_units__c} - {!d.HOMEtracker__Property_Type__c}</li>
+                            <li class="slds-item">{!d.Unit_Mix__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Affordability_restriction_del__c) || d.Affordability_restriction_del__c == 'No', 'none', 'list-item')}">Income Levels: {!d.Affordability_restriction_del__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Age_Restriction__c) || d.Age_Restriction__c == 'None', 'none', 'list-item')}">{!d.Age_Restriction__c}</li>
+                            <li class="slds-item" style="display: {!IF(m.Live_Work_Preference__c && d.HOMEtracker__Status__c != 'Not administered directly by CGP&H' && d.Local_Pref_Website_Text__c == null, 'list-item', 'none')}">Preference given to applicants who live/work in {!d.COAH_Regions__c} counties.</li>
+                            <li class="slds-item" style="display: {!IF(d.Local_Pref_Website_Text__c != null, 'list-item', 'none')}">{!d.Local_Pref_Website_Text__c}</li>
+                            <li class="slds-item" style="display: {!IF(m.Adopted_Optional_Veterans_Pref__c, 'list-item', 'none')}">Preference given to veterans.</li>
+                        </ul>
+                    </span>
+                </div>
+
+
+                <apex:outputPanel styleClass="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-top_large" layout="block" rendered="{!
+                    (ISBLANK(d.HOMEtracker__Number_of_Stories__c) && ((ISBLANK(d.Elevator__c) || d.Elevator__c == 'No')) &&
+                    ISBLANK(d.HOMEtracker__YearBuilt__c) && (ISBLANK(d.Credit_Check_Required__c) || d.Credit_Check_Required__c == '') &&
+                    (ISBLANK(d.Background_Check_Required__c) || d.Background_Check_Required__c == '') && ISBLANK(d.Co_Signers_Allowed__c) &&
+                    (ISBLANK(d.Utilities_Included__c) || d.Utilities_Included__c == '') && ISBLANK(d.Pets_allowed__c) && ISBLANK(d.Pet_fee__c) &&
+                    ISBLANK(d.Smoking_Allowed__c) && ISBLANK(d.Additional_Parking_Fee__c) && ISBLANK(d.Amenities__c) &&
+                    ISBLANK(d.HOMEtracker__Interior__c)) == false}">
+                    <span>
+                        <h4>DETAILS</h4>
+                        <ul class="slds-has-dividers_top">
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.HOMEtracker__Number_of_Stories__c), 'none', 'list-item')}">{!d.HOMEtracker__Number_of_Stories__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Elevator__c) || d.Elevator__c == 'No', 'none', 'list-item')}">Elevator</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.HOMEtracker__YearBuilt__c), 'none', 'list-item')}">Year Built: {!d.HOMEtracker__YearBuilt__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Credit_Check_Required__c) || d.Credit_Check_Required__c == '', 'none', 'list-item')}">Credit Check Required</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Background_Check_Required__c) || d.Background_Check_Required__c == '', 'none', 'list-item')}">Background Check Required</li>
+                            <!--<li class="slds-item" style="display: {!IF(ISBLANK(d.Credit_Check_Required__c) && ISBLANK(d.Background_Check_Required__c), 'none', 'list-item')}">Credit/Background Check Fee: {!objWrapperDevelopmentInfo.CreditBackgroundCheckFee}</li>-->
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Co_Signers_Allowed__c), 'none', 'list-item')}">{!d.Co_Signers_Allowed__c}</li>
+                            <!--<li class="slds-item" style="display: {!IF(ISBLANK(d.Minimum_Credit_Score_to_be_Eligible__c) || d.Minimum_Credit_Score_to_be_Eligible__c == 0, 'none', 'list-item')}">Minimum Credit Score to Be Eligible: {!d.Minimum_Credit_Score_to_be_Eligible__c}</li>-->
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Utilities_Included__c) || d.Utilities_Included__c == '', 'none', 'list-item')}">Utilities Included in Rent: {!d.Utilities_Included__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Pets_allowed__c), 'list-item', 'none')}">{!d.Pets_allowed__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Pets_allowed__c) || ISBLANK(d.Pet_fee__c), 'none', 'list-item')}">{!d.Pet_fee__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Smoking_Allowed__c), 'none', 'list-item')}">{!d.Smoking_Allowed__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Additional_Parking_Fee__c), 'none', 'list-item')}">{!d.Additional_Parking_Fee__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.Amenities__c), 'none', 'list-item')}">{!d.Amenities__c}</li>
+                            <li class="slds-item" style="display: {!IF(ISBLANK(d.HOMEtracker__Interior__c), 'none', 'list-item')}">{!d.HOMEtracker__Interior__c}</li>
+                        </ul>
+                    </span>
+                </apex:outputPanel>
+            </div>
+
+            <apex:outputPanel styleClass="slds-grid slds-gutters slds-m-bottom_large" layout="block" rendered="{!m.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != null && d.Rental_or_Sale_Development__c != 'Rental' || 
+                                                                                                                 m.Down_Payment_Assistance_Cert_Text__c != null && d.Rental_or_Sale_Development__c != 'Rental' || 
+                                                                                                                 m.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != null && d.Rental_or_Sale_Development__c == 'Rental'|| 
+                                                                                                                 m.Rent_Assistance_Cert_Text__c != null && d.Rental_or_Sale_Development__c == 'Rental'}">
+                <div class="slds-col">
+                    <span>
+                        <h4>AFFORDABILITY ASSISTANCE</h4>
+                        <ul class="slds-list_dotted">
+                            <li class="slds-item" style="display:
+                                {!IF(m.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != null && d.Rental_or_Sale_Development__c != 'Rental', 'list-item', 'none')};">
+                                {!m.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c}
+                            </li>
+                            <li class="slds-item" style="display:
+                                {!IF(m.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != null && d.Rental_or_Sale_Development__c == 'Rental', 'list-item', 'none')};">
+                                {!m.County_Lookup__r.County_Rent_Assistance_Cert_Text__c}
+                            </li>
+                            <li class="slds-item" style="display:
+                                {!IF(m.Down_Payment_Assistance_Cert_Text__c != null && d.Rental_or_Sale_Development__c != 'Rental', 'list-item', 'none')};">
+                                {!m.Down_Payment_Assistance_Cert_Text__c}
+                            </li>
+                            <li class="slds-item" style="display:
+                                {!IF(m.Rent_Assistance_Cert_Text__c != null && d.Rental_or_Sale_Development__c == 'Rental', 'list-item', 'none')};">
+                                {!m.Rent_Assistance_Cert_Text__c}
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel styleClass="slds-grid slds-gutters slds-m-bottom_large" layout="block" rendered="{!di != ''}">
+                <div class="slds-col">
+                    <span>
+                        <h4>MAXIMUM INCOME LIMITS PER HOUSEHOLD: {!mi.Year__c}</h4>
+                        <span style="color:red;vertical-align: top;">*</span>
+                        <p>
+                            <span style="color:red;">*</span>Income limits may be different than the municipality. {!di.Income_Limit_Description_Text__c}</p>
+                        <table id="income_limits" class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate slds-hide_small" title="Number of Persons in Household">#</div>
+                                        <div class="slds-truncate slds-show_small" title="Number of Persons in Household">Household Size</div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Very Low">Very Low</div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Low">Low</div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Moderate">Moderate</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="1">1</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH1_Very_Low__c, di.HH1_Very_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH1_Very_Low__c, di.HH1_Very_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH1_Low__c, di.HH1_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH1_Low__c, di.HH1_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH1_Moderate__c, di.HH1_Moderate__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH1_Moderate__c, di.HH1_Moderate__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="2">2</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH2_Very_Low__c, di.HH2_Very_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH2_Very_Low__c, di.HH2_Very_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH2_Low__c, di.HH2_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH2_Low__c, di.HH2_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH2_Moderate__c, di.HH2_Moderate__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH2_Moderate__c, di.HH2_Moderate__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="3">3</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH3_Very_Low__c, di.HH3_Very_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH3_Very_Low__c, di.HH3_Very_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH3_Low__c, di.HH3_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH3_Low__c, di.HH3_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH3_Moderate__c, di.HH3_Moderate__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH3_Moderate__c, di.HH3_Moderate__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="4">4</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH4_Very_Low__c, di.HH4_Very_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH4_Very_Low__c, di.HH4_Very_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH4_Low__c, di.HH4_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH4_Low__c, di.HH4_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH4_Moderate__c, di.HH4_Moderate__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH4_Moderate__c, di.HH4_Moderate__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="5">5</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH5_Very_Low__c, di.HH5_Very_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH5_Very_Low__c, di.HH5_Very_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH5_Low__c, di.HH5_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH5_Low__c, di.HH5_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH5_Moderate__c, di.HH5_Moderate__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH5_Moderate__c, di.HH5_Moderate__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="6">6</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH6_Very_Low__c, di.HH6_Very_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH6_Very_Low__c, di.HH6_Very_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH6_Low__c, di.HH6_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH6_Low__c, di.HH6_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH6_Moderate__c, di.HH6_Moderate__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH6_Moderate__c, di.HH6_Moderate__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="7">7</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH7_Very_Low__c, di.HH7_Very_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH7_Very_Low__c, di.HH7_Very_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH7_Low__c, di.HH7_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH7_Low__c, di.HH7_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH7_Moderate__c, di.HH7_Moderate__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH7_Moderate__c, di.HH7_Moderate__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-hint-parent">
+                                    <th data-label="Number of Persons in Household" scope="row">
+                                        <div class="slds-truncate" title="8">8</div>
+                                    </th>
+                                    <td data-label="Very Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH8_Very_Low__c, di.HH8_Very_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH8_Very_Low__c, di.HH8_Very_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Low">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH8_Low__c, di.HH8_Low__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH8_Low__c, di.HH8_Low__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                    <td data-label="Moderate">
+                                        <div class="slds-truncate" title="{!IF(di == '', mi.HH8_Moderate__c, di.HH8_Moderate__c)}">
+                                            <apex:outputText value="{0, number, $###,##0}">
+                                                <apex:param value="{!IF(di == '', mi.HH8_Moderate__c, di.HH8_Moderate__c)}" /></apex:outputText>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="slds-hide_small">
+                            <span style="color:red;"># = household size</span>
+                        </p>
+                    </span>
+                </div>
+            </apex:outputPanel>
+
+
+        </div>
+        <!-- / REQUIRED SLDS WRAPPER -->
+    </body>
+
+    <script>
+
+        /*SLDS Tabs JS*/
+        function ifsize() {
+            parent.postMessage({ "sfmsg": "ifsize", "ifsize": (document.body.scrollHeight + 50) }, "*");
+        }
+
+        function lload(event, lid, ltab) {
+            if (event.ctrlKey) {
+                return;
+            }
+            parent.postMessage({ "sfmsg": "lid", "lid": lid, "ltab": ltab }, "*");
+            event.preventDefault();
+        };
+
+        function doneloading() {
+            parent.postMessage({ "sfmsg": "doneloading" }, "*");
+        }
+
+        $(document).ready(function () {
+            ifsize();
+            parent.postMessage({
+                "sfmsg": "sbcontent", "sbcontent": {
+                    "title": "{!d.Name} - {!d.Rental_or_Sale_Development__c}",
+                    "county": "{!d.Municipality_County__c} County",
+                    "municipality": "<a href='/all-opportunities/municipalities/?mid={!m.Id}'>{!m.Name}</a>",
+                    "address": "<strong>{!d.Name}</strong><br/> \
+                    " + ("{!d.Development_Location__c}" == "" ? "" : "{!HTMLENCODE(d.Development_Location__c)}<br/>") + " \
+                    {!d.HOMEtracker__City__c}, {!d.HOMEtracker__State__c} {!d.HOMEtracker__Postal_Code__c}",
+                    "map": "{!d.Name} {!d.Development_Location__c}, {!d.HOMEtracker__City__c}, {!d.HOMEtracker__State__c} {!d.HOMEtracker__Postal_Code__c}",
+                    "highlights": "<ul> \
+                            <li class='slds-item'>{!d.Number_of_units__c} - {!d.HOMEtracker__Property_Type__c}</li> \
+                            <li class='slds-item'>{!d.Unit_Mix__c}</li> \
+                            <li class='slds-item' style=\"display: {!IF(ISBLANK(d.Affordability_restriction_del__c) || d.Affordability_restriction_del__c == 'No', 'none', 'list-item')}\">Income Levels: {!d.Affordability_restriction_del__c}</li> \
+                            <li class='slds-item' style=\"display: {!IF(ISBLANK(d.Age_Restriction__c) || d.Age_Restriction__c == 'None', 'none', 'list-item')}\">{!d.Age_Restriction__c}</li> \
+                            <li class='slds-item' style=\"display: {!IF(m.Live_Work_Preference__c && d.HOMEtracker__Status__c != 'Not administered directly by CGP&H' && d.Local_Pref_Website_Text__c == null, 'list-item', 'none')}\">Preference given to applicants who live/work in {!d.COAH_Regions__c} counties.</li> \
+                            <li class='slds-item' style=\"display: {!IF(d.Local_Pref_Website_Text__c != null, 'list-item', 'none')}\">{!d.Local_Pref_Website_Text__c}</li> \
+                            <li class='slds-item' style=\"display: {!IF(m.Adopted_Optional_Veterans_Pref__c, 'list-item', 'none')}\">Preference given to veterans.</li> \
+                        </ul>",
+                    "wlurl": "/pre-application?tfa_478={!m}&tfa_492={!IF(d.Rental_or_Sale_Development__c == 'Rental','Rental','Ownership')}&tfa_566={!m.Name}",
+                    "availability": {!IF(d.HOMEtracker__Status__c == 'Not administered directly by CGP&H',d.Not_Admin_by_CGP_H_Availability_Text__c, d.Admin_by_CGP_H_Availability_Text__c)},
+                    "munionly": "{!IF(d.Rental_or_Sale_Development__c == 'Rental', '<strong>If you are only interested in homes for rent in ' + m.Name + ',</strong> click to submit a Preliminary Submission and be automatically added to the ' + m.Name + ' Rental waiting list.', '<strong>If you are only interested in homes for sale in ' + m.Name + ',</strong> click to submit a Preliminary Submission and be automatically added to the ' + m.Name + ' Ownership waiting list.')}",
+                    "applytext": "{!IF(d.Rental_or_Sale_Development__c == 'Rental', 'Apply for Rentals in ' + m.Name + ' Only', 'Apply for Sales in ' + m.Name + ' Only')}",
+                    "custom_pa_text": "{!d.Custom_Pre_app_Text__c}",
+                    "custom_pa_link": "{!d.Custom_Pre_app_Link__c}",
+                    "custom_pa_label": "{!d.Custom_Pre_app_Label__c}"
+                }
+            }, "*");
+            doneloading();
+        });
+
+    </script>
+
+    </html>
+</apex:page>

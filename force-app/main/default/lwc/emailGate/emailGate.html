@@ -1,0 +1,18 @@
+<template>
+  <template if:true={showEmail}>
+    <div class="box">
+      <h2>Enter your email to continue</h2>
+      <lightning-input type="email" label="Email" value={email} onchange={onEmail}></lightning-input>
+      <lightning-button variant="brand" label="Send Code" onclick={sendCode} disabled={isBusy}></lightning-button>
+      <template if:true={error}><p class="error">{error}</p></template>
+    </div>
+  </template>
+  <template if:true={showOtp}>
+    <div class="box">
+      <h2>Enter the code we emailed you</h2>
+      <lightning-input type="text" label="Verification Code" value={otp} onchange={onOtp}></lightning-input>
+      <lightning-button variant="brand" label="Verify" onclick={verify} disabled={isBusy}></lightning-button>
+      <template if:true={error}><p class="error">{error}</p></template>
+    </div>
+  </template>
+</template>

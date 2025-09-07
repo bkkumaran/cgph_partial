@@ -1,0 +1,467 @@
+<apex:page standardController="Training_Module__c" showHeader="true" sidebar="true" extensions="TrainAAExt" title="Supervisor Training Manual">
+
+<!-- ----------------FONT STYLES----------------FONT STYLES----------------FONT STYLES----------------FONT STYLES----------------FONT STYLES----------------FONT STYLES------------->
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
+.activeTab { white-space: nowrap; background-color: rgb(37,113,170); color: white; font-size: 110%; font-family: 'Montserrat'; font-weight: bold; background-image:none}
+.inactiveTab { white-space: nowrap; background-color: lightgrey; font-size: 110%; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; background-image:none}
+.valid {font-size: 10pt; color: rgb(37,113,170) !important; background-color: #white; font-family: 'Montserrat'; font-weight: bold;}
+.draft {font-size: 10pt; color: green !important; font-family: 'Montserrat'; background-color: white; font-weight: bold;}
+.invalid {font-size: 10pt; color: red !important; font-family: 'Montserrat'; background-color: white; font-weight: bold;}
+        
+#TopHead {white-space: nowrap; font-size: 26pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 0px 10px; }
+#mission {white-space: nowrap; font-size: 14pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 10px; }
+#EditLink {white-space: nowrap; font-size: 12pt; color: red; font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; } 
+#BlockHead {white-space: nowrap; font-size: 13pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }    
+#block {padding: 0px 0px 0px 30px;}
+#head1 { white-space: nowrap; font-size: 250%; color: rgb(37,113,170) ; font-family: 'Montserrat'; line-height: 1.5; font-weight: bold; }       
+#head2 { white-space: nowrap; font-size: 150%; color: rgb(37,113,170) ; font-family: 'Montserrat'; font-weight: bold; margin-left: 50px }
+#b {white-space: nowrap; text-decoration:none; font-size: 10pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid rgb(37,113,170); border-bottom: 1.5px solid rgb(37,113,170); border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#bb {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+#br {white-space: nowrap; text-decoration:none; font-size: 10pt; color: white; font-family: 'Montserrat'; font-weight: bold; background-color: red; border-radius: 5px;
+    border-top: 1px solid #a00404; border-right: 1.5px solid #a00404; border-bottom: 1.5px solid #a00404; border-left: 1px solid #a00404; padding: 3px 10px 3px 10px; }
+#bg {white-space: nowrap; text-decoration:none; font-size: 10pt; color: white; font-family: 'Montserrat'; font-weight: bold; background-color: #00716b; border-radius: 5px;
+    border-top: 1px solid #56a8a4; border-right: 1.5px solid #0b524e; border-bottom: 1.5px solid #0b524e; border-left: 1px solid #56a8a4; padding: 3px 10px 3px 10px; }
+</style>
+
+
+
+<!-- Supervisor Check DIV -->
+<div style="{!IF($User.Supervises_Staff__c = true,'','display:none;')}">
+
+
+ <!-- ----------HEADER----------HEADER----------HEADER----------HEADER----------HEADER----------HEADER----------HEADER------------- -->
+<table border="0" width="900px">
+    <tr>
+        <td valign="top" rowspan="2">
+            <apex:image url="{!$Resource.cgphLOGOgif}" width="200px" /> 
+        </td>
+        <td valign="middle">    
+            <div id="TopHead" style="text-align: left" valign="top">
+                <b>SUPERVISOR TRAINING</b>
+            </div>
+            <div id="mission">
+                <i>Empowering communities to improve lives.</i>
+            </div>
+        </td>
+    </tr>
+    <tr style="{!if (modId="","display: none;","")}">
+        <td colspan="2" align="left">
+            <div id="EditLink" style="display:{!IF(OR($User.LastName='Burton',$User.LastName='Hamlett'),IF(e='1','none;',''),'none;')}">
+                <a href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/TrainSupervisors?id={!ModId}&e=1" target="_top" style="color:red;">
+                    QUICK EDIT
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://cgph.lightning.force.com/lightning/r/Training_Module__c/{!ModId}/view" target="_blank" style="color:red;">
+                    UPDATE MODULE
+                </a>
+ <!--               
+                <span style="{!IF(ModId='a2fUq000000kNMbIAM','display:none;','')}">
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/TrainSupervisors?id=a2fUq000000kNMbIAM" target="_top" style="color:gray;">
+                    ARCHIVE
+                </a>
+                </span>
+-->                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a style="color:red;" target="_top"  href="https://cgph--c.vf.force.com/flow/Manual_Add_Article_Link?varID={!modID}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FTrainSupervisors%3Fid%3Da2fUq000000kNMbIAM">
+                    ADD TOOL
+                </a>
+                
+
+<!--
+                <span style="{!IF(ModId='a2fUq000000kNMbIAM','','display:none;')}">
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/TrainSupervisors?id=a2fUq000000kNMbIAM" target="_top" style="color:red;">
+                    ACTIVE
+                </a>
+                </span>
+-->
+            </div>
+            <div id="EditLink" style="background-color:yellow; display:{!IF(showYN='Y','none;',IF(e='1','','none;'))}">
+                <a href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/TrainSupervisors?id={!ModId}&e=0" target="_top" style="color:red;">
+                    <b>CLICK HERE WHEN FINISHED EDITING</b>
+                </a>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+    
+ <!-- -----------------------------------Page Block---------------------Page Block----------------------Page Block----------------------Page Block---------- -->   
+<div><br/></div>
+    
+ <!-- REFRESH -->   
+<apex:form > 
+<apex:outputPanel style="font-size:40pt; background-color: rgb(234, 251, 255); height:100; width: 900px; text-align: center;" layout="block" rendered="{!if(showYN='Y','true','false')}" onclick="window.top.location.reload()" >
+<a style="color:black;" href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/TrainSupervisors?id={!ModId}&e=1">
+Saving... <br/>
+Click here to refresh.
+</a>
+</apex:outputPanel>
+</apex:form>
+
+<div style="{!IF(showYN='Y','display: none;','')}; width:{!IF(e='1','','900px;')}">
+<apex:form >  
+<apex:pageblock mode="{!if(e='1','inlineEdit','')}"  >
+    
+<apex:pageBlockButtons location="both" >  
+<apex:commandButton action="{!saveAll}"  id="saveButton" value="Save" style="display: none;"/>  
+<apex:commandButton id="cancelButton" value="Cancel" style="display: none;" />  
+</apex:pageBlockButtons>     
+    
+<!-- --------------------------------HOME SPLASH SCREEN------------------------------- -->
+     
+<div style="background-color: white; width: 870px;{!if (modId="","display: true;","display: none;")}">
+    <div style="font-size: 150%; color: rgb(37,113,170); font-family: 'Montserrat'; line-height: 1.5; text-align: center;">
+        <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" /><br/><br/>
+            Hi <b>{!$User.FirstName} {!$User.LastName}</b>! Welcome to the CGPH Supervisor Training Manual. <br/>
+            <a style="color:rgb(37,113,170);" href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/TrainSupervisors?id=a2fUq000000kNMbIAM">
+                <i>Click here to open the Training Manual</i>
+            </a>
+            <br/>
+    </div>
+</div>
+    
+ <!-- ---------------BLOCK TABLE--------------------------------------------------------- -->
+
+    <div style="{!if(sizeA>0,"","display: none;")}">
+       <div id="BlockHead"> A. {!Training_Module__c.A__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listA}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');"  width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');"  width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" width="200px" headerValue="Status" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+
+    <div style="{!if(sizeB>0,"","display: none;")}">
+       <div id="BlockHead"> B. {!Training_Module__c.B__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listB}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+
+    <div style="{!if(sizeC>0,"","display: none;")}">
+       <div id="BlockHead"> C. {!Training_Module__c.C__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listC}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+
+    <div style="{!if(sizeD>0,"","display: none;")}">
+       <div id="BlockHead"> D. {!Training_Module__c.D__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listD}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+ 
+ <div style="{!if(sizeE>0,"","display: none;")}">
+       <div id="BlockHead"> E. {!Training_Module__c.E__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listE}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>           
+   
+   <div style="{!if(sizeF>0,"","display: none;")}">
+       <div id="BlockHead"> F. {!Training_Module__c.F__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listF}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>         
+            
+     <div style="{!if(sizeG>0,"","display: none;")}">
+       <div id="BlockHead"> G. {!Training_Module__c.G__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listG}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>           
+
+<div style="{!if(sizeH>0,"","display: none;")}">
+       <div id="BlockHead"> H. {!Training_Module__c.H__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listH}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>            
+            
+       <div style="{!if(sizeI>0,"","display: none;")}">
+       <div id="BlockHead"> I. {!Training_Module__c.I__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listI}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+            
+        <div style="{!if(sizeJ>0,"","display: none;")}">
+        <div id="BlockHead"> J. {!Training_Module__c.J__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listJ}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}"  headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+        
+        <div style="{!if(sizeK>0,"","display: none;")}">
+        <div id="BlockHead"> K. {!Training_Module__c.K__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listK}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}"  headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+
+        <div style="{!if(sizeL>0,"","display: none;")}">
+        <div id="BlockHead"> L. {!Training_Module__c.L__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listL}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}"  headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+
+        <div style="{!if(sizeM>0,"","display: none;")}">
+        <div id="BlockHead"> M. {!Training_Module__c.M__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listM}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+            
+        <div style="{!if(sizeN>0,"","display: none;")}">
+        <div id="BlockHead"> N. {!Training_Module__c.N__c}</div>
+            <div id="block">
+                <apex:pageBlockTable value="{!listN}" var="x">
+                    <apex:column rendered="{!if(e='1','true','false')}" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Subcategory__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="20px" headerValue="" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Link_Order__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column onClick="{!if(e='1','x','')}window.open('{!x.Article_Link__c}');" width="300px" headerValue="Tool Name" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Name}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="Status" width="200px" styleClass="{!case(x.Status_Num_Calc__c,2,'valid',1,'draft','invalid')}">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Status__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                    <apex:column rendered="{!IF(AND(OR($User.LastName='Burton',$User.LastName='Hamlett'),e='1'),'true','false')}" headerValue="URL">
+                        <apex:actionRegion ><apex:outputField value="{!x.Article_Link__c}"><apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton, cancelButton" disabled="{!if(e='1','false','true')}"/>
+                    </apex:outputField></apex:actionRegion></apex:column>
+                 </apex:pageBlockTable><br/>
+            </div>
+            </div>
+
+
+</apex:pageBlock>
+</apex:form>
+</div>
+
+
+</div>
+
+<div style="color:red; {!IF($User.Supervises_Staff__c = true,'display:none;','')}">
+⚠️ You do not have access to this page. If you would like to request access, please ask your supervisor. ⚠️
+</div>
+
+
+</apex:page>

@@ -1,0 +1,41 @@
+<apex:page standardController="HOMEtracker__Property__c">
+
+<apex:variable id="font" var="font" value="Roboto"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family={!font}');
+    table{
+        border-collapse: collapse;
+         }
+     td {
+         font-size:10pt;
+         font-family:{!font};
+         }
+     .big{
+         font-size:14pt;
+         }
+</style>
+
+<a class="big" href="https://cgph--c.vf.force.com/flow/Outreach_Timeline_Add_Timeline_by_Development?varDevID={!HOMEtracker__Property__c.Id}&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top">
+ADD OUTREACH TIMELINES FOR DEVELOPMENT
+</a>
+
+<!--
+DEVELOPMENT
+<table border="1">
+    <tr>
+<td>Properties available without any names from CGPH </td><td>#</td></tr><tr>
+<td>Number of primaries and backups per listing   </td><td>#</td></tr><tr>
+<td>Last date names given by CGPH in development ( per property )   </td><td>#</td></tr><tr>
+<td>Primaries without LL determination   </td><td>#</td></tr><tr>
+<td>LL determination w/o ready for cert date   </td><td>#</td></tr><tr>
+<td>Ready for Cert w/o application begun   </td><td>#</td></tr><tr>
+<td>Summaries of IF submissions in progress / results  </td><td>#</td></tr><tr>
+<td>Summaries of full app submissions in prog / result     </td><td>#</td></tr>       
+
+</table>
+-->
+
+
+
+</apex:page>

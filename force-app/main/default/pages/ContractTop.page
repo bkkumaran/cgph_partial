@@ -1,0 +1,164 @@
+<apex:page standardcontroller="Contract" showHeader="false" sidebar="false" standardStylesheets="false">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+    body {
+        text-align: center;
+        }
+    .link {
+        text-decoration:none;
+        font-family: 'Open Sans';
+        font-size: 10pt;
+        color: #0176D3;
+        }
+    .link:hover {
+        cursor:pointer;
+        }
+    
+    .button {
+        background-color: #0176D3;
+        border-radius: 4px;
+        color: white;
+        padding: 4px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        font-family:'Open Sans';
+            }
+    .buttonIP {
+        background-color: #00716b;
+        border-radius: 4px;
+        color: white;
+        padding: 4px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        font-family:'Open Sans';
+            }
+
+    .buttonBad {
+        background-color: gray;
+        border-radius: 4px;
+        color: white;
+        padding: 4px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        font-family:'Open Sans';
+<!--        font-weight:bold;      -->
+        cursor: not-allowed;
+            }
+                
+    .button:hover{
+        background-color: #032D60;
+        color: white;
+        cursor:pointer;
+            }
+            
+    .buttonIP:hover{
+        background-color: #032D60;
+        color: white;
+        cursor:pointer;
+            }
+
+
+</style>
+
+
+
+<body>
+
+<apex:outputPanel layout="block"
+    rendered="{!IF(Contract.No_Contract_PDF__c=true,false,IF(Contract.Contract_PDF_Calc__c=true,true,false))}"
+    onclick="window.open('{!Contract.Contract_PDF_URL__c}','_blank')"
+    styleclass="button" > 
+    Contract PDF
+</apex:outputPanel>
+<apex:outputPanel layout="block"
+    rendered="{!IF(Contract.No_Contract_PDF__c=true,true,IF(Contract.Contract_PDF_Calc__c=true,false,true))}"
+    onclick=""
+    styleclass="buttonBad" > 
+    No Contract PDF
+</apex:outputPanel>
+
+&nbsp;
+
+<apex:outputPanel layout="block"
+    rendered="{!IF((Contract.Contract_Spreadsheet__c=true),true,false)}"
+    onclick="window.open('{!Contract.Contract_Spreadsheet_URL__c}','_blank')"
+    styleclass="button" > 
+    Spreadsheet
+</apex:outputPanel>
+<apex:outputPanel layout="block"
+    rendered="{!IF((Contract.Contract_Spreadsheet__c=true),false,true)}"
+    onclick=""
+    styleclass="buttonBad" > 
+    No Spreadsheet
+</apex:outputPanel>
+
+&nbsp;
+
+<apex:outputPanel layout="block"
+    rendered="{!IF($User.LastName='Burton',true,false)}"
+    onclick="window.open('https://cgph.lightning.force.com/lightning/r/Report/00OUq000002h9OfMAI/view?queryScope=userFolders&fv0={!Contract.Id}','_blank')"
+    styleclass="button" > 
+    NEW SPREADSHEET
+</apex:outputPanel>
+
+&nbsp;
+
+<apex:outputPanel layout="block"
+    rendered="{!IF(AND(Contract.Billing_Terms_Count__c != NULL,Contract.Billing_Terms_Count__c > 0),true,false)}"
+    onclick="window.open('/apex/BillingTermsCondensed?Id={!Contract.Id}&core.apexpages.devmode.url=0','_blank')"
+    styleclass="button" > 
+    Billing Terms
+</apex:outputPanel>
+<apex:outputPanel layout="block"
+    rendered="{!IF(OR(Contract.Billing_Terms_Count__c = NULL, Contract.Billing_Terms_Count__c = 0),true,false)}"
+    onclick=""
+    styleclass="buttonBad" > 
+    No Billing Terms
+</apex:outputPanel>
+
+
+&nbsp;
+
+<apex:outputPanel layout="block"
+    onclick="window.open('/apex/contInvoice?Id={!Contract.Id}&Id2={!Contract.PriorIdCalc__c}&core.apexpages.devmode.url=0','_blank')"
+    styleclass="button" > 
+    Invoices List
+</apex:outputPanel>
+
+&nbsp;
+
+<apex:outputPanel layout="block"
+    rendered="{!IF(Contract.In_Progress_Invoices__c > 0, true, false)}"
+    onclick="window.open('https://cgph.lightning.force.com/lightning/r/Report/00OUq000003Ha0XMAS/view?queryScope=userFolders&fv0={!Contract.Id}','_blank')"
+    styleclass="buttonIP" > 
+    In Progress
+</apex:outputPanel>
+
+
+<br/>
+
+<apex:outputpanel rendered="{!IF(Contract.Client_Type__c = 'Municipality' || Contract.Client_Type__c = 'County',true, false)}"
+    onclick="window.open('https://cgph.lightning.force.com/lightning/r/Report/00OUq000002zqADMAY/view?queryScope=userFolders&fv0={!Contract.Municipality__r.Id}','_blank')"
+    styleclass="link" >
+    ⚒️Home Improvement Programs⚒️
+</apex:outputPanel>
+
+&nbsp; &nbsp; &nbsp;
+
+<apex:outputpanel rendered="{!IF(Contract.Client_Type__c = 'Municipality' || Contract.Client_Type__c = 'County',true, false)}"
+    onclick="window.open('https://cgph.lightning.force.com/lightning/r/Report/00OUq000002zqa1MAA/view?queryScope=userFolders&fv0={!Contract.Municipality__r.Id}','_blank')"
+    styleclass="link" >
+    🏠Admin Agent Programs🏠
+</apex:outputPanel>
+
+</body>
+
+
+</apex:page>

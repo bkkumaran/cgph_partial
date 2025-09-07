@@ -1,0 +1,386 @@
+<apex:page Controller="OutreachTrackerController" showHeader="false" docType="html-5.0" standardStylesheets="false">
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Outreach Tracker</title>
+</head>
+
+<apex:variable var="font" value="Roboto"/>
+<apex:variable var="showH" value="{!IF($CurrentPage.parameters.H='1','','display:none')}"/>
+
+<!-- COLORS -->
+<apex:variable var="PrimaryUs" value="#b7e1cd"/>
+<apex:variable var="PrimaryThem" value="#ff6456"/>
+<apex:variable var="BackupUs" value="#ffeebc"/>
+<apex:variable var="BackupThem" value="#fac8c8"/>
+<apex:variable var="HeaderUs" value="#d4d4d4"/>
+<apex:variable var="HeaderThem" value="#db9393"/>
+<apex:variable var="HiddenUs" value="#e0dce6"/>
+<apex:variable var="HiddenThem" value="#cec9d6"/>
+<apex:variable var="ApproveText" value="blue"/>
+<apex:variable var="FlagUs" value="#ffb75d"/>
+<apex:variable var="FlagThem" value="#f0a448"/>
+<apex:variable var="CGPHblue" value="rgb(0, 101, 168)"/>
+<apex:variable var="SaveGreen" value="#53e09d"/>
+<apex:variable var="SaveGreenDark" value="#147045"/>
+<apex:variable var="Cancel" value="gray"/>
+<apex:variable var="CancelDark" value="#666565"/>
+<apex:variable var="EditDark" value="#9e1515"/>
+
+<!-- FONT SIZES -->
+<apex:variable var="fSizeTD" value="10"/>
+<apex:variable var="fSizeTH" value="10"/>
+<apex:variable var="fSizeDevName" value="15"/>
+<apex:variable var="fSizeProp" value="11"/>
+<apex:variable var="fSizeUsHH" value="12"/>
+<apex:variable var="fSizeThemHH" value="12"/>
+<apex:variable var="fSizeButton" value="10"/>
+<apex:variable var="fSizeNotes" value="9"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family={!font}');
+
+    a { color: inherit; }
+    td { white-space: nowrap; padding: 5px 2px 5px 2px; font-family:'{!font}'; font-size:{!fSizeTD}pt;font-weight:400;}
+    th { white-space: normal; padding: 5px 2px 5px 2px; font-family:'{!font}'; font-size:{!fSizeTH}pt; font-weight:bold; text-align:center;}
+    .center { text-align:center;}
+    table {
+        border-collapse:collapse;
+        border: 0.5px gray;
+    }
+    
+    #dev {
+        font-family:{!font};
+        color: rgb(0, 101, 168);
+        font-size:{!fSizeDevName}pt;
+        font-weight:bold;}
+    #usHH {background-color:{!HeaderUs}; font-size:{!fSizeUsHH}pt;text-align:center;}
+    #usH {background-color:{!HeaderUs};word-wrap: break-word;}
+    #usBack {background-color:{!BackupUs};}
+    #usBackA {background-color:{!FlagUs};font-weight:bold;color:{!ApproveText};}
+    #usHide {background-color:{!HiddenUs};}
+    #usPrime {background-color:{!PrimaryUs};}
+    #usPrimeA {background-color:{!PrimaryUs};font-weight:bold;color:{!ApproveText};}
+    #usFlag {background-color:{!FlagUs};font-weight:bold;}
+    #themHH {background-color:{!HeaderThem}; font-size:{!fSizeThemHH}pt;text-align:center;word-break;}
+    #themH {background-color:{!HeaderThem};white-space: normal;}
+    #themBack {background-color:{!BackupThem};white-space: normal;}
+    #themBackA {background-color:{!FlagThem};white-space: normal;font-weight:bold;color:{!ApproveText};}
+    #themHide {background-color:{!HiddenThem};white-space: normal;}
+    #themPrime {background-color:{!PrimaryThem};white-space: normal;}
+    #themPrimeA {background-color:{!PrimaryThem};font-weight:bold;color:{!ApproveText};white-space: normal;}
+    #themFlag {background-color:{!FlagThem};font-weight:bold;white-space: normal;}
+    #prop { font-size:{!fSizeProp}pt;padding-left:10px;}
+    .button{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButton}pt;
+            color: {!CGPHblue};
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HiddenUs});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 2px 10px 2px 10px;
+            }
+    .button:hover{
+            color:white;
+            background-image: linear-gradient({!CGPHblue},{!CGPHblue});
+                }
+    .buttonEdit{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButton}pt;
+            color: {!EditDark};
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HiddenUs});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 1px 10px 1px 10px;
+            }
+    .buttonEdit:hover{
+            color:white;
+            background-image: linear-gradient({!EditDark},{!EditDark});
+                }
+
+    .buttonSave{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButton}pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!SaveGreen});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonSave:hover{
+            color:white;
+            background-image: linear-gradient({!SaveGreenDark},{!SaveGreenDark});
+                }
+    .buttonCancel{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButton}pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,Cancel);
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonCancel:hover{
+            color:white;
+            background-image: linear-gradient({!CancelDark},{!CancelDark});
+                }
+        .buttonTrack{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButton}pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HeaderUs});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid gray; 
+            border-bottom: 1.5px solid gray; 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonTrack:hover{
+            color:white;
+            background-image: linear-gradient(gray,gray);
+            text-decoration:none;
+                }
+    .topHeader{
+          overflow: hidden;
+          background-color: white;
+          position: fixed; 
+          top: 0; 
+          width: 100%; 
+          border-bottom: 1px solid gray;
+            }
+</style>
+
+<div style="{!IF(dev.Publish_Outreach_Tracker__c=false,'','display:none;')}"> <!-- DIV HIDE IF NOT PUBLISHED -->
+Outreach Tracker not available at this time.<br/>
+Contact: <a  style="color:{!CGPHblue};" href="mailto:{!dev.Primary_Case_manager__r.email}?subject={!dev.Name} Outreach Tracker Not Published">
+                <apex:image url="{!$Resource.Blue_Email_Icon}" height="15"/> {!dev.Primary_Case_manager__r.FirstName} {!dev.Primary_Case_manager__r.LastName}
+            </a>
+</div>
+
+<div style="{!IF(dev.Publish_Outreach_Tracker__c=false,'display:none;','')}"> <!-- DIV HIDE IF NOT PUBLISHED -->
+
+<div class="topHeader">
+
+<table border="0">
+    <tr>
+        <td id="dev" style="padding-right: 50px; width:450px;">
+            {!dev.Name}
+        </td>
+        <td width="300px" class="right">
+            <a href="https://cgph--c.vf.force.com/apex/PropertyInventoryPublic_R?d={!devID}" class="buttonTrack" target="_top">
+                DEVELOPMENT INVENTORY
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a  style="color:{!CGPHblue};{!IF(ISBLANK(dev.Primary_Case_manager__c)=true,'display:none;','')}" href="mailto:{!dev.Primary_Case_manager__r.email}?subject={!dev.Name} Applicants">
+                <apex:image url="{!$Resource.Blue_Email_Icon}" height="15"/> {!dev.Primary_Case_manager__r.FirstName} {!dev.Primary_Case_manager__r.LastName}
+            </a>
+        </td>
+    </tr>
+</table>
+
+</div> <!-- fixed header stop -->
+
+<div style="height:75px; background:white;"></div>  <!-- spacer for back of header -->
+
+<table border="1" width="2100">
+   <tr>
+        <th id="usHH" colspan="9"> FILLED IN BY CGP&amp;H </th>
+        <th id="themHH" colspan="4"> FILLED IN BY LANDLORD / DEVELOPER </th>
+        <th id="usHH" colspan="4"> FILLED IN BY CGP&amp;H </th>
+   </tr>
+
+   <tr>     
+        <th id="usH" width="300px">
+            PROPERTY
+        </th>
+        <th id="usH" width="150px" class="center">
+            Status
+        </th>
+        <th id="usH" width="60px" class="center">
+            Unit
+        </th>
+        <th id="usH" width="60px" class="center">
+            Priority
+        </th>
+        <th id="usH" width="150">
+            Applicant Name
+        </th>
+        <th id="usH"  width="150px" class="center">
+            Number of People in Household
+        </th>
+        <th id="usH" width="300px">
+            Email
+        </th>
+        <th id="usH" width="200px">
+            Phone
+        </th>
+        <th id="usH" width="200px">
+            Date CGPH Added
+        </th>
+        <th id="themH" width="100px">
+            Click Here to Edit
+        </th>
+<!--        <th id="themH" width="150px">
+            Tour
+        </th> -->
+ <!--       <th id="themH" width="150px">
+            App Sent
+        </th> -->
+<!--        <th id="themH" width="150px">
+            App Deadline
+        </th> -->
+        <th id="themH" width="200px">
+            Approval / Denial
+        </th>
+        <th id="themH" width="200px">
+            Approve / Deny Date
+        </th>
+        <th id="themH" width="400px">
+            Notes
+        </th>
+<!--
+        <th id="usH" width="200px">
+            Approved for Full Review
+        </th>
+-->
+        <th id="usH" width="200px">
+            Full Review Began
+        </th>
+        <th id="usH" width="150px">
+            CGP&amp;H Determination
+        </th>
+        <th id="usH" width="200px">
+            Date of Determination
+        </th>
+    </tr>
+      
+    <apex:repeat value="{!otByProperty}" var="key" >
+      
+      <apex:repeat value="{!otByProperty[key].otList}" var="keyvalue" > 
+        <tr> 
+           <td id="prop" rowspan="{!otByProperty[key].numOfOTs}" style="vertical-align:top;display:{!IF(CASESAFEID(keyvalue.id)==CASESAFEID(otByProperty[key].firstOfList), 'table-data','none' )};">
+               <b>{!SUBSTITUTE(keyvalue.Property_Address__c,dev.Name,'')} <br/>
+                   <apex:outputText value="${0,number,###,###,###}">
+                      <apex:param value="{!keyvalue.Property_Rent_or_List_Price__c}" />
+                   </apex:outputText> 
+              </b>
+          </td>
+
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}"> 
+                  {!keyvalue.Tracker_Status__c}
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}"> 
+                  {!keyvalue.Unit__c}
+          </td>
+                       
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}"> 
+                {!keyvalue.Service_File__r.Priority__c}
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Applicant_Name__c}
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Household_Size__c} 
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Applicant_Email__c}
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Applicant_Phone__c}
+             </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:outputField value="{!keyvalue.Date_CGPH_Added_Name__c}"/>
+          </td>
+
+<!-- FORM ASSEMBLY BUTTON -->
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+            <a class="buttonEdit"
+                href="https://www.tfaforms.com/5098934?tfa_16={!IF(keyvalue.Tracker_Status__c='Primary',1,0)}&tfa_17={!IF(keyvalue.Tracker_Status__c='Backup',1,0)}&tfa_2={!keyvalue.Applicant_Name__c}&tfa_10={!keyvalue.Property_Address__c}+${!FLOOR(keyvalue.Property_Rent_or_List_Price__c)}&tfa_11={!keyvalue.Id}{!CASE(keyvalue.Landlord_Developer_Determination__c,'Approved','&tfa_6=Approved','Denied','&tfa_6=Declined','')}&tfa_9={!keyvalue.Landlord_Developer_Notes__c}" target="_blank"
+              >
+                ►
+            </a>
+            
+            
+            
+          </td>
+<!--          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Landlord_Developer_Tour__c}
+          </td>
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Landlord_Developer_App_Sent__c}
+          </td>
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Landlord_Developer_Deadline__c}
+          </td>
+-->              
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Landlord_Developer_Determination__c}
+          </td>
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:outputField value="{!keyvalue.Landlord_Developer_Determination_Date__c}"/>
+          </td>
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" style="font-size:{!fSizeNotes}pt;{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Landlord_Developer_Notes__c}
+          </td>
+<!--          
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:outputField value="{!keyvalue.Date_Ready_For_Eligibility_Review__c}"/>
+          </td>
+-->          
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:outputField value="{!keyvalue.Date_Eligibility_Review_Began__c}"/>
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.CGPH_Determination__c}</td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:outputField value="{!keyvalue.CGPH_Approval_Denial_Date__c}"/>
+          </td>
+          
+          
+        </tr>
+      </apex:repeat>
+      <!-- SPACER BETWEEN PROPERTIES -->
+      <tr ><td style="background-color:gray; height:2px;" colspan="17"></td></tr>
+
+    </apex:repeat>
+    
+   
+  </table>
+
+</div> <!-- end div for hiding if not published -->
+
+</html>
+</apex:page>

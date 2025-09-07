@@ -1,0 +1,381 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="ApplicantsIFext,AppDeadlinesExt,PreScreenExt,AppInvitesExt">
+
+<!-- ApplicantsIFext -->
+
+<apex:variable id="font" var="font" value="Roboto"/>
+
+<!-- COLORS -->
+<apex:variable id="yellow" var="yellow" value="#fcffa8"/>
+
+<style>
+   @import url('https://fonts.googleapis.com/css?family={!font}'); 
+    .table {
+        border-collapse: collapse;
+            }
+    td     {
+            padding: 2px 5px 2px 5px;
+            font-family:{!font};
+            font-size: 10pt;
+            }
+    .right  {
+            text-align:right;
+            }
+    .center {
+            text-align:center;
+            padding: 5px 10px 5px 10px;
+            }
+    .top    {
+            vertical-align:top;
+            }
+    .noCamp {
+            font-size:14pt;
+            font-weight: bold;
+            color:red;
+            }
+</style>
+
+<!-- 
+<table id="Ownership" style="{!IF(HOMEtracker__Property__c.RecordTypeId='012o00000003bUCAAY','','display:none')}" border="0">
+    <tr>
+        <td>OWNERSHIP</td>
+    </tr>
+</table>
+
+<table id="Rental" style="{!IF(HOMEtracker__Property__c.RecordTypeId='012o00000003bU7AAI','','display:none')}" border="0">
+    <tr>
+        <td>RENTAL</td>
+    </tr>
+</table>
+-->
+<table id="Development" style="{!IF(HOMEtracker__Property__c.RecordTypeId='012o00000003bU2AAI','','display:none')}" border="0">
+    <tr>
+        <td>DEVELOPMENT</td>
+    </tr>
+</table>
+
+
+<table id="NotDevelopment" style="border-color:red;{!IF(OR(HOMEtracker__Property__c.RecordTypeId='012o00000003bU2AAI',HOMEtracker__Property__c.Campaign__r.Id = ''),'display:none;','')}" border="0">
+
+<div style="{!IF(HOMEtracker__Property__c.Campaign__r.Id = '','','display:none;')}" class="noCamp">
+ADD CAMPAIGN TO THIS PROPERTY
+</div>
+
+<!-- -------------------------------------INTEREST FORM TABLE ------------------------- -->
+<tr>
+
+<td id="ifInviteTable" class="top">
+
+    <table id="ifInvites" class="table" border="1">
+        <tr>
+        <td colspan="2" class="center">
+            <b>INTEREST FORMS</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Not Invited 
+        </td>
+        <td class="right"  >
+            {!ifEligNotInvCount}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Total Invited 
+        </td>
+        <td class="right" >
+            {!ifInvitedCount}
+        </td>
+    </tr>
+    <tr>
+        <td >
+            Next Deadline
+        </td>
+        <td class="right" >          
+            <div style="{!IF(ISNULL(ifNextDeadlineDate)=true,'display:none','')}">
+                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!ifNextDeadlineDate}" /> 
+                </apex:outputText>
+            </div>
+            <div style="{!IF(ISNULL(ifNextDeadlineDate)=true,'','display:none')}">
+                N/A
+            </div>
+        </td>
+    </tr>
+        <tr>
+        <td>
+            Invited, Pre-Deadline 
+        </td>
+        <td class="right">
+            {!ifInvPreDeadCount}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Last Deadline
+        </td>
+        <td class="right">
+            <div style="{!IF(ISNULL(ifLastDeadlineDate)=true,'display:none','')}">
+                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                    <apex:param value="{!ifLastDeadlineDate}" /> 
+                </apex:outputText>
+            </div>
+            <div style="{!IF(ISNULL(ifLastDeadlineDate)=true,'','display:none')}">
+                N/A
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Invited, Post-Deadline 
+        </td>
+        <td class="right">
+            {!ifInvPostDeadCount}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <a id="IF_Report"
+                href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005tn7SUAQ/view?queryScope=userFolders&fv0={!camp.Id}"
+                target="_blank">
+            <i>Interest Form Report</i>
+            </a>
+        </td>
+    </tr>
+    </table>
+    <br/>
+
+</td>
+</tr>
+
+
+
+<tr id="ifResultsTable" class="top"> <!-- -------------------------------------------------------------------POST-DEADLINE RESULTS---------------------------------------- -->
+<td>
+
+    <table id="ifResults" class="table" border="1">
+    
+    <tr>
+        <td colspan="2" class="center">
+        <b>IF POST-DEADLINE RESULTS ({!ifInvPostDeadCount})</b>
+        </td>
+    </tr>
+    <tr style="{!IF( ifNoSubmitCount =0,'display:none','')}">
+        <td>
+            Did Not Submit 
+        </td>
+        <td class="right">
+            {!ifNoSubmitCount}
+        </td>
+    </tr>
+    <tr style="{!IF( ifNotInterestCount =0,'display:none','')}">
+        <td>
+             Not Interested
+        </td>
+        <td class="right">
+            {!ifNotInterestCount}
+        </td>
+    </tr>
+    <tr style="{!IF( ifNotEligibleCount =0,'display:none','')}">
+        <td>
+            Not Eligible 
+        </td>
+        <td class="right">
+            {!ifNotEligibleCount}
+        </td>
+    </tr>
+    <tr style="{!IF( ifUndeterminedCount =0,'display:none','')}">
+        <td>
+            Undetermined
+        </td>
+        <td class="right">
+            {!ifUndeterminedCount}
+        </td>
+    </tr>
+    <tr style="{!IF( ifOnHoldLocalCount =0,'display:none','')}">
+        <td>
+            On Hold, Local Pref.
+        </td>
+        <td class="right">
+            {!ifOnHoldLocalCount}
+        </td>
+    </tr>
+    <tr style="{!IF( ifEligibleCount =0,'display:none','')}">
+        <td>
+            Eligible, Ready for App
+        </td>
+        <td class="right">
+            {!ifEligibleCount}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Invited to Submit Full App
+        </td>
+        <td class="right">
+            {!fullInvitedCount}
+        </td>
+    </tr>
+    <tr style="{!IF( fullReferredCount =0,'display:none','')}">
+        <td>
+           Referred to Landlord 
+        </td>
+        <td class="right">
+            {!fullReferredCount} 
+        </td>
+    </tr>
+    <tr style="{!IF( fullOpenHouseCount =0,'display:none','')}">
+        <td>
+            Sent to Open House
+        </td>
+        <td class="right">
+            {!fullOpenHouseCount} 
+        </td>
+    </tr>
+    <tr style="{!IF( fullSentForMPACount =0,'display:none','')}">
+        <td>
+            Sent for MPA
+        </td>
+        <td class="right">
+            {!fullSentForMPACount} 
+        </td>
+    </tr>
+    <tr style="{!IF( fullApprovedOwnBackupCount =0,'display:none','')}">
+        <td>
+            Ownership Backup 
+        </td>
+        <td class="right">
+            {!fullApprovedOwnBackupCount}
+        </td>
+    </tr>
+    </table>
+<br/>
+
+</td>
+</tr>
+<tr>
+<td class="top">                                      <!-- --------------APP INVITES-------------- -->
+    <table id="ReadyToInvite" class="table" border="1">
+        <tr>
+            <td colspan="2" class="center">
+            <b>FULL APP INVITES</b>
+            </td>
+        </tr>
+        <tr style="{!IF(HOMEtracker__Property__c.RecordTypeId='012o00000003bU7AAI','','display:none')}">
+            <td>
+                Ready for Initial Backup Email R
+            </td>
+            <td class="right">
+                {!countInitialBackupR}
+            </td>
+        </tr>
+        <tr style="{!IF(HOMEtracker__Property__c.RecordTypeId='012o00000003bUCAAY','','display:none')}">
+            <td>
+                Ready for Initial Backup Email O
+            </td>
+            <td class="right">
+                {!countInitialBackupO}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ready for Step One
+            </td>
+            <td class="right">
+                ??
+            </td>
+        </tr>
+        <tr style="{!IF(HOMEtracker__Property__c.RecordTypeId='012o00000003bUCAAY','','display:none')}">
+            <td>
+                Ready to Send MPA
+            </td>
+            <td class="right">
+                {!countReadyForMPA}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ready for Step Two
+            </td>
+            <td class="right">
+                {!countStepTwo}
+            </td>
+        </tr>
+
+    </table>
+    <br/>
+</td>    
+</tr>
+<tr>
+<td class="top">
+    <table ID="AppSubmission" class="table" border="1">   <!-- --------------APP SUBMISSION-------------- -->
+        <tr>
+            <td colspan="2" class="center">
+                <b>FULL APP SUBMISSION</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Next Deadline
+            </td>
+            <td class="right">
+                <div style="{!IF(ISNULL(faNextDeadlineDate)=true,'display:none','')}">
+                    <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                        <apex:param value="{!faNextDeadlineDate}" /> 
+                    </apex:outputText>
+                </div>
+                <div style="{!IF(ISNULL(faNextDeadlineDate)=true,'','display:none')}">
+                    N/A
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Last Deadline
+            </td>
+            <td class="right">
+                <div style="{!IF(ISNULL(ifLastDeadlineDate)=true,'display:none','')}">
+                    <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                        <apex:param value="{!ifLastDeadlineDate}" /> 
+                    </apex:outputText>
+                </div>
+                <div style="{!IF(ISNULL(ifLastDeadlineDate)=true,'','display:none')}">
+                    N/A
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br/>
+</td>
+<tr>
+<td class="top"> 
+    <table id="PreScreenTable" class="table" border="1">
+  <!-- --------------------------------------- PASSED DEADLINE PRE-SCREEN ------------------------ -->
+        <tr>
+            <td colspan="2" class="center">
+                <b>FULL APP DEADLINE PASSED</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ready for Pre-Screen
+            </td>
+            <td>
+                {!psListCount}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a href="https://cgph--c.vf.force.com/apex/PreScreenList?id={!HOMEtracker__Property__c.Id}" target="_blank">
+                    <i>Outreach Applicants Page</i>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <br/>
+</td>
+</tr>
+</tr>
+</table>
+
+</apex:page>

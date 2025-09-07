@@ -1,0 +1,196 @@
+<apex:page standardController="HR_Case_File__c" standardStylesheets="false" extensions="HR_Case_Log_Ext">
+
+
+<!-- ---------------------- -->
+<!--        VARIABLES       -->
+<!-- ---------------------- -->
+
+<apex:variable var="colorHover" value="#e3f3ff" />
+<apex:variable var="colorHRS" value="#ffffd7" />
+<apex:variable var="colorInsp" value="#ffe8d7" />
+
+<apex:variable var="colorBorder" value="#e3e3e3" />
+<apex:variable var="widthDate" value="65" />
+<apex:variable var="widthStaff" value="30" />
+
+<!-- ---------------------- -->
+<!--        STYLE           -->
+<!-- ---------------------- -->
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    
+    body      {{!if(OR($User.LastName='Burton',$User.LastName='Peterson'),'','')}} <!-- -------------------------------------------------------------------SHOW/HIDE page from staff -->
+    table     {border-collapse:collapse;}
+    th        {padding-left:5px; padding-right:5px; font-size:10pt; font-family:Open Sans; font-weight: bold;}
+    td        {padding-left:5px; padding-right:5px; font-size:9pt; font-family:Open Sans; border-bottom: 1px solid {!colorBorder};}
+    a         {color:#0b5cab;}
+    tr        {border: 1px solid {!colorBorder};}
+    tr:hover  {background-color:{!colorHover} !important; cursor:default;}
+
+    .left     {text-align:left;}
+    .center   {text-align:center;}
+    .right    {text-align:right;}
+    .OldNotes {padding-left:5px; padding-right:5px; font-size:9pt; font-family:Open Sans;}
+    
+    #Entry:hover {cursor:pointer !important;}
+    
+        
+</style>
+
+<body>
+
+
+<!-- ---------------------- -->
+<!--      OUTSIDE TABLE 1   -->
+<!-- ---------------------- -->
+<table border="0" style="width:100%;">
+
+<tr style="background-color:white !important; border:0 !important;">
+
+<!-- ---------------------- -->
+<!--      TABLE 1 HRS       -->
+<!-- ---------------------- -->
+
+<td width="50%" style="vertical-align:top;">
+<table border="0" width="100%" style="{!IF(logList=NULL, 'display:none;','')}">
+        <tr style="background-color:{!colorHRS} !important">
+            <th class="left" colspan="3"> Case Management Log &nbsp; <span style="font-size:8pt;"><i>(double-click row to edit or delete)</i></span></th>
+ 
+        </tr>
+
+    <apex:repeat value="{!logList}" var="x">
+        <tr style="{!if(x.Staff_Member__r.Team__c = 'HR - Inspection Services','display:none;','')}">
+            
+            <td  id="Entry" class="left" style="width: {!widthDate}px;">
+                <apex:outputPanel onDblClick="window.open('https://cgph--c.vf.force.com/flow/HR_Case_File_Case_Log_Update?varID={!x.Id}&retURL=%2F{!HR_Case_File__c.id}','_top')" layout="block">
+                    <apex:outputfield value="{!x.Entry_Date__c }" />
+                </apex:outputPanel>
+            </td>
+            <td  id="Entry" class="left" style="width: {!widthStaff}px;">
+                <apex:outputPanel onDblClick="window.open('https://cgph--c.vf.force.com/flow/HR_Case_File_Case_Log_Update?varID={!x.Id}&retURL=%2F{!HR_Case_File__c.id}','_top')" layout="block">
+                    {!x.Staff_Member__r.Staff_Initials__c}
+                </apex:outputPanel>
+            </td>
+            <td id="Entry" class="left">
+                <apex:outputPanel onDblClick="window.open('https://cgph--c.vf.force.com/flow/HR_Case_File_Case_Log_Update?varID={!x.Id}&retURL=%2F{!HR_Case_File__c.id}','_top')" layout="block">
+                    {!x.Description__c}
+                </apex:outputPanel>
+            </td>
+
+        </tr>
+    </apex:repeat>
+</table>
+</td>
+
+
+<!-- ---------------------- -->
+<!--      TABLE 2 INSP      -->
+<!-- ---------------------- -->
+
+<td width="50%" style="vertical-align:top;">
+<table border="0" width="100%" style="{!IF(logList=NULL, 'display:none;','')}">
+        <tr style="background-color:{!colorInsp} !important;">
+            <th class="left" colspan="3"> INSPECTOR LOG &nbsp; <span style="font-size:8pt;"><i>(double-click row to edit or delete)</i></span></th>
+ 
+        </tr>
+
+    <apex:repeat value="{!logList}" var="x">
+        <tr style="{!if(x.Staff_Member__r.Team__c = 'HR - Inspection Services','','display:none;')}" >
+            
+            <td  id="Entry" class="left" style="width: {!widthDate}px;">
+                <apex:outputPanel onDblClick="window.open('https://cgph--c.vf.force.com/flow/HR_Case_File_Case_Log_Update?varID={!x.Id}&retURL=%2F{!HR_Case_File__c.id}','_top')" layout="block">
+                    <apex:outputfield value="{!x.Entry_Date__c }" />
+                </apex:outputPanel>
+            </td>
+            <td  id="Entry" class="left" style="width: {!widthStaff}px;">
+                <apex:outputPanel onDblClick="window.open('https://cgph--c.vf.force.com/flow/HR_Case_File_Case_Log_Update?varID={!x.Id}&retURL=%2F{!HR_Case_File__c.id}','_top')" layout="block">
+                    {!x.Staff_Member__r.Staff_Initials__c}
+                </apex:outputPanel>
+            </td>
+            <td id="Entry" class="left">
+                <apex:outputPanel onDblClick="window.open('https://cgph--c.vf.force.com/flow/HR_Case_File_Case_Log_Update?varID={!x.Id}&retURL=%2F{!HR_Case_File__c.id}','_top')" layout="block">
+                    {!x.Description__c}
+                </apex:outputPanel>
+            </td>
+
+        </tr>
+    </apex:repeat>
+</table>
+</td>
+</tr>
+
+<!-- ---------------------- -->
+<!--  PREVIOUS HRS NOTES    -->
+<!-- ---------------------- -->
+
+<tr style="background-color: white !important; border: 0px !important;{!IF(HR_Case_File__c.Hide_Old_Case_Log_Notes__c=true,'','display: none;')}">
+    <td style="vertical-align:top; padding-left: 10px; padding-right: 50px;">
+        <br/>
+        <b>PREVIOUS CASE LOG NOTES:</b>
+        <br/>
+        <div class="OldNotes">
+            <apex:outputfield value="{!HR_Case_File__c.Case_Log_Notes__c}" />
+        </div>
+    </td>
+    
+<!-- ---------------------- -->
+<!--  PREVIOUS INSP NOTES   -->
+<!-- ---------------------- -->
+
+    <td style="vertical-align:top; padding-left: 10px; padding-right: 50px;">
+        <br/>
+        <b>PREVIOUS INSPECTOR LOG NOTES:</b>
+        <br/>
+        <div class="OldNotes">
+            <apex:outputfield value="{!HR_Case_File__c.Inspector_Log_Notes__c}" />
+        </div>
+    </td>
+</tr>
+</table>
+
+<!-- ---------------------- -->
+<!-- TOGGLE OLD CASE NOTES  -->
+<!-- ---------------------- -->
+<br/>
+<a
+    style="font-family:'Open Sans';"
+    href="https://cgph--c.vf.force.com/flow/HR_Toggle_Old_Case_Notes?varID={!HR_Case_File__c.Id}&retURL=https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FHR_Case_File__c%2F{!HR_Case_File__c.Id}%2Fview"
+    target="_top">
+
+<span style="{!IF(HR_Case_File__c.Hide_Old_Case_Log_Notes__c = false,'','display: none;')}">
+SHOW OLD NOTES
+</span>
+<span style="{!IF(HR_Case_File__c.Hide_Old_Case_Log_Notes__c = true,'','display: none;')}">
+HIDE OLD NOTES
+</span>
+
+
+
+
+
+
+</a>
+
+<!-- ---------------------- -->
+<!--     PRINATBLE VIEW     -->
+<!-- ---------------------- -->
+<br/>
+<br/>
+<a style="font-family:'Open Sans';" href="https://cgph--c.vf.force.com/apex/HR_Case_Log_P?id={!HR_Case_File__c}&core.apexpages.devmode.url=0" target="_blank"> PRINTABLE VIEW </a>
+
+
+<!-- ---------------------- -->
+<!--  VISUAL FORCE PAGE     -->
+<!-- ---------------------- -->
+<div style="{!IF($User.LastName='Burton','','display:none;')}">
+<br/>
+<br/>
+<a style="color:{!colorBorder}" href="https://cgph--c.vf.force.com/apex/HR_Case_Log?id={!HR_Case_File__c}" target="_blank"> VF Page</a>
+</div>
+
+
+
+</body>
+
+</apex:page>

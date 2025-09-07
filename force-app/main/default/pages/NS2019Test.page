@@ -1,0 +1,334 @@
+<apex:page standardController="CampaignMember" id="ECpage">
+  
+  <style>
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+  
+  body .bPageBlock .pbBody .purple .pbSubheader {background-color: #7E57C2;}
+  .fieldHeader {font-family: 'Open Sans'; font-size: 12pt; font-weight: bold; color: rgb(0, 101, 168); text-align: right;}
+  .inTable {font-family: 'Open Sans'; font-size: 11pt; padding: 10px 0px 10px 0px; text-align: left;}
+  
+  </style> 
+  
+  <apex:pageBlock title="Eligibility Checker">
+  
+  <apex:outputPanel styleClass="purple" layout="block">
+        
+        <!-- PROPERTY SECTION TABLE START -->
+        <table width="100%" border="0">
+        <tr>
+        <td>  
+        
+            <!-- PROPERTY SECTION START -->                     
+            <apex:pageBlockSection title="Property" columns="1" collapsible="false">
+                            
+                <apex:outputLink value="/{!CampaignMember.Campaign.Campaign_Property__r.Id}" styleClass="inTable"> {!CampaignMember.Campaign.Campaign_Property__r.Name} </apex:outputLink>
+                <apex:outputpanel styleClass="inTable" >
+                    {!CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Number_of_Bedrooms__c} BR &#183; {!CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Number_of_Bathrooms__c} BA <br />
+                </apex:outputpanel>    
+                <apex:outputpanel styleClass="inTable" >    
+                    {!CampaignMember.Campaign.Campaign_Property__r.Income_Level__c}
+                </apex:outputpanel>
+                <apex:outputText value="{0, Number, Currency}" styleClass="inTable">    
+                    <apex:param value="{!CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c}" />
+                </apex:outputText>       
+            
+            </apex:pageBlockSection>
+            <!-- PROPERTY SECTION END -->  
+        
+        </td>
+        </tr>
+        </table>
+        <!-- PROPERTY SECTION TABLE END -->
+
+
+        <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+             
+        <!-- PROPERTY VARIABLES & POTENTIAL WAIVERS SECTIONS TABLE START -->
+        <table width="100%" border="0" style="text-align: left;">
+        <tr>
+        <td>
+        
+            <!-- PROPERTY VARIABLES SECTION START -->
+            <apex:pageBlockSection title="Property Variables" columns="1" collapsible="false">
+            
+                <apex:panelGrid columns="2" id="propertyVariablesGrid" border="0" style="background-color: gray; padding: 10px; text-align: left;" width="425px">
+                
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Income Limit:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >
+                    <apex:outputLink value="/{!CampaignMember.Campaign.Campaign_Property__r.Development_address__r.Dev_Income_Limit__r.Id}" styleClass="inTable">{!CampaignMember.Campaign.Campaign_Property__r.Development_address__r.Dev_Income_Limit__r.Name} </apex:outputLink>
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Rent:
+                </apex:outputpanel>
+                <apex:outputText value="{0, Number, Currency}" styleClass="inTable">    
+                    <apex:param value="{!CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c}" />
+                </apex:outputText>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Utilities:
+                </apex:outputpanel>
+                <apex:outputText value="{0, Number, Currency}" styleClass="inTable">    
+                    <apex:param value="{!CampaignMember.Campaign.Campaign_Property__r.Utilities__c}" />
+                </apex:outputText>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    <br /> 3X Rent Required?:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    <br /> {!if(CampaignMember.Campaign.Campaign_Property__r.Development_address__r.X3x_Rent_Requirement__c=true,'Yes','No')}
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Rental Assistance Permitted?:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    {!if(CampaignMember.Campaign.Campaign_Property__r.Rental_Assistance_Permitted__c=true,'Yes','No')}
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Consider Veterans&#39; Preference?:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    {!if(CampaignMember.Campaign.Campaign_Property__r.Consider_Veterans_Preference__c=true,'Yes','No')}
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Consider Disabed Regardless of Age?:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    {!if(CampaignMember.Campaign.Campaign_Property__r.Disabled_eligible_regardless_of_age__c='','Unknown',CampaignMember.Campaign.Campaign_Property__r.Disabled_eligible_regardless_of_age__c)}
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    <br /> Age Restriction:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    <br /> {!if(CampaignMember.Campaign.Campaign_Property__r.Age_Restriction__c='','Unknown',CampaignMember.Campaign.Campaign_Property__r.Age_Restriction__c)}
+                </apex:outputpanel>
+                
+                </apex:panelGrid> 
+            
+            </apex:pageBlockSection>
+            <!-- PROPERTY VARIABLES SECTION END -->
+        
+        </td>        
+        <td>
+        
+            <!-- POTENTIAL WAIVERS SECTION START -->
+            <apex:pageBlockSection title="Potential Waivers" columns="1" collapsible="false">
+            
+                <apex:panelGrid columns="2" id="potentialWaiversGrid" border="0" style="background-color: gray; padding: 10px; text-align: left;" width="425px">
+                
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Section 8:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" onmouseover="Test">    
+                    May Apply
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Substandard / Overcrowded Housing:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    {!if(CampaignMember.Campaign.Campaign_Property__r.Development_address__r.X3x_Rent_Requirement__c=false,'May Apply', 'Does Not Apply')}
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Higher Current Rent:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    {!if(CampaignMember.Campaign.Campaign_Property__r.Development_address__r.X3x_Rent_Requirement__c=false,'May Apply', 'Does Not Apply')}
+                </apex:outputpanel>
+                
+                </apex:panelGrid>
+                
+            </apex:pageBlockSection>
+            <!-- POTENTIAL WAIVERS SECTION END -->
+        
+        </td>                
+        </tr>
+        </table>
+        <!-- PROPERTY VARIABLES & POTENTIAL WAIVERS SECTIONS TABLE END -->
+        
+        
+        <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+        
+        
+        <!-- APPLICANT VARIABLES & ELIGIBLE FOR WAIVERS IF NEEDED SECTIONS TABLE START -->
+        <table width="100%" border="0">
+        <tr>
+        <td>
+        
+            <!-- APPLICANT VARIABLES SECTION START -->
+            <apex:pageBlockSection title="Applicant Variables" columns="1" collapsible="false">
+            
+                <apex:panelGrid columns="2" id="applicantVariablesGrid" border="0" style="background-color: gray; padding: 10px; text-align: left;" width="425px">
+                
+                </apex:panelGrid>
+                
+            </apex:pageBlockSection>
+            <!-- APPLICANT VARIABLES SECTION END -->
+        
+        </td>
+        <td>
+        
+            <!-- ELIGIBLE FOR WAIVERS IF NEEDED SECTION START -->
+            <apex:pageBlockSection title="Eligible for Waivers if Needed" columns="1" collapsible="false">
+                
+                <apex:panelGrid columns="2" id="eligibleForWaiversIfNeededGrid" border="0" style="background-color: gray; padding: 10px; text-align: left;" width="425px">
+                
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Section 8:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable">    
+                    {!if(CampaignMember.Pre_Applicant__r.Section_8__c=true,'Meets Criteria','Does Not Meet Criteria')}
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Substandard / Overcrowded Housing:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    {!if(CampaignMember.Campaign.Campaign_Property__r.Development_address__r.X3x_Rent_Requirement__c=false && CampaignMember.Pre_Applicant__r.Substandard_Overcrowded_Housing__c,'Meets Criteria', 'Does Not Meet Criteria')}
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Higher Current Rent:
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    {!if(CampaignMember.Campaign.Campaign_Property__r.Development_address__r.X3x_Rent_Requirement__c=false && CampaignMember.Pre_Applicant__r.Monthly_Rent__c > CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c,'Meets Criteria', 'Does Not Meet Criteria')}
+                </apex:outputpanel>
+                
+                </apex:panelGrid>
+                
+            </apex:pageBlockSection>
+            <!-- ELIGIBLE FOR WAIVERS IF NEEDED SECTION END -->
+    
+        </td>
+        </tr>
+        </table>
+        <!-- APPLICANT VARIABLES & ELIGIBLE FOR WAIVERS IF NEEDED SECTIONS TABLE END -->
+        
+        
+        <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+        
+        
+        <!-- PRELIMINARY ELIGIBILITY CALCULATION TABLE START -->
+        <table width="100%" border="0">
+        <tr>
+        <td>
+        
+            <!-- PRELIMINARY ELIGIBILITY CALCULATION SECTION START -->
+            <apex:pageBlockSection title="Preliminary Eligibility Calculations" columns="1" collapsible="false">
+                
+                <apex:panelGrid columns="2" id="preliminaryEligibilityCalcRentGrid" border="0" style="background-color: gray; padding: 10px; text-align: left;" width="100%">
+                
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    Effective Rent
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    {!if(CampaignMember.Campaign.Campaign_Property__r.Rental_Assistance_Permitted__c=true,'= Rent + Utilities - Monthly Other Assistance','= Rent + Utilities')}
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    <!-- Blank Space -->
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    {!if(CampaignMember.Campaign.Campaign_Property__r.Rental_Assistance_Permitted__c=true,
+
+                    '= $' & 
+
+                    if(CONTAINS(TEXT(CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c),'.')=true,
+                    TEXT(CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c),
+                    TEXT(CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c) & '.00') & ' + $' &
+ 
+                    if(CONTAINS(TEXT(CampaignMember.Campaign.Campaign_Property__r.Utilities__c),'.')=true,
+                    TEXT(CampaignMember.Campaign.Campaign_Property__r.Utilities__c),
+                    TEXT(CampaignMember.Campaign.Campaign_Property__r.Utilities__c) & '.00') & ' - $' & 
+
+                    if(CONTAINS(TEXT(CampaignMember.Pre_Applicant__r.Monthly_Other_Assistance__c),'.')=true,
+                    TEXT(CampaignMember.Pre_Applicant__r.Monthly_Other_Assistance__c),
+                    TEXT(CampaignMember.Pre_Applicant__r.Monthly_Other_Assistance__c) & '.00'),
+
+                    '= $' & 
+
+                    if(CONTAINS(TEXT(CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c),'.')=true,
+                    TEXT(CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c),
+                    TEXT(CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c) & '.00') & ' + $' & 
+
+                    if(CONTAINS(TEXT(CampaignMember.Campaign.Campaign_Property__r.Utilities__c),'.')=true,
+                    TEXT(CampaignMember.Campaign.Campaign_Property__r.Utilities__c),
+                    TEXT(CampaignMember.Campaign.Campaign_Property__r.Utilities__c) & '.00'))}
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    <!-- Blank Space -->
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >    
+                    = ${!if(CONTAINS(TEXT(
+
+                    if(CampaignMember.Campaign.Campaign_Property__r.Rental_Assistance_Permitted__c=true,
+                    CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c + CampaignMember.Campaign.Campaign_Property__r.Utilities__c - CampaignMember.Pre_Applicant__r.Monthly_Other_Assistance__c,
+                    CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c + CampaignMember.Campaign.Campaign_Property__r.Utilities__c))
+
+                    ,'.')=true,
+
+                    TEXT(if(CampaignMember.Campaign.Campaign_Property__r.Rental_Assistance_Permitted__c=true,
+                    CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c + CampaignMember.Campaign.Campaign_Property__r.Utilities__c - CampaignMember.Pre_Applicant__r.Monthly_Other_Assistance__c,
+                    CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c + CampaignMember.Campaign.Campaign_Property__r.Utilities__c)),
+
+                    TEXT(if(CampaignMember.Campaign.Campaign_Property__r.Rental_Assistance_Permitted__c=true,
+                    CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c + CampaignMember.Campaign.Campaign_Property__r.Utilities__c - CampaignMember.Pre_Applicant__r.Monthly_Other_Assistance__c,
+                    CampaignMember.Campaign.Campaign_Property__r.HOMEtracker__Monthly_Rent__c + CampaignMember.Campaign.Campaign_Property__r.Utilities__c))
+
+                    & '.00')}
+                </apex:outputpanel>
+               
+                </apex:panelGrid> 
+               
+                <apex:panelGrid columns="2" id="preliminaryEligibilityCalcPercentGrid" border="0" style="background-color: gray; padding: 10px; text-align: left;" width="100%"> 
+
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    % Monthly Inocme (No Waiver)
+                </apex:outputpanel>         
+                <apex:outputpanel styleClass="inTable" >
+                    = (Effective Rent x 12) / Annual Income
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                    <!-- Blank Space -->
+                </apex:outputpanel>
+                <apex:outputpanel styleClass="inTable" >
+                    = ($###.## x 12) /&nbsp; <apex:outputText value="{0, Number, Currency}" styleClass="inTable"><apex:param value="{!CampaignMember.Pre_Applicant__r.Annual_Income__c}" /></apex:outputText>
+                </apex:outputpanel>
+                
+                </apex:panelGrid>               
+                
+            </apex:pageBlockSection>
+            <!-- PRELIMINARY ELIGIBILITY CALCULATION SECTION END -->
+            
+        </td>
+        </tr>
+        </table>
+        <!-- PRELIMINARY ELIGIBILITY CALCULATION TABLE END -->
+        
+        
+        <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+        
+        
+        <!-- PRELIMINARY ELIGIBILITY DETERMINATION TABLE START -->
+        <table width="100%" border="0">
+        <tr>
+        <td>
+        
+            <!-- PRELIMINARY ELIGIBILITY DETERMINATION SECTION START -->
+            <apex:pageBlockSection title="Preliminary Eligibility Determination" columns="1" collapsible="false">
+            
+                <apex:panelGrid columns="2" id="preliminaryEligibilityDeterminationGrid" border="0" style="background-color: gray; padding: 10px; text-align: left;" width="425px">
+                
+                Enter Text
+                
+                </apex:panelGrid>
+                
+            </apex:pageBlockSection>
+            <!-- PRELIMINARY ELIGIBILITY DETERMINATION SECTION END -->
+
+        </td>
+        </tr>
+        </table>
+        <!-- PRELIMINARY ELIGIBILITY DETERMINATION TABLE END -->
+        
+   </apex:outputPanel>     
+        
+   </apex:pageBlock>
+  
+</apex:page>

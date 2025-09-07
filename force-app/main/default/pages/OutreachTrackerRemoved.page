@@ -1,0 +1,162 @@
+<apex:page controller="OutreachTrackerRemovedController" standardStylesheets="true">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto');
+    thead{
+        top: 0;
+        Position: sticky;
+        background-color: white;
+        z-index: 20;
+        min-height: 30px;
+        height: 30px;
+            }
+    td { white-space: nowrap; padding: 5px 2px 5px 2px; font-family:'Roboto'; font-size:10pt;font-weight:400;}
+    th { white-space: normal; padding: 5px 2px 5px 2px; font-family:'Roboto'; font-size:11pt; font-weight:bold; text-align:left;}
+    table {
+        border-collapse:collapse;
+        border: 0.5px gray;
+        }
+    .center { text-align:center;}
+    #dev {
+        font-family:Roboto;
+        color: black;
+        font-size:15pt;
+        font-weight:bold;
+        }
+
+
+     .buttonInv{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: 10pt;
+            color: black;
+            font-family: 'Roboto';
+            font-weight: bold;
+            background-image: linear-gradient(white,#d4d4d4);
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid gray; 
+            border-bottom: 1.5px solid gray; 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonInv:hover{
+            color:white;
+            background-image: linear-gradient(gray,gray);
+            text-decoration:none;
+                }
+     .buttonTrack{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: 10pt;
+            color: black;
+            font-family: 'Roboto';
+            font-weight: bold;
+            background-image: linear-gradient(white,#b7e1cd);
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid gray; 
+            border-bottom: 1.5px solid gray; 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonTrack:hover{
+            color:white;
+            background-image: linear-gradient(#36a36e,#36a36e);
+            text-decoration:none;
+                }
+
+</style>
+<table border="1" width="100%">
+    <thead>
+    <tr style="background-image: linear-gradient(to right, white,#ff615c);">
+       <td style="" colspan="10">
+           <table>
+               <tr>
+                   <td>
+                       <a style="text-decoration:none;" href="{!dev.Google_Tracker_Link__c}" target="_blank">
+                           <apex:image url="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Google_Sheets_logo_%282014-2020%29.svg/800px-Google_Sheets_logo_%282014-2020%29.svg.png" height="20"/>
+                       </a>
+                       &nbsp;&nbsp;
+                       <a style="text-decoration:none;" href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000001QFAvMAO/view?queryScope=userFolders&fv0={!devID}" target="_blank">
+                           <apex:image url="https://upload.wikimedia.org/wikipedia/commons/8/8a/Icon-doc.svg" height="20"/>
+                       </a>
+                       &nbsp;&nbsp;
+                       <a id="dev" href="/{!devID}" target="_blank">
+                            {!dev.Name} Removed Applicants
+                        </a>
+                        <br/>
+                        
+                        
+                   </td>
+                   <td style="padding: 0px 20px 0px 20px; vertical-align:middle;" rowspan="2">
+                        <a href="https://cgph--c.vf.force.com/apex/PropertyInventory?d={!devID}" class="buttonInv" target="_top">
+                            DEVELOPMENT INVENTORY
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="https://cgph--c.vf.force.com/apex/OutreachTrackerStaff?id={!devID}" class="buttonTrack" target="_top">
+                            APPLICANT TRACKER
+                        </a>
+                    </td>
+               </tr>
+           </table>
+             
+        </td>
+    </tr>
+    <tr style="background-color:#d4d4d4;">
+        <th>Address</th>
+        <th>Unit</th>
+        <th>Applicant</th>
+        <th>Household</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>LL/Dev Determination</th>
+        <th>LL/Dev Notes</th>
+        <th>CGPH Determination</th>
+        <th>Mark as Removed Date</th>
+    </tr>
+    </thead>
+    <apex:repeat value="{!listRemoved}" var="x">
+    <tr>
+        <td>
+           {!SUBSTITUTE(x.Property_Address__c,Dev.Name,'')} - 
+            <apex:outputText value="{0, number, $###,###}">
+                <apex:param value="{!x.Property_Rent_or_List_Price__c}"/>
+            </apex:outputText>
+        </td>
+        <td>
+            {!x.Property_Unit__r.Unit_Number__c}
+        </td>
+        <td>
+            <a href="https://cgph.lightning.force.com/lightning/r/Outreach_Tracking__c/{!x.Id}/view" target="_blank">
+                  {!x.Applicant_Name__c}
+              </a>
+            
+        </td>
+        <td>
+            {!x.Household_Size__c}
+        </td>
+        <td>
+            {!x.Applicant_Email__c}
+        </td>
+        <td>
+            {!x.Applicant_Phone__c}
+        </td>
+        <td>
+            {!x.Landlord_Developer_Determination__c}
+        </td>
+        <td>
+            {!x.Landlord_Developer_Notes__c}
+        </td>
+        <td>
+            {!x.CGPH_Determination__c}
+            
+        </td>
+        <td>
+            <apex:outputfield value="{!x.Marked_as_Removed_Date__c}"/>
+            
+        </td>
+    </tr>
+    </apex:repeat>
+</table>
+
+</apex:page>

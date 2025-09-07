@@ -1,0 +1,367 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="InterestFormPreviewExt" title="Interest Form">
+
+<style>
+    table {
+    
+    text-align:left;
+    background-color:white;
+    border-collapse:collapse;
+    border-color:#dddedf;
+        }
+    td {
+        padding: 10px 10px 10px 10px;
+        font-family:Calibri;
+        }
+    .printButton:hover{
+        cursor:pointer;
+    }
+    .bad {
+        background-color:red;
+        color:white;
+        font-weight:bold;
+        font-size:10pt;
+        }
+    .fix{
+        background-color:orange;
+        color:black;
+        }
+    
+    @media print{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+</style>
+
+<script>
+function printWithSpecialFileName(){
+    var tempTitle = document.title;
+    document.title = "Sample Interest Form - {!SUBSTITUTE(SUBSTITUTE(HOMEtracker__Property__c.Name,',',' '),'#',' ')}.pdf";
+    window.print();
+    document.title = tempTitle;
+}
+</script>
+<!--
+Subject: Affordable Housing Opportunity - {!HOMEtracker__Property__c.Name}
+-->
+
+
+
+<table width="650">
+    <tr>
+        <td>
+
+            <apex:image: url="https://www.affordablehomesnewjersey.com/wp-content/uploads/2016/10/AHNJ-logo.png"/>
+            <span class="printButton no-print" onclick="printWithSpecialFileName();return false;">
+                <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/3d/Document-print.svg" width="40"/>
+            </span>
+            <hr size="2" color="#2970AA"></hr>
+
+            <p>Dear FirstName LastName,</p>
+            <p>
+                <div style="{!IF(ISBLANK(HOMEtracker__Property__c.Campaign__r.Text__c)=true,'display:none;','')}">
+                    <apex:outputText value="{!HOMEtracker__Property__c.Campaign__r.Text__c}" escape="false"/>
+                </div>
+                <div class="bad" style="{!IF(ISBLANK(HOMEtracker__Property__c.Campaign__r.Text__c)=false,'display:none;','')}">
+                        MISSING: Campaign.Text
+                </div>
+            </p>
+            <p>Please respond by: <b><apex:outputText value="{0, date, MM'/'dd'/'yy}"><apex:param value="{!TODAY()+1}"/></apex:outputText></b></p>
+<center>
+
+<apex:variable var="pWidth" value="{!pW}"/>
+<apex:variable var="ptWidth" value="{!TEXT(value(pWidth)+25)}"/>
+
+
+<!-- Property Name, Image, and Bed/Bath/Price -->            
+            <table width="{!ptWidth}" border="1">
+                <tr>
+                    <td>
+                        <p><b>{!HOMEtracker__Property__c.Development_address__r.Name}</b><br></br>
+                        {!HOMEtracker__Property__c.Name}, {!HOMEtracker__Property__c.HOMEtracker__City__c}, {!HOMEtracker__Property__c.Municipality_County__c} County -
+                        <a href="{!HOMEtracker__Property__c.Property_Map__c}" target="_blank">Map</a>
+                        
+                        </p>
+        <!-- PICTURE FROM EXTENSION -->
+                        <p><apex:image: url="{!pURL}" width="{!pWidth}"/></p>
+                        <p>
+                        <b>
+                            <!--bedrooms-->
+                            <span style="{!IF(ISBLANK(HOMEtracker__Property__c.HOMEtracker__Number_of_Bedrooms__c)=true,'display:none;','')}">
+                                <font color="#2970AA">{!HOMEtracker__Property__c.HOMEtracker__Number_of_Bedrooms__c}</font> bed 
+                            </span>
+                            <span class="bad" style="{!IF(ISBLANK(HOMEtracker__Property__c.HOMEtracker__Number_of_Bedrooms__c)=false,'display:none;','')}">
+                                BEDS?
+                            </span>
+                            <!--bathrooms-->
+                            <span style="{!IF(ISBLANK(HOMEtracker__Property__c.HOMEtracker__Number_of_Bathrooms__c)=true,'display:none;','')}">
+                                <font color="#2970AA">{!HOMEtracker__Property__c.HOMEtracker__Number_of_Bathrooms__c}</font> bath -
+                            </span>
+                            <span class="bad" style="{!IF(ISBLANK(HOMEtracker__Property__c.HOMEtracker__Number_of_Bathrooms__c)=false,'display:none;','')}">
+                                BATHS?
+                            </span>
+                            <!--rent/price-->
+                            <span style="{!IF(AND(HOMEtracker__Property__c.RecordType.Name == 'Homeownership',ISBLANK(HOMEtracker__Property__c.HOMEtracker__List_Price__c)=true),'display:none;',IF(ISBLANK(HOMEtracker__Property__c.HOMEtracker__Monthly_Rent__c)=true,'display:none;',''))}">
+                                <font color="#2970AA">
+                                    <apex:outputText value="${0, number, ###,###,###,##0}">
+                                        <apex:param value="{!IF(HOMEtracker__Property__c.RecordType.Name == 'Homeownership',HOMEtracker__Property__c.HOMEtracker__List_Price__c,HOMEtracker__Property__c.HOMEtracker__Monthly_Rent__c)}" />
+                                    </apex:outputText>
+                                </font>
+                            </span>
+                            <span class="bad" style="{!IF(AND(HOMEtracker__Property__c.RecordType.Name == 'Homeownership',ISBLANK(HOMEtracker__Property__c.HOMEtracker__List_Price__c)=true),'','display:none;')}">
+                                PRICE?
+                            </span>
+                            <span class="bad" style="{!IF(AND(HOMEtracker__Property__c.RecordType.Name != 'Homeownership',ISBLANK(HOMEtracker__Property__c.HOMEtracker__Monthly_Rent__c)=true),'','display:none;')}">
+                                RENT?
+                            </span>
+                        
+                        
+                        </b>
+                        </p>
+                    
+                    </td>
+                </tr>
+            </table>
+            <br></br>
+
+<!-- Request and Skip Buttons -->
+<table width="650" border="0">
+    <tr>
+        <td></td>
+        <td>
+            <a href="" style="background-color:#FFFFFF; border:1px solid #dddedf; color:#0E6BCA; display:inline-block; font-weight: 300; font-size:15px; line-height:15px; text-align:center; text-decoration:none; height:30px; width:200px; padding-top:15px;">Submit an Interest Form</a>
+        </td>
+        <td></td>
+        <td>
+            <a href="" style="background-color:#FFFFFF; border:1px solid #dddedf; color:#0E6BCA; display:inline-block; font-weight: 300; font-size:15px; line-height:15px; text-align:center; text-decoration:none; height:30px; width:200px; padding-top:15px;">Skip this Unit</a>
+        </td>
+        <td></td>
+    </tr>
+</table>
+<br></br>
+
+<!-- Listing Details -->
+<table width="600" frame="border" cellpadding="10" align="center" bgcolor="#E8E8E8">
+<tr>
+<td>                  
+
+
+<p><b>Application Fees and Credit Requirements</b></p>
+
+<!-- Development Credit Check Required --><!--flag empty done-->
+    <apex:outputText rendered="{!IF(AND(HOMEtracker__Property__c.Development_address__r.Credit_Check_Required__c=='Yes' && HOMEtracker__Property__c.RecordType.Name='Homeownership'),true,false)}" value="Credit Check Required<br></br>" escape="false"/>
+    <apex:outputText rendered="{!IF(HOMEtracker__Property__c.RecordType.Name != 'Homeownership',true,false)}"
+        value="{!IF(HOMEtracker__Property__c.Development_address__r.Credit_Check_Required__c == '','CREDIT CHECK?',If(HOMEtracker__Property__c.Development_address__r.Credit_Check_Required__c == 'Yes','Credit Check Required','Credit Check not Required'))}<br/>" escape="false"
+        styleClass="{!IF(HOMEtracker__Property__c.Development_address__r.Credit_Check_Required__c == '','bad','')}" />
+
+<!-- Development Background Check Fee --><!--flag empty done-->
+    <apex:outputText escape="false" rendered="{!If(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.Development_address__r.Credit_Background_Check_Fee__c != null,true,false)}">
+        Credit Check Fee: ${!TRUNC(HOMEtracker__Property__c.Development_address__r.Credit_Background_Check_Fee__c,0)}
+    </apex:outputText>
+    <span class="bad" style="{!If(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.Development_address__r.Credit_Background_Check_Fee__c == null,'','display:none')}">
+        CREDIT FEE?
+    </span>
+    <br/>
+    <apex:outputText escape="false" rendered="{!If(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.Development_address__r.Credit_Background_Check_Fee__c != null && HOMEtracker__Property__c.RecordType.Name == 'Homeownership',true,false)}">
+        {!HOMEtracker__Property__c.Development_address__r.Credit_Background_Check_Fee_Notes__c}<br/>
+    </apex:outputText>
+    
+
+    <div class="bad" style="{!IF(ISBLANK(HOMEtracker__Property__c.Development_address__r.Minimum_Credit_Score_to_be_Eligible__c)=true,'','display:none;')}">CREDIT FEE?</div>               
+
+<!-- Minimum Credit Score Development Min Credit Score
+    <apex:outputText value="Minimum Credit Score to Be Eligible: {!HOMEtracker__Property__c.Development_address__r.Minimum_Credit_Score_to_be_Eligible__c}<br/>" escape="false"
+        rendered="{!IF(HOMEtracker__Property__c.Development_address__r.Credit_Check_Required__c == 'Yes' && HOMEtracker__Property__c.Development_address__r.Minimum_Credit_Score_to_be_Eligible__c != 0,true,false)}"/>
+    <div class="bad" style="{!IF(ISBLANK(HOMEtracker__Property__c.Development_address__r.Minimum_Credit_Score_to_be_Eligible__c)=true,'','display:none;')}">Credit/Background/Deposit Notes?</div>
+ -->
+ 
+<!-- Development Co-signers Allowed --><!--flag empty done-->
+    <apex:outputText value="Co-Signers Allowed<br/>" escape="false" rendered="{!If(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.RecordType.Name!='Homeownership' && HOMEtracker__Property__c.Development_address__r.Co_Signers_Allowed__c == 'Yes',true,false)}"/>
+    <apex:outputText value="No Co-Signers Allowed<br/>" escape="false" rendered="{!If(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.RecordType.Name!='Homeownership' && HOMEtracker__Property__c.Development_address__r.Co_Signers_Allowed__c == 'No',true,false)}"/>
+    <apex:outputText styleclass="bad" value="CO-SIGNERS?<br/>" escape="false" rendered="{!If(AND(HOMEtracker__Property__c.Development_address__c != null, HOMEtracker__Property__c.RecordType.Name!='Homeownership', OR(HOMEtracker__Property__c.Development_address__r.Co_Signers_Allowed__c == '',HOMEtracker__Property__c.Development_address__r.Co_Signers_Allowed__c == 'Unknown')),true,false)}"/>
+
+<!-- Development Required Deposit --><!--flag empty N/A-->
+    <apex:outputText value="Required Deposit: ${!HOMEtracker__Property__c.Development_address__r.Required_Deposit__c}<br/>" escape="false" rendered="{!If(HOMEtracker__Property__c.RecordType.Name=='Homeownership' && HOMEtracker__Property__c.Development_address__r.Required_Deposit__c != null,true,false)}"></apex:outputText>
+
+<!-- Development Credit Background Check Fee Notes --><!--flag empty N/A-->
+    <apex:outputText value="{!HOMEtracker__Property__c.Development_address__r.Credit_Background_Check_Fee_Notes__c}<br/>" escape="false" rendered="{!If(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.Development_address__r.Credit_Background_Check_Fee_Notes__c != null,true,false)}"></apex:outputText>               
+                
+<!-- Development Financing Requirements --><!--flag empty N/A-->
+    <apex:outputText value=" {!HOMEtracker__Property__c.Development_address__r.Development_Financing_Requirements__c}<br/>" escape="false" rendered="{!If(HOMEtracker__Property__c.RecordType.Name=='Homeownership',true,false)}"></apex:outputText>
+
+
+<p><b>Unit Information and Amenities</b></p>
+
+<!-- 5% Down Payment --><!--flag empty N/A-->
+    <apex:outputText styleClass="cgphPropLabel" rendered="{!HOMEtracker__Property__c.RecordType.Name=='Homeownership'}" value="5% Down Payment: ${0,number,###,###,###,##0}<br/>" escape="false">
+    <apex:param value="{!HOMEtracker__Property__c.X5_Down_Payment_Approximate__c}" />
+    </apex:outputText>
+               
+<!-- Annual Property Taxes --><!--flag empty N/A-->
+    <apex:outputText styleClass="cgphPropLabel" rendered="{!HOMEtracker__Property__c.RecordType.Name == 'Homeownership' && HOMEtracker__Property__c.Development_address__r.HOMEtracker__Property_Type__c != 'Mobile or Manufactured Home'}" value="Annual Property Taxes: ${0,number,###,###,###,##0}<br/>" escape="false">
+    <apex:param value="{!HOMEtracker__Property__c.Approximate_Annual_Property_Taxes__c}" />
+    </apex:outputText>
+
+<!-- HOA Condo Fees--><!--flag empty done-->
+    <div style="{!IF(HOMEtracker__Property__c.RecordType.Name == 'Homeownership','','display:none;')}">
+        {!IF(HOMEtracker__Property__c.Development_address__r.HOMEtracker__Property_Type__c != 'Mobile or Manufactured Home','HOA/Condo Fee: ','Monthly Fee: ')}
+        <apex:outputField value="{!HOMEtracker__Property__c.HOMEtracker__Current_HOA_Condo_Fees__c}"/>
+        <span class="bad" style="{!IF(ISBLANK(HOMEtracker__Property__c.HOMEtracker__Current_HOA_Condo_Fees__c)=true,'','display:none;')}">FEE?</span>
+    </div>
+                                                     
+<!-- Development Utilities Included --><!--flag empty N/A-->
+    <apex:outputText value="Utilities Included in Rent: {!SUBSTITUTE(HOMEtracker__Property__c.Development_address__r.Utilities_Included__c,';',', ')}<br/>" escape="false" rendered="{!If(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.Development_address__r.Utilities_Included__c != null,true,false)}"></apex:outputText>
+  
+<!-- Income Level --><!--flag empty done-->
+    <apex:outputText value="{!HOMEtracker__Property__c.Max_Income_Level__c} Income Level<br/>" escape="false"
+        rendered="{!If(HOMEtracker__Property__c.Max_Income_Level__c != null,true,false)}"/>
+    <apex:outputText styleclass="bad" value="MAX INCOME LEVEL?<br/>" escape="false"
+        rendered="{!If(HOMEtracker__Property__c.Max_Income_Level__c == null,true,false)}"/>
+            
+<!-- Floor --><!--flag empty N/A-->
+    <apex:outputText value="{!HOMEtracker__Property__c.Floor_unit_is_located_on__c} Floor<br/>" escape="false" rendered="{!IF(HOMEtracker__Property__c.HOMEtracker__Property_Type__c != null && (HOMEtracker__Property__c.HOMEtracker__Property_Type__c != 'Single-Family Home' || HOMEtracker__Property__c.HOMEtracker__Property_Type__c != 'Mobile or Manufactured Home'),true,false)}"></apex:outputText>
+            
+<!-- Multi-level Unit --><!--flag empty N/A-->
+    <apex:outputText value="Multi Level Home<br/>" escape="false" rendered="{!IF(HOMEtracker__Property__c.Multi_level_unit__c,true,false)}"></apex:outputText>
+                 
+<!-- Development Elevator --><!--flag empty N/A-->
+    <apex:outputText value="Elevator<br/>" escape="false" rendered="{!IF(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.Development_address__r.Elevator__c == 'Yes',true,false)}"></apex:outputText>
+    <apex:outputText value="No Elevator<br/>" escape="false" rendered="{!IF(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.Development_address__r.Elevator__c == 'No',true,false)}"></apex:outputText>
+
+<!-- Smoking Policy --><!--flag empty N/A-->
+    <apex:outputText value="No Smoking Allowed<br/>" escape="false" rendered="{!IF((HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.Development_address__r.Smoking_Allowed__c == 'No'),true,false)}"></apex:outputText>
+                
+<!-- Amenities --><!--flag empty N/A-->
+    <apex:outputText value=" Complex Amenities: {!SUBSTITUTE(HOMEtracker__Property__c.Development_address__r.Amenities__c,';',', ')}<br/>" escape="false"  rendered="{!IF(HOMEtracker__Property__c.Development_address__c != null && HOMEtracker__Property__c.Development_address__r.Amenities__c != null,true,false)}"></apex:outputText>
+                
+<!-- Interior --><!--flag empty N/A-->
+    <apex:outputText rendered="{!IF(HOMEtracker__Property__c.HOMEtracker__Interior__c != null,true,false)}" value="Interior Amenities: {!SUBSTITUTE(HOMEtracker__Property__c.HOMEtracker__Interior__c,';',', ')}" escape="false"></apex:outputText>
+<!-- PROPERTY VS DEVELOPMENT MATCH - INTERIOR -------------------------------------------------------------------------------------------------------- -->
+        <span class="fix" style="{!IF(HOMEtracker__Property__c.HOMEtracker__Interior__c = HOMEtracker__Property__c.Development_Address__r.HOMEtracker__Interior__c ,'display:none;','')}">
+            <a href ="/{!HOMEtracker__Property__c.Id}" target="_blank">(PROPERTY)</a><br/>
+            Interior Amenities: {!HOMEtracker__Property__c.Development_Address__r.HOMEtracker__Interior__c } 
+            <a href ="/{!HOMEtracker__Property__c.Development_Address__r.Id}" target="_blank">(DEVELOPMENT)</a>
+                <br/>
+        </span>
+
+<!-- Exterior --><!--flag empty N/A-->
+    <apex:outputText rendered="{!IF(HOMEtracker__Property__c.HOMEtracker__Exterior__c != null,true,false)}" value="Exterior Amenities: {!SUBSTITUTE(HOMEtracker__Property__c.HOMEtracker__Exterior__c,';',', ')}<br/>" escape="false"></apex:outputText>
+
+
+<apex:outputText rendered="{!If(HOMEtracker__Property__c.Age_Restriction__c != 'None',true,false)}"><p><b>Age-Restricted Policy</b></p></apex:outputText>
+                
+<!-- Age Restriction --><!--flag empty N/A-->
+    <apex:outputText rendered="{!If(HOMEtracker__Property__c.Age_Restriction__c == '55+ Exclusive',true,false)}" value="This is a 55+ community.  All household members must be 55 years old or older." escape="false"></apex:outputText>
+    <apex:outputText rendered="{!If(HOMEtracker__Property__c.Age_Restriction__c == 'Over 17',true,false)}" value="This is a 55+ community.  At least one household member must be 55 years or older.  All other household members must be over 17 years old." escape="false"></apex:outputText>
+    
+    <apex:outputText rendered="{!If(HOMEtracker__Property__c.Age_Restriction__c == 'Over 18',true,false)}" value="This is a 55+ community.  At least one household member must be 55 years or older.  All other household members must be over 18 years old." escape="false"></apex:outputText>
+<!-- PROPERTY VS DEVELOPMENT MATCH - AGE RESTRICTION-------------------------------------------------------------------------------------------------------- -->
+        <span class="fix" style="{!IF(HOMEtracker__Property__c.Age_Restriction__c = HOMEtracker__Property__c.Development_Address__r.Age_Restriction__c ,'display:none;','')}">
+            <a href ="/{!HOMEtracker__Property__c.Id}" target="_blank">(PROPERTY)</a><br/>
+            {!HOMEtracker__Property__c.Development_Address__r.Age_Restriction__c } 
+            <a href ="/{!HOMEtracker__Property__c.Development_Address__r.Id}" target="_blank">(DEVELOPMENT)</a>
+                <br/>
+        </span>
+<!-- Pets --><!--flag empty done-->
+<p><b>Pets</b></p>
+    <apex:outputText rendered="{!If(HOMEtracker__Property__c.Pets_allowed__c == 'No',true,false)}">
+        No Pets Allowed<br></br>
+    </apex:outputText>
+    <apex:outputText rendered="{!If(HOMEtracker__Property__c.Pets_allowed__c != 'No',true,false)}">
+        {!HOMEtracker__Property__c.Pet_fee__c}
+        <span style="{!IF(ISBLANK(HOMEtracker__Property__c.Pet_fee__c)=true,'','display:none;')}" class="bad">
+            PET FEE?
+        </span>
+        
+<!-- PROPERTY VS DEVELOPMENT MATCH - PETS-------------------------------------------------------------------------------------------------------- -->
+        <span class="fix" style="{!IF(HOMEtracker__Property__c.Pet_fee__c = HOMEtracker__Property__c.Development_Address__r.Pet_fee__c ,'display:none;','')}">
+            <a href ="/{!HOMEtracker__Property__c.Id}" target="_blank">(PROPERTY)</a><br/>
+            {!HOMEtracker__Property__c.Development_Address__r.Pet_fee__c } 
+            <a href ="/{!HOMEtracker__Property__c.Development_Address__r.Id}" target="_blank">(DEVELOPMENT)</a>
+                <br/>
+        </span>
+        <br/>
+    </apex:outputText>
+
+<!-- Parking --><!--flag empty done-->
+<p><b>Parking</b></p>
+    
+    {!HOMEtracker__Property__c.Additional_Parking_Fee__c}
+    <span class="bad" style="{!IF(ISBLANK(HOMEtracker__Property__c.Additional_Parking_Fee__c)=true,'','display:none;')}">
+    PARKING FEE?
+    </span>
+<!-- PROPERTY VS DEVELOPMENT MATCH - PARKING -------------------------------------------------------------------------------------------------------- -->
+        <span class="fix" style="{!IF(HOMEtracker__Property__c.Additional_Parking_Fee__c = HOMEtracker__Property__c.Development_Address__r.Additional_Parking_Fee__c,'display:none;','')}">
+            <a href ="/{!HOMEtracker__Property__c.Id}" target="_blank">(PROPERTY)</a><br/>
+            {!HOMEtracker__Property__c.Development_Address__r.Additional_Parking_Fee__c} 
+            <a href ="/{!HOMEtracker__Property__c.Development_Address__r.Id}" target="_blank">(DEVELOPMENT)</a>
+                <br/>
+        </span>
+    <br/>
+
+<!-- Accessibility Features --><!--flag empty N/A-->
+<apex:outputText rendered="{!If(HOMEtracker__Property__c.HOMEtracker__Accessibility_Features__c==true,true,false)}"><p><b>Accessibility Features</b></p>
+    {!HOMEtracker__Property__c.HOMEtracker__Description_of_Accessibility_Features__c}
+</apex:outputText>
+
+<!-- Affordability Assistance --><!--flag empty N/A-->
+<div id="divAffAssistance" class="col-lg-12">
+<apex:outputText rendered="{!HOMEtracker__Property__c.RecordType.Name == 'Homeownership' && (HOMEtracker__Property__c.Municipality_Name__r.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != '' || HOMEtracker__Property__c.Municipality_Name__r.Down_Payment_Assistance_Cert_Text__c != '')}"
+styleClass="control-label" value=""><p><b>Affordability Assistance</b></p></apex:outputText>
+            
+<apex:outputText rendered="{!HOMEtracker__Property__c.RecordType.Name == 'Rental Unit' && (HOMEtracker__Property__c.Municipality_Name__r.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != '' || HOMEtracker__Property__c.Municipality_Name__r.Rent_Assistance_Cert_Text__c != '')}"
+styleClass="control-label" value=""><p><b>Affordability Assistance</b></p></apex:outputText>
+</div>          
+            
+    <div class="col-lg-12">
+             
+    <apex:outputText styleClass="cgphPropLabel" rendered="{!HOMEtracker__Property__c.RecordType.Name == 'Homeownership' && HOMEtracker__Property__c.Municipality_Name__r.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c != ''}" >
+    {!HOMEtracker__Property__c.Municipality_Name__r.County_Lookup__r.County_Down_Payment_Assistance_Cert_Text__c} <br/>
+    </apex:outputText>    
+              
+    <apex:outputText styleClass="cgphPropLabel" rendered="{!HOMEtracker__Property__c.RecordType.Name == 'Homeownership' && HOMEtracker__Property__c.Municipality_Name__r.Down_Payment_Assistance_Cert_Text__c != ''}" value="{!HOMEtracker__Property__c.Municipality_Name__r.Down_Payment_Assistance_Cert_Text__c}" />      
+                       
+    <apex:outputText styleClass="cgphPropLabel" rendered="{!HOMEtracker__Property__c.RecordType.Name == 'Rental Unit' && HOMEtracker__Property__c.Municipality_Name__r.County_Lookup__r.County_Rent_Assistance_Cert_Text__c != ''}">
+    {!HOMEtracker__Property__c.Municipality_Name__r.County_Lookup__r.County_Rent_Assistance_Cert_Text__c} <br/>
+    </apex:outputtext>                    
+   
+    <apex:outputText styleClass="cgphPropLabel" rendered="{!HOMEtracker__Property__c.RecordType.Name == 'Rental Unit' && HOMEtracker__Property__c.Municipality_Name__r.Rent_Assistance_Cert_Text__c != ''}" value="{!HOMEtracker__Property__c.Municipality_Name__r.Rent_Assistance_Cert_Text__c}" />                    
+              
+    </div>           
+
+<!-- Property Description --><!--flag empty done-->
+<p><b>
+{!HOMEtracker__Property__c.HOMEtracker__Property_Description__c}
+<span class="bad" style="{!IF(ISBLANK(HOMEtracker__Property__c.HOMEtracker__Property_Description__c)=true,'','display:none;')}">
+    PROPERTY DESCRIPTION?
+    </span>
+
+</b></p>
+
+</td>
+</tr>
+</table>
+
+<br></br>
+
+<hr size="2" color="#2970AA"></hr>
+
+<br></br>
+<p>
+1249 South River Road, Suite 301, Cranbury, NJ 08512-3633<br></br>
+<a href="mailto:homes@cgph.net">homes@cgph.net</a><br></br>
+<a href="www.affordablehomesnewjersey.com/">www.affordablehomesnewjersey.com</a><br></br>
+<br></br>
+View my  <a href="">Affordable Homes New Jersey Profile</a><br></br>
+I am no longer interested in affordable housing: <a href="">Remove me from all Waiting Lists</a><br></br>
+</p>
+</center>
+
+</td>
+</tr>
+</table>
+
+
+
+</apex:page>

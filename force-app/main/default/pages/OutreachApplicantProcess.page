@@ -1,0 +1,145 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="PreScreenExt,OutreachApplicantsExt" standardStylesheets="true">
+
+<!-- COLOR VARIABLES -->
+<apex:variable id="cDarkBlue" var="cDarkBlue" value="rgb(0, 101, 168)"/>
+<apex:variable id="cRef" var="cRef" value="#9cffff"/>
+<apex:variable id="cGood" var="cGood" value="#a1ff9c"/>
+<apex:variable id="cNeedsPreScreen" var="cNeedsPreScreen" value="#faff75"/>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            }
+        thead {
+            background-color:{!cDarkBlue};
+            color: white;
+           font-family: 'Open Sans';
+           font-size:10pt;
+           } 
+        td {
+            font-family: 'Open Sans';
+            font-size:9pt;
+            padding: 5px 5px 5px 5px;
+            }
+        .head {
+            font-size: 16pt;
+            padding: 10px 0px 10px 5px;
+                }
+        
+</style>
+
+<apex:variable var="exportLink" value="
+https://cgph--c.vf.force.com/flow/Outreach_Timeline_update_Applicant_on_Tracker_Date?varID={!HOMEtracker__Property__c.Id}&retURL=
+%2Fapex%2FAPXTConga4__Conga_Composer%3FserverUrl%3D{!$Api.Enterprise_Server_URL_370}
+%26Id%3D{!HOMEtracker__Property__c.Id}
+%26TemplateId%3Da291N000003o8kB
+%26QueryId%3D%5BSF%5Da216O00000Ln7ZO%3Fpv0%3D{!HOMEtracker__Property__c.Id}
+%26ExcelAutoFitColumns%3D1
+%26OFN%3DGoogle%2BTracker%2BData%2B{!HOMEtracker__Property__c.Name}
+%26DS7%3D3
+"/>
+
+<div class="head" width="100%">
+
+<a href="https://cgph.lightning.force.com/lightning/r/Report/00O1N00000658tY/view?reportFilters=%5B%7B%22column%22%3A%22Application__c.Property__c.Id%22%2C%22value%22%3A%22{!HOMEtracker__Property__c.Id}%22%2C%22operator%22%3A%22equals%22%2C%22isContextFilter%22%3Atrue%7D%5D" target="_blank" style="text-decoration:none;{!IF(HOMEtracker__Property__c.RecordType.Name='Rental Unit','','display:none;')}">
+<apex:image url="{!$Resource.DonutChartIcon}" height="20"/>
+</a>
+
+<a href="https://cgph.lightning.force.com/lightning/r/Report/00O1N00000658qy/view?reportFilters=%5B%7B%22column%22%3A%22Application__c.Property__c.Id%22%2C%22value%22%3A%22{!HOMEtracker__Property__c.Id}%22%2C%22operator%22%3A%22equals%22%2C%22isContextFilter%22%3Atrue%7D%5D" target="_blank" style="text-decoration:none;{!IF(HOMEtracker__Property__c.RecordType.Name='Homeownership','','display:none;')}">
+<apex:image url="https://cgph--c.vf.force.com/resource/1721055655000/DonutChartIcon" height="20"/>
+</a>
+
+
+Outreach Applicant Process - <b>{!HOMEtracker__Property__c.Name}, {!HOMEtracker__Property__c.Municipality_Name__r.Name}</b>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="{!exportLink}" target="_blank">EXPORT NAMES FOR TRACKER</a>
+<br/>
+<i>Application Submission Deadline - <span style="background-color:yellow; font-weight: bold;"><apex:outputfield value="{!HOMEtracker__Property__c.Application_Submission_Deadline__c}"/></span></i>
+<br/>
+{!IF(HOMEtracker__Property__c.RecordType.Name='Rental Unit',HOMEtracker__Property__c.RecordType.Name,HOMEtracker__Property__c.RecordType.Name)}
+</div>
+
+
+<table border="1">
+    <thead>
+        <th> # </th>
+        <th style="text-align:center"> Priority </th>
+        <th> CM </th>
+        <th> EA Sort </th>
+        <th> Preliminary Submission </th>
+        <th> Outreach Applicant Process </th>
+        <th> Application Submitted </th>
+        <th> Prelim. Sub. Status </th>
+        <th> Service File Status </th>
+        <th> Application Status </th>
+        <th> Application Workflow Status </th>
+        <th> Outreach Notes </th>
+    </thead>
+    
+<apex:variable value="{!0}" var="rowNum"/>    
+    <apex:repeat value="{!OutreachApplicantList}" var="x">
+<apex:variable value="{!rowNum+1}" var="rowNum"/>
+        <tr
+         style="
+             {!IF(x.Campaign_Preliminary_Submission__r.Service_File__r.Application_Workflow_Status__c = 'Application Received - Waiting for Credit Results','background-color:'+cRef+';font-weight:bold;',
+             IF(x.Campaign_Preliminary_Submission__r.Service_File__r.Application_Workflow_Status__c = 'Pre-Screen Complete, Not Yet Referred','background-color:'+cGood+';font-weight:bold;',
+             IF(ISNULL(x.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Submitted__c)=false,'background-color:'+cNeedsPreScreen+';font-weight:bold;','')))
+             }">
+            <td>
+            {!rowNum}
+            </td>
+            <td style="text-align:center;{!IF(ISBLANK(x.Campaign_Preliminary_Submission__r.Service_File__r.Priority__c),'background-color:orange;','')}">
+                {!x.Campaign_Preliminary_Submission__r.Service_File__r.Priority__c}
+            </td>
+            <td>
+                <a href="https://cgph.lightning.force.com/lightning/r/CampaignMember/{!x.Id}/view" target="_blank">
+                    <apex:image url="https://cgph--c.vf.force.com/resource/1500493237000/blueFileIcon" width="15"/>
+                </a>
+            </td>
+            <td style="{!IF(x.EA_Sort__c = 'B','background-color:red;','')}">
+                {!x.EA_Sort__c}
+            </td>
+            <td>
+                <a href="/{!x.Campaign_Preliminary_Submission__r.Id}" target="_blank">
+                    {!x.Campaign_Preliminary_Submission__r.Name}
+                </a>
+            </td>
+            <td>
+                <apex:outputField value="{!x.Outreach_Applicant_Process__c}"/>
+            </td>
+            <td>
+                <apex:outputField value="{!x.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Submitted__c}"/>
+            </td>
+<!--
+            <td>
+                <apex:outputField value="{!x.Deadline_Date__c}"/>
+            </td>
+-->
+<!--
+            <td>
+                <apex:outputField value="{!x.Campaign_Preliminary_Submission__r.Application_Due__c}"/>
+            </td>
+-->
+            <td>
+                {!x.Campaign_Preliminary_Submission__r.Status__c}
+            </td>
+            <td>
+                {!x.Campaign_Preliminary_Submission__r.Service_File__r.PHA__Application_Status__c}
+            </td>
+            <td>
+                {!x.Campaign_Preliminary_Submission__r.Service_File__r.HOMEtracker__Status__c}
+            </td>
+            <td>
+                {!x.Campaign_Preliminary_Submission__r.Service_File__r.Application_Workflow_Status__c}
+            </td>
+            <td width="200px">
+                {!x.Outreach_Notes__c}
+            </td>
+        </tr>
+    </apex:repeat>
+</table>
+
+</apex:page>

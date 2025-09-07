@@ -1,0 +1,738 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0"
+    controller="CGPHAllDevelopmentsController" cache="false">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Salesforce Lightning Design System Trailhead Module</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <!-- Import the Design System style sheet -->
+        <apex:slds />
+
+        <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+        <link rel='stylesheet' id='thegem-google-fonts-css' href='//fonts.googleapis.com/css?family=Oswald%3Aregular%7CMontserrat%3A700%2Cregular%7CSource+Sans+Pro%3A300%2Cregular&#038;subset=latin-ext%2Clatin%2Cvietnamese%2Ccyrillic%2Ccyrillic-ext%2Cgreek-ext%2Cgreek&#038'
+            type='text/css' media='all' />
+        <link rel="stylesheet" id="thegem-child-style-css" href="https://www.affordablehomesnewjersey.com/wp-content/plugins/js_composer/assets/lib/bower/font-awesome/css/font-awesome.min.css"
+            type="text/css" media="all" />
+        <link rel="stylesheet" id="thegem-style-css" href="https://www.affordablehomesnewjersey.com/wp-content/themes/thegem/style.css"
+            type="text/css" media="all" />
+        <link rel="stylesheet" id="thegem-child-style-css" href="https://www.affordablehomesnewjersey.com/wp-content/themes/thegem-child/style.css"
+            type="text/css" media="all" />
+    </head>
+
+    <body style="margin-left: 0">
+
+        <apex:outputPanel >
+            <apex:pageMessages ></apex:pageMessages>
+        </apex:outputPanel>
+
+
+        <!-- REQUIRED SLDS WRAPPER -->
+        <div class="slds-scope">
+
+            <div class="slds-tabs_default">
+                <ul class="slds-tabs_default__nav slds-grid_align-center" role="tablist">
+                    <li class="slds-tabs_default__item slds-text-heading_medium {!If(defType=='purchase','slds-is-active','')}" title="Ownerships"
+                        role="presentation">
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defType=='purchase','0','-1')}" aria-selected="true"
+                            aria-controls="tab-ownerships" id="tab-ownerships__item">Ownerships</a>
+                    </li>
+                    <li class="slds-tabs_default__item slds-text-heading_medium {!If(defType=='rental','slds-is-active','')}" title="Rentals"
+                        role="presentation">
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defType=='rental','0','-1')}" aria-selected="false"
+                            aria-controls="tab-rentals" id="tab-rentals__item">Rentals</a>
+                    </li>
+                    <li class="slds-tabs_default__item slds-text-heading_medium {!If(defType=='all','slds-is-active','')}" title="All" role="presentation">
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defType=='all','0','-1')}" aria-selected="false"
+                            aria-controls="tab-all" id="tab-all__item">All</a>
+                    </li>
+                </ul>
+                <div id="tab-ownerships" class="slds-tabs_default__content {!If(defType=='purchase','slds-show','slds-hide')}" role="tabpanel"
+                    aria-labelledby="tab-ownerships__item">
+                    <div class="slds-tabs_default">
+                        <ul class="slds-tabs_default__nav slds-grid_align-center" role="tablist">
+                            <li class="slds-tabs_default__item slds-text-heading_medium {!If(defBy=='name','slds-is-active','')}" title="Name" role="presentation">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defBy=='name','0','-1')}" aria-selected="true"
+                                    aria-controls="tab-ownerships-name" id="tab-ownerships-name__item">Name</a>
+                            </li>
+                            <li class="slds-tabs_default__item slds-text-heading_medium {!If(defBy=='county','slds-is-active','')}" title="County" role="presentation">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defBy=='county','0','-1')}" aria-selected="false"
+                                    aria-controls="tab-ownerships-county" id="tab-ownerships-county__item">County</a>
+                            </li>
+                            <li class="slds-tabs_default__item slds-text-heading_medium {!If(defBy=='municipality','slds-is-active','')}" title="Municipality"
+                                role="presentation">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defBy=='municipality','0','-1')}"
+                                    aria-selected="false" aria-controls="tab-ownerships-muni" id="tab-ownerships-muni__item">Municipality</a>
+                            </li>
+                        </ul>
+
+                        <div id="tab-ownerships-name" class="slds-tabs_default__content {!If(defBy=='name','slds-show','slds-hide')} slds-p-top_none"
+                            role="tabpanel" aria-labelledby="tab-ownerships-name__item">
+
+                            <ul class="slds-grid_align-space slds-list_horizontal slds-has-block-links slds-text-heading_medium slds-border_bottom slds-p-bottom_small slds-p-left_small slds-p-right_small slds-wrap">
+
+                                <apex:repeat value="{!mapPurchaseIdx}" var="alpha">
+
+                                    <li class="slds-item slds-p-top_small">
+                                        <apex:outputPanel rendered="{!NOT(mapPurchaseIdx[alpha])}" styleClass="slds-p-around_x-small-off">{!alpha}</apex:outputPanel>
+                                        <apex:outputLink rendered="{!mapPurchaseIdx[alpha]}" value="javascript:scrollAlpha('ownerships-{!SUBSTITUTE(alpha, ' ', '_')}');">
+                                            <strong>{!alpha}</strong>
+                                        </apex:outputLink>
+                                    </li>
+                                    <li class="slds-item slds-p-top_small slds-p-left_x-small slds-p-right_x-small">&middot;</li>
+                                </apex:repeat>
+
+                            </ul>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical slds-tabs_default__content" style="height:auto;width:100vw;max-width:100vw;">
+
+                                <apex:repeat value="{!mapPurchaseDevelopmentsByAlpha}" var="alpha">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <nav class="slds-nav-vertical" aria-label="Sub page">
+                                            <div class="slds-nav-vertical__section">
+                                                <h2 id="ownerships-{!alpha}" class="slds-nav-vertical__title slds-text-heading_medium slds-m-bottom_neg_small">
+                                                    <strong>{!alpha}</strong>
+                                                </h2>
+
+                                                <ul>
+
+                                                    <apex:repeat value="{!mapPurchaseDevelopmentsByAlpha[alpha]}" var="development">
+
+                                                        <apex:variable var="dev" value="{!mapPurchaseDevelopmentsByAlpha[alpha][development]}" />
+                                                        <li class="slds-nav-vertical__item">
+                                                            <a href="https://www.affordablehomesnewjersey.com/ownership-opportunities/developments{!IF(dev['not_admin'] == 'false','','-na')}/?did={!dev['id']}" onclick="pload(event,'{!dev['id']}','ownership','name', '{!dev['not_admin']}');"
+                                                                class="slds-nav-vertical__action" aria-describedby="{!dev['id']}-header">
+                                                                <apex:outputText rendered="{!If( dev['name'] != null,true,false )}" value="{0}">
+                                                                    <apex:param value="{!dev['name']}" />
+                                                                </apex:outputText>
+                                                                <apex:outputText style="color: red;" rendered="{!dev['not_admin']}" value="{0}">
+                                                                    <apex:param value="*" />
+                                                                </apex:outputText>
+                                                            </a>
+                                                        </li>
+
+                                                    </apex:repeat>
+
+                                                </ul>
+
+                                            </div>
+                                        </nav>
+                                    </div>
+
+                                </apex:repeat>
+                            </div>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                        </div>
+                        <div id="tab-ownerships-county" class="slds-tabs_default__content {!If(defBy=='county','slds-show','slds-hide')}" role="tabpanel"
+                            aria-labelledby="tab-ownerships-county__item">
+                            <ul class="slds-grid_align-center slds-list_horizontal slds-has-block-links slds-text-heading_medium slds-border_bottom slds-p-bottom_small slds-p-left_small slds-p-right_small slds-wrap">
+
+                                <apex:repeat value="{!mapPurchaseDevelopmentsByCounty}" var="alpha">
+
+                                    <li class="slds-item">
+                                        <a href="javascript:scrollAlpha('ownerships-county-{!SUBSTITUTE(alpha, ' ', '_')}');">{!alpha}</a>
+                                    </li>
+                                    <li class="slds-item slds-p-left_x-small slds-p-right_x-small">&middot;</li>
+                                </apex:repeat>
+
+                            </ul>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical slds-tabs_default__content" style="height:auto;width:100vw;max-width:100vw;">
+
+                                <apex:repeat value="{!mapPurchaseDevelopmentsByCounty}" var="county">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <nav class="slds-nav-vertical" aria-label="Sub page">
+                                            <div class="slds-nav-vertical__section">
+                                                <h2 id="ownerships-county-{!SUBSTITUTE(county, ' ', '_')}" class="slds-nav-vertical__title slds-text-heading_medium slds-m-bottom_neg_medium">
+                                                    <strong>
+                                                        <apex:outputText value="{!county} County" rendered="{!IF(county != null,true,false)}" />
+                                                    </strong>
+                                                </h2>
+
+                                                <apex:repeat value="{!mapPurchaseDevelopmentsByCounty[county]}" var="municipality">
+
+                                                    <apex:repeat value="{!mapPurchaseDevelopmentsByCounty[county][municipality]}" var="development" rows="1">
+                                                        <apex:variable var="mid" value="{!mapPurchaseDevelopmentsByCounty[county][municipality][development].mid}" />
+                                                        <h3 id="{!municipality}-header);" class="slds-nav-vertical__title slds-text-heading_small slds-m-bottom_none">
+                                                            <strong>
+                                                                <a href="https://www.affordablehomesnewjersey.com/all-opportunities/municipalities/?mid={!mid}" onclick="mload(event,'{!mid}','ownership','county')">{!municipality}></a>
+                                                            </strong>
+                                                        </h3>
+                                                    </apex:repeat>
+                                                    <ul>
+                                                        <apex:repeat value="{!mapPurchaseDevelopmentsByCounty[county][municipality]}" var="development">
+
+                                                            <apex:variable var="dev" value="{!mapPurchaseDevelopmentsByCounty[county][municipality][development]}" />
+                                                            <li class="slds-nav-vertical__item">
+                                                                <a href="https://www.affordablehomesnewjersey.com/ownership-opportunities/developments{!IF(dev['not_admin'] == 'false','','-na')}/?did={!dev['id']}" onclick="pload(event,'{!dev['id']}','ownership','county', '{!dev['not_admin']}');"
+                                                                    class="slds-nav-vertical__action" aria-describedby="{!dev['id']}-header">
+                                                                    <apex:outputText rendered="{!If( dev['name'] != null,true,false )}" value="{0}">
+                                                                        <apex:param value="{!dev['name']}" />
+                                                                    </apex:outputText>
+                                                                    <apex:outputText style="color: red;" rendered="{!dev['not_admin']}" value="{0}">
+                                                                        <apex:param value="*" />
+                                                                    </apex:outputText>
+                                                                </a>
+                                                            </li>
+
+                                                        </apex:repeat>
+
+                                                    </ul>
+
+                                                </apex:repeat>
+
+                                            </div>
+                                        </nav>
+                                    </div>
+
+                                </apex:repeat>
+
+                            </div>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                        </div>
+                        <div id="tab-ownerships-muni" class="slds-tabs_default__content {!If(defBy=='municipality','slds-show','slds-hide')}" role="tabpanel"
+                            aria-labelledby="tab-ownerships-muni__item">
+                            <!--<ul class="slds-list_horizontal slds-has-dividers_right slds-has-block-links_space slds-text-heading_medium slds-border_bottom slds-p-bottom_small slds-p-left_small slds-wrap slds-show_small">
+                
+                        <apex:repeat value="{!mapPurchaseDevelopmentsByMuni}" var="alpha" >
+                
+                       	<li class="slds-item"><a href="javascript:scrollAlpha('ownerships-muni-{!SUBSTITUTE(alpha, ' ', '_')}');">{!alpha}</a></li>
+                            
+                        </apex:repeat>
+                        
+                    </ul>-->
+                            <div style="color:red; margin-bottom: -1em;" class="slds-size_1-of-1 slds-text-align_center">*Development is not directly administered by CGP&amp;H.</div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical" style="height:auto;width:100vw;max-width:100vw;">
+
+                                <apex:repeat value="{!mapPurchaseDevelopmentsByMuni}" var="municipality">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <nav class="slds-nav-vertical" aria-label="Sub page">
+                                            <div class="slds-nav-vertical__section">
+                                                <apex:repeat value="{!mapPurchaseDevelopmentsByMuni[municipality]}" var="development" rows="1">
+                                                    <apex:variable var="mid" value="{!mapPurchaseDevelopmentsByMuni[municipality][development].mid}" />
+                                                    <h2 id="ownerships-muni-{!SUBSTITUTE(municipality, ' ', '_')}" class="slds-nav-vertical__title slds-text-heading_medium slds-m-bottom_neg_small">
+                                                        <strong>
+                                                            <a href="https://www.affordablehomesnewjersey.com/all-opportunities/municipalities/?mid={!mid}" onclick="mload(event,'{!mid}','ownership','municipality')">{!municipality}&gt;</a>
+                                                        </strong>
+                                                    </h2>
+                                                </apex:repeat>
+                                                <ul>
+
+                                                    <apex:repeat value="{!mapPurchaseDevelopmentsByMuni[municipality]}" var="development">
+
+                                                        <apex:variable var="dev" value="{!mapPurchaseDevelopmentsByMuni[municipality][development]}" />
+                                                        <li class="slds-nav-vertical__item">
+                                                            <a href="https://www.affordablehomesnewjersey.com/ownership-opportunities/developments{!IF(dev['not_admin'] == 'false','','-na')}/?did={!dev['id']}" onclick="pload(event,'{!dev['id']}','ownership','municipality', '{!dev['not_admin']}');"
+                                                                class="slds-nav-vertical__action" aria-describedby="{!dev['id']}-header">
+                                                                <apex:outputText rendered="{!If( dev['name'] != null,true,false )}" value="{0}">
+                                                                    <apex:param value="{!dev['name']}" />
+                                                                </apex:outputText>
+                                                                <apex:outputText style="color: red;" rendered="{!dev['not_admin']}" value="{0}">
+                                                                    <apex:param value="*" />
+                                                                </apex:outputText>
+                                                            </a>
+                                                        </li>
+
+                                                    </apex:repeat>
+
+                                                </ul>
+                                            </div>
+                                        </nav>
+                                    </div>
+
+                                </apex:repeat>
+
+                            </div>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-rentals" class="slds-tabs_default__content {!If(defType=='rental','slds-show','slds-hide')}" role="tabpanel"
+                    aria-labelledby="tab-rentals__item">
+                    <div class="slds-tabs_default">
+                        <ul class="slds-tabs_default__nav slds-grid_align-center" role="tablist">
+                            <li class="slds-tabs_default__item slds-text-heading_medium {!If(defBy=='name','slds-is-active','')}" title="Name" role="presentation">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defBy=='name','0','-1')}" aria-selected="{!If(defBy=='name','true','false')}"
+                                    aria-controls="tab-rentals-name" id="tab-rentals-name__item">Name</a>
+                            </li>
+                            <li class="slds-tabs_default__item slds-text-heading_medium {!If(defBy=='county','slds-is-active','')}" title="County" role="presentation">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defBy=='county','0','-1')}" aria-selected="{!If(defBy=='county','true','false')}"
+                                    aria-controls="tab-rentals-county" id="tab-rentals-county__item">County</a>
+                            </li>
+                            <li class="slds-tabs_default__item slds-text-heading_medium {!If(defBy=='municipality','slds-is-active','')}" title="Municipality"
+                                role="presentation">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defBy=='municipality','0','-1')}"
+                                    aria-selected="{!If(defBy=='municipality','true','false')}" aria-controls="tab-rentals-muni"
+                                    id="tab-rentals-muni__item">Municipality</a>
+                            </li>
+                        </ul>
+
+                        <div id="tab-rentals-name" class="slds-tabs_default__content {!If(defBy=='name','slds-show','slds-hide')} slds-p-top_none"
+                            role="tabpanel" aria-labelledby="tab-rentals-name__item">
+
+                            <ul class="slds-grid_align-space slds-list_horizontal slds-has-block-links slds-text-heading_medium slds-border_bottom slds-p-bottom_small slds-p-left_small slds-p-right_small slds-wrap">
+
+                                <apex:repeat value="{!mapRentalIdx}" var="alpha">
+                                    <li class="slds-item slds-p-top_small">
+                                        <apex:outputPanel rendered="{!NOT(mapRentalIdx[alpha])}">{!alpha}</apex:outputPanel>
+                                        <apex:outputLink rendered="{!mapRentalIdx[alpha]}" value="javascript:scrollAlpha('rental-{!SUBSTITUTE(alpha, ' ', '_')}');">
+                                            <strong>{!alpha}</strong>
+                                        </apex:outputLink>
+                                    </li>
+                                    <li class="slds-item slds-p-top_x-small slds-p-left_x-small slds-p-right_x-small">&middot;</li>
+                                </apex:repeat>
+
+                            </ul>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical slds-tabs_default__content" style="height:auto;width:100vw;max-width:100vw;">
+
+                                <apex:repeat value="{!mapRentalDevelopmentsByAlpha}" var="alpha">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <nav class="slds-nav-vertical" aria-label="Sub page">
+                                            <div class="slds-nav-vertical__section">
+                                                <h2 id="rental-{!alpha}" class="slds-nav-vertical__title slds-text-heading_medium slds-m-bottom_neg_small">
+                                                    <strong>{!alpha}</strong>
+                                                </h2>
+
+                                                <ul>
+
+                                                    <apex:repeat value="{!mapRentalDevelopmentsByAlpha[alpha]}" var="development">
+
+                                                        <apex:variable var="dev" value="{!mapRentalDevelopmentsByAlpha[alpha][development]}" />
+                                                        <li class="slds-nav-vertical__item">
+                                                            <a href="https://www.affordablehomesnewjersey.com/rental-opportunities/developments{!IF(dev['not_admin'] == 'false','','-na')}/?did={!dev['id']}" onclick="pload(event,'{!dev['id']}','rental','name', '{!dev['not_admin']}');"
+                                                                class="slds-nav-vertical__action" aria-describedby="{!dev['id']}-header">
+                                                                <apex:outputText rendered="{!If( dev['name'] != null,true,false )}" value="{0}">
+                                                                    <apex:param value="{!dev['name']}" />
+                                                                </apex:outputText>
+                                                                <apex:outputText style="color: red;" rendered="{!dev['not_admin']}" value="{0}">
+                                                                    <apex:param value="*" />
+                                                                </apex:outputText>
+                                                            </a>
+                                                        </li>
+
+                                                    </apex:repeat>
+
+                                                </ul>
+
+                                            </div>
+                                        </nav>
+                                    </div>
+
+                                </apex:repeat>
+                            </div>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                        </div>
+                        <div id="tab-rentals-county" class="slds-tabs_default__content {!If(defBy=='county','slds-show','slds-hide')}" role="tabpanel"
+                            aria-labelledby="tab-rentals-county__item">
+                            <ul class="slds-grid_align-center slds-list_horizontal slds-has-block-links slds-text-heading_medium slds-border_bottom slds-p-bottom_small slds-p-left_small slds-p-right_small slds-wrap">
+
+                                <apex:repeat value="{!mapRentalDevelopmentsByCounty}" var="alpha">
+
+                                    <li class="slds-item">
+                                        <a href="javascript:scrollAlpha('rentals-county-{!SUBSTITUTE(alpha, ' ', '_')}');">{!alpha}</a>
+                                    </li>
+                                    <li class="slds-item slds-p-left_x-small slds-p-right_x-small">&middot;</li>
+                                </apex:repeat>
+
+                            </ul>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical slds-tabs_default__content" style="height:auto;width:100vw;max-width:100vw;">
+
+                                <apex:repeat value="{!mapRentalDevelopmentsByCounty}" var="county">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <nav class="slds-nav-vertical" aria-label="Sub page">
+                                            <div class="slds-nav-vertical__section">
+                                                <h2 id="rentals-county-{!SUBSTITUTE(county, ' ', '_')}" class="slds-nav-vertical__title slds-text-heading_medium slds-m-bottom_neg_medium">
+                                                    <strong>
+                                                        <apex:outputText value="{!county} County" rendered="{!IF(county != null,true,false)}" />
+                                                    </strong>
+                                                </h2>
+
+                                                <apex:repeat value="{!mapRentalDevelopmentsByCounty[county]}" var="municipality">
+                                                    <apex:repeat value="{!mapRentalDevelopmentsByCounty[county][municipality]}" var="development" rows="1">
+                                                        <apex:variable var="mid" value="{!mapRentalDevelopmentsByCounty[county][municipality][development].mid}" />
+                                                        <h3 id="{!municipality}-header);" class="slds-nav-vertical__title slds-text-heading_small slds-m-bottom_none">
+                                                            <strong>
+                                                                <a href="https://www.affordablehomesnewjersey.com/all-opportunities/municipalities/?mid={!mid}" onclick="mload(event,'{!mid}','rental','county')">{!municipality}></a>
+                                                            </strong>
+                                                        </h3>
+                                                    </apex:repeat>
+                                                    <ul>
+
+                                                        <apex:repeat value="{!mapRentalDevelopmentsByCounty[county][municipality]}" var="development">
+
+                                                            <apex:variable var="dev" value="{!mapRentalDevelopmentsByCounty[county][municipality][development]}" />
+                                                            <li class="slds-nav-vertical__item">
+                                                                <a href="https://www.affordablehomesnewjersey.com/rental-opportunities/developments{!IF(dev['not_admin'] == 'false','','-na')}/?did={!dev['id']}" onclick="pload(event,'{!dev['id']}','rental','county', '{!dev['not_admin']}');"
+                                                                    class="slds-nav-vertical__action" aria-describedby="{!dev['id']}-header">
+                                                                    <apex:outputText rendered="{!If( dev['name'] != null,true,false )}" value="{0}">
+                                                                        <apex:param value="{!dev['name']}" />
+                                                                    </apex:outputText>
+                                                                    <apex:outputText style="color: red;" rendered="{!dev['not_admin']}" value="{0}">
+                                                                        <apex:param value="*" />
+                                                                    </apex:outputText>
+                                                                </a>
+                                                            </li>
+
+                                                        </apex:repeat>
+
+                                                    </ul>
+
+                                                </apex:repeat>
+
+                                            </div>
+                                        </nav>
+                                    </div>
+
+                                </apex:repeat>
+
+                            </div>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                        </div>
+                        <div id="tab-rentals-muni" class="slds-tabs_default__content {!If(defBy=='municipality','slds-show','slds-hide')}" role="tabpanel"
+                            aria-labelledby="tab-rentals-muni__item">
+                            <!--<ul class="slds-list_horizontal slds-has-dividers_right slds-has-block-links_space slds-text-heading_medium slds-border_bottom slds-p-bottom_small slds-p-left_small slds-wrap slds-show_small">
+                
+                        <apex:repeat value="{!mapRentalDevelopmentsByMuni}" var="alpha" >
+                
+                       	<li class="slds-item"><a href="javascript:scrollAlpha('rentals-muni-{!SUBSTITUTE(alpha, ' ', '_')}');">{!alpha}</a></li>
+                            
+                        </apex:repeat>
+                        
+                    </ul>-->
+                            <div style="color:red; margin-bottom: -1em;" class="slds-size_1-of-1 slds-text-align_center">*Development is not directly administered by CGP&amp;H.</div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical" style="height:auto;width:100vw;max-width:100vw;">
+                                <apex:repeat value="{!mapRentalDevelopmentsByMuni}" var="municipality">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <nav class="slds-nav-vertical" aria-label="Sub page">
+                                            <div class="slds-nav-vertical__section">
+                                                <apex:repeat value="{!mapRentalDevelopmentsByMuni[municipality]}" var="development" rows="1">
+                                                    <apex:variable var="mid" value="{!mapRentalDevelopmentsByMuni[municipality][development].mid}" />
+                                                    <h2 id="rentals-muni-{!SUBSTITUTE(municipality, ' ', '_')}" class="slds-nav-vertical__title slds-text-heading_medium slds-m-bottom_neg_small">
+                                                        <strong>
+                                                            <a href="https://www.affordablehomesnewjersey.com/all-opportunities/municipalities/?mid={!mid}" onclick="mload(event,'{!mid}','rental','municipality')">{!municipality}&gt;</a>
+                                                        </strong>
+                                                    </h2>
+                                                </apex:repeat>
+                                                <ul>
+
+                                                    <apex:repeat value="{!mapRentalDevelopmentsByMuni[municipality]}" var="development">
+
+                                                        <apex:variable var="dev" value="{!mapRentalDevelopmentsByMuni[municipality][development]}" />
+                                                        <li class="slds-nav-vertical__item">
+                                                            <a href="https://www.affordablehomesnewjersey.com/rental-opportunities/developments{!IF(dev['not_admin'] == 'false','','-na')}/?did={!dev['id']}" onclick="pload(event,'{!dev['id']}','rental','municipality', '{!dev['not_admin']}');"
+                                                                class="slds-nav-vertical__action" aria-describedby="{!dev['id']}-header">
+                                                                <apex:outputText rendered="{!If( dev['name'] != null,true,false )}" value="{0}">
+                                                                    <apex:param value="{!dev['name']}" />
+                                                                </apex:outputText>
+                                                                <apex:outputText style="color: red;" rendered="{!dev['not_admin']}" value="{0}">
+                                                                    <apex:param value="*" />
+                                                                </apex:outputText>
+                                                            </a>
+                                                        </li>
+
+                                                    </apex:repeat>
+
+                                                </ul>
+                                            </div>
+                                        </nav>
+                                    </div>
+
+                                </apex:repeat>
+
+                            </div>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-all" class="slds-tabs_default__content {!If(defType=='all','slds-show','slds-hide')}" role="tabpanel" aria-labelledby="tab-all__item">
+                    <div class="slds-tabs_default">
+                        <ul class="slds-tabs_default__nav slds-grid_align-center" role="tablist">
+                            <li class="slds-tabs_default__item slds-text-heading_medium {!If(defBy=='name','slds-is-active','')}" title="Name" role="presentation">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defBy=='name','0','-1')}" aria-selected="{!If(defBy=='name','true','false')}"
+                                    aria-controls="tab-all-name" id="tab-all-name__item">Name</a>
+                            </li>
+                            <li class="slds-tabs_default__item slds-text-heading_medium {!If(defBy=='county','slds-is-active','')}" title="County" role="presentation">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defBy=='county','0','-1')}" aria-selected="{!If(defBy=='county','true','false')}"
+                                    aria-controls="tab-all-county" id="tab-all-county__item">County</a>
+                            </li>
+                            <li class="slds-tabs_default__item slds-text-heading_medium {!If(defBy=='municipality','slds-is-active','')}" title="Municipality"
+                                role="presentation">
+                                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="{!If(defBy=='municipality','0','-1')}"
+                                    aria-selected="{!If(defBy=='municipality','true','false')}" aria-controls="tab-all-muni"
+                                    id="tab-all-muni__item">Municipality</a>
+                            </li>
+                        </ul>
+                        <div id="tab-all-name" class="slds-tabs_default__content {!If(defBy=='name','slds-show','slds-hide')} slds-p-top_none" role="tabpanel"
+                            aria-labelledby="tab-all-name__item">
+
+                            <ul class="slds-grid_align-space slds-list_horizontal slds-has-block-links slds-text-heading_medium slds-border_bottom slds-p-bottom_small slds-p-left_small slds-p-right_small slds-wrap">
+
+                                <apex:repeat value="{!mapAllIdx}" var="alpha">
+
+                                    <li class="slds-item slds-p-top_small">
+                                        <apex:outputPanel rendered="{!NOT(mapAllIdx[alpha])}" styleClass="slds-p-around_x-small-off">{!alpha}</apex:outputPanel>
+                                        <apex:outputLink rendered="{!mapAllIdx[alpha]}" value="javascript:scrollAlpha('all-{!SUBSTITUTE(alpha, ' ', '_')}');">
+                                            <strong>{!alpha}</strong>
+                                        </apex:outputLink>
+                                    </li>
+                                    <li class="slds-item slds-p-top_small slds-p-left_x-small slds-p-right_x-small">&middot;</li>
+                                </apex:repeat>
+
+                            </ul>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical slds-tabs_default__content" style="height:auto;width:100vw;max-width:100vw;">
+
+                                <apex:repeat value="{!mapAllDevelopmentsByAlpha}" var="alpha">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <nav class="slds-nav-vertical" aria-label="Sub page">
+                                            <div class="slds-nav-vertical__section">
+                                                <h2 id="all-{!alpha}" class="slds-nav-vertical__title slds-text-heading_medium slds-m-bottom_neg_small">
+                                                    <strong>{!alpha}</strong>
+                                                </h2>
+
+                                                <ul>
+
+                                                    <apex:repeat value="{!mapAllDevelopmentsByAlpha[alpha]}" var="development">
+
+                                                        <apex:variable var="dev" value="{!mapAllDevelopmentsByAlpha[alpha][development]}" />
+                                                        <li class="slds-nav-vertical__item">
+                                                            <a href="https://www.affordablehomesnewjersey.com/all-opportunities/developments{!IF(dev['not_admin'] == 'false','','-na')}/?did={!dev['id']}" onclick="pload(event,'{!dev['id']}','all','name', '{!dev['not_admin']}');"
+                                                                class="slds-nav-vertical__action" aria-describedby="{!dev['id']}-header">
+                                                                <apex:outputText rendered="{!If( dev['name'] != null,true,false )}" value="{0}">
+                                                                    <apex:param value="{!dev['name']}" />
+                                                                </apex:outputText>
+                                                                <apex:outputText style="color: red;" rendered="{!dev['not_admin']}" value="{0}">
+                                                                    <apex:param value="*" />
+                                                                </apex:outputText>
+                                                            </a>
+                                                        </li>
+
+                                                    </apex:repeat>
+
+                                                </ul>
+
+                                            </div>
+                                        </nav>
+                                    </div>
+
+                                </apex:repeat>
+                            </div>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                        </div>
+                        <div id="tab-all-county" class="slds-tabs_default__content {!If(defBy=='county','slds-show','slds-hide')}" role="tabpanel"
+                            aria-labelledby="tab-all-county__item">
+                            <ul class="slds-grid_align-center slds-list_horizontal slds-has-block-links slds-text-heading_medium slds-border_bottom slds-p-bottom_small slds-p-left_small slds-p-right_small slds-wrap">
+
+                                <apex:repeat value="{!mapAllDevelopmentsByCounty}" var="alpha">
+
+                                    <li class="slds-item">
+                                        <a href="javascript:scrollAlpha('all-county-{!SUBSTITUTE(alpha, ' ', '_')}');">{!alpha}</a>
+                                    </li>
+                                    <li class="slds-item slds-p-left_x-small slds-p-right_x-small">&middot;</li>
+                                </apex:repeat>
+
+                            </ul>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical slds-tabs_default__content" style="height:auto;width:100vw;max-width:100vw;">
+
+                                <apex:repeat value="{!mapAllDevelopmentsByCounty}" var="county">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <nav class="slds-nav-vertical" aria-label="Sub page">
+                                            <div class="slds-nav-vertical__section">
+                                                <h2 id="all-county-{!SUBSTITUTE(county, ' ', '_')}" class="slds-nav-vertical__title slds-text-heading_medium slds-m-bottom_neg_medium">
+                                                    <strong>
+                                                        <apex:outputText value="{!county} County" rendered="{!IF(county != null,true,false)}" />
+                                                    </strong>
+                                                </h2>
+
+                                                <apex:repeat value="{!mapAllDevelopmentsByCounty[county]}" var="municipality">
+                                                    <apex:repeat value="{!mapAllDevelopmentsByCounty[county][municipality]}" var="development" rows="1">
+                                                        <apex:variable var="mid" value="{!mapAllDevelopmentsByCounty[county][municipality][development].mid}" />
+                                                        <h3 class="slds-nav-vertical__title slds-text-heading_small slds-m-bottom_none">
+                                                            <strong>
+                                                                <a href="https://www.affordablehomesnewjersey.com/all-opportunities/municipalities/?mid={!mid}" onclick="mload(event,'{!mid}','all','county')">{!municipality}></a>
+                                                            </strong>
+                                                        </h3>
+                                                    </apex:repeat>
+                                                    <ul>
+
+                                                        <apex:repeat value="{!mapAllDevelopmentsByCounty[county][municipality]}" var="development">
+
+                                                            <apex:variable var="dev" value="{!mapAllDevelopmentsByCounty[county][municipality][development]}" />
+                                                            <li class="slds-nav-vertical__item">
+                                                                <a href="https://www.affordablehomesnewjersey.com/all-opportunities/developments{!IF(dev['not_admin'] == 'false','','-na')}/?did={!dev['id']}" onclick="pload(event,'{!dev['id']}','all','county', '{!dev['not_admin']}');"
+                                                                    class="slds-nav-vertical__action" aria-describedby="{!dev['id']}-header">
+                                                                    <apex:outputText rendered="{!If( dev['name'] != null,true,false )}" value="{0}">
+                                                                        <apex:param value="{!dev['name']}" />
+                                                                    </apex:outputText>
+                                                                    <apex:outputText style="color: red;" rendered="{!dev['not_admin']}" value="{0}">
+                                                                        <apex:param value="*" />
+                                                                    </apex:outputText>
+                                                                </a>
+                                                            </li>
+
+                                                        </apex:repeat>
+
+                                                    </ul>
+
+                                                </apex:repeat>
+
+                                            </div>
+                                        </nav>
+                                    </div>
+
+                                </apex:repeat>
+
+                            </div>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                        </div>
+                        <div id="tab-all-muni" class="slds-tabs_default__content {!If(defBy=='municipality','slds-show','slds-hide')}" role="tabpanel"
+                            aria-labelledby="tab-all-muni__item">
+                            <!--<ul class="slds-list_horizontal slds-has-dividers_right slds-has-block-links_space slds-text-heading_medium slds-border_bottom slds-p-bottom_small slds-p-left_small slds-wrap slds-show_small">
+                
+                        <apex:repeat value="{!mapAllDevelopmentsByMuni}" var="alpha" >
+                
+                       	<li class="slds-item"><a href="javascript:scrollAlpha('all-muni-{!SUBSTITUTE(alpha, ' ', '_')}');">{!alpha}</a></li>
+                            
+                        </apex:repeat>
+                        
+                    </ul>-->
+                            <div style="color:red; margin-bottom: -1em;" class="slds-size_1-of-1 slds-text-align_center">*Development is not directly administered by CGP&amp;H.</div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical" style="height:auto;width:100vw;max-width:100vw;">
+
+                                <apex:repeat value="{!mapAllDevelopmentsByMuni}" var="municipality">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <nav class="slds-nav-vertical" aria-label="Sub page">
+                                            <div class="slds-nav-vertical__section">
+                                                <apex:repeat value="{!mapAllDevelopmentsByMuni[municipality]}" var="development" rows="1">
+                                                    <apex:variable var="mid" value="{!mapAllDevelopmentsByMuni[municipality][development].mid}" />
+                                                    <h2 id="all-muni-{!SUBSTITUTE(municipality, ' ', '_')}" class="slds-nav-vertical__title slds-text-heading_medium slds-m-bottom_neg_small">
+                                                        <strong>
+                                                            <a href="https://www.affordablehomesnewjersey.com/all-opportunities/municipalities/?mid={!mid}" onclick="mload(event,'{!mid}','all','municipality')">{!municipality}&gt;</a>
+                                                        </strong>
+                                                    </h2>
+                                                </apex:repeat>
+                                                <ul>
+
+                                                    <apex:repeat value="{!mapAllDevelopmentsByMuni[municipality]}" var="development">
+
+                                                        <apex:variable var="dev" value="{!mapAllDevelopmentsByMuni[municipality][development]}" />
+                                                        <li class="slds-nav-vertical__item">
+                                                            <a href="https://www.affordablehomesnewjersey.com/all-opportunities/developments{!IF(dev['not_admin'] == 'false','','-na')}/?did={!dev['id']}" onclick="pload(event,'{!dev['id']}','all','municipality', '{!dev['not_admin']}');"
+                                                                class="slds-nav-vertical__action" aria-describedby="{!dev['id']}-header">
+                                                                <apex:outputText rendered="{!If( dev['name'] != null,true,false )}" value="{0}">
+                                                                    <apex:param value="{!dev['name']}" />
+                                                                </apex:outputText>
+                                                                <apex:outputText style="color: red;" rendered="{!dev['not_admin']}" value="{0}">
+                                                                    <apex:param value="*" />
+                                                                </apex:outputText>
+                                                            </a>
+                                                        </li>
+
+                                                    </apex:repeat>
+
+                                                </ul>
+                                            </div>
+                                        </nav>
+                                    </div>
+
+                                </apex:repeat>
+
+                            </div>
+                            <div style="color:red; margin-bottom: -3em;" class="slds-size_1-of-1 slds-text-align_center slds-tabs_default__content">*Development is not directly administered by CGP&amp;H.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / REQUIRED SLDS WRAPPER -->
+    </body>
+
+    <script>
+        function ifsize() {
+            parent.postMessage({ "sfmsg": "ifsize", "ifsize": (document.body.scrollHeight + 50) }, "*");
+        }
+        function pload(event, did, mres, sfby, na) {
+            if (event.ctrlKey) {
+                return;
+            }
+            parent.postMessage({ "sfmsg": "did", "did": did, "mres": mres, "sfby": sfby, "na": na }, "*");
+            event.preventDefault();
+        };
+        function mload(event, mid, mres, sfby) {
+            if (event.ctrlKey) {
+                return;
+            }
+            parent.postMessage({ "sfmsg": "mid", "mid": mid, "mres": mres, "sfby": sfby }, "*");
+            event.preventDefault();
+        };
+
+        function doneloading() {
+            parent.postMessage({ "sfmsg": "doneloading" }, "*");
+        }
+
+        /*SLDS Tabs JS*/
+        $('.slds-tabs_default__link,.slds-tabs_scoped__link').click(function () {
+            $(this).parent().parent().children('.slds-tabs_default__link,.slds-tabs_scoped__link').attr('aria-selected', 'false');
+            $(this).attr('aria-selected', 'true');
+            $(this).parent().parent().children('.slds-tabs_default__link,.slds-tabs_scoped__link').attr('tabindex', '-1');
+            $(this).attr('tabindex', '0');
+            $(this).parent().addClass('slds-is-active').siblings().removeClass('slds-is-active');
+            $(this).parent().parent().parent().children('.' + $(this).parent().parent().parent().children('.slds-tabs_default__content,.slds-tabs_scoped__content')[0].classList[0]).removeClass('slds-show').addClass('slds-hide');
+            $(this).parent().parent().parent().children('#' + $(this).attr('aria-controls')).removeClass('slds-hide').addClass('slds-show');
+            adjustTabSize();
+        });
+        /*SLDS Tabs JS*/
+
+        function scrollAlpha(alpha) {  
+            parent.postMessage({ "sfmsg": "scrollto", "scrollto": (jQuery("#" + alpha).offset().top) }, "*");
+        }
+
+        function adjustTabSize() {
+            jQuery(".slds-grid.slds-wrap.slds-grid_vertical").height("auto");
+            if (jQuery(document).width() > 1024) {
+                var curHeight = jQuery(document).height() / 3;
+                jQuery(".slds-grid.slds-wrap.slds-grid_vertical").height(curHeight);
+                while (document.body.scrollWidth > window.innerWidth) {
+                    curHeight += 100;
+                    jQuery(".slds-grid.slds-wrap.slds-grid_vertical").height(curHeight);
+                }
+            } else if (jQuery(document).width() > 768) {
+                var curHeight = jQuery(document).height() / 2;
+                jQuery(".slds-grid.slds-wrap.slds-grid_vertical").height(curHeight);
+                while (document.body.scrollWidth > window.innerWidth) {
+                    curHeight += 100;
+                    jQuery(".slds-grid.slds-wrap.slds-grid_vertical").height(curHeight);
+                }
+            }
+
+            ifsize();
+        };
+
+        $(window).resize(function () {
+            //adjustTabSize();
+        });
+
+        $(document).ready(function () {
+            adjustTabSize();
+            doneloading();
+        });
+
+    </script>
+
+    </html>
+</apex:page>

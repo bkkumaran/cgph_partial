@@ -1,0 +1,77 @@
+<apex:page standardController="Case" >
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+#b {white-space: nowrap; text-decoration:none; font-size: 10pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid rgb(37,113,170); border-bottom: 1.5px solid rgb(37,113,170); border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#b:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+#bb {white-space: nowrap; text-decoration:none; font-size: 10pt; color: green; font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px;
+    border-top: 1px solid #CCCCCC; border-right: 1.5px solid green; border-bottom: 1.5px solid green; border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+#bb:hover {white-space: nowrap; text-decoration:none; font-size: 10pt; background-color: green; font-family: 'Montserrat'; font-weight: bold; color: white;
+    border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+#TopHead {white-space: nowrap; font-size: 25pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 25px 0px 25px 0px; }
+#BlockHead {white-space: nowrap; font-size: 13pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+#BlockHead2 {white-space: nowrap; font-size: 13pt; color: green; font-family: 'Montserrat'; font-weight: bold; padding: 0px 0px 5px 0px; }
+</style>
+
+
+<apex:outputPanel rendered="{!IF($CurrentPage.parameters.s='1',false,true)}">
+
+<div id="BlockHead">
+<br/>
+MAKE NEW CASE
+</div>
+<a id="b"  target="_blank" href="/apex/RGLinks?s=1&owner=Stephanie+Rubin&type=0123m000000UAZk&origin=Staff">STEPH</a>
+<a id="b"  target="_blank" href="/apex/RGLinks?s=1&owner=Kim+Hamlett&type=0123m000000UAZk&origin=Staff">KIM</a>
+<a id="b"  target="_blank" href="/apex/RGLinks?s=1&owner=Matt+Pitrus&type=0123m000000UAZk&origin=Staff">MATT</a>
+<a id="b"  target="_blank" href="/apex/RGLinks?s=1&owner=Sal+Trapani&type=0123m000000UAZk&origin=Staff">SAL</a>
+<a id="b"  target="_blank" href="/apex/RGLinks?s=1&owner=Jo+Ellen+Burton&type=0123m000000UAZk&origin=Staff">JO ELLEN</a>
+<br/>
+<div id="BlockHead2">
+<br/>
+CASE REPORTS
+</div>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpGp">STEPH</a>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpLp">KIM</a>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpNH">MATT</a>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpNM">SAL</a>
+<a id="bb"  target="_blank" href="https://cgph.my.salesforce.com/00O3m000009LpOF">JO ELLEN</a>
+
+ </apex:outputPanel>
+ 
+ 
+    
+<script>
+        window.onload=function()
+        {
+
+         document.getElementById(type).value = "{!$CurrentPage.parameters.type}";
+         document.getElementById(owner).value = "{!$CurrentPage.parameters.owner}";
+         document.getElementById(origin).value = "{!$CurrentPage.parameters.origin}";
+        };
+    </script>    
+
+    
+<apex:form > 
+        <apex:pageBlock Title="Case Edit" rendered="{!IF($CurrentPage.parameters.s='1',true,false)}"> 
+            <apex:pageBlockSection > 
+                <apex:inputField value="{!case.Ownerid}" id="owner"/><br/>
+                <apex:inputField value="{!case.Subject}" /> <br/>
+                <apex:inputField value="{!case.Agenda_Category__c}" /> <br/>
+                <apex:inputField value="{!case.Origin}" id="origin" /> <br/>
+                <apex:inputField value="{!case.RecordTypeId}" id="type"/> <br/>
+
+ <script>
+            var type= "{!$Component.type}";
+            var owner= "{!$Component.owner}";
+            var origin= "{!$Component.origin}";
+        </script>
+                <apex:commandButton value="Save" action="{!Save}"/> 
+            </apex:pageBlockSection> 
+        </apex:pageBlock> 
+    </apex:form> 
+    
+
+
+</apex:page>

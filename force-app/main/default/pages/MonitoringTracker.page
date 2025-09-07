@@ -1,0 +1,5 @@
+<apex:page showHeader="false" sidebar="false">
+<apex:form >
+  <apex:iframe src="/00O3m000006Ep0y?isdtp=nv"/>
+  </apex:form>
+</apex:page>

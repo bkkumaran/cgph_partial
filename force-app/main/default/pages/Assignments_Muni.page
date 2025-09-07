@@ -1,0 +1,120 @@
+<apex:page standardcontroller="Municipality__c" extensions="AssignmentsMuniEXT" showHeader="false">
+
+<apex:variable var="iconSize" value="15px"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto Mono');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto Condensed');
+    
+    body {
+        font-family: Roboto;
+        {!IF(OR(
+            $User.LastName = 'Burton',
+            $User.LastName = 'Carbone'
+            ), '','display:none;')}
+        }
+    table {
+        border-collapse: collapse;
+        border: 0.5px solid #e3e3e3;
+        }
+    th {
+        font-weight: normal;
+        font-size: 11pt;
+        color:#3366cc;
+        padding: 4px 4px 4px 4px;
+        background-color:white !important;
+        }
+    td {
+        vertical-align: top;
+        padding: 4px 5px 4px 5px;
+        }
+    tr:hover {
+        background-color: #ffffd7;
+        }
+    a {
+        text-decoration: none !important;
+        background-color:none;
+        opacity: 0.5;
+        }
+    a:hover {
+        opacity: 1;
+        }
+    #cond{
+        font-family: Roboto Condensed;
+        }
+    #date {
+        font-family: Roboto Mono;
+        }
+    
+    
+</style>
+
+<body>
+
+    <table width="100%" border="1">
+        <tr>
+            <thead>
+                <th>
+                    <apex:outputLink onclick="window.location.reload">
+                        <apex:image url="https://upload.wikimedia.org/wikipedia/commons/0/05/View-refresh_Gion_simple.svg" height="15px"/>
+                    </apex:outputLink>
+                    
+                    <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003Ch97MAC/view?queryScope=userFolders&fv1={!Municipality__c.Name}" target="_blank">
+                        <apex:image url="https://upload.wikimedia.org/wikipedia/commons/8/8a/Icon-doc.svg" height="15px"/>
+                    </a>
+                    &nbsp;    
+                    {!Municipality__c.Name} Active Assignments 
+                    
+                </th>
+                <th width="50px" style="text-align: center;">Record</th>
+                <th width="50px" style="text-align: center;">Staff</th>
+                <th width="100px">Status</th>
+                <th width="80px">Followup</th>
+                <th width="50px" style="text-align: center;">Edit</th>
+            </thead>
+        </tr>
+        <apex:repeat var="x" value="{!listAssign}">
+        <tr>
+            <td>
+                {!SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(x.Assignment__c , Municipality__c.Name&" - ",''),Municipality__c.Name&", "," "),Municipality__c.Name,'')}
+            </td>
+            <td style="text-align: center;">
+                <apex:outputfield value="{!x.Record_Link__c}" />
+            </td>
+            <td style="text-align: center;">
+                {!x.Assigned_To__r.Staff_Initials__c}
+            </td>
+            <td>
+                {!x.Status__c}
+            </td>
+            <td id="date">
+                <apex:outputText value="{0, date, MMM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.Follow_Up_Date__c}" /> 
+                </apex:outputText>
+                
+            </td>
+            <td width="1px" style="text-align: center;">
+                <nobr>
+                <a href="https://cgph.lightning.force.com/lightning/r/Assignment__c/{!x.Id}/edit" target="_self">
+                    <apex:image url="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Pencil_edit_icon.svg/20px-Pencil_edit_icon.svg.png" height="{!iconSize}"/>
+                </a>
+                &nbsp;
+                <a href="https://cgph.lightning.force.com/lightning/r/Assignment__c/{!x.Id}/view" target="_blank">
+                    <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/38/Zorin_Icon_Themes_%E2%80%93_document-send-symbolic.svg" height="{!iconSize}"/>
+                </a>
+                </nobr>
+            </td>
+        </tr>
+        </apex:repeat>
+
+    </table>
+
+
+<div style="line-height: 20;"> &nbsp; </div>
+
+</body>
+
+
+
+</apex:page>

@@ -1,0 +1,70 @@
+<apex:page standardcontroller="Program_Application__c">
+
+<style>
+p {font-size:11pt;}
+</style>
+
+<br/><br/>
+
+<div style="font-size: 14pt">
+<b>
+{!IF(ISBLANK(Program_Application__c.Program__r.Program_Contact__c),"ADD PROGRAM CONTACT TO PROGRAM","")}
+</b>
+</div>
+<div style="font-size: 14pt;display:{!IF(ISBLANK(Program_Application__c.Program__r.Program_Contact__c),"none","true")}">
+<a href="mailto:{!Program_Application__c.Program__r.Program_Contact__r.email}?subject={!SUBSTITUTE(Program_Application__c.SF_Property_Address__c,"<br>",", ")} - {!Program_Application__c.SF_Applicant__c} - {!Program_Application__c.Assistance_Type__c}
+{!IF(ISBLANK(Program_Application__c.Program__r.Additional_CC_contacts__c),"",'&cc=;'+Program_Application__c.Program__r.Additional_CC_contacts__c)}">CLICK HERE TO EMAIL TO {!UPPER(Program_Application__c.Program__r.Program_Contact__r.FirstName)} {!UPPER(Program_Application__c.Program__r.Program_Contact__r.LastName)} </a>
+</div>
+<br/><br/>
+
+<apex:outputPanel rendered="{!IF(ISBLANK(Program_Application__c.Program__r.Program_Contact__c),'false','true')}">
+
+
+
+
+<!-- ----------------------DOWN PAYMENT ASSISTANCE TEMPLATE --------------------------------------------- -->
+
+<div id="DP" style="display:{!IF($CurrentPage.parameters.type='DPA','','none')}">
+<p>
+Dear {!Program_Application__c.Program__r.Program_Contact__r.FirstName},
+</p>
+<p>
+Attached is the {!Program_Application__c.Program__r.Assistance_Type__c} application and related documents. {!Program_Application__c.SF_Applicant__c} applied for the Down Payment Assistance Request and they have been approved by CGP&amp;H.  
+</p>
+<p>
+Buyer: {!Program_Application__c.SF_Applicant__c}<br/>
+Property Address: {!SUBSTITUTE(Program_Application__c.SF_Property_Address__c,"<br>",", ")}<br/>
+Purchase price:&nbsp;
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!Program_Application__c.SF_Sale_Price__c}" />
+</apex:outputText>
+<br/>
+Down Payment Assistance:&nbsp;
+<apex:outputText value="{0, number, currency}">
+<apex:param value="{!Program_Application__c.Amount_of_Request__c}" />
+</apex:outputText>
+</p>
+<p>
+The title company in charge of this file is:<br/>
+Name of title company<br/>
+Att. (CONTACT NAME)<br/>
+Ref No. (######)<br/>
+(TITLE COMPANY STREET ADDRESS)<br/>
+(TITLE COMPANY CITY, STATE, ZIP CODE)<br/>
+(TITLE COMPANY PHONE NUMBER/EXTENSION)<br/>
+(TITLE COMPANY FAX NUMBER) (fax)<br/>
+email: (TITLE COMPANY EMAIL ADDRESS)<br/>
+</p>
+<p>
+The closing is scheduled to be on or before (CLOSING DATE). As always, please let me know if you have any questions.
+</p>
+<p>
+Sincerely,
+</p>
+</div>
+
+
+</apex:outputPanel>
+
+
+</apex:page>

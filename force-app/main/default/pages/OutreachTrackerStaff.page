@@ -1,0 +1,631 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="OutreachTrackerExt,getIPext" sidebar="false"  standardStylesheets="true" showheader="false" cache="false">
+
+<apex:variable var="font" value="Roboto"/>
+<apex:variable var="showH" value="{!IF($CurrentPage.parameters.H='1','','')}"/>
+<apex:variable var="hideH" value="{!IF($CurrentPage.parameters.H='1','','')}"/>
+
+<!-- COLORS -->
+<apex:variable var="PrimaryUs" value="#b7e1cd"/>
+<apex:variable var="PrimaryThem" value="#ff6456"/>
+<apex:variable var="BackupUs" value="#ffeebc"/>
+<apex:variable var="BackupThem" value="#fac8c8"/>
+<apex:variable var="HeaderUs" value="#d4d4d4"/>
+<apex:variable var="HeaderThem" value="#db9393"/>
+<apex:variable var="HiddenUs" value="#e0dce6"/>
+<apex:variable var="HiddenThem" value="#cec9d6"/>
+<apex:variable var="ApproveText" value="blue"/>
+<apex:variable var="FlagUs" value="#ffb75d"/>
+<apex:variable var="FlagThem" value="#f0a448"/>
+<apex:variable var="CGPHblue" value="rgb(0, 101, 168)"/>
+<apex:variable var="SaveGreen" value="#53e09d"/>
+<apex:variable var="SaveGreenDark" value="#147045"/>
+<apex:variable var="Cancel" value="gray"/>
+<apex:variable var="CancelDark" value="#666565"/>
+<apex:variable var="EditDark" value="#9e1515"/>
+<apex:variable var="Removed" value="magenta"/>
+
+<!-- FONT SIZES -->
+<apex:variable var="fSizeTD" value="10"/>
+<apex:variable var="fSizeTH" value="10"/>
+<apex:variable var="fSizeDevName" value="15"/>
+<apex:variable var="fSizeProp" value="11"/>
+<apex:variable var="fSizeUsHH" value="12"/>
+<apex:variable var="fSizeThemHH" value="12"/>
+<apex:variable var="fSizeButton" value="10"/>
+<apex:variable var="fSizeButtonTrack" value="9"/>
+<apex:variable var="fSizeNotes" value="9"/>
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family={!font}');
+
+    a { color: inherit; }
+    thead{
+        top: 0;
+        Position: sticky;
+        background-color: white;
+        z-index: 20;
+        min-height: 30px;
+        height: 30px;
+            }
+    td { white-space: nowrap; padding: 5px 2px 5px 2px; font-family:'{!font}'; font-size:{!fSizeTD}pt;font-weight:400;}
+    th { white-space: normal; padding: 5px 2px 5px 2px; font-family:'{!font}'; font-size:{!fSizeTH}pt; font-weight:bold; text-align:center;}
+    .center { text-align:center;}
+    table {
+        border-collapse:collapse;
+        border: 0.0px gray;
+    }
+    
+    #dev {
+        font-family:{!font};
+        color: rgb(0, 101, 168);
+        font-size:{!fSizeDevName}pt;
+        font-weight:bold;
+        }
+    #pub {
+        font-family:{!font};
+        color: green;
+        font-size:{!fSizeDevName}pt;
+        font-weight:bold;
+        }
+    #unPub {
+        font-family:{!font};
+        color: red;
+        font-size:{!fSizeDevName}pt;
+        font-weight:bold;
+        background-color:yellow;
+        }
+    #usHH {background-color:{!HeaderUs}; font-size:{!fSizeUsHH}pt;text-align:center;}
+    #usH {background-color:{!HeaderUs};word-wrap: break-word;}
+    #usBack {background-color:{!BackupUs};}
+    #usBackA {background-color:{!FlagUs};font-weight:bold;color:{!ApproveText};}
+    #usHide {background-color:{!HiddenUs};}
+    #usPrime {background-color:{!PrimaryUs};}
+    #usPrimeA {background-color:{!PrimaryUs};font-weight:bold;color:{!ApproveText};}
+    #usFlag {background-color:{!FlagUs};font-weight:bold;}
+    #usFlagA {background-color:{!FlagUs};font-weight:bold;}
+    #usRemove {background-color:{!Removed};font-weight:bold;color:white;}
+    #usRemoveA {background-color:{!Removed};font-weight:bold;color:white;}
+    #themHH {background-color:{!HeaderThem}; font-size:{!fSizeThemHH}pt;text-align:center;word-break;}
+    #themH {background-color:{!HeaderThem};white-space: normal;}
+    #themBack {background-color:{!BackupThem};white-space: normal;}
+    #themBackA {background-color:{!FlagThem};white-space: normal;font-weight:bold;color:{!ApproveText};}
+    #themHide {background-color:{!HiddenThem};white-space: normal;}
+    #themPrime {background-color:{!PrimaryThem};white-space: normal;}
+    #themPrimeA {background-color:{!PrimaryThem};font-weight:bold;color:{!ApproveText};white-space: normal;}
+    #themFlag {background-color:{!FlagThem};font-weight:bold;white-space: normal;}
+    #themFlagA {background-color:{!FlagThem};font-weight:bold;white-space: normal;}
+    #themRemove {background-color:{!Removed};font-weight:bold;color:white;}
+    #themRemoveA {background-color:{!Removed};font-weight:bold;color:white;}
+    #prop { font-size:{!fSizeProp}pt;padding-left:10px;}
+    .button{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButton}pt;
+            color: {!CGPHblue};
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HiddenUs});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 2px 10px 2px 10px;
+            }
+    .button:hover{
+            color:white;
+            background-image: linear-gradient({!CGPHblue},{!CGPHblue});
+                }
+    .buttonEdit{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButton}pt;
+            color: {!EditDark};
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HiddenUs});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 1px 10px 1px 10px;
+            }
+    .buttonEdit:hover{
+            color:white;
+            background-image: linear-gradient({!EditDark},{!EditDark});
+                }
+
+    .buttonSave{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButton}pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!SaveGreen});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonSave:hover{
+            color:white;
+            background-image: linear-gradient({!SaveGreenDark},{!SaveGreenDark});
+                }
+    .buttonCancel{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButton}pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,Cancel);
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid rgb(37,113,170); 
+            border-bottom: 1.5px solid rgb(37,113,170); 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonCancel:hover{
+            color:white;
+            background-image: linear-gradient({!CancelDark},{!CancelDark});
+            }
+     .buttonTrack{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButtonTrack}pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HeaderUs});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid gray; 
+            border-bottom: 1.5px solid gray; 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonTrack:hover{
+            color:white;
+            background-image: linear-gradient(gray,gray);
+            text-decoration:none;
+                }
+     .buttonTrackRemoved{
+            white-space: nowrap;
+            text-decoration:none;
+            font-size: {!fSizeButtonTrack}pt;
+            color: black;
+            font-family: '{!font}';
+            font-weight: bold;
+            background-image: linear-gradient(white,{!HeaderThem});
+            border-radius: 3px; 
+            border-top: 1px solid #CCCCCC; 
+            border-right: 1.5px solid gray; 
+            border-bottom: 1.5px solid gray; 
+            border-left: 1px solid #CCCCCC; 
+            padding: 5px 10px 5px 10px;
+            }
+     .buttonTrackRemoved:hover{
+            color:black;
+            background-image: linear-gradient({!HeaderThem},{!HeaderThem});
+            text-decoration:none;
+                }
+    .hoverTable tr:hover{
+          }
+    .tooltip-wrap {
+            position: relative;
+            white-space: normal; 
+            font-weight:bold;
+        }
+    .tooltip-wrap .tooltip-content {
+          display: none;
+          white-space: normal;
+          position: absolute;
+          z-index: 1;
+          top: 100%;
+          left: 5%;
+          right: 5%;
+          background-color: #fff;
+          padding: 10px;
+          min-width: 200px;
+        }
+     .tooltip-wrap:hover .tooltip-content {
+          display: block;
+          background-color:#fcdede;
+          white-space: normal;
+          border: solid red 1px;
+          }
+</style>
+
+<!-- <div id="SHOW_NO_IP" style="{!IF(CONTAINS(HOMEtracker__Property__c.Allowed_IP_Addresses__c,ip)=true,'display:none;','')}"> -->
+<div id="SHOW_NO_IP" style="{!IF(CONTAINS(HOMEtracker__Property__c.Allowed_IP_Addresses__c,ip)=true,'display:none;','display:none;')}">
+<table width="100%">
+<tr>
+<td class="center">
+<apex:image URL="{!$Resource.cgphLOGOgif}" height="75"/>
+</td>
+</tr>
+<tr>
+<td class="center">
+<b>{!HOMEtracker__Property__c.Name} Inventory and Applicant Tracker</b>
+</td>
+</tr>
+<tr>
+<td class="center">
+<span style="color:red;">
+You do not have access to this page.
+</span>
+</td>
+</tr>
+<tr>
+<td class="center">
+<a href="https://www.tfaforms.com/5111322?tfa_5={!ip}&tfa_6={!id}" target="_blank">
+Click here to request access
+</a>
+</td>
+</tr>
+</table>
+</div>
+
+
+<!-- <div id="HIDE_BY_IP" style="{!IF(CONTAINS(HOMEtracker__Property__c.Allowed_IP_Addresses__c,ip)=true,'','display:none;')}"> -->
+
+<div id="HIDE_BY_IP" style="{!IF(CONTAINS(HOMEtracker__Property__c.Allowed_IP_Addresses__c,ip)=true,'','')}">
+<apex:form >
+<table border="1" width="100%"  class="hoverTable">
+   <thead>
+   <tr>
+   <td colspan="20">
+   <table border="0">
+    <tr>
+        <td style="padding-right: 50px; width:450px;">
+             <a id="dev" href="/{!HOMEtracker__Property__c.Id}" target="_blank">
+                {!HOMEtracker__Property__c.Name} Applicant Tracker
+            </a>
+             &nbsp;
+            <span id="pub" style="{!IF(HOMEtracker__Property__c.Publish_Outreach_Tracker__c= true,'','display:none;')}">
+                <a href="https://cgph.my.salesforce-sites.com/ot/?d={!DevID}" target="_blank">
+                PUBLISHED <apex:image url="{!$Resource.SpreadsheetIcon}" height="20"/>
+                </a>
+            </span>
+            <span id="unPub" style="{!IF(HOMEtracker__Property__c.Publish_Outreach_Tracker__c= true,'display:none;','')}">
+                UNPUBLISHED
+            </span>
+            
+        </td>
+
+        <td style="padding: 0px 20px 0px 20px; vertical-align:middle;" rowspan="2">
+            <a href="https://cgph--c.vf.force.com/apex/PropertyInventory?d={!devID}&g=1" class="buttonTrack" target="_top">
+                DEVELOPMENT INVENTORY
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://cgph--c.vf.force.com/apex/OutreachTrackerRemoved?d={!devID}" class="buttonTrackRemoved" target="_top">
+                REMOVED APPLICANTS
+            </a>
+            
+            <span width="100%" style="text-align:center">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:commandButton id="saveButton" value="SAVE" action="{!save}" styleClass="buttonSave" style="display: none;"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:commandButton id="cancelButton" value="CANCEL" styleClass="buttonCancel" style="display: none"/>
+            </span>
+            <br/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a style="text-decoration:none;" href="{!HOMEtracker__Property__c.Google_Tracker_Link__c}" target="_blank">
+                <apex:image url="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Google_Sheets_logo_%282014-2020%29.svg/800px-Google_Sheets_logo_%282014-2020%29.svg.png" height="20"/>
+            </a>
+            &nbsp;&nbsp;
+            <a style="text-decoration:none;" href="https://cgph.lightning.force.com/lightning/r/Report/00OUq0000005dWzMAI/view?queryScope=userFolders&fv0={!HOMEtracker__Property__c.Id}" target="_blank">
+                <apex:image url="https://upload.wikimedia.org/wikipedia/commons/8/8a/Icon-doc.svg" height="20"/>
+            </a>
+            &nbsp;&nbsp;
+            <a  style="color:{!CGPHblue};{!IF(ISBLANK(HOMEtracker__Property__c.Outreach_Contact__c)=true,'display:none;','')}" href="mailto:{!HOMEtracker__Property__c.Primary_contact__r.email}?subject={!HOMEtracker__Property__c.Name} Applicants">
+                <apex:image url="{!$Resource.Blue_Email_Icon}" height="15"/> {!HOMEtracker__Property__c.Outreach_Contact__r.FirstName} {!HOMEtracker__Property__c.Outreach_Contact__r.LastName}
+            </a>
+            <span  style="color:red;{!IF(ISBLANK(HOMEtracker__Property__c.Outreach_Contact__c)=true,'','display:none;')}">
+                <apex:image url="{!$Resource.Gray_Email_Icon}" height="15"/> <i>No Outreach Contact</i>
+            </span>
+            &nbsp;&nbsp;
+            <span  style="color:red;{!IF(ISBLANK(HOMEtracker__Property__c.Primary_Case_manager__c)=true,'','display:none;')}">
+                <apex:image url="{!$Resource.Gray_Email_Icon}" height="15"/> <i>No Primary Case Manager</i>
+            </span>
+        </td>
+    </tr>
+</table>
+   </td>
+   </tr>
+   <tr>
+        <th id="usHH" colspan="12"> FILLED IN BY CGP&amp;H 
+<!--            <a target="_top" style="text-decoration:none;"
+                href="https://cgph--c.vf.force.com/flow/OT_Switch_Show_Hidden?retURL=%2Fapex%2FOutreachTrackerStaff%3Fid%3D{!DevId}" 
+            >
+                [X]
+            </a>
+-->            
+        </th>
+        <th id="themHH" colspan="3"> FILLED IN BY LANDLORD / DEVELOPER </th>
+        <th id="usHH" colspan="5"> FILLED IN BY CGP&amp;H </th>
+   </tr>
+
+   <tr>     
+        <th id="usH" width="300px">
+            PROPERTY
+        </th>
+        <th id="usH" width="20px" class="center">
+        </th>
+        <th id="usH" width="20px" class="center">
+        </th>
+        <th id="usH" width="150px" class="center">
+            Status
+        </th>
+        <th id="usH" width="60px" class="center">
+            Unit
+        </th>
+        <th id="usH" width="60px" class="center">
+            Priority
+        </th>
+        <th id="usH" width="150">
+            Applicant Name
+        </th>
+        <th id="usH"  width="150px" class="center">
+            Number of People in Household
+        </th>
+        <th id="usH" width="300px">
+            Email
+        </th>
+        <th id="usH" width="200px">
+            Phone
+        </th>
+        <th id="usH" width="200px">
+            Date CGPH Added
+        </th>
+        <th id="usH" width="200px">
+            Date Marked Primary
+        </th>
+        <th id="themH" width="200px">
+            Approval / Denial
+        </th>
+        <th id="themH" width="200px">
+            Approve / Deny Date
+        </th>
+        <th id="themH" width="400px">
+            Notes
+        </th>
+        <th id="usH" width="20px" class="center">
+            
+        </th>        
+        <th id="usH" width="200px">
+            Approved for Full Review
+        </th>
+        <th id="usH" width="200px">
+            Full Review Began
+        </th>
+        <th id="usH" width="150px">
+            CGP&amp;H Determination
+        </th>
+        <th id="usH" width="200px">
+            Date of Determination
+        </th>
+    </tr>
+    </thead>
+      
+    <apex:repeat value="{!otByProperty}" var="key" >
+      
+      <apex:repeat value="{!otByProperty[key].otList}" var="keyvalue" > 
+        <tr> 
+
+
+<!-- ------------------------ PROPERTY ROW CELL --------------------------- -->
+
+           <td id="prop" rowspan="{!otByProperty[key].numOfOTs}"
+               style="
+                   display:{!IF(CASESAFEID(keyvalue.id)==CASESAFEID(otByProperty[key].firstOfList), 'table-data','none' )};
+                   vertical-align:top;
+                   color:{!IF(keyvalue.Service_File__r.HOMEtracker__Property__r.Group_Property__c = TRUE,'green','green')};
+                   ">
+               <a href="/{!keyvalue.Property_Id__c}" style="text-decoration:none;">
+                   <b>{!SUBSTITUTE(SUBSTITUTE(keyvalue.Outreach_Tracker_Property_Name__c,HOMEtracker__Property__c.Name,''),', ','')}&nbsp; 
+                       <apex:outputText value="${0,number,###,###,###}" rendered="{!IF(CONTAINS(keyvalue.Property_Address__c,'$')=true,'display:none;','')}">
+                           <apex:param value="{!keyvalue.Property_Rent_or_List_Price__c}" />
+                       </apex:outputText> 
+                   </b>
+               </a>
+               
+               <br/>
+               <a href="https://cgph.lightning.force.com/lightning/r/Report/00O1N00000658tY/view?reportFilters=%5B%7B%22column%22%3A%22Application__c.Property__c.Id%22%2C%22value%22%3A%22{!keyvalue.Property_Id__c}%22%2C%22operator%22%3A%22equals%22%2C%22isContextFilter%22%3Atrue%7D%5D" target="_blank" style="text-decoration:none;">
+                   <apex:image url="{!$Resource.DonutChartIcon}" height="20"/>
+               </a>
+               &nbsp;&nbsp;&nbsp;
+               <a href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005tmtGUAQ/view?queryScope=userFolders&fv0={!keyvalue.Property_Id__c}" target="_blank" style="text-decoration:none;">
+                   <apex:image url="https://static.vecteezy.com/system/resources/previews/009/973/092/non_2x/people-icon-sign-symbol-design-free-png.png" height="20"/>
+               </a>
+               &nbsp;&nbsp;&nbsp;
+               <a href="https://cgph--c.vf.force.com/flow/OT_Remove_Property_From_Tracker?varID={!keyvalue.Property_Id__c}&retURL=%2Fapex%2FOutreachTrackerStaff%3Fid%3D{!DevId}" target="_top" style="font-size:9pt;">
+               <apex:image url="{!$Resource.Property_Cancel}" height="20"/>
+               </a>
+               
+          </td>
+
+<!-- -------------------- APPLICANT ROWS ------------------------ -->
+          
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <a href="https://cgph.lightning.force.com/lightning/r/Outreach_Tracking__c/{!keyvalue.Id}/view" target="_blank">
+                  <apex:image url="{!$Resource.blueFileIcon}" width="15px" />
+              </a>
+          </td>
+<!-- FLAGGED -->
+          <td width="20px" id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <div class="tooltip-wrap" style="{!IF(keyvalue.Service_File__r.Pre_Applicant__r.Flagged_for_Outreach__c=true,'','display:none;')}">
+                    <apex:outputLink ondblclick="window.open('https://cgph.lightning.force.com/lightning/r/PreApplicants__c/{!keyvalue.Service_File__r.Pre_Applicant__r.Id}/view','_blank')" >
+                        <apex:image url="{!$Resource.RedFlag}" width="20px"/>
+                    </apex:outputLink>
+                    <div class="tooltip-content">
+                        {!keyvalue.Service_File__r.Pre_Applicant__r.Flagged_for_Outreach_Notes__c}
+                    </div>
+              </div>
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}"> 
+              <apex:actionRegion >
+                  <span style="{!IF(keyvalue.Service_File__r.Priority__c='','','display:none;')}"><i>No Priority</i></span> 
+                  <apex:outputField value="{!keyvalue.Tracker_Status__c}" rendered="{!IF(keyvalue.Service_File__r.Priority__c='',false,true)}">
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+              
+<!-- ------------ REMOVED BUTTON ----------------- -->        
+              <div style="{!IF(keyvalue.Tracker_Status__c='Removed','','display:none;')}">
+                  <a href="https://cgph--c.vf.force.com/flow/Outreach_Tracker_Fully_Remove_Applicant_2?varID_OT={!keyvalue.Id}&varID_SF={!keyvalue.Service_File__r.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FOutreachTrackerStaff%3Fid%3D{!DevId}%26core.apexpages.devmode.url%3D0" target="_top" onclick="return false" ondblclick="location=this.href">
+                      <apex:image url="{!$Resource.Cancel_White}" width="15"/>
+                  </a>
+              </div>
+          </td>
+          
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" style="{!IF(AND(keyvalue.Tracker_Status__c='Primary',ISBLANK(keyvalue.Property_Unit__r)=true),'background-color:red;color:white;font-weight:bold;','')}text-align:right;{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}"> 
+             {!IF(ISBLANK(keyvalue.Property_Unit__r)=true,"TBD",IF(ISBLANK(keyvalue.Property_Unit__r.Unit_Number__c)=true,keyvalue.Property_Unit__r.Name,keyvalue.Property_Unit__r.Unit_Number__c))}
+             <a href="https://cgph--c.vf.force.com/flow/OT_Find_Available_Properties_By_Development?varType=u&varDevID={!DevId}&varID={!keyvalue.Id}&varPropID={!keyvalue.Property_Id__c}&retURL=%2Fapex%2FOutreachTrackerStaff%3Fid%3D{!DevId}" target="_top" style="text-decoration:none;"> 
+               <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/34/Home-icon.svg" height="14px"/>
+               </a>   
+
+              <!-- <span style="color:red;">{!keyvalue.Unit__c}</span> -->
+              
+          </td>
+                       
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}"> 
+                {!keyvalue.Service_File__r.Priority__c}
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Applicant_Name__c}
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Household_Size__c} 
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Applicant_Email__c}
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.Applicant_Phone__c}
+             </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:actionRegion >
+                  <apex:outputField value="{!keyvalue.Date_CGPH_Added_Name__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:actionRegion >
+                  <apex:outputField value="{!keyvalue.Date_Marked_Primary__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+          </td>
+<!--          
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center" >
+            <a class="buttonEdit"
+                href="https://www.tfaforms.com/5098934?tfa_2={!keyvalue.Applicant_Name__c}&tfa_10={!keyvalue.Property_Address__c}+${!FLOOR(keyvalue.Property_Rent_or_List_Price__c)}&tfa_11={!keyvalue.Id}&tfa_6={!CASE(keyvalue.Landlord_Developer_Determination__c,'Approved','Approve','Denied','Decline','')}" target="_blank"
+              >
+                ►
+            </a>
+
+          </td>
+-->          
+<!--          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" >
+              {!keyvalue.Landlord_Developer_Tour__c}
+          </td>
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" >
+              {!keyvalue.Landlord_Developer_App_Sent__c}
+          </td>
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" >
+              {!keyvalue.Landlord_Developer_Deadline__c}
+          </td>
+-->              
+          
+          <!-- DEVELOPER / LANDLORD FIELDS -->
+          
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:actionRegion >
+                  <apex:outputField value="{!keyvalue.Landlord_Developer_Determination__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+          </td>
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:actionRegion >
+                  <apex:outputField value="{!keyvalue.Landlord_Developer_Determination_Date__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+          </td>
+          <td id="them{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" style="font-size:{!fSizeNotes}pt;{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <a href="https://cgph--c.vf.force.com/flow/OT_Edit_Landlord_Developer_Notes?varID={!keyvalue.id}&retURL=%2Fapex%2FOutreachTrackerStaff%3Fid%3D{!DevId}"
+                  target="_top" style="text-decoration:none;">
+              ►
+              </a>
+              <apex:outputField value="{!keyvalue.Landlord_Developer_Notes__c}" />
+          <!--
+              <apex:actionRegion >
+                  <apex:outputField value="{!keyvalue.Landlord_Developer_Notes__c}" >
+                      <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+                  </apex:outputField>
+              </apex:actionRegion>
+          -->
+          </td>
+          
+          
+          
+          <!-- SERVICE FILE FIELDS -->
+          
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <a href="https://cgph.lightning.force.com/lightning/r/Outreach_Tracking__c/{!keyvalue.Service_File__r.Id}/view" target="_blank">
+                  <apex:image url="{!$Resource.blueFileIcon}" width="15px" />
+              </a>
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"   style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:outputField value="{!keyvalue.Date_Ready_For_Eligibility_Review__c}"/>
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"   style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              <apex:outputField value="{!keyvalue.Date_Eligibility_Review_Began__c}"/>
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!keyvalue.CGPH_Determination__c} 
+          </td>
+          <td id="us{!CASE(keyvalue.Tracker_Status__c,'Primary','Prime','Backup','Back','Hidden','Hide','Flagged','Flag','Removed','Remove','')}{!IF(keyvalue.Landlord_Developer_Determination__c='Approved','A','')}" class="center"  style="{!IF(keyvalue.Tracker_Status__c='Hidden',showH,'')}">
+              {!IF(keyvalue.CGPH_Determination__c='Ineligible' && ISBLANK(keyvalue.CGPH_Approval_Denial_Date__c),'PENDING APPEAL','')}
+              <apex:outputField value="{!keyvalue.CGPH_Approval_Denial_Date__c}"/>
+          </td>
+          
+          
+        </tr>
+      </apex:repeat>
+      <!-- SPACER BETWEEN PROPERTIES -->
+      <tr ><td style="background-color:gray; height:2px;" colspan="20"></td></tr>
+
+    </apex:repeat>
+    
+   
+  </table>
+ 
+</apex:form>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</apex:page>

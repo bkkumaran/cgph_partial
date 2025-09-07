@@ -1,0 +1,387 @@
+<template>
+    <lightning-card title="Luxury Downtown Apartments (Rental) Applicant Tracker" icon-name="standard:account">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button 
+                    label="Development Inventory" 
+                    variant="neutral"
+                    onclick={handleInventoryClick}
+                    class="slds-m-right_xx-small">
+                </lightning-button>
+                <lightning-button 
+                    label="Removed Applicants" 
+                    variant="neutral"
+                    onclick={handleRemovedClick}>
+                </lightning-button>
+            </lightning-button-group>
+            <lightning-button-icon 
+                icon-name="utility:refresh" 
+                variant="border-filled" 
+                alternative-text="Refresh"
+                onclick={handleRefresh}
+                class="slds-m-left_x-small">
+            </lightning-button-icon>
+        </div>
+
+        <div class="slds-p-horizontal_medium">
+            <!-- Contact Information -->
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-button 
+                        label="✉ Development Contact" 
+                        variant="neutral"
+                        onclick={handleContactClick}
+                        class="contact-button">
+                    </lightning-button>
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-bottom_medium" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <h2>Error Loading Data</h2>
+                    <p>Unable to load outreach tracking data. {error.body.message}</p>
+                </div>
+            </template>
+
+            <!-- Property Sections -->
+            <template for:each={propertyGroups} for:item="propertyGroup">
+                <div key={propertyGroup.id} class="property-section slds-m-bottom_large">
+                    <!-- Property Header -->
+                    <div class="property-header slds-m-bottom_small">
+                        <h3 class="slds-text-heading_medium slds-p-vertical_small slds-p-horizontal_medium">
+                            {propertyGroup.name}
+                        </h3>
+                        <div class="slds-text-align_right slds-p-right_medium">
+                            <lightning-button-icon 
+                                icon-name="utility:add" 
+                                variant="border-filled" 
+                                alternative-text="Add Property"
+                                data-property={propertyGroup.id}
+                                onclick={handleAddProperty}
+                                class="slds-m-right_xx-small">
+                            </lightning-button-icon>
+                            <lightning-button-icon 
+                                icon-name="utility:delete" 
+                                variant="border-filled" 
+                                alternative-text="Remove Property"
+                                data-property={propertyGroup.id}
+                                onclick={handleRemoveProperty}>
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+
+                    <!-- Editable Data Table for this Property -->
+                    <div class="table-container">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout editable-table">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <!-- Section Headers -->
+                                    <th class="slds-text-title_caps section-header filled-cgph" colspan="11">
+                                        FILLED IN BY CGP&H
+                                    </th>
+                                    <th class="slds-text-title_caps section-header filled-landlord" colspan="3">
+                                        FILLED IN BY LANDLORD / DEVELOPER
+                                    </th>
+                                    <th class="slds-text-title_caps section-header filled-cgph" colspan="3">
+                                        FILLED IN BY CGP&H
+                                    </th>
+                                </tr>
+                                <tr class="slds-line-height_reset">
+                                    <!-- Column Headers -->
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div title="Flagged Indicator">🚩 Flag</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Status">Status</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Unit">Unit</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Priority">Priority</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Applicant Name">Applicant Name</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Number of People in Household">Number of<br/>People in<br/>Household</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Email Address">Email Address</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Phone Number">Phone Number</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Date CGPH Added">Date CGPH Added</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Date Marked Primary">Date Marked Primary</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Approval / Denial">Approval / Denial</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Approve / Deny Date">Approve / Deny Date</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Notes">Notes</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Approved for Full Review">Approved for Full Review</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Full Review CGPH Began">Full Review CGPH Began</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="CGPH Determination">CGPH Determination</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header" scope="col">
+                                        <div class="slds-truncate" title="Date of Determination">Date of Determination</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={propertyGroup.applicants} for:item="applicant">
+                                    <tr key={applicant.id} class={applicant.rowCssClass} data-text-class={applicant.textCssClass}>
+                                        <!-- Flagged Applicant Indicator (matching Visualforce red flag functionality) -->
+                                        <td class="slds-cell-wrap" data-label="Flag">
+                                            <div class="flag-container">
+                                                <!-- Flagged Indicator - Only show when applicant is flagged -->
+                                                <template if:true={applicant.isFlaggedForOutreach}>
+                                                    <div class="flagged-indicator" title={applicant.flaggedOutreachNotes}>
+                                                        <lightning-helptext 
+                                                            content={applicant.flaggedOutreachNotes}
+                                                            icon-name="utility:warning"
+                                                            icon-variant="error">
+                                                        </lightning-helptext>
+                                                    </div>
+                                                </template>
+                                                
+                                                <!-- Empty space when not flagged (maintains column width) -->
+                                                <template if:false={applicant.isFlaggedForOutreach}>
+                                                    <div class="no-flag-spacer"></div>
+                                                </template>
+                                            </div>
+                                        </td>
+                                        <!-- Status - EDITABLE BY CGP&H STAFF ONLY -->
+                                        <td data-label="Status">
+                                            <lightning-combobox
+                                                value={applicant.status}
+                                                data-id={applicant.id}
+                                                data-property={propertyGroup.id}
+                                                data-field="status"
+                                                onchange={handleFieldChange}
+                                                options={statusOptions}
+                                                disabled={isStatusDisabled}
+                                                variant="label-hidden"
+                                                class="editable-field-standard">
+                                            </lightning-combobox>
+                                        </td>
+                                        <!-- Unit - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="Unit">
+                                            <lightning-input 
+                                                type="text" 
+                                                value={applicant.unit}
+                                                disabled={isUnitDisabled}
+                                                readonly
+                                                variant="label-hidden"
+                                                class="editable-field-standard readonly-field">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Priority - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="Priority">
+                                            <lightning-input
+                                                type="text"
+                                                value={applicant.priority}
+                                                disabled={isPriorityDisabled}
+                                                readonly
+                                                variant="label-hidden"
+                                                class="editable-field-standard readonly-field">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Applicant Name - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="Applicant Name">
+                                            <lightning-input 
+                                                type="text" 
+                                                value={applicant.applicantName}
+                                                disabled={isApplicantNameDisabled}
+                                                readonly
+                                                variant="label-hidden"
+                                                class="editable-field-wide readonly-field">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Number of People in Household - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="Number of People in Household">
+                                            <lightning-input 
+                                                type="number" 
+                                                value={applicant.peopleInHousehold}
+                                                disabled={isPeopleInHouseholdDisabled}
+                                                readonly
+                                                variant="label-hidden"
+                                                class="editable-field-household readonly-field">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Email - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="Email Address">
+                                            <lightning-input 
+                                                type="email" 
+                                                value={applicant.email}
+                                                disabled={isEmailDisabled}
+                                                readonly
+                                                variant="label-hidden"
+                                                class="editable-field-email readonly-field">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Phone - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="Phone Number">
+                                            <lightning-input 
+                                                type="tel" 
+                                                value={applicant.phone}
+                                                disabled={isPhoneDisabled}
+                                                readonly
+                                                variant="label-hidden"
+                                                class="editable-field-phone readonly-field">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Date CGPH Added - EDITABLE BY CGP&H STAFF ONLY -->
+                                        <td data-label="Date CGPH Added">
+                                            <lightning-input 
+                                                type="date" 
+                                                value={applicant.dateCGPHAdded}
+                                                data-id={applicant.id}
+                                                data-property={propertyGroup.id}
+                                                data-field="dateCGPHAdded"
+                                                onchange={handleFieldChange}
+                                                disabled={isDateCGPHAddedDisabled}
+                                                variant="label-hidden"
+                                                class="editable-field-date">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Date Marked Primary - EDITABLE BY CGP&H STAFF ONLY -->
+                                        <td data-label="Date Marked Primary">
+                                            <lightning-input 
+                                                type="date" 
+                                                value={applicant.dateMarkedPrimary}
+                                                data-id={applicant.id}
+                                                data-property={propertyGroup.id}
+                                                data-field="dateMarkedPrimary"
+                                                onchange={handleFieldChange}
+                                                disabled={isDateMarkedPrimaryDisabled}
+                                                variant="label-hidden"
+                                                class="editable-field-date">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Approval / Denial - EDITABLE BY LANDLORD/DEVELOPER ONLY -->
+                                        <td data-label="Approval / Denial">
+                                            <lightning-combobox
+                                                value={applicant.approvalDenial}
+                                                data-id={applicant.id}
+                                                data-property={propertyGroup.id}
+                                                data-field="approvalDenial"
+                                                onchange={handleFieldChange}
+                                                options={approvalOptions}
+                                                disabled={isApprovalDenialDisabled}
+                                                variant="label-hidden"
+                                                class="editable-field-standard">
+                                            </lightning-combobox>
+                                        </td>
+                                        <!-- Approve / Deny Date - EDITABLE BY LANDLORD/DEVELOPER ONLY -->
+                                        <td data-label="Approve / Deny Date">
+                                            <lightning-input 
+                                                type="date" 
+                                                value={applicant.approveDenyDate}
+                                                data-id={applicant.id}
+                                                data-property={propertyGroup.id}
+                                                data-field="approveDenyDate"
+                                                onchange={handleFieldChange}
+                                                disabled={isApproveDenyDateDisabled}
+                                                variant="label-hidden"
+                                                class="editable-field-date">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Notes - READ ONLY (requires special flow in Visualforce) -->
+                                        <td class="slds-cell-wrap" data-label="Notes">
+                                            <lightning-textarea 
+                                                value={applicant.notes}
+                                                disabled={isNotesDisabled}
+                                                readonly
+                                                variant="label-hidden"
+                                                class="editable-field-notes readonly-field">
+                                            </lightning-textarea>
+                                        </td>
+                                        <!-- Approved for Full Review - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="Approved for Full Review">
+                                            <lightning-input 
+                                                type="checkbox" 
+                                                checked={applicant.approvedForFullReview}
+                                                disabled={isApprovedForFullReviewDisabled}
+                                                variant="label-hidden"
+                                                class="editable-field-checkbox readonly-field">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- Full Review CGPH Began - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="Full Review CGPH Began">
+                                            <lightning-input 
+                                                type="date" 
+                                                value={applicant.fullReviewCGPHBegan}
+                                                disabled={isFullReviewCGPHBeganDisabled}
+                                                readonly
+                                                variant="label-hidden"
+                                                class="editable-field-date readonly-field">
+                                            </lightning-input>
+                                        </td>
+                                        <!-- CGPH Determination - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="CGPH Determination">
+                                            <lightning-combobox
+                                                value={applicant.cgphDetermination}
+                                                disabled={isCgphDeterminationDisabled}
+                                                options={determinationOptions}
+                                                variant="label-hidden"
+                                                class="editable-field-standard readonly-field">
+                                            </lightning-combobox>
+                                        </td>
+                                        <!-- Date of Determination - READ ONLY (not editable in Visualforce) -->
+                                        <td data-label="Date of Determination">
+                                            <lightning-input 
+                                                type="date" 
+                                                value={applicant.dateOfDetermination}
+                                                disabled={isDateOfDeterminationDisabled}
+                                                readonly
+                                                variant="label-hidden"
+                                                class="editable-field-date readonly-field">
+                                            </lightning-input>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Add New Property Button -->
+            <div class="slds-text-align_center slds-m-top_large">
+                <lightning-button 
+                    label="+ Add New Property" 
+                    variant="brand-outline"
+                    onclick={handleAddNewProperty}
+                    class="add-property-button">
+                </lightning-button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-spinner_container">
+                    <div role="status" class="slds-spinner slds-spinner_medium">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

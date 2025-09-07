@@ -1,0 +1,111 @@
+<apex:page standardcontroller="Invoice__c"  extensions="InvoicePreviewExt" showHeader="true" title="{!Invoice__c.Name}" standardStylesheets="true">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto');
+    body {
+        font-family: Roboto;
+        font-size:10pt;
+        padding-left: 50px;
+        width:800px;
+        
+        }
+    table{
+        border-collapse: collapse;
+        }
+    td {
+        padding: 5px 5px 10px 5px;
+        vertical-align:top;
+        }
+    th {
+        padding-bottom:20px;
+        text-decoration:underline;
+        }
+    .internal {
+        {!IF(Invoice__c.Internal_Invoice__c = true, 'display:normal','display:none;')};
+        color:red;
+        font-weight:bold;
+        font-size:12pt;
+        text-align:center;
+        }
+
+</style>
+
+<body>
+
+<apex:image value="{!$Resource.cgphLOGOgif}" width="200px"/>
+<br/><br/>
+<apex:outputfield value="{!Invoice__c.Invoice_Date__c}" />
+<br/>
+<div style="text-align: right;">
+Invoice No: {!Invoice__c.Name}
+</div>
+<br/><br/>
+<apex:outputfield value="{!Invoice__c.TimeSlipsContract__r.Invoice_Mailing_Address__c}" />
+<br/><br/>
+In Reference To: &nbsp;<apex:outputfield value="{!Invoice__c.TimeSlipsContract__r.In_Reference_To__c}" />
+<br/><br/><br/>
+<div class="internal">
+INTERNAL INVOICE
+<br/><br/>
+</div>
+
+
+
+<table width="100%" border="0">
+    <tr>
+        <th>
+            Date / Staff
+        </th>
+        <th>
+            Description
+        </th>
+        <th style="text-align:right;">
+            Rate
+        </th>
+        <th style="text-align:right;">
+            Hours
+        </th>
+        <th style="text-align:right;">
+            Amount
+        </th>
+    </tr>
+    
+<apex:repeat var="x" value="{!listIE}">  
+    <tr>
+        <td colspan="5">
+            <b>
+            {!x.Invoice_Reference__r.Name}
+            </b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <apex:outputfield value="{!x.Date_Initials__c}" />
+        </td>
+        <td>
+            <apex:outputfield value="{!x.Description__c}" />
+        </td>
+        <td style="text-align:right;">
+            <apex:outputfield value="{!x.Hourly_Rate__c}" />
+        </td>
+        <td style="text-align:right;">
+            <apex:outputfield value="{!x.Time_Spent__c}" />
+        </td>
+        <td style="text-align:right;">
+            <apex:outputfield value="{!x.Amount__c}" />
+        </td>
+    </tr>
+</apex:repeat>
+    <tr>
+        <td colspan="5" style="text-align:right; font-size:12pt;">
+            <b>TOTAL:&nbsp;<apex:outputfield value="{!Invoice__c.Invoice_Amount__c}"/></b>
+        </td>
+    </tr>
+
+</table>
+
+
+</body>
+
+
+</apex:page>

@@ -1,0 +1,54 @@
+<apex:page controller="getAttach">
+<style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        .tableStyle { font-family: 'Open Sans'; font-size: 11pt;}
+        .column {line-height: 1.5;}
+
+    </style>
+<table border="0" >
+<tr>
+<td>
+    <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />
+    </td>
+    <td align="left">
+    <div style="font-size: 30pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 0px 0px 0px 100px;">
+        Attachments:<br/>
+        {!pName}
+    </div>
+    <br/>
+   
+    </td>
+
+    </tr>
+    </table>
+
+
+
+
+
+
+<table width="800px" styleclass="tableStyle">
+<tr>
+<td>  
+  <apex:pageBlock >
+  <!--
+  <div style="font-size: 15pt; font-weight: bold;">
+  Attachments
+  </div>
+  -->
+  <apex:pageBlockTable var="a" value="{!Att}" styleclass="tableStyle">
+  <apex:column value="{!a.Name}"/>
+  <apex:column headerValue="Link">
+  <apex:outputLink value="/servlet/servlet.FileDownload?file={!a.Id}" target="_Blank">Click Here</apex:outputLink>
+    </apex:column> 
+ 
+ 
+  </apex:pageBlockTable>
+    </apex:pageBlock>
+</td>
+</tr>
+</table>
+
+
+
+</apex:page>

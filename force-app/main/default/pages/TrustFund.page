@@ -1,0 +1,416 @@
+<apex:page standardController="Monitoring_Trust_Fund_Report__c" extensions="MTFRext">
+    
+    <apex:variable var="getfont" value="Roboto+Mono"/>
+    <apex:variable var="font" value="'Roboto mono'"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family={!getfont}');
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        #TopHead { white-space: nowrap; font-size: 20pt; color: rgb(37,113,170); font-family: Montserrat; font-weight: bold; vertical-align: bottom;}
+        #TblHead { white-space: normal; font-family: {!font}; font-size: 12pt;color: white; padding: 6px 2px 2px 2px; font-weight:900; vertical-align:bottom; text-align: center;}
+        #TblSubH { white-space: normal; font-family: {!font}; font-size: 12pt;color: black; padding: 10px 2px 2px 2px; font-weight:900; vertical-align:bottom; text-align: center; border-top: 2px solid black;}
+        #TblLabl { white-space: normal; font-family: {!font}; font-size: 10pt;color: black; padding: 6px 2px 2px 2px; font-weight:bold; vertical-align:bottom; text-align: right;}
+        #TblData { white-space: normal; font-family: {!font}; font-size: 10pt;color: black; padding: 6px 2px 2px 2px; vertical-align:bottom; text-align: right;}
+        #TblSubT { white-space: normal; font-family: {!font}; font-size: 11pt;color: black; padding: 6px 2px 2px 2px;font-style: italic; font-weight:bold; vertical-align:bottom; text-align: right;}
+        #TblLast { white-space: normal; font-family: {!font}; font-size: 12pt;color: black; padding: 10px 2px 2px 2px; font-weight:bold; vertical-align:bottom; text-align: right; border-top: 2px solid black;}
+        
+    </style>
+    
+    
+    <table><tr><td>
+        <apex:image url="{!$Resource.cgphLOGOgif}" width="275px" />
+        </td>
+        <td id="TopHead" >
+            <apex:outputPanel layout="block" onDblclick="window.open('/{!Monitoring_Trust_Fund_Report__c.MTF_Municipality__r.Id}','_parent')">
+                <div id="TopHead" style="width: 900px;">
+                    {!Monitoring_Trust_Fund_Report__c.MTF_Muni_Full_Name__c}, {!Monitoring_Trust_Fund_Report__c.MTF_County_Calc__c} County
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" onDblclick="window.open('/{!Monitoring_Trust_Fund_Report__c.Id}','_parent')">
+                <div id="TopHead" style="width: 900px;">
+                    Trust Fund Monitoring Report as of {!Monitoring_Trust_Fund_Report__c.MTF_End_Calc__c}
+                </div>
+            </apex:outputPanel>
+            
+        </td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+    
+    <!-------------------------------------------------------------------MAIN TABLE START----------------------------------------------------------------------------->
+    
+    
+    <table style="table-layout:fixed; border-collapse: collapse; border: 2px solid black;" border="1">
+        <apex:variable var="col1" value="width: 225px;" />
+        <apex:variable var="coln" value="width: 150px;" />
+        <apex:variable var="HedColor" value="background-color: rgb(37,113,170);" />
+        <apex:variable var="RevColor" value="background-color: rgb(245, 255, 246);" />
+        <apex:variable var="ExpColor" value="background-color: rgb(255, 245, 245);" />
+        <apex:variable var="TotColor" value="background-color: rgb(255, 250, 150);" />
+        <col style="{!col1}" />
+        <col style="{!coln}" />
+        <col style="{!coln}" />
+        <col style="{!coln}" />
+        
+        <tr style="{!HedColor}">
+            <td id="TblHead">
+            </td>
+            <td id="TblHead">
+                Inception<br/>
+                {!Monitoring_Trust_Fund_Report__c.MTF_END_INCEP_CALC__c}
+            </td>
+            <td id="TblHead">
+                {!Monitoring_Trust_Fund_Report__c.MTF_START_CALC__c}<br/>
+                {!Monitoring_Trust_Fund_Report__c.MTF_END_DATE_SHORT_CALC__c}
+            </td>
+            <td id="TblHead" style="font-size: 15pt">
+                TOTAL
+            </td>
+        </tr>
+        
+        <tr style="{!RevColor}">
+            <td id="TblSubH" colspan="4">
+                REVENUE SUMARY
+            </td>
+        </tr>
+        
+        <tr style="{!RevColor}">
+            <td id="TblLabl">
+                Barrier-Free Escrow
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Barrier_Free_Escrow_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Barrier_Free_Escrow_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Barrier_Free_Escrow_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!RevColor}">
+            <td id="TblLabl">
+                Development Fees
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Development_Fees_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Development_Fees_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Development_Fees_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!RevColor}">
+            <td id="TblLabl">
+                Interest Earned
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Interest_Earned_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Interest_Earned_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Interest_Earned_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!RevColor}">
+            <td id="TblLabl">
+                Other income
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Other_income_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Other_income_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Other_income_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!RevColor}">
+            <td id="TblLabl">
+                Payments-in-Lieu
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Payment_in_Lieu_of_Construction_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Payment_in_Lieu_of_Construction_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Payment_in_Lieu_of_Construction_Tot__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!RevColor}">
+            <td id="TblSubT">
+                REVENUE TOTAL:
+            </td>
+            <td id="TblSubT">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Revenue_Total_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblSubT">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Revenue_Total_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblSubT">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Revenue_Grand_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!ExpColor}">
+            <td id="TblSubH" colspan="4">
+                EXPENDITURE SUMMARY
+            </td>
+        </tr>
+        
+        <tr style="{!ExpColor}">
+            <td id="TblLabl">
+                Administration
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Administration_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Administration_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Administration_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!ExpColor}">
+            <td id="TblLabl">
+                Affordability Assistance
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Affordability_Assistance_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData" style="{!if(Monitoring_Trust_Fund_Report__c.MTF_Affordability_Assistance_2__c != Monitoring_Trust_Fund_Report__c.MTF_Affordability_Assistance_Calc__c,"background: red;","")}">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Affordability_Assistance_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Affordability_Assistance_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!ExpColor}">
+            <td id="TblLabl">
+                Barrier-Free Conversions
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Barrier_Free_Conversions_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Barrier_Free_Conversions_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Barrier_Free_Conversions_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!ExpColor}">
+            <td id="TblLabl">
+                Housing Activity
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Housing_Activity_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData" style="{!if(Monitoring_Trust_Fund_Report__c.MTF_Housing_Activity_2__c != Monitoring_Trust_Fund_Report__c.MTF_Housing_Activity_Calc__c,"background: red;","")}">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Housing_Activity_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblData">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Housing_Activity_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!ExpColor}">
+            <td id="TblSubT">
+                EXPENDITURE TOTAL:
+            </td>
+            <td id="TblSubT">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Expenditure_Total_1__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblSubT">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Expenditure_Total_2__c}" />
+                </apex:outputText>
+            </td>
+            <td id="TblSubT">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Expenditure_Grand_Total__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        
+        <tr style="{!TotColor}">
+            <td id="TblLast" colspan="3">
+                TRUST FUND ACCOUNT BALANCE AS OF {!Monitoring_Trust_Fund_Report__c.MTF_END_DATE_SHORT_CALC__c}:
+            </td>
+            <td id="TblLast">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Trust_Fund_Balance__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr style="height: 20px;border-bottom: 2px solid white;border-top: 2px solid black;border-left: 2px solid white;border-right: 2px solid white;">
+            <td colspan="4">
+            </td>
+        </tr>
+        
+    </table>
+    
+    <!-------------------------------------------------Affordability Assistance Table ---------------------------------->
+    
+    <table style="table-layout:fixed; border-collapse: collapse; border: 2px solid black;" border="1">
+        <col style="{!col1}" />
+        <col style="{!coln}" />
+        <col style="{!coln}" />
+        <tr style="{!HedColor}">
+            <td id="TblHead" colspan="3">
+                AFFORDABILITY ASSISTANCE
+            </td>
+        </tr>
+        <apex:repeat value="{!listTFA }" var="x">
+            <tr>
+                <td id="TblLabl" style="text-align: left;" colspan="2">
+                    <apex:outputPanel layout="block" ondblclick="window.open('/{!x.Id}','_blank')">
+                    {!x.Name}
+                    </apex:outputPanel>
+                </td>
+                <td id="TblData">
+                    <apex:outputPanel layout="block" ondblclick="window.open('/{!x.Id}','_blank')">
+                    <apex:outputtext value="{0, Number, Currency}">
+                        <apex:param value="{!x.MTFI_Amount__c}" />
+                    </apex:outputText>
+                    </apex:outputpanel>
+                </td>
+            </tr>
+        </apex:repeat>
+        <tr>
+            <td id="TblSubT" colspan="2">
+                AFFORDABILITY ASSISTANCE TOTAL:
+            </td>
+            <td id="TblSubT"  style="{!if(Monitoring_Trust_Fund_Report__c.MTF_Affordability_Assistance_2__c != Monitoring_Trust_Fund_Report__c.MTF_Affordability_Assistance_Calc__c,"background: red;","")}">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Affordability_Assistance_Calc__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr style="height: 20px;border-bottom: 2px solid white;border-top: 2px solid black;border-left: 2px solid white;border-right: 2px solid white;">
+            <td colspan="3">
+            </td>
+        </tr>
+    </table>    
+    <!-------------------------------------------------Housing Activity Table ---------------------------------->
+    
+    <table style="table-layout:fixed; border-collapse: collapse; border: 2px solid black;" border="1">
+        <col style="{!col1}" />
+        <col style="{!coln}" />
+        <col style="{!coln}" />
+        <tr style="{!HedColor}">
+            <td id="TblHead" colspan="3">
+                HOUSING ACTIVITY
+            </td>
+        </tr>
+        <apex:repeat value="{!listTFH }" var="x">
+            <tr>
+                <td id="TblLabl" style="text-align: left;" colspan="2">
+                    <apex:outputPanel layout="block" ondblclick="window.open('/{!x.Id}','_blank')">
+                    {!x.Name}
+                    </apex:outputPanel>
+                </td>
+                <td id="TblData">
+                    <apex:outputPanel layout="block" ondblclick="window.open('/{!x.Id}','_blank')">
+                    <apex:outputtext value="{0, Number, Currency}">
+                        <apex:param value="{!x.MTFI_Amount__c}" />
+                    </apex:outputText>
+                    </apex:outputpanel>
+                </td>
+            </tr>
+        </apex:repeat>
+        <tr>
+            <td id="TblSubT" colspan="2">
+                HOUSING ACTIVITY TOTAL:
+            </td>
+            <td id="TblSubT" style="{!if(Monitoring_Trust_Fund_Report__c.MTF_Housing_Activity_2__c != Monitoring_Trust_Fund_Report__c.MTF_Housing_Activity_Calc__c,"background: red;","")}">
+                <apex:outputtext value="{0, Number, Currency}">
+                    <apex:param value="{!Monitoring_Trust_Fund_Report__c.MTF_Housing_Activity_Calc__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr style="height: 20px;border-bottom: 2px solid white;border-top: 2px solid black;border-left: 2px solid white;border-right: 2px solid white;">
+            <td colspan="3">
+            </td>
+        </tr>
+    </table>
+    
+</apex:page>

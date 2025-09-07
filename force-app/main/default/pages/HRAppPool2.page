@@ -1,0 +1,28 @@
+<apex:page Controller="HRAppPoolCont" sidebar="false" showheader="false">
+
+<apex:variable var="count" value="{!IF(flip!='1',sizePreApps + 1,0)}" />
+<apex:pageblock >
+
+            <apex:pageblocktable width="1200" var="c" value="{!if(flip = '1', revPreApps,PreApps)}" >
+              
+        
+                <apex:column headerValue="New Rank">
+                    <apex:outputtext >
+                        <apex:variable var="count" value="{!IF(flip='1',count + 1,count - 1)}"/>
+                        <div id="bRANK" style="font-size: 11pt;" onclick="window.open('/{!c.Id}','_blank')">{!count}</div>
+                    </apex:outputtext>
+                </apex:column>
+
+                <apex:column value="{!c.Waitlist_Number__c}" headerValue="Waitlist #"  />
+                <apex:column value="{!c.Pre_App_Status__c}" headerValue="Status"  />
+                <apex:column headerValue="Contact Date" value="{!c.Contact_Date__c}" width="80"  />
+                <apex:column headerValue="App Sent Date" value="{!c.Application_Sent_Date__c}" width="80"  />
+                <apex:column value="{!c.Contact__r.MailingStreet}" headerValue="Street" />
+                <apex:column headerValue="Contact" onclick="" ondblclick="">
+                    {!c.Contact__r.FirstName} {!c.Contact__r.LastName}
+                </apex:column>
+                <apex:column value="{!c.Case_File_Text__c}" headerValue="Case File"   />
+                
+            </apex:pageblocktable>
+    </apex:pageblock>
+</apex:page>

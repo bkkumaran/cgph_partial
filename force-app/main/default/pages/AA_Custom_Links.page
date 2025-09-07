@@ -1,0 +1,88 @@
+<apex:page >
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat');
+    #b {
+        white-space: nowrap;
+        text-decoration:none;
+        font-size: 10pt;
+        color: rgb(37,113,170);
+        font-family: 'Montserrat';
+        font-weight: bold;
+        background-color: #f8f8f8;
+        border-radius: 5px;
+        border-top: 1px solid #CCCCCC;
+        border-right: 1.5px solid rgb(37,113,170);
+        border-bottom: 1.5px solid rgb(37,113,170);
+        border-left: 1px solid #CCCCCC;
+        padding: 3px 10px 3px 10px; 
+        }
+    #b:hover {
+        white-space: nowrap;
+        text-decoration:none;
+        font-size: 10pt;
+        background-color: rgb(37,113,170);
+        font-family: 'Montserrat';
+        font-weight: bold;
+        color: white;
+        border-top: 1px solid #CCCCCC;
+        border-right: 1px solid #333333;
+        border-bottom: 1px solid #333333;
+        border-left: 1px solid #CCCCCC;
+        border-radius: 5px;
+        padding: 5px 10px 3px 10px;
+        }
+    .b1 {padding:5px 10px 5px 10px; background-color:#c9c9c9;font-weight:bold; font-size:10.5pt; font-family:Open Sans; border: 1px solid #c9c9c9;border-radius:6px;}
+    .b1:hover {background-color:#0b5cab;color:white;text-decoration:none;}
+  </style>
+  
+  
+  <table>
+    <tr>
+      <td><a id="b" target="_blank" href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/Employee_Handbook?id=a2f6O000000tpyJQAQ">EMPLOYEE HANDBOOK</a><br></br><br></br></td>
+    </tr>
+    
+    <tr>
+      <td><a id="b" target="_blank" href="http://www.tfaforms.com/4871766?tfa_470=False">Pre-Application Internal</a><br></br><br></br></td>
+    </tr>
+  
+    <tr>
+      <td><a id="b" target="_blank" href="/flow/VoicemailCaseNew">Voicemail Case</a><br></br><br></br></td>
+    </tr>
+
+    
+    <tr>
+      <td>
+      <div style="{!IF(OR(
+          $User.FirstName='John',
+          $User.LastName='Sciortino',
+          $User.LastName='Hamlett',
+          $User.LastName='York',
+          $User.LastName='Carbone',
+          $User.LastName='DiLauri',
+          $User.LastName='Calle',
+          $User.LastName='Ritenband',
+          $User.LastName='Johnson',
+          $User.LastName='Miller',
+          $User.LastName='Bartle',
+          $User.LastName='Markulin',
+          $User.LastName='Garcia',
+          $User.LastName='Hynes'
+          ),'','display:none;')}">
+      <a id="b" target="_blank" href="/flow/Cases_Escalated_AA_Tech_Cases">Escalated Tech Case</a><br></br><br></br>
+      </div>
+      </td>
+    </tr>
+
+  
+    <tr>
+      <td><a id="b" target="_blank" href="/flow/NewImprovementTicket">Internal Improvement Ticket</a><br></br><br></br></td>
+    </tr>
+    
+    <tr>
+      <td><a id="b" target="_blank" href="/lightning/n/Current_Active_Contracts">Current Active Contracts</a><br></br><br></br></td>
+    </tr>
+    
+  </table>  
+  
+</apex:page>

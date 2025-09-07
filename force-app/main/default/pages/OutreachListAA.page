@@ -1,0 +1,214 @@
+<apex:page controller="OutreachListAAcont" lightningStyleSheets="false">
+
+<apex:variable var="groupColor" value="#9ec4ff"/>
+<apex:variable var="unitColor" value="#e6f0ff"/>
+<apex:variable var="singleColor" value="#fcf9f2"/>
+<apex:variable var="warnColor" value="#ff5454"/>
+<apex:variable var="doneColor" value="#c7ebd8"/>
+
+<apex:variable var="needsApps" value="RGB(255,183,93)"/>
+<apex:variable var="noApps" value="#e6f0ff"/>
+<apex:variable var="noUnits" value="#ecdeff"/>
+<apex:variable var="ok" value="#fcf9f2"/>
+
+<style>
+    table {border-collapse:collapse}
+    td {padding: 0px 5px 0px 2px;}
+    th {vertical-align:bottom;}
+    .stuckHead {position: sticky;top: 0;}
+    .headDiv {background-color:white; height:30px;}
+    .right {text-align:right;}
+    .center {text-align:center;}
+    .left {text-align:left;}
+    
+    .needsApps {
+        background-color:{!needsApps};
+        {!IF(
+        $CurrentPage.parameters.limit='2' 
+        ,'display:none;','')}
+        }
+    .noApps {
+        background-color:{!noApps};
+            {!IF(
+            $CurrentPage.parameters.limit='1' || $CurrentPage.parameters.limit='2' ,
+            'display:none;','')}
+            }
+    .noUnits {
+        background-color:{!noUnits};
+            {!IF(
+            $CurrentPage.parameters.limit='1',
+            'display:none;','')
+            }
+            }
+    .ok {background-color:{!ok};
+        {!IF(
+        $CurrentPage.parameters.limit='1' || $CurrentPage.parameters.limit='2' ,
+        'display:none;','')}
+        }
+
+    .group {background-color:{!groupColor}}
+    .part {display:none;}
+    .single {background-color:{!singleColor}}
+
+    tr:hover {background-color:yellow;}
+    
+    .b1 {background-color: {!needsApps}; color: black; padding: 10px 10px; border: none; border-radius: 0px; cursor: pointer; text-decoration:none;}
+    .b1:hover {background-color: purple; color:white; text-decoration:none; }
+    .b2 {background-color: {!groupColor}; color: black; padding: 10px 20px; border: none; border-radius: 0px; cursor: pointer; text-decoration:none;}
+    .b2:hover {background-color: purple; color:white; text-decoration:none; }
+    
+    .tooltip {
+          position: relative;
+          display: inline-block;
+            }
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 90px;
+        background-color: yellow;
+        color: black;
+        text-align: center;
+        padding: 5px 5px 5px 5px;
+        border-radius: 6px;
+        border:1px solid black;
+        position: absolute;
+        top: 30px;
+        left:90px;
+        z-index: 1;
+        font-size:9pt;
+            }
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        }
+
+    
+</style>
+
+             
+<table border="1">
+    <thead class="stuckHead">
+    <tr>
+        <th height="30px">
+            <div class="headDiv">
+                #
+                <span class="headDiv" style="{!IF($User.LastName='Burton','','display:none;')}">
+                    <a class="b3" href="https://cgph--c.vf.force.com/apex/OutreachListAA?limit={!$CurrentPage.parameters.limit}" target="_top">VF</a>
+                </span>
+            </div>
+        </th>
+        <th><div class="headDiv"> Development</div></th>
+        <th><div class="headDiv"> Property</div></th>
+        <th><div class="headDiv"> Property Type</div></th>
+        <th><div class="headDiv"> Group?</div></th>
+        <th><div class="headDiv"> Units</div></th>
+        <th><div class="headDiv">Total<br/>Applicants</div></th>
+        <!--<th><div class="headDiv">Invited<br/>Applicants</div></th>-->
+        <!--<th><div class="headDiv">Submitted<br/>Applicants</div></th>-->
+        <th><div class="headDiv">Applicant<br/>Strategy</div></th>
+
+        <th>
+            <div class="headDiv">
+            
+            
+            
+                <div class="tooltip">
+                <span class="tooltiptext">
+                    <center>
+                    <table border="1">
+                        <tr><td class="left">UNITS</td><td class="left">APPS</td></tr>
+                        <tr><td class="left">1</td><td class="left">10</td></tr>
+                        <tr><td class="left">2</td><td class="left">12</td></tr>
+                        <tr><td class="left">3</td><td class="left">15</td></tr>
+                        <tr><td class="left">4</td><td class="left">20</td></tr>
+                        <tr><td class="left">5</td><td class="left">20</td></tr>
+                        <tr><td class="left">6</td><td class="left">20</td></tr>
+                        <tr><td class="left">7</td><td class="left">25</td></tr>
+                        <tr><td class="left">8</td><td class="left">25</td></tr>
+                        <tr><td class="left">9</td><td class="left">25</td></tr>
+                        <tr><td class="left">10</td><td class="left">25</td></tr>
+                        <tr><td class="left">11+</td><td class="left">30</td></tr>
+                    </table>
+                    </center>
+                </span>
+                    Applicants<br/>Assessment
+               </div>
+            
+            </div>
+        </th>
+        
+        
+        
+        <th style="border-top:1px solid white !important; border-right:1px solid white !important; border-bottom:1px solid white !important;">
+            <div class="headDiv" style="{!IF($CurrentPage.parameters.limit='1','display:none;','')}">
+                <a class="b1" href="https://cgph--c.vf.force.com/apex/OutreachNeededAA" target="_top">SHOW ONLY NEEDED</a>
+            </div>
+            <div class="headDiv" style="{!IF($CurrentPage.parameters.limit='1','','display:none;')}">
+                <a class="b2" href="https://cgph--c.vf.force.com/apex/OutreachListAA?limit=0&core.apexpages.devmode.url=0" target="_top">SHOW ALL</a>
+            </div>
+        </th>
+    </tr>
+    </thead>
+
+<apex:repeat value="{!mapProps}" var="key">
+    <tr class="{!IF(mapProps[key][5]='Part of Group','part',CASE(mapProps[key][10],'OK','ok','No Applicants','noApps','More Needed','needsApps','No Units','noUnits',''))}">
+        <td>
+            {!key}
+        </td>
+        <td> <!-- development name -->
+            <a href="https://cgph.my.salesforce.com/apex/PropertyInventory?d={!mapProps[key][1]}&g=1&core.apexpages.devmode.url=0" target="_blank">
+                [INV] &nbsp;
+            </a>
+            <a href="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Property__c/{!mapProps[key][1]}/view" target="_blank">
+                {!mapProps[key][0]}
+            </a>
+        </td>
+        <td> <!-- property name -->
+            <a href="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Property__c/{!mapProps[key][3]}/view" target="_blank">
+                {!mapProps[key][2]}
+            </a>
+        </td>
+        <td> <!-- record type -->
+            {!mapProps[key][4]}
+        </td>
+        <td> <!-- group / part of group / single unit -->
+            {!mapProps[key][5]}
+        </td>
+        <td class="right"> <!-- units -->
+            {!mapProps[key][9]}
+        </td>
+        <td class="right"> <!-- total applicants -->
+            {!IF(mapProps[key][5]='Part of Group','',mapProps[key][6])}
+        </td>
+        <td class="right"> <!-- Applicant Strategy -->
+            {!mapProps[key][11]}
+        </td>
+        <!--<td class="right">  invited applicants 
+            {!IF(mapProps[key][5]='Part of Group','',mapProps[key][7])}
+        </td>-->
+        <!--<td class="right">  Applicants who submitted 
+            {!IF(mapProps[key][5]='Part of Group','',mapProps[key][8])}
+        </td>-->
+        <td>  <!--Applicants Assessment-->
+            {!mapProps[key][10]}
+        </td> 
+        <td style="background-color:white !important; border: 0px; border-right:1px solid white;border-bottom:1px solid white;">
+        &nbsp;
+        </td>
+    </tr>
+</apex:repeat>
+</table>
+
+
+<br/><br/><br/><br/><br/>
+
+<!--
+<apex:repeat value="{!propList}" var="d">
+<table border="1">
+<tr>
+<td>
+{!d.Development_Address__r.Name}
+</td>
+</tr>
+</table>
+</apex:repeat>
+-->
+</apex:page>

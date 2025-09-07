@@ -1,0 +1,213 @@
+<apex:page standardController="Contract" showHeader="true" sidebar="true" extensions="contInvoiceExt"  lightningstylesheets="true">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        .tableStyle { font-family: 'Open Sans'; font-size: 10pt;}
+        
+        td {color: #0771aa; padding: 2px 15px 2px 0px;}
+        .allocation {font-size: 12pt; color: black; text-align: left; }
+        
+        .TS { color:black; font-size:14pt;}
+        
+    </style>
+
+    <apex:image url="{!$Resource.cgphLOGOgif}" width="300px" />
+    <br />
+    <div style="font-size: 30pt; color: rgb(37,113,170); font-family: 'Open Sans'; font-weight: bold; padding: 25px 0px 25px 0px;">
+        {!Contract.Name} Invoices
+        <br />
+    </div>
+    
+<!--    {!$Setup.CGPH_Metrics__c.Last_Past_Due__c}   -->
+    
+<table border="0" style="font-size: 16pt; font-family: 'Open Sans'; font-weight: normal;">
+            <tr>
+                <td colspan="3">
+                </td>
+                <td class="allocation">
+                AA
+                </td>
+                <td class="allocation">
+                GS
+                </td>
+                <td  class="allocation">
+                HR
+                </td>
+                <td  class="allocation" style="padding-left:20px; "> <u>CLIENT RECEIVABLES</u> <a href="/{!LEFT(Contract.Account.Id,15)}" target="_blank"><apex:image url="{!$Resource.blueFileIcon}" width="20px" /></a></td>
+               
+            </tr>
+            <tr>
+                <td>
+                    Total Billed
+                </td>
+                <td style="text-align:right"> 
+                    <apex:outputText value="{0, Number, Currency}" style="color: #0771aa"><apex:param value="{!Contract.Total_Billed_Invoices__c}" /></apex:outputText>
+                </td>
+                <td>
+                    <a href="/00O3m000005Mir7?pv0={!LEFT(Contract.Id,15)}" target="_blank"><apex:image url="{!$Resource.blueFileIcon}" width="20px" /></a>
+                </td>
+                <td class="allocation">
+                <apex:outputText value="{0, Number, Currency}"><apex:param value="{!Contract.Invoicing_AA__c}" /></apex:outputText>
+                </td>
+                <td class="allocation">
+                <apex:outputText value="{0, Number, Currency}"><apex:param value="{!Contract.Invoicing_GS__c}" /></apex:outputText>
+                </td>
+                <td class="allocation">
+                <apex:outputText value="{0, Number, Currency}"><apex:param value="{!Contract.Invoicing_HR__c}" /></apex:outputText>
+                </td>
+                <td class="allocation" style="padding-left:20px; width:600px; font-size:10pt; vertical-align:top;" rowspan="3" >
+                 
+                 <span style="{!IF(Contract.Account.Past_Due_Action_Needed__c=true,"background-color:#fff06b;","")}"><b>STATUS: </b>{!Contract.Account.Receivables_Status__c}</span><br/>
+                <!-- <b>ACTION: </b>{!Contract.Account.Receivables_Action_Taken__c}<br/>  -->
+                 <b>NOTES: </b>{!Contract.Account.Recent_Receivables_Notes__c}<br/>
+                 </td>
+                
+            </tr>
+            <tr>
+                <td>
+                    Total Paid
+                </td>
+                <td style="text-align:right">
+                    <apex:outputText value="{0, Number, Currency}" style="color: #0771aa"><apex:param value="{!Contract.Total_Paid_Invoices__c}" /></apex:outputText>
+                </td>
+                <td>
+                    <a href="/00O3m000005MirC?pv0={!LEFT(Contract.Id,15)}" target="_blank"><apex:image url="{!$Resource.blueFileIcon}" width="20px" /></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Total Due
+                </td>
+                <td style="text-align:right;">
+                    <apex:outputText value="{0, Number, Currency}" style="color: #0771aa; "><apex:param value="{!Contract.Total_Unpaid_Invoices__c}" /></apex:outputText>
+                </td>
+                <td>
+                    <a href="/00O3m000005MirH?pv0={!LEFT(Contract.Id,15)}" target="_blank"><apex:image url="{!$Resource.blueFileIcon}" width="20px" /></a>
+                </td>
+                
+
+            </tr>
+            
+            
+ <!-- TOTAL PAST DUES -->           
+ <!--
+            <tr>
+                <td>
+                    TEST
+                </td>
+                <td style="text-align:right;">
+                    TEST 2
+                </td>
+                </tr>
+ -->           
+            </table>
+            <br/>
+            <br/>
+<apex:image id="PriorButtonX" url="{!$Resource.PriorButtonX}" rendered="{!IF(Contract.Prior_Contract_Identifier__c = '',true,false)}" />
+<apex:image id="PriorButton" url="{!$Resource.PriorButton}" rendered="{!IF(Contract.Prior_Contract_Identifier__c != '',true,false)}" onclick="window.open('contInvoice?Id={!Contract.Prior_Contract_Identifier__c}&Id2={!Contract.PriorPriorId__c}&core.apexpages.devmode.url=0','_parent')"/>
+<apex:image id="NextButtonX" url="{!$Resource.NextButtonX}" rendered="{!IF(Contract.Next_Contract_Identifier__c = '',true,false)}" />
+<apex:image id="NextButton" url="{!$Resource.NextButton}" rendered="{!IF(Contract.Next_Contract_Identifier__c != '',true,false)}" onclick="window.open('contInvoice?Id={!Contract.Next_Contract_Identifier__c}&Id2={!Contract.Id}&core.apexpages.devmode.url=0','_parent')"/>
+
+    <apex:form >
+        <apex:pageBlock id="invBlock" >
+            
+            <table width="600" border="1" >
+            <tr>
+            <td style="background-color:white; text-align: center; font-family: 'Open Sans'; font-size: 10pt; font-weight: 600; width: 100px;">
+            Current Due
+            </td>
+            <td style="background-color: rgb(255, 220, 220); text-align: center; font-family: 'Open Sans'; font-size: 10pt; font-weight: 600; width: 100px;">
+            Past Due {!Contract.Account.Past_Due_Days__c} days
+            </td>
+            <td style="background-color: rgb(230, 250, 230); text-align: center; font-family: 'Open Sans'; font-size: 10pt; font-weight: 600; width: 100px;">
+            Paid in Full
+            </td>
+            </tr>
+            </table>
+            
+            <div style="font-size: 6pt"> &nbsp; </div>
+            <apex:pageBlockTable value="{!invList}" var="x" styleClass="tableStyle" >
+                <apex:column value="{!x.Name}" onClick="window.open('/{!x.Id}');" 
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"/>
+                
+
+<!--
+NEW
+style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"
+
+OLD
+style="{!IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c),'background-color: rgb(255, 220, 220); font-weight: bold;',IF(x.Days_Unpaid__c = 0,'background-color: rgb(230, 250, 230); font-weight: bold;',' font-weight: bold;'))}"
+-->
+
+                
+                
+                
+                <apex:column onClick="window.open('{!x.Invoice_Image_URL__c}');"
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}">
+                    <apex:facet name="header">PDF</apex:facet>
+                    <apex:image url="{!$Resource.PDF_Icon_Small}" height="15" />
+                    
+            <!--        <apex:image url="{!$Resource.icon_PDF}" /> {!x.Invoice_Image_URL__c}   -->
+                </apex:column>
+                
+           
+                <apex:column value="{!x.TSC_Text_Calc__c}" headerValue="TS Contract" onClick="window.open('/{!x.Id}');"
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"/>   
+                <apex:column value="{!x.Invoice_Date__c}" onClick="window.open('/{!x.Id}');"
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"/>
+                <apex:column value="{!x.Sent_Date__c}" onClick="window.open('/{!x.Id}');"
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"/>
+                <apex:column value="{!x.Invoice_Amount_ADJ__c}" headerValue="Invoice Amount" onClick="window.open('/{!x.Id}');"
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"/>
+                <apex:column value="{!x.Payment_Remaining__c}" headerValue="Amount Due" onClick="window.open('/{!x.Id}');"
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"/>
+                <apex:column value="{!x.Time_Paid_Unpaid__c}" onClick="window.open('/{!x.Id}');"
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"/>
+                <apex:column value="{!x.Purchase_Order__c}" onClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"/>
+                <apex:column value="{!x.PO_Date_Sent__c}" onClick="window.open('{!x.Purchase_Order_URL__c}');" 
+                    style="{!IF(OR(ISNULL(x.Days_Unpaid__c) = TRUE, x.Days_Unpaid__c = 0), 'background-color: rgb(230, 250, 230); font-weight: bold;',IF(x.Days_Unpaid__c > value(Contract.Account.Past_due_Days__c), 'background-color: rgb(255, 220, 220); font-weight: bold;', ' font-weight: bold;'))}"/>
+                    
+
+                
+                
+            </apex:pageBlockTable> 
+
+        </apex:pageBlock>
+        
+        
+        <apex:pageBlock id="invBlock2" >
+            
+            <table width="600" border="1" >
+            <tr>
+            <td style="background-color: rgb(252, 167, 167); text-align: center; font-family: 'Open Sans'; font-size: 10pt; font-weight: 600; width: 100px;">
+            PRIOR CONTRACT UNPAID
+            </td>
+            </tr>
+            </table>
+            <div style="font-size: 6pt"> &nbsp; </div>
+            <apex:pageBlockTable value="{!invList2}" var="x" styleClass="tableStyle" rendered="{!IF(invList2size = 0,false,true)}">
+                <apex:column value="{!x.Name}" onClick="window.open('/{!x.Id}');" 
+                    style="{!'background-color: rgb(252, 167, 167); font-weight: bold;'}"/>
+                <apex:column onClick="window.open('{!x.Invoice_Image_URL__c}');" style="{!'background-color: rgb(252, 167, 167);'}">
+                    <apex:facet name="header">PDF</apex:facet>
+                    <apex:image url="{!$Resource.PDF_Icon_Small}"  height="15" /> 
+                </apex:column>
+                <apex:column value="{!x.TSC_Text_Calc__c}" onClick="window.open('/{!x.Id}');" style="{!'background-color: rgb(252, 167, 167);'}"/>   
+                <apex:column value="{!x.Invoice_Date__c}" onClick="window.open('/{!x.Id}');" style="{!'background-color: rgb(252, 167, 167);'}"/>
+                <apex:column value="{!x.Sent_Date__c}" onClick="window.open('/{!x.Id}');" style="{!'background-color: rgb(252, 167, 167);'}"/>
+                <apex:column value="{!x.Invoice_Amount_ADJ__c}" onClick="window.open('/{!x.Id}');" style="{!'background-color: rgb(252, 167, 167);'}"/>
+                <apex:column value="{!x.Payment_Remaining__c}" headerValue="Amount Due" onClick="window.open('/{!x.Id}');" style="{!'background-color: rgb(252, 167, 167);'}"/>
+                <apex:column value="{!x.Time_Paid_Unpaid__c}" onClick="window.open('/{!x.Id}');" style="{!'background-color: rgb(252, 167, 167);'}"/>
+                <apex:column value="{!x.Purchase_Order__c}" onClick="window.open('{!x.Purchase_Order_URL__c}');"  style="{!'background-color: rgb(252, 167, 167);'}"/>
+                <apex:column value="{!x.PO_Date_Sent__c}" onClick="window.open('{!x.Purchase_Order_URL__c}');" style="{!'background-color: rgb(252, 167, 167);'}"/>
+<!--                <apex:column value="{!x.Invoice_A_R_Note_Date__c}" onClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" style="{!'background-color: rgb(252, 167, 167);'}"/>  -->
+<!--                <apex:column onClick="window.open('/flow/NewReceivablesNote?varInvoiceID={!x.Id}');" style="{!'background-color: rgb(252, 167, 167);'}">
+                    <apex:facet name="header">Current A/R Notes</apex:facet>
+                    {!x.Report_A_R_Notes__c}
+                </apex:column> -->
+            </apex:pageBlockTable> 
+
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

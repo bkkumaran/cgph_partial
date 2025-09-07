@@ -1,0 +1,122 @@
+<apex:page standardController="TS_Contract__c" extensions="NoSlipCheckTotalExt">
+
+
+
+
+
+<style>
+
+    body { 
+        background-color: {!IF(countTotal = 0,'RGB(230,230,230)','RGB(255,255,215)')};
+            }
+    a {
+        text-decoration: none;
+        color: blue;
+        }
+            
+    table {
+        border-collapse: collapse;
+        }
+    td {
+        padding: 2px 5px 2px 5px
+        }
+    .left{
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        border-left: 1px solid black;
+        }
+    .right{
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+        }
+    .space {
+        }
+        
+</style>
+
+<body>
+
+<table border="0">
+<!--
+    <tr>
+        <td>Invoice Setup</td>
+        <td>{!TS_Contract__c.Name}</td>
+    </tr>
+-->
+<!--
+    <tr>
+        <td>Invoice Date</td>
+        <td>
+            <apex:outputText value="{0, date, MM'/'d'/'yyyy}">
+                <apex:param value="{!invDate}"/>
+            </apex:outputText>
+        </td>
+    </tr>
+-->
+    <tr>
+        <td width="300px">
+            <a href="https://cgph.lightning.force.com/lightning/r/TS_Contract__c/{!TS_Contract__c.Id}/view" target="_blank">
+                <b>{!TS_Contract__c.Name}</b>
+            </a>
+        </td>
+        <td class="left" style="{!IF( cPendingSlip = 0 , 'display:none;','')}">Pending Slips</td>
+        <td class="right" style="{!IF( cPendingSlip = 0 , 'display:none;','')}">{!cPendingSlip}</td>
+        <td class="space" style="{!IF( cPendingSlip = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cClientSetup = 0 , 'display:none;','')}">Private Client Setup Fee</td>
+        <td class="right" style="{!IF( cClientSetup = 0 , 'display:none;','')}">{!cClientSetup}</td>
+        <td class="space" style="{!IF( cClientSetup = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cAAListing = 0 , 'display:none;','')}">AA Listing Fee</td>
+        <td class="right" style="{!IF( cAAListing = 0 , 'display:none;','')}">{!cAAListing}</td>
+        <td class="space" style="{!IF( cAAListing = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cWaitlist = 0 , 'display:none;','')}">Muni Waitlist Import Fee </td>
+        <td class="right" style="{!IF( cWaitlist = 0 , 'display:none;','')}">{!cWaitlist}</td>
+        <td class="space" style="{!IF( cWaitlist = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cMuniClosing = 0 , 'display:none;','')}">Muni Closing Fee</td>
+        <td class="right" style="{!IF( cMuniClosing = 0 , 'display:none;','')}">{!cMuniClosing}</td>
+        <td class="space" style="{!IF( cMuniClosing = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cPrivOwnCert = 0 , 'display:none;','')}">Private Ownership Certs</td>
+        <td class="right" style="{!IF( cPrivOwnCert = 0 , 'display:none;','')}">{!cPrivOwnCert}</td>
+        <td class="space" style="{!IF( cPrivOwnCert = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cAAElig = 0 , 'display:none;','')}">AA Eligibilities</td>
+        <td class="right" style="{!IF( cAAElig = 0 , 'display:none;','')}">{!cAAElig}</td>
+        <td class="space" style="{!IF( cAAElig = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cAssistApps = 0 , 'display:none;','')}">Assistance Apps</td>
+        <td class="right" style="{!IF( cAssistApps = 0 , 'display:none;','')}">{!cAssistApps}</td>
+        <td class="space" style="{!IF( cAssistApps = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cEmailList = 0 , 'display:none;','')}">Email list for landlord</td>
+        <td class="right" style="{!IF( cEmailList = 0 , 'display:none;','')}">{!cEmailList}</td>
+        <td class="space" style="{!IF( cEmailList = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cHRMiles = 0 , 'display:none;','')}">HR Milestones</td>
+        <td class="right" style="{!IF( cHRMiles = 0 , 'display:none;','')}">{!cHRMiles}</td>
+        <td class="space" style="{!IF( cHRMiles = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cMuniAAlogs = 0 , 'display:none;','')}">Muni Logs Slip Needed </td>
+        <td class="right" style="{!IF( cMuniAAlogs = 0 , 'display:none;','')}">{!cMuniAAlogs}</td>
+        <td class="space" style="{!IF( cMuniAAlogs = 0 , 'display:none;','')}">&nbsp;</td>
+
+        <td class="left" style="{!IF( cRecFlatFeeBoth = 0 , 'display:none;','')}">Recurring Flat Fees</td>
+        <td class="right" style="{!IF( cRecFlatFeeBoth = 0 , 'display:none;','')}">{!cRecFlatFeeBoth}</td>
+        <td class="space" style="{!IF( cRecFlatFeeBoth  = 0 , 'display:none;','')}">&nbsp;</td>
+        
+        <td class="left" style="{!IF( cRecFlatFeeBoth = 0 , 'display:none;','')}">Recurring Flat Fees_new</td>
+        <td class="right" style="{!IF( cRecFlatFeeBoth = 0 , 'display:none;','')}">{!cRecFlatFeeBoth_new}</td>
+        <td class="space" style="{!IF( cRecFlatFeeBoth  = 0 , 'display:none;','')}">&nbsp;</td>
+    </tr>
+</table>
+<!--
+<a href="https://cgph--c.vf.force.com/apex/NoSlipCheckBySetup?id={!TS_Contract__c.Id}" target="_top">
+VF
+</a>
+-->
+</body>
+</apex:page>

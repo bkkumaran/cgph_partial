@@ -1,0 +1,994 @@
+<apex:page standardController="HOMEtracker__Service_File__c" extensions="IAWPHext" sidebar="false" showHeader="false" id="IAWpagePH">
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+        .bigHeader { font-family: 'Open Sans'; font-size: 18pt; font-weight: bold; color: rgb(0, 101, 168); text-decoration:none}
+        .medHeader { font-family: 'Open Sans'; font-size: 12pt; font-weight: bold; color: rgb(0, 101, 168); text-align: right; }
+        .elig { font-family: 'Open Sans'; font-size: 12pt; font-weight: bold; color: rgb(0, 101, 168); }
+        .column { font-family: 'Open Sans' !important; font-size: 9pt !important; }
+        .columnSmall { font-family: 'Open Sans' !important; font-size: 8.5pt !important; }
+        .lockRow { font-family: 'Open Sans' !important; font-size: 10pt !important; background-color: #d9f2f9 !important;}
+        .inTable{  font-family: 'Open Sans'; font-size: 11pt; padding: 10px 0px 10px 0px; text-align: left;}
+        .inTableEdit{  font-family: 'Open Sans'; font-size: 11pt; text-align: left;}
+        .button { font-size: 9pt !important; }
+        ul { list-style-type: circle; padding-left: 10px;}
+        li { margin: 0px 0px 1em 0px }
+        #b {white-space: nowrap; text-decoration:none; font-size: 12pt; color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; background-color: #f8f8f8;border-radius: 5px; border-top: 1px solid #CCCCCC; border-right: 1.5px solid rgb(37,113,170); border-bottom: 1.5px solid rgb(37,113,170); border-left: 1px solid #CCCCCC; padding: 3px 10px 3px 10px; }
+        #bb {white-space: nowrap; text-decoration:none; font-size: 12pt; background-color: rgb(37,113,170); font-family: 'Montserrat'; font-weight: bold; color: white; border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; border-radius: 5px; padding: 5px 10px 3px 10px; }
+        #br {white-space: nowrap; text-decoration:none; font-size: 12pt; color: white; font-family: 'Montserrat'; font-weight: bold; background-color: red; border-radius: 5px; border-top: 1px solid #a00404; border-right: 1.5px solid #a00404; border-bottom: 1.5px solid #a00404; border-left: 1px solid #a00404; padding: 3px 10px 3px 10px; }
+        #inTable{  font-family: 'Open Sans'; font-size: 11pt; padding: 0px 0px 0px 0px; text-align: left;background-color: white;}
+</style>
+
+<table width="1300px" border="0"> <!-- ADD BORDER WHEN CHECKLIST IS READY -->
+<tr>
+<td>
+ <apex:form > 
+         <apex:outputPanel layout="block" rendered="{!showRefresh}" onclick="window.open('apex/IncomeWorksheetPH?Id={!HOMEtracker__Service_File__c.Id}','_parent')" 
+                 style="font-family: 'Open Sans'; font-size: 50pt; font-weight: bold; color: rgb(0, 101, 168); background-color: #d9f2f9; width: 1000px; height: 800px; text-align: center;">
+           <apex:outputPanel layout="block" style="valign: center;" >
+            <div style="font-size: 200pt">&nbsp; </div>
+           CLICK TO REFRESH
+           </apex:outputPanel>
+
+  </apex:outputPanel>
+</apex:form>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<table width="1100px">
+    <tr>
+        <td align="left">    
+           <apex:image url="{!$Resource.AHNJ_logo}" /><br />
+        </td>
+        <td align="right" vertical-align="top">
+        
+<apex:variable id="SFNAME" var="SFNAME" value="{!SUBSTITUTE(HOMEtracker__Service_File__c.Name,"&#39;","+")}"/>
+
+            <apex:outputpanel onClick="window.open('https://composer.congamerge.com?sessionId={!$Api.Session_ID}&serverUrl={!$Api.Partner_Server_URL_290}&id={!HOMEtracker__Service_File__c.Id}&TemplateId=a293m000004mAcF&QueryId=[DOCS]a213m000003YUxG?pv0={!LEFT(HOMEtracker__Service_File__c.Id,15)}&OFN={!SFNAME}+Req+Doc+Qs&FP0=1&SC0=1&SC1=Attachments&AttachmentParentID={!HOMEtracker__Service_File__c.Id}&ExcelAutoFitRows=1&ds7=3','','MsgWindow')" >
+             <apex:image url="{!$Resource.BlueQFile}" width="60px" />
+                    </apex:outputpanel>
+                    &nbsp;
+            <apex:outputpanel onClick="window.open('{!HOMEtracker__Service_File__c.IAW_Copy_URL__c}','','MsgWindow')" > 
+            <apex:image url="{!$Resource.PDF_icon_blue}" width="60px" />           
+            </apex:outputpanel>
+
+
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+        <apex:form >  
+            <apex:outputLink value="/{!HOMEtracker__Service_File__c.Id}" styleclass="bigHeader">&nbsp; {!HOMEtracker__Service_File__c.property_name_calc__c} - {!HOMEtracker__Service_File__c.Property_Number_of_Bedrooms__c} bedroom {!HOMEtracker__Service_File__c.Property_Income_Level__c} </apex:outputLink>
+             <div style="font-size: 12pt"> <br /> 
+             </div>
+         
+            </apex:form>
+        </td>
+        </tr>
+        </table>
+
+<br/>
+<a id="b" target="_top" href="/apex/IncomeWorksheet?id={!id}">PRE PUBLIC HOUSE</a>
+<a id="bb" target="_top" href="/apex/IncomeWorksheetPH?id={!id}">POST PUBLIC HOUSE</a>
+<a id="br" target="_top" href="/apex/IAWPH?id={!id}" style="{!IF(OR($User.LastName='Burton',$User.LastName='Johnson'),'','display:none;')}">TEST</a>
+<br/>
+ 
+<br/>
+</td>
+</tr>
+</table>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+ <!-- ---------------------------DATA BLOCKS --------------------------------- -->                 
+<!-- ----------TOP TABLE --------------- -->
+                   
+     <table width="1100px" border="0">
+            <tr>
+            <td width="450 px"  valign="top">
+        
+ <!-- INITIAL INFO BLOCK -->
+             <apex:pageBlock >
+                 <apex:outputpanel styleclass="medHeader"> Income &amp; Asset Worksheet </apex:outputpanel>
+                <div style="font-size: 6pt"> <br /> </div>
+                           
+                <apex:panelGrid columns="2" id="grid1" border="0" style="background-color: white; padding: 8px;" width="400 px">
+
+                    <apex:outputpanel styleClass="inTable" style="font-weight: bold;">
+                            Primary Applicant
+                    </apex:outputpanel>
+                    
+                     <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            <apex:outputfield value="{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__c}" style="font-size: 12pt;" />
+                    </apex:outputpanel>                   
+
+                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Co-Applicant
+                    </apex:outputpanel>
+                    
+                     <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            <apex:outputfield value="{!HOMEtracker__Service_File__c.HOMEtracker__Co_Applicant__c}" style="font-size: 12pt;" />
+                    </apex:outputpanel> 
+
+                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Date Finalized
+                    </apex:outputpanel>
+                    
+                    <apex:outputText value="{0, Date, MM / dd / yyyy}" styleClass="inTable" style="font-weight: bold">
+                        <apex:param value="{!HOMEtracker__Service_File__c.Eligibility_Date__c}" />
+                    </apex:outputText>    
+                                    
+                    <apex:outputPanel styleClass="inTable" >
+                        Primary Reviewer
+                    </apex:outputPanel>
+                        
+                    <apex:outputPanel styleClass="inTable">
+                       <apex:outputfield value="{!HOMEtracker__Service_File__c.Application_Case_Manager_New__c}" style="font-size: 12pt;"/>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel styleClass="inTable">
+                        Peer Reviewer
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel styleClass="inTable">
+                       <apex:outputfield value="{!HOMEtracker__Service_File__c.Peer_Reviewer_User__c}" style="font-size: 12pt;"/>
+                    </apex:outputPanel>                        
+                                   
+                </apex:panelGrid>
+          </apex:pageBlock>
+           </td> 
+                   
+ <!-- HOUSEHOLD BLOCK -->                
+           <td width="450 px" valign="top">
+           <apex:pageBlock id="AnnualIncomeBlock" >
+            <table width="425 px">
+            <tr>
+            <td>
+              <apex:outputpanel styleclass="medHeader"> Household Information </apex:outputpanel>
+                <div style="font-size: 6pt"> <br /> </div>
+                </td>
+<!--                <td vertical-align="bottom" align="right" font-weight="bold">
+                  <apex:form > 
+                        <apex:outputPanel rendered="{!showRefresh}" onclick="window.open('apex/IncomeWorksheetPH?Id={!HOMEtracker__Service_File__c.Id}','_parent')" style="font-family: 'Open Sans'; font-size: 14pt; font-weight: bold; color: white; background-color: red;">
+                        &nbsp; REFRESH &nbsp; 
+                        </apex:outputPanel>
+                    </apex:form>
+           </td >
+-->           
+        </tr>
+     </table>
+
+
+    <table id="inTable" border="0">
+        <tr>
+            <td width="200" style="background-color:{!IF(HOMEtracker__Service_File__c.HOMEtracker__Household_Size__c = listHMsize,"white","rgb(255, 89, 89)")}">
+                <b>Number in Household</b>
+            </td>
+            <td width="200" style="background-color: {!IF(HOMEtracker__Service_File__c.HOMEtracker__Household_Size__c = listHMsize,'white','rgb(255, 89, 89)')}">
+                <apex:outputText value="{0, Number, 0}" styleClass="inTable" style="font-weight: bold;">
+                    <apex:param value="{!HOMEtracker__Service_File__c.HOMEtracker__Household_Size__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="font-size:9pt; background-color: {!IF(HOMEtracker__Service_File__c.HOMEtracker__Household_Size__c = listHMsize,"white","rgb(255, 89, 89)")};font-weight: bold;">
+                <i>{!IF(HOMEtracker__Service_File__c.HOMEtracker__Household_Size__c = listHMsize,"","Household Size does not match number of Household Members")}</i>
+            </td>
+        </tr>   
+        <tr>
+            <td>
+                <b>Gross Annual Income</b>
+            </td>
+            <td>
+                <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="font-weight: bold">
+                    <apex:param value="{!HOMEtracker__Service_File__c.HOMEtracker__Annual_Income_Eligibility__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+                <tr>
+                    <td>
+                    <b>Household Income Level</b>
+                    </td>
+                    <td>
+                    <apex:outputPanel styleClass="inTable" style="font-weight: bold;">
+                        {!IF(HOMEtracker__Service_File__c.IAW_Income_Determination__c='','undetermined',HOMEtracker__Service_File__c.IAW_Income_Determination__c)}
+                     </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <i>Very Low Income Max</i>
+                    </td>
+                    <td>
+                    <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="font-style: italic">
+                        <apex:param value="{!HOMEtracker__Service_File__c.Very_Low_Income_Limit__c}" />
+                    </apex:outputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <i>Low Income Max</i>
+                    </td>
+                    <td>
+                    <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="font-style: italic">
+                        <apex:param value="{!HOMEtracker__Service_File__c.Low_Income_Limit__c}" />
+                    </apex:outputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <i>Moderate Income Max</i>
+                    </td>
+                    <td>
+                    <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="font-style: italic">
+                        <apex:param value="{!HOMEtracker__Service_File__c.Moderate_Income_Limit__c}" />
+                    </apex:outputText>
+                    </td>
+                </tr>
+                </table>
+                              
+            </apex:pageBlock>  
+
+                  </td>
+                  </tr>
+                  </table>
+
+   
+<!-- INCOME SOURCE -->
+    <table width="1100px"><tr><td>
+         <apex:form >          
+            <apex:pageBlock >
+               <apex:outputpanel styleclass="medHeader"> Income Sources </apex:outputpanel>
+                 <div style="font-size: 6pt"> <br /> </div>
+                <apex:pageBlockTable value="{!listIS}" var="x" styleclass="column" > 
+                
+                    <apex:column width="20px" styleClass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:facet name="header">
+                            <apex:image url="{!$Resource.padlockBlue}" width="10"/>
+                        </apex:facet>                    
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.Lock_Income_Source__c}" >
+                              <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS"/>
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>                    
+                     <apex:column width="20px" styleClass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:facet name="header"> 
+                        </apex:facet>                    
+                          <apex:outputPanel onClick="window.open('/{!x.Id}',target='_blank')" >
+                                <apex:image url="{!$Resource.blueFileIcon}" width="15px" />
+                          </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="#" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.Order__c}" styleclass="column" styleClass="column">
+                              <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="Income Earner" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.PHA__Household_Member_Name__c}" styleclass="column" styleClass="column">
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="Income Source Name" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.HOMEtracker__Employer_Business_Name__c}" styleclass="column" styleClass="column">
+                              <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" /> 
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="Income Type" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.HOMEtracker__Income_Type__c}" styleclass="column" styleClass="column">
+                              <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>                   
+                    <apex:column headerValue="Gross Annual Income" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.HOMEtracker__Pretax_Income_This_Year__c}" styleClass="column">
+                              <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="Adjustments" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.HOMEtracker__Eligibility_Adjustments__c}" styleClass="column">
+                       <!--       <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />  -->
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="D.N.I." styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.HOMEtracker__Do_Not_Include_In_Rollup__c}" styleClass="column">
+                     <!--         <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />   -->
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+              <apex:column headerValue="Status" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.PHA__Income_Source_Status__c}" styleclass="column" styleClass="column">
+                  <!--            <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />  -->
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+             
+                    <apex:column headerValue="Verification" styleclass="columnSmall" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.IAW_Verification_Type__c}" styleClass="column">
+                              <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>       
+                    
+               <apex:column headerValue="Explanation" styleclass="column" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.PHA__Explanation__c}" styleclass="column" styleClass="column">
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+ 
+             
+ <!--                   <apex:column headerValue="Income Calculations" styleclass="columnSmall" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white;' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!x.HOMEtracker__Income_Calculations__c}">
+                    <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonIS,cancelButtonIS" hideOnEdit="newButtonIS" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+
+   -->
+   <!-- CALCULATOR COLUMN ----------------------------------------------- -->
+                           <apex:column headerValue="" rendered="{!IF(OR(x.HOMEtracker__Income_Type__c="Interest from Asset",x.HOMEtracker__Income_Type__c="Interest from Assets"),false,true)}"  styleclass="columnSmall" style="{!IF(x.Income_Calcs_Count__c=0,'background-color: yellow;',IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white;' ))}">
+                            <apex:outputLink value="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Income_Source__c/{!x.Id}/related/Income_Calculations__r/view" target="_Blank">
+                            <apex:image url="{!$Resource.blueCalcIcon}" width="20px" />
+                            </apex:outputLink>
+                            </apex:column>                 
+     <!-- Interest from Asset"    -->       
+                        <apex:column headerValue="" rendered="{!IF(OR(x.HOMEtracker__Income_Type__c="Interest from Asset",x.HOMEtracker__Income_Type__c="Interest from Assets"),true,false)}"  styleclass="columnSmall" style="{!IF(x.Lock_Income_Source__c=true,'background-color: #d9f2f9','background-color: white;' )}">
+                            <apex:outputLink value="" target="_Blank">
+                            <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg" width="20px" />
+ <!--                           <apex:image url="https://upload.wikimedia.org/wikipedia/commons/c/c9/Exclamation_flat_icon.svg" width="20px" />     -->
+                            </apex:outputLink>
+                            </apex:column> 
+                
+                
+               
+               
+                
+                </apex:pageBlockTable>
+                
+<!-- REFRESH WARNING -->
+                <div style="text-align: center;">
+                    <div id="warnIS" style="display:none;">
+                        <div style="text-align: center; font-weight: bold; color: blue; font-size: 11pt;">
+                            SAVING... please wait for the page to refresh.
+                        </div>
+                    </div>
+                </div>                   
+                <apex:pageBlockButtons location="bottom">
+                   <apex:commandButton id="saveButtonIS" value="Save" onClick="document.getElementById('warnIS').style.display = 'inline'" action="{!saveIS}" styleClass="button" style="display: none;"/>  
+                   <apex:commandButton id="cancelButtonIS" value="Cancel" styleClass="button" style="display: none"/>
+                <!--   <apex:commandButton id="newButtonIS" value="New Income Source" onClick="newIS(); return false;" styleClass="button" /> -->
+                </apex:pageBlockButtons> 
+         <script>
+            function newIS()
+            {
+                var w = window.open('/a0F/e?CF00No00000078K6K={!SUBSTITUTE(sFileName," ","+")}&CF00No00000078K6K_lkid={!HOMEtracker__Service_File__c.Id}',"MsgWindow", target='_blank')
+                return w;      
+            }
+        </script>                
+                
+                <br/>
+                <apex:outputLink rendered="{!IF(ISBLANK(HOMEtracker__Service_File__c.Deposits_Google_Link__c),false,true)}" styleclass="column" value="{!HOMEtracker__Service_File__c.Deposits_Google_Link__c}">Click here to view the deposit worksheet on google drive</apex:outputLink>
+             
+         </apex:pageBlock>
+ 
+        </apex:form>
+</td></tr></table>
+
+
+<apex:variable value="{!0.00}" var="total"/>   
+
+     
+<!-- ASSETS -->
+    <table width="1100px"><tr><td>
+        <apex:form >
+            <apex:pageBlock >               
+                 <apex:outputpanel styleclass="medHeader"> Assets </apex:outputpanel>
+                 <div style="font-size: 6pt"> <br /> </div>
+                 
+                 <apex:pageBlockTable value="{!listAsset}" var="y" styleclass="column" >
+                 
+                   <apex:column width="20px" styleClass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:facet name="header">
+                            <apex:image url="{!$Resource.padlockBlue}" width="10"/>
+                        </apex:facet>                    
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.Lock_Asset__c}" >
+                              <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets"/>
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    
+                    <apex:column width="20px" styleClass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:facet name="header"> 
+                        </apex:facet>                    
+                          <apex:outputPanel onClick="window.open('/{!y.Id}', target='_blank')" >
+                                <apex:image url="{!$Resource.blueFileIcon}" width="15px" />
+                          </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="#" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.Order__c}" styleClass="column">
+                              <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>    
+                     <apex:column headerValue="Asset Owner" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.PHA__Household_Member_Name__c}" styleClass="column">
+                       <!--       <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" />  -->
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>    
+                    
+                    <apex:column headerValue="Joint Owner" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.Joint_Asset_Owner_Text__c}" styleClass="column">
+                    <!--     <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" /> -->
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    
+                                   
+                    <apex:column headerValue="Asset Name" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.Name}" styleClass="column">
+                           <!--   <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" />  -->
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="Account #" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.Account_Number_Text__c}" styleClass="column">
+                           <!--   <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" />  -->
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                   
+                    <apex:column headerValue="Asset Type" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.HOMEtracker__Type__c}" styleClass="column"> 
+                  <!--            <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" /> -->
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="Asset Value" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.Value_or_Equity__c}" styleClass="column">
+                      <!--        <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" />  -->
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="Interest (%)" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.Imputed_Interest_Percentage__c}" styleClass="column">
+                              <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="Imputed?" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.Imputed_Interest__c}" styleClass="column">
+                              <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" />
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                    <apex:column headerValue="Interest Income" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.Calculated_Interest__c}" styleClass="column">
+                              <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonAssets,cancelButtonAssets" hideOnEdit="newButtonAssets" />
+                          </apex:outputField>
+                        </apex:actionRegion>
+
+                <apex:variable var="total" value="{!total + y.Calculated_Interest__c}" />
+                <apex:facet name="footer">
+                Total: $<span class="t1"></span>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column headerValue="Statement Date" styleclass="column" style="{!IF(y.Lock_Asset__c=true,'background-color: #d9f2f9','background-color: white' )}">
+                        <apex:actionRegion >
+                          <apex:outputField value="{!y.HOMEtracker__Date__c}" styleClass="column">
+                          </apex:outputField>
+                        </apex:actionRegion>  
+                    </apex:column>
+                </apex:pageBlockTable>
+
+<!-- REFRESH WARNING -->
+                <div style="text-align: center;">
+                    <div id="warnAsset" style="display:none;">
+                        <div style="text-align: center; font-weight: bold; color: blue; font-size: 11pt;">
+                            SAVING... please wait for the page to refresh.
+                        </div>
+                    </div>
+                </div>                  
+                <apex:pageBlockButtons location="bottom" >  
+                      <apex:commandButton id="saveButtonAssets" value="Save" onClick="document.getElementById('warnAsset').style.display = 'inline'" action="{!saveAsset}" styleClass="button" style="display: none;"/>  
+                       <apex:commandButton id="cancelButtonAssets" value="Cancel" styleClass="button" style="display: none;"/> 
+                    <!--   <apex:commandButton id="newButtonAssets" value="New Asset" onclick="newAsset(); return false;" styleClass="button"/>   -->
+                </apex:pageBlockButtons> 
+            <script>
+                document.getElementsByClassName('t1')[0].innerHTML = '{!total}';
+            </script>
+
+         <script>
+            function newAsset()
+            {
+                var w = window.open('/a02/e?CF00No00000078K69={!SUBSTITUTE(sFileName," ","+")}&CF00No00000078K69_lkid={!HOMEtracker__Service_File__c.Id}',"MsgWindow", target='_blank')
+                return w;      
+            }
+
+        </script>
+      
+            </apex:pageBlock>
+
+        </apex:form> 
+        
+        </td><td> &nbsp; 
+        </td></tr></table>
+ 
+ 
+
+<!-- OWNERSHIP AND RENTAL TOGGLE BASED ON RECORD TYPE -->
+    <table width="1100px">   
+<!-- OWNERSHIP -->   
+        <tr>
+            <td>
+        <apex:form >
+
+                <apex:pageBlock id="OwnershipBlock" rendered="{!if(HOMEtracker__Service_File__c.RecordType.Name='Homeownership',true,false)}">
+                    <apex:outputpanel styleclass="medHeader"> Homeownership Property Calculation: {!HOMEtracker__Service_File__c.property_name_calc__c}</apex:outputpanel>
+                    <div style="font-size: 6pt"> <br /> </div>
+         <table>
+        <tr>
+        <td width="550px">                   
+                    
+                   <apex:panelGrid columns="2" id="OwnGridOne" border="0" style="background-color: white; padding: 8px;" width="425px">
+
+                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Sale Price
+                    </apex:outputpanel>
+                     <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.IAW_Sale_Price__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonOwn,cancelButtonOwn"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>                   
+                     <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Bedrooms
+                    </apex:outputpanel>
+                     <apex:outputpanel styleClass="inTable" >
+                            {!HOMEtracker__Service_File__c.Property_Number_of_Bedrooms__c}
+                    </apex:outputpanel>                   
+                     <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Unit Type
+                    </apex:outputpanel> 
+                      <apex:outputpanel styleClass="inTable" >
+                            {!HOMEtracker__Service_File__c.Property_Income_Level__c}
+                    </apex:outputpanel>  
+                      <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Down Payment
+                    </apex:outputpanel>                     
+                      <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.IAW_Down_Payment__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonOwn,cancelButtonOwn"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>                     
+                       <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Mortgage Amount
+                    </apex:outputpanel> 
+                       <apex:outputText value="{0, Number, $0,000}" styleClass="inTable" style="">
+                            <apex:param value="{!HOMEtracker__Service_File__c.IAW_Mortgage_Amount__c}" />
+                        </apex:outputText>
+                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Mortgage Rate
+                    </apex:outputpanel>                     
+                      <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.Mortgage_Rate__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonOwn,cancelButtonOwn"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>                  
+                  </apex:panelGrid>      
+        </td>
+        <td>
+         &nbsp; &nbsp; &nbsp;
+        </td>
+        <td width="550px">                        
+                   <apex:panelGrid columns="2" id="OwnGrid2" border="0" style="background-color: white; padding: 8px;" width="425px">
+
+                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Monthly Payment
+                    </apex:outputpanel>
+                     <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="">
+                            <apex:param value="{!HOMEtracker__Service_File__c.IAW_Monthly_Payment__c}" />
+                        </apex:outputText>                   
+                     <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Monthly Taxes
+                    </apex:outputpanel> 
+                      <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="">
+                            <apex:param value="{!HOMEtracker__Service_File__c.IAW_Monthly_Taxes__c}" />
+                        </apex:outputText>                                        
+                      <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            PMI
+                    </apex:outputpanel>                    
+                     <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="">
+                            <apex:param value="{!HOMEtracker__Service_File__c.IAW_PMI__c}" />
+                        </apex:outputText>  
+                      <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Insurance
+                    </apex:outputpanel>                     
+                      <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.IAW_Insurance__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonOwn,cancelButtonOwn"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>                      
+                       <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            HOA Fees Monthly
+                    </apex:outputpanel> 
+                       <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.HOMEtracker__HOA_Condo_Dues__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonOwn,cancelButtonOwn"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>
+                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Total Monthly Expenses
+                    </apex:outputpanel>                     
+                     <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="">
+                            <apex:param value="{!HOMEtracker__Service_File__c.IAW_O_Total_Monthly_Expenses__c}" />
+                        </apex:outputText>                      
+                  </apex:panelGrid>   
+           </td>
+           </tr>
+           </table>
+           
+<!-- REFRESH WARNING -->
+            <div style="text-align: center;">
+                <div id="warnOwn" style="display:none;">
+                    <div style="text-align: center; font-weight: bold; color: blue; font-size: 11pt;">
+                        SAVING... please wait for the page to refresh.
+                    </div>
+                </div>
+            </div>           
+                            <apex:pageBlockButtons id="buttonsOwn" location="bottom" >  
+                           <apex:commandButton id="saveButtonOwn" value="Save"  onClick="document.getElementById('warnOwn').style.display = 'inline'" action="{!saveSF}" styleClass="button" style="display: none;"/>  
+                           <apex:commandButton id="cancelButtonOwn" value="Cancel" styleClass="button" style="display: none;"/>   
+                        </apex:pageBlockButtons>           
+                </apex:pageBlock>
+                </apex:form>
+            </td>
+        </tr>
+        
+        
+        
+<!-- RENTAL -->
+        <tr>    
+            <td>
+            <apex:form >
+                <apex:pageBlock id="RentalBlock" rendered="{!if(HOMEtracker__Service_File__c.RecordType.Name='Rental',true,false)}">
+                    <apex:outputpanel styleclass="medHeader"> Rental Property Calculation: {!HOMEtracker__Service_File__c.property_name_calc__c}</apex:outputpanel>
+                    <div style="font-size: 8pt"> <br /> </div>
+                    
+                    <table>
+        <tr>
+        <td width="550px">                   
+                   
+                   <apex:panelGrid columns="2" id="OwnGridOne" border="0" style="background-color: white; padding: 8px; text-align: left;" width="340px">
+                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Development
+                    </apex:outputpanel>
+                     <apex:outputpanel styleClass="inTable" >
+                            {!HOMEtracker__Service_File__c.IAW_Development_Name__c}
+                    </apex:outputpanel>                  
+                    <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Bedrooms
+                    </apex:outputpanel>
+                     <apex:outputpanel styleClass="inTable" >
+                            {!HOMEtracker__Service_File__c.Property_Number_of_Bedrooms__c}
+                    </apex:outputpanel>                   
+                     <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Unit Type
+                    </apex:outputpanel> 
+                      <apex:outputpanel styleClass="inTable" >
+                            {!HOMEtracker__Service_File__c.Property_Income_Level__c}
+                    </apex:outputpanel>                                        
+
+                   </apex:panelGrid>
+     
+        </td>
+        <td>
+         &nbsp; &nbsp; &nbsp;
+        </td>
+        
+        <td width="550px">
+ 
+ 
+ <!------------------------------FIX--------------------->                               
+                   <apex:panelGrid columns="2" id="OwnGrid2" border="0" style="background-color: white; padding: 8px;" width="550px">
+
+                    <apex:outputpanel styleClass="inTableEdit" style="font-weight: bold">
+                            Monthly Rent
+                    </apex:outputpanel>
+                    <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.IAW_Rent__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonRent,cancelButtonRent"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>
+                                              
+                     <apex:outputpanel styleClass="inTableEdit" style="font-weight: bold">
+                            Monthly Utilities (+)
+                    </apex:outputpanel> 
+                    <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.IAW_Utilities__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonRent,cancelButtonRent"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>
+                            
+                    <apex:outputpanel styleClass="inTableEdit" style="font-weight: bold">
+                            Monthly Other Assistance (-)
+                    </apex:outputpanel> 
+                    <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.IAW_Monthly_Other_Assistance__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonRent,cancelButtonRent"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>
+                           
+                           <apex:outputpanel styleClass="inTableEdit" style="font-weight: bold">
+                            Section 8 (-)
+                    </apex:outputpanel> 
+                    <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.HOMEtracker__Section_8_Subsidy_Amount__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonRent,cancelButtonRent"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>
+                            
+                    <apex:outputpanel styleClass="inTableEdit" style="font-weight: bold">
+                            Utilities/Rent Notes
+                    </apex:outputpanel>
+                                         
+                    <apex:outputPanel styleClass="inTableEdit">
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.IAW_Property_Notes__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonRent,cancelButtonRent"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel> 
+        
+                    <apex:outputpanel styleClass="inTableEdit" style="font-weight: bold">
+                            Total Monthly Expenses
+                    </apex:outputpanel>                     
+                    <apex:outputPanel styleClass="inTableEdit">
+                            <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="">
+                            <apex:param value="{!IF( HOMEtracker__Service_File__c.IAW_RentalYes__c = True, HOMEtracker__Service_File__c.IAW_R_Total_Monthly_Expenses__c, HOMEtracker__Service_File__c.IAW_O_Total_Monthly_Expenses__c)}" />
+                        </apex:outputText>  
+                            </apex:outputpanel>                                                           
+                        </apex:panelGrid>
+           </td>
+           </tr>
+           </table>
+
+<!-- REFRESH WARNING -->
+            <div style="text-align: center;">
+                <div id="warnRent" style="display:none;">
+                    <div style="text-align: center; font-weight: bold; color: blue; font-size: 11pt;">
+                        SAVING... please wait for the page to refresh.
+                    </div>
+                </div>
+            </div> 
+
+                          <apex:pageBlockButtons id="buttonsRent" location="bottom" >  
+                           <apex:commandButton id="saveButtonRent" value="Save"   onClick="document.getElementById('warnRent').style.display = 'inline'" action="{!saveSF}" styleClass="button" style="display: none;"/>  
+                           <apex:commandButton id="cancelButtonRent" value="Cancel" styleClass="button" style="display: none;"/>   
+                        </apex:pageBlockButtons>
+             </apex:pageBlock>
+              </apex:form>            
+            </td>
+        </tr>
+    </table> 
+ 
+ <!-- TAX RETURNS -->
+ 
+ <table width="1100px">
+     <tr>
+         <td style="vertical-align: top;">
+         <apex:form >
+          <apex:pageblock >
+                <apex:outputpanel styleclass="medHeader"> Tax Returns </apex:outputpanel>
+                    <div style="font-size: 6pt"> <br /> </div>                 
+                    
+                    <apex:panelGrid columns="2" id="taxGrid" border="0" style="background-color: white; padding: 2px; width: 550px;">
+                    
+                    <apex:outputpanel styleClass="inTableEdit" style="font-weight: bold;">
+                            Tax Year
+                    </apex:outputpanel>
+                    <apex:outputpanel styleClass="inTableEdit" style="font-weight: bold;">
+                            Initials &amp; Income
+                    </apex:outputpanel>        
+                    <apex:outputpanel styleClass="inTableEdit"> 
+                        <apex:actionRegion >
+                            <apex:outputField value="{!HOMEtracker__Service_File__c.Tax_Return_Year_1__c}">
+                                <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonTax,cancelButtonTax" />
+                            </apex:outputField>
+                        </apex:actionRegion>
+                    </apex:outputpanel>                                                                            
+                           <apex:outputpanel styleClass="inTableEdit" > 
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.Tax_Return_Gross_Income_1__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonTax,cancelButtonTax"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>
+                           <apex:outputpanel styleClass="inTableEdit" > 
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.Tax_Return_Year_2__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonTax,cancelButtonTax" />
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>
+                           <apex:outputpanel styleClass="inTableEdit" > 
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.Tax_Return_Gross_Income_2__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonTax,cancelButtonTax" />
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>                            
+                           <apex:outputpanel styleClass="inTableEdit" > 
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.Tax_Return_Year_3__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="saveButtonTax,cancelButtonTax" />
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>
+                           <apex:outputpanel styleClass="inTableEdit" > 
+                            <apex:actionRegion >
+                               <apex:outputField value="{!HOMEtracker__Service_File__c.Tax_Return_Gross_Income_3__c}">
+                                  <apex:inlineEditSupport event="onClick" showOnEdit="buttonsTax,saveButtonTax,cancelButtonTax"/>
+                                  </apex:outputField>
+                             </apex:actionRegion>
+                            </apex:outputpanel>                                                           
+                        </apex:panelGrid>
+
+<!-- REFRESH WARNING -->
+            <div style="text-align: center;">
+                <div id="warnTax" style="display:none;">
+                    <div style="text-align: center; font-weight: bold; color: blue; font-size: 11pt;">
+                        SAVING... please wait for the page to refresh.
+                    </div>
+                </div>
+            </div> 
+
+                       <apex:pageBlockButtons id="buttonsTax" location="bottom" >  
+                           <apex:commandButton id="saveButtonTax" value="Save" onClick="document.getElementById('warnTax').style.display = 'inline'" action="{!saveSF}" styleClass="button" style="display: none;"/>  
+                           <apex:commandButton id="cancelButtonTax" value="Cancel" styleClass="button" style="display: none;"/>   
+                        </apex:pageBlockButtons> 
+                  </apex:pageblock>             
+      </apex:form>
+
+</td><td valign="top">
+                <apex:form >
+     <apex:pageBlock >
+         <table>
+         <tr>
+         <td>   
+                 <apex:outputpanel styleclass="medHeader"> Income &amp; Eligibility</apex:outputpanel>
+                <div style="font-size: 6pt"> <br /> </div>
+          </td>
+
+
+
+<!-- 
+<td vertical-align="bottom" align="right" font-weight="bold">
+                   
+                        <apex:outputPanel rendered="{!showRefresh}" onclick="window.open('apex/IncomeWorksheetPH?Id={!HOMEtracker__Service_File__c.Id}','_parent')" style="font-family: 'Open Sans'; font-size: 14pt; font-weight: bold; color: white; background-color: red;">
+                        &nbsp; REFRESH &nbsp; 
+                        </apex:outputPanel>
+                   
+ </td >
+-->                
+                </tr>
+                </table>
+
+               <apex:panelGrid columns="5" id="IncExpGrid" border="0" style="background-color: white; padding: 8px; text-align: center;" width="425">
+                    
+                        <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            Housing Expenses
+                        </apex:outputpanel>
+                        <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            ÷
+                        </apex:outputpanel>
+                        <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                           Monthly Income
+                        </apex:outputpanel>
+                        <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                            =
+                        </apex:outputpanel>
+                        <apex:outputpanel styleClass="inTable" style="font-weight: bold">
+                           Ratio
+                        </apex:outputpanel>
+                        
+                        <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="">
+                            <apex:param value="{!IF( HOMEtracker__Service_File__c.IAW_RentalYes__c = True, HOMEtracker__Service_File__c.IAW_R_Total_Monthly_Expenses__c, HOMEtracker__Service_File__c.IAW_O_Total_Monthly_Expenses__c)}" />
+                        </apex:outputText>
+                        
+                        
+                                        
+                         <apex:outputpanel styleClass="inTable" style="">
+                            ÷
+                        </apex:outputpanel>
+                        
+                        <apex:outputText value="{0, Number, Currency}" styleClass="inTable" style="">
+                            <apex:param value="{!HOMEtracker__Service_File__c.IAW_Monthly_Income_Eligibility__c}" />
+                        </apex:outputText>  
+                        
+                                                           
+                         <apex:outputpanel styleClass="inTable" style="">
+                         
+                            = 
+                        </apex:outputpanel>                    
+                         <apex:outputpanel styleClass="inTable" style="">
+                            {!IF(HOMEtracker__Service_File__c.IAW_RentalYes__c = True,HOMEtracker__Service_File__c.IAW_R_of_Inc_Spent_on_Housing_Expenses__c, HOMEtracker__Service_File__c.IAW_O_of_Inc_Spent_on_Housing_Expenses__c)}%
+                        </apex:outputpanel>
+                  </apex:panelGrid>
+                  <apex:panelGrid columns="5" id="IncExpGrid2" border="0" style="background-color: white; padding: 8px; text-align: right;">
+                    
+                        <apex:outputpanel styleClass="elig">
+                            Eligibility Determination:
+                        </apex:outputpanel>
+                        <apex:outputpanel styleClass="elig">
+                            {!IF( HOMEtracker__Service_File__c.IAW_RentalYes__c = True, HOMEtracker__Service_File__c.IAW_R_Eligible__c, HOMEtracker__Service_File__c.IAW_O_Income_Eligible__c)}
+                        </apex:outputpanel>
+                    </apex:panelGrid>                               
+                  </apex:pageBlock>
+                  </apex:form>
+                 </td>
+    </tr></table>
+
+Development: {!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name} <br/>
+Coordinator: {!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_Case_manager__r.FirstName} {!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_Case_manager__r.LastName}
+<br/>
+<br/>
+
+
+                
+
+
+</apex:page>

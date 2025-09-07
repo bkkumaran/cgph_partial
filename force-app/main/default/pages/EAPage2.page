@@ -1,0 +1,211 @@
+<apex:page controller="PropertyPrivateListingInviteControllerV2"  sidebar="false" showHeader="false" standardStylesheets="false" cache="false">
+<head> 
+
+<apex:includeScript value="https://www.gstatic.com/charts/loader.js"></apex:includeScript>
+
+<!-- <apex:includeScript value="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></apex:includeScript> -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.css"></link>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <apex:includeScript value="{!URLFOR($Resource.CGPH_Resource, '/js/moment.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.CGPH_Resource, '/js/moment-timezone.min.js')}"/>
+  
+  <!-- Connection.js Files  --> 
+  <script src="/soap/ajax/53.0/connection.js" type="text/javascript"></script>
+  <script src="/soap/ajax/53.0/apex.js" type="text/javascript"></script>
+  
+</head>
+<c:CGPHComponent />
+
+<script>
+angular.module('myApp',[]).filter('moment', ['$rootScope', function($rootScope) {
+   return function(dateString, format) {
+     var localTime = moment.tz(dateString, $rootScope.timeZone)
+     return moment(localTime).format(format);
+  };
+}])
+
+.controller('Test',['$scope','$filter','$timeout',function($scope,$filter,$timeout){
+
+  
+$scope.getTriggerSettings = function()
+{
+    // get the email limits
+     Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getPreAppTriggerSettings}', function(result, event){
+         if(event.statusCode == 200){
+            if(result.Pre_Applicant_Profile_Updates__c == false)
+                $scope.showError('Pre Applicant Trigger is inactive from custom settings');     
+            $scope.$apply();
+            debugger; 
+         }
+         else{
+            $scope.showError(event.type+' : '+event.message);
+         }
+         
+     });
+}
+
+// get the daily email limits for the organisation
+$scope.getEmailLimitsAction = function()
+{
+    // get the email limits
+     Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getEmailLimits}', function(result, event){
+         if(event.statusCode == 200){
+            $scope.iTotalEmailRemaining = result;
+            $scope.$apply();
+            debugger; 
+         }
+         else{
+            $scope.showError(event.type+' : '+event.message);
+         }
+         
+     });
+}
+
+$scope.getPropertyDetails = function(){
+    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getPropertyDetails}','{!strPropertyId}', function(result, event){
+         if(event.statusCode == 200){
+            $scope.property = result;
+            
+            var lotteryUsed ='';
+            if($scope.property.Lottery_Number_for_Priority__c != null && $scope.property.Lottery_Number_for_Priority__c != undefined)
+             lotteryUsed  = $scope.property.Lottery_Number_for_Priority__c.substring(0,$scope.property.Lottery_Number_for_Priority__c.length-3);
+            console.log(' 1 '+lotteryUsed);
+            lotteryUsed = lotteryUsed.replace(/\_/g, ' ');
+            console.log(' 2 '+lotteryUsed);
+            $scope.loaded = true;
+                        
+            $scope.property.Lottery_Number_for_Priority__c = lotteryUsed;
+            if (!$scope.$$phase && !$scope.$root.$$phase) $scope.$apply();
+
+         }
+         else
+         {
+            $scope.showError('Property query error '+event.type+' : '+event.message);
+         }
+    },{buffer: false});
+}
+
+$scope.initialise = function()
+{
+    $scope.startProcessing();
+    $scope.getTriggerSettings();
+    $scope.getEmailLimitsAction();
+    $scope.iIvitedCount = 1;
+    $scope.iNotIvitedCount = 1;
+    $scope.mapInvited = {};
+    $scope.mapNotInvited = {};  
+    $scope.property = {};
+    $scope.lstPreapplicant = [];
+    $scope.lstPreapplicantInvited = [];
+    $scope.lstPreapplicantNotInvited = [];
+    $scope.iTotalEmailRemaining = 1000;
+    $('#successModal').attr('style','display:none'); 
+    $('#errorModal').attr('style','display:none');
+    
+    
+    $scope.getPropertyDetails();
+    
+   
+    // add members to campaign 
+    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.addCampaignMembers}','{!strPropertyId}','30000', function(result, event){
+          
+         if(event.statusCode == 200){
+         debugger;
+         $scope.windowIntervalFutureJob = setInterval($scope.getJobStatus, 5000);
+                if (!$scope.$$phase && !$scope.$root.$$phase) 
+                    $scope.$apply();
+             }
+             else
+             {
+                $scope.loaded = true; 
+                $scope.stopProcessing();
+                if (!$scope.$$phase && !$scope.$root.$$phase) 
+                    $scope.$apply();
+                $scope.showError(event.type+' : '+event.message);
+             }
+        });
+}
+
+// Display Loading Animation
+$scope.startProcessing = function() {
+  $('.js-loading-bar').modal('show');
+  $('.js-loading-bar').find('.progress-bar').addClass('animate');
+}
+
+// Remove Loading Animation and dont show modal
+$scope.stopProcessing = function() {
+  $('.js-loading-bar').find('.progress-bar').removeClass('animate');
+ 
+  setTimeout(function() {
+   $('.js-loading-bar').modal('hide');
+    $('#fade').attr('style','display:none');
+  },1000);
+}
+
+
+    $scope.jobStatus;
+    $scope.disableCriteriaCalcBtn = true;    
+    $scope.getJobStatus = function(){
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PropertyPrivateListingInviteControllerV2.getJobStatus}','{!strPropertyId}', function(result, event){
+             if(event.statusCode == 200){
+             //debugger;
+              if( result != null){
+                   //$scope.windowInterval = setInterval($scope.getJobStatus, 5000);
+                    if(result.property.Camp_Member_Add_Job_Status__c == 'Complete'){  
+                           $scope.disableCriteriaCalcBtn = false;
+                           clearInterval($scope.windowIntervalFutureJob);
+                   }
+                   if( result.AsyncApexJob != null && (result.AsyncApexJob.Status == 'Completed' || result.AsyncApexJob.Status == 'Aborted' || result.AsyncApexJob.Status == 'Failed') ){
+                       clearInterval($scope.windowInterval);
+                       if( $scope.criteriaCalcJob == true ){
+                           $scope.criteriaCalcJob = false;
+                           $('#statusModal').modal('hide');
+                       }
+                      }// end of if
+                   else{
+                           $scope.jobStatus = angular.copy(result.AsyncApexJob); 
+                           if( $("#statusModal").data('bs.modal')?.isShown == undefined){
+                               $scope.stopProcessing();
+                               $('#statusModal').modal({backdrop: 'static', keyboard: false}); 
+                               $('#statusModal').modal('show');
+                               
+                               console.log('show modal and set interval called');
+                               $scope.windowInterval = setInterval($scope.getJobStatus, 5000);
+                            }   
+                       }
+               
+                   // get members details
+                   if( result.property.Camp_Member_Add_Job_Status__c == 'Complete' && ( result.property.Calculation_Status__c == null || ( result.AsyncApexJob != null && ( result.AsyncApexJob.Status == 'Completed' || result.AsyncApexJob.Status == 'Aborted' || result.AsyncApexJob.Status == 'Failed' )) ) ){
+                    $scope.loadRecords('200');
+                    $('#statusModal').modal('hide');
+                   }      
+                       
+               }
+               
+                if (!$scope.$$phase && !$scope.$root.$$phase) $scope.$apply();
+    
+             }
+             else
+             {
+                $scope.showError('Error in starting the criteria calclulation job '+event.type+' : '+event.message);
+             }
+        },{buffer: false});    
+        
+    }
+
+}]);
+
+
+</script>
+
+
+<div ng-app="myApp" ng-controller="Test" ng-show="loaded" ng-init="initialise()" style="color: black; font-size: 2em;">
+{{iTotalEmailRemaining}} Daily emails remaining <br/>
+{{iTotalEmailRemaining - {!configuredPreAppEmailLimit} }} Emails available for invites <br/>
+Reset in {!hoursRemaining} hours
+</div>
+ 
+</apex:page>

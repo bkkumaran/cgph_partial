@@ -1,0 +1,266 @@
+<apex:page controller="EdisonAHPcontroller" standardStylesheets="false" showHeader="false">
+
+<!-- ---------------------STYLE VARIABLES-------------------------------------------------- -->
+<apex:variable id="goodGreen" var="goodGreen" value="#53e09d"/>
+<apex:variable id="darkGreen" var="darkGreen" value="rgb(0,113,107)"/>
+<apex:variable id="colorBlue" var="colorBlue" value="rgb(0, 101, 168)"/>
+<apex:variable id="colorLightBlue" var="colorLightBlue" value="#a4d9fc"/>
+
+<apex:variable var="tableWidth" value="100%"/>
+<apex:variable var="width1" value="40%"/>
+<apex:variable var="width2" value="60%"/>
+
+<apex:variable var="fontSizeHead" value="22pt"/>
+<apex:variable var="fontSizeHeading" value="18pt"/>
+<apex:variable var="fontSizeText" value="16pt"/>
+<apex:variable var="fontSizeInput" value="18pt"/>
+<apex:variable var="fontSizeLabel" value="16pt"/>
+<apex:variable var="fontSizeButton" value="14pt"/>
+
+<apex:variable var="buttonPadding" value="14px 20px 14px 20px"/>
+<!-- ------------------------------------------------------------------------------------- -->
+
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    table {border-collapse:collapse;}
+    td {padding: 3px 3px 3px 3px; font-family:'Open Sans'; font-size:{!fontSizeText}; text-align:center;}
+    input {font-family:'Open Sans'; font-size:{!fontSizeInput};}
+    .label { font-size:{!fontSizeLabel};font-family:'Open Sans'; text-align:right;}
+    .input { font-size:{!fontSizeInput};font-family:'Open Sans';text-align:left;}
+    .topHead {font-weight: bold; font-size:{!fontSizeHead}; font-family:'Open Sans'; color:{!colorBlue};}
+    .head {font-weight: bold; font-size:10pt;}
+    .heading {font-weight:bold; text-decoration:underline; padding-top:12px; font-size:{!fontSizeHeading}}
+    .downArrow {font-weight:bold; font-size:14pt; text-align:center; color:{!colorBlue};}
+    .right {text-align:right;}
+    .results {text-align:justify;}
+    .hide {display:none;}
+    .buttonSubmit{
+        white-space: nowrap;
+        text-decoration:none;
+        font-size: {!fontSizeButton};
+        color: {!colorBlue};
+        font-family: 'Open Sans';
+        font-weight: bold;
+        background-image: linear-gradient(white,#d4d4d4);
+        border-radius: 3px; 
+        border-top: 1px solid #CCCCCC; 
+        border-right: 1.5px solid gray; 
+        border-bottom: 1.5px solid gray; 
+        border-left: 1px solid #CCCCCC; 
+        padding: {!buttonPadding};
+        }
+     .buttonSubmit:hover{
+        color:white;
+        background-image: linear-gradient(gray,gray);
+        text-decoration:none;
+            }
+    .buttonApply{
+        white-space: nowrap;
+        text-decoration:none;
+        font-size: {!fontSizeButton};
+        color: black;
+        font-family: 'Open Sans';
+        font-weight: bold;
+        background-image: linear-gradient(white,{!goodGreen});
+        border-radius: 3px; 
+        border-top: 1px solid #CCCCCC; 
+        border-right: 1.5px solid gray; 
+        border-bottom: 1.5px solid gray; 
+        border-left: 1px solid #CCCCCC; 
+        padding: {!buttonPadding};
+        }
+     .buttonApply:hover{
+        color:white;
+        background-image: linear-gradient({!darkGreen},{!darkGreen});
+        text-decoration:none;
+            }    
+                
+</style>
+
+<script type="text/javascript">
+    function goToPage() {
+        var ListPrice= document.getElementById('ListPrice').value;
+        var Bedrooms= document.getElementById('Bedrooms').value;
+        var HOA= document.getElementById('HOA').value;
+        var down = document.getElementById('down').value;
+        window.location= "https://cgph.my.salesforce-sites.com/EdisonAHPcalculator/EAHPm?code={!preAppId}&lp="+ ListPrice + "&br=" + Bedrooms + "&dp=" + down + "&hoa=" + HOA;
+        return false;
+    }
+</script> 
+
+
+<!-- ---------------------------------------------------------------- -->
+<!-- ----------------------FORM ENTRY-------------------------------- -->
+<!-- ---------------------------------------------------------------- -->
+
+<table>
+<tr>
+<td>
+<apex:image url="https://cms2.revize.com/revize/townshipofedison/_assets_/images/ftr-logo.png" height="50px"/>
+</td>
+<td class="topHead">
+The Township of Edison Affordable Homeownership Program
+</td>
+</tr>
+</table>
+
+
+<table border="0" width="{!tableWidth}" class="{!IF(finalResult = 0,'','hide')}">
+    <tr>
+        <td colspan="2">
+            <div class="heading" >Enter property data to check eligibility for program</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label" width="350px;">
+            List Price:&nbsp;&nbsp;
+        </td>
+        <td class="input" width="350px">
+            <input type="number" id="ListPrice" oninput="this.value = Math.round(this.value);" value="{!IF(ListPrice=0,'',ListPrice)}"/>
+        </td>
+        <td rowspan="4" class="downArrow" width="100px">
+            Click the CHECK ELIGIBILITY button below when you have entered all the property and down payment information.<br/> <!-- -----------------SIDE POPUP ARROW ----------------------- -->
+            <apex:image url="https://upload.wikimedia.org/wikipedia/commons/4/4e/Arrow-down-small.svg" width="60px"/>
+        </td>
+        <td>
+        &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            Bedrooms:&nbsp;&nbsp;
+        </td>
+        <td class="input" >
+            <input type="number" id="Bedrooms" oninput="this.value = Math.round(this.value);" value="{!IF(Bedrooms=0,'',Bedrooms)}"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            HOA/Condo Fees:&nbsp;&nbsp;
+        </td>
+        <td class="input" >
+            <input type="number" id="HOA" oninput="this.value = Math.round(this.value);" value="{!IF(HOA=0,'',HOA)}"/>
+        </td>
+    </tr>
+    
+    <!-- ---------------------------- APPLICANT CODE ------------------  
+    
+    <tr style="{!IF(preAppId = NULL, '', 'display:none;')}">
+        <td colspan="2">
+            <div class="heading" style="{!IF(preAppCheck= 1,'display:none;','')}">Enter your code to check income eligibility data:</div>
+            <div class="heading warn" style="{!IF(preAppCheck= 2,'','display:none;')}">CODE NOT RECOGNIZED, TRY AGAIN</div>
+        </td>
+    </tr>
+    <tr style="{!IF(preAppId = NULL, '', 'display:none;')}">
+        <td class="label">
+            Applicant Code
+        </td>
+        <td>
+            <input type="text" id="code" value="{!IF(preAppId='0','',preAppId)}"/>
+        </td>
+    </tr>
+ -->   
+    
+    <tr>
+        <td colspan="2">
+            <div class="heading" >Enter maximum down payment you can povide</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            Down Payment Available:&nbsp;&nbsp;
+        </td>
+        <td class="input">
+            <input type="number" id="down" oninput="this.value = Math.round(this.value);" value="{!IF(downPayment=0,'',downPayment)}"/>
+        </td>
+        <!-- -----------------------SUBMIT BUTTON--------------------- -->
+        <td style="text-align:left; vertical-align:top" rowspan="3">
+            <input class="buttonSubmit" type="submit" value="CHECK ELIGIBILITY" onclick="goToPage();" />
+        </td>
+
+    </tr>
+</table>
+
+<apex:variable: id="preAppIncFormat" var="preAppIncFormat" value="${!IF(LEN(TEXT(preAppInc))>3,LEFT(TEXT(preAppInc),LEN(TEXT(preAppInc))-3)&','&RIGHT(TEXT(preAppInc),3),'NO')}"/>
+<apex:variable: id="modIncLimFormat" var="modIncLimFormat" value="${!IF(LEN(TEXT(modIncLim))>3,LEFT(TEXT(modIncLim),LEN(TEXT(modIncLim))-3)&','&RIGHT(TEXT(modIncLim),3),'NO')}"/>
+<apex:variable: id="ListPriceFormat" var="ListPriceFormat" value="${!IF(LEN(TEXT(ListPrice))>3,LEFT(TEXT(ListPrice),LEN(TEXT(ListPrice))-3)&','&RIGHT(TEXT(ListPrice),3),'NO')}"/>
+<apex:variable: id="hoaFormat" var="hoaFormat" value="${!IF(LEN(TEXT(HOA))>3,LEFT(TEXT(HOA),LEN(TEXT(HOA))-3)&','&RIGHT(TEXT(HOA),3),'NO')}"/>
+<apex:variable: id="dpaMinFormat" var="dpaMinFormat" value="${!IF(LEN(TEXT(dpMin))>3,LEFT(TEXT(dpMin),LEN(TEXT(dpMin))-3)&','&RIGHT(TEXT(dpMin),3),'NO')}"/>
+
+<!-- ---------------------------------------------------------------- -->
+<!-- ----------------------DETERMINATION----------------------------- -->
+<!-- ---------------------------------------------------------------- -->
+<table class="{!IF(finalResult = 0,'hide','results')}" width="{!tableWidth}">
+    <tr>
+        <td colspan="2" width="400px" style="text-align:left;">
+            <div> <u><b>RESULTS FOR PROPERTY: List Price: &nbsp;{!ListPriceFormat} &nbsp; Bedrooms: {!Bedrooms} &nbsp; HOA/Condo Fees: {!HOA} </b></u></div>
+            <div class="{!IF(finalResult=1,'results','hide')}">
+                Based on the information you have provided, you are potentially eligible to purchase this property through the Edison Affordable Homeownership Program.
+                Click the <span style="color:{!darkGreen};font-weight:bold;">APPLY FOR PROPERTY</span> button below to fill out a form to start the process.
+                Once completed, a staff member from CGP&amp;H will reach out to you shortly with details for the next steps. <br/>
+            </div>
+
+            <div class="{!IF(finalResult=2,'','hide')}">
+                The income you submitted for your household ({!preAppIncFormat}) is above the maximum income allowed by the Affordable Housing Program ({!modIncLimFormat}).
+                If your income is incorrect,
+                <a href="{!preAppURL}" target="_blank">please click here to update your profile</a>
+                with your current household income.<br/><br/>
+                To review maximum income limits, please
+                <a href="https://www.affordablehomesnewjersey.com/knowledge-article/what-are-the-maximum-income-limits/" target="_blank">click here</a>.
+            </div>
+            <div class="{!IF(finalResult=3,'results','hide')}">
+                The price of the home is too low to be Eligible for the Program. Please continue to look for other homes in Edison and when you find one, enter the home’s information into this calculator to assess its potential eligibility for this program. 
+            </div>
+            <div class="{!IF(finalResult=4,'results','hide')}">
+                The price of the home is too high to be eligible for the Program. Please continue to look for other homes in Edison and when you find one, enter the home’s information into this calculator to assess its potential eligibility for this program. 
+            </div>
+            <div class="{!IF(finalResult=5,'results','hide')}">
+                Affordable housing regulations require a maximum of only 2 people per bedroom. Your household size of {!preAppHHS} is too large for this property.
+                If your household size is incorrect,
+                <a href="{!preAppURL}" target="_blank">please click here to update your profile</a>
+                with your current household size.<br/><br/>
+                Please continue to look for other homes in Edison and when you find one, enter the home’s information into this calculator to assess its potential eligibility for this program. 
+            </div>
+            <div class="{!IF(finalResult=6,'results','hide')}">
+                The monthly expenses for this property exceed 33% of your monthly income. Under the terms of the Edison Affordabile Homeownership Program, your monthly expenses must be at or below 33% in order to qualify to purchase the unit.
+                For that reason, this unit is priced too high for your household to purchase through this program. If your income is incorrect,
+                <a href="{!preAppURL}" target="_blank">please click here to update your profile</a>
+                with your current household income.<br/><br/>
+                To review how minimum income requirements are calculated, please
+                <a href="https://www.affordablehomesnewjersey.com/knowledge-article/is-there-a-minimum-income-requirement-to-purchase-or-rent-an-affordable-home/" target="_blank">click here</a>.
+                <br/><br/>
+                Please continue to look for other homes in Edison and when you find one, enter the home’s information into this calculator to assess its potential eligibility for this program.
+            </div>
+        </td>
+        <td style="text-align:center; vertical-align:top;">
+            <br/>
+            <span class="{!if(finalResult=1,'','hide')}">
+                <a class="buttonApply" href="https://www.tfaforms.com/4987248?tfa_31={!preAppId}&tfa_2={!preAppEmail}&tfa_8={!downPayment}&tfa_10={!Bedrooms}&tfa_25={!ListPrice}&tfa_16={!HOA}" target="_blank">
+                    &nbsp;APPLY FOR THIS PROPERTY&nbsp;
+                </a>
+                <br/><br/><br/>
+            </span>
+            <a class="buttonSubmit" href="https://cgph.my.salesforce-sites.com/EdisonAHPcalculator/EAHPm?code={!preAppId}&lp=0&br=0&dp=0&hoa=0" target="_top"> ENTER ANOTHER PROPERTY</a>
+            
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div id="downpaymentMsg" class="{!IF(AND(dpCheck=2,finalResult=1),'results','hide')}">
+                <br/>
+                <b>PLEASE NOTE:</b> You have provided a <u>down payment</u> amount that is less than 5% of the purchase price after the subsidy is applied.
+                This does not disqualify you from the program but you will not be eligible to receive the Edison Township Down Payment Assistance.
+                To receive the Down Payment Assistance you are required to put at least 5% of your own funds down towards the subsidized purchase price.
+                This may affect your ability to be eligible for this property during the full application process.
+                For this property, the minimum down payment amount is {!dpaMinFormat}.
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+</apex:page>

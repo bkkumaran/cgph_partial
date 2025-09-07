@@ -1,0 +1,194 @@
+<apex:page controller="EdisonAHP_PropOnlyCont" showHeader="false" standardStylesheets="false">
+
+<!-- ---------------------STYLE VARIABLES-------------------------------------------------- -->
+<apex:variable id="goodGreen" var="goodGreen" value="#53e09d"/>
+<apex:variable id="darkGreen" var="darkGreen" value="rgb(0,113,107)"/>
+<apex:variable id="colorBlue" var="colorBlue" value="rgb(0, 101, 168)"/>
+<apex:variable id="colorLightBlue" var="colorLightBlue" value="#a4d9fc"/>
+
+<apex:variable var="tableWidth" value="100%"/>
+<apex:variable var="width1" value="40%"/>
+<apex:variable var="width2" value="60%"/>
+
+<apex:variable var="fontSizeHead" value="22pt"/>
+<apex:variable var="fontSizeHeading" value="18pt"/>
+<apex:variable var="fontSizeText" value="16pt"/>
+<apex:variable var="fontSizeInput" value="18pt"/>
+<apex:variable var="fontSizeLabel" value="16pt"/>
+<apex:variable var="fontSizeButton" value="14pt"/>
+
+<apex:variable var="buttonPadding" value="14px 20px 14px 20px"/>
+<!-- ------------------------------------------------------------------------------------- -->
+
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    table {border-collapse:collapse;}
+    td {padding: 3px 3px 3px 3px; font-family:'Open Sans'; font-size:{!fontSizeText}; text-align:center;}
+    input {font-family:'Open Sans'; font-size:{!fontSizeInput};}
+    .label { font-size:{!fontSizeLabel};font-family:'Open Sans'; text-align:right;}
+    .input { font-size:{!fontSizeInput};font-family:'Open Sans';text-align:left;}
+    .topHead {font-weight: bold; font-size:{!fontSizeHead}; font-family:'Open Sans'; color:{!colorBlue};}
+    .head {font-weight: bold; font-size:10pt;}
+    .heading {font-weight:bold; text-decoration:underline; padding-top:12px; font-size:{!fontSizeHeading}}
+    .downArrow {font-weight:bold; font-size:14pt; text-align:center; color:{!colorBlue};}
+    .right {text-align:right;}
+    .results {text-align:justify;}
+    .hide {display:none;}
+    .buttonSubmit{
+        white-space: nowrap;
+        text-decoration:none;
+        font-size: {!fontSizeButton};
+        color: {!colorBlue};
+        font-family: 'Open Sans';
+        font-weight: bold;
+        background-image: linear-gradient(white,#d4d4d4);
+        border-radius: 3px; 
+        border-top: 1px solid #CCCCCC; 
+        border-right: 1.5px solid gray; 
+        border-bottom: 1.5px solid gray; 
+        border-left: 1px solid #CCCCCC; 
+        padding: {!buttonPadding};
+        }
+     .buttonSubmit:hover{
+        color:white;
+        background-image: linear-gradient(gray,gray);
+        text-decoration:none;
+            }
+    .buttonApply{
+        white-space: nowrap;
+        text-decoration:none;
+        font-size: {!fontSizeButton};
+        color: black;
+        font-family: 'Open Sans';
+        font-weight: bold;
+        background-image: linear-gradient(white,{!goodGreen});
+        border-radius: 3px; 
+        border-top: 1px solid #CCCCCC; 
+        border-right: 1.5px solid gray; 
+        border-bottom: 1.5px solid gray; 
+        border-left: 1px solid #CCCCCC; 
+        padding: {!buttonPadding};
+        }
+     .buttonApply:hover{
+        color:white;
+        background-image: linear-gradient({!darkGreen},{!darkGreen});
+        text-decoration:none;
+            }    
+                
+</style>
+
+<script type="text/javascript">
+    function goToPage() {
+        var ListPrice= document.getElementById('ListPrice').value;
+        var Bedrooms= document.getElementById('Bedrooms').value;
+        var HOA= document.getElementById('HOA').value;
+        window.location= "https://cgph.my.salesforce-sites.com/EdisonAHPcalculator/EdisonAHP_PropertyCalculator?lp="+ ListPrice + "&br=" + Bedrooms + "&hoa=" + HOA;
+        return false;
+    }
+</script> 
+
+
+<!-- ---------------------------------------------------------------- -->
+<!-- ----------------------FORM ENTRY-------------------------------- -->
+<!-- ---------------------------------------------------------------- -->
+
+<table>
+<tr>
+<td>
+<apex:image url="https://cms2.revize.com/revize/townshipofedison/_assets_/images/ftr-logo.png" height="50px"/>
+</td>
+<td class="topHead">
+The Township of Edison Affordable Homeownership Program
+</td>
+</tr>
+</table>
+
+
+<table border="0" width="{!tableWidth}" class="{!IF(finalResult = 0,'','hide')}">
+    <tr>
+        <td colspan="2">
+            <div class="heading" >Enter property data to check eligibility for program</div>
+        </td>
+        <td rowspan="4" class="downArrow" width="100px">
+            Click the CHECK ELIGIBILITY button below when you have entered all the property information.<br/> <!-- -----------------SIDE POPUP ARROW ----------------------- -->
+            <apex:image url="https://upload.wikimedia.org/wikipedia/commons/4/4e/Arrow-down-small.svg" width="40px"/><br/>
+            <input class="buttonSubmit" type="submit" value="CHECK ELIGIBILITY" onclick="goToPage();" />
+        </td>
+    </tr>
+    <tr>
+        <td class="label" width="350px;">
+            List Price:&nbsp;&nbsp;
+        </td>
+        <td class="input" width="350px">
+            <input type="number" id="ListPrice" oninput="this.value = Math.round(this.value);" value="{!IF(ListPrice=0,'',ListPrice)}"/>
+        </td>
+        
+        <td>
+        &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            Bedrooms:&nbsp;&nbsp;
+        </td>
+        <td class="input" >
+            <input type="number" id="Bedrooms" oninput="this.value = Math.round(this.value);" value="{!IF(Bedrooms=0,'',Bedrooms)}"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            HOA/Condo Fees:&nbsp;&nbsp;
+        </td>
+        <td class="input" >
+            <input type="number" id="HOA" oninput="this.value = Math.round(this.value);" value="{!IF(HOA=0,'',HOA)}"/>
+        </td>
+    </tr>
+   
+</table>
+
+<apex:variable: id="ListPriceFormat" var="ListPriceFormat" value="${!IF(LEN(TEXT(ListPrice))>3,LEFT(TEXT(ListPrice),LEN(TEXT(ListPrice))-3)&','&RIGHT(TEXT(ListPrice),3),'NO')}"/>
+<apex:variable: id="hoaFormat" var="hoaFormat" value="${!IF(LEN(TEXT(HOA))>3,LEFT(TEXT(HOA),LEN(TEXT(HOA))-3)&','&RIGHT(TEXT(HOA),3),'NO')}"/>
+
+<!-- ---------------------------------------------------------------- -->
+<!-- ----------------------DETERMINATION----------------------------- -->
+<!-- ---------------------------------------------------------------- -->
+<table class="{!IF(finalResult = 0,'hide','results')}" width="{!tableWidth}">
+    <tr>
+        <td colspan="2" width="400px" style="text-align:left;">
+            <div> <u><b>RESULTS FOR PROPERTY: List Price: &nbsp;{!ListPriceFormat} &nbsp; Bedrooms: {!Bedrooms} &nbsp; HOA/Condo Fees: {!HOA} </b></u></div>
+            <div class="{!IF(finalResult=1,'results','hide')}">
+                Based on the information you have provided, this property may be eligible to be purchased through the Edison Affordable Homeownership Program.
+                <br/>
+                To determine an applicant household&#39;s potential eligibility to purchase this home through this program, contact homes&#169;cgph.net to request a custom eligibility calculator link.
+              <!--  
+                Click the <span style="color:{!darkGreen};font-weight:bold;">APPLY FOR PROPERTY</span> button below to fill out a form to start the process.
+                Once completed, a staff member from CGP&amp;H will reach out to you shortly with details for the next steps. <br/>
+             -->   
+            </div>
+            <div class="{!IF(finalResult=3,'results','hide')}">
+                The price of the home is too low to be Eligible for the Program. Please continue to look for other homes in Edison and when you find one, enter the home’s information into this calculator to assess its potential eligibility for this program. 
+            </div>
+            <div class="{!IF(finalResult=4,'results','hide')}">
+                The price of the home is too high to be eligible for the Program. Please continue to look for other homes in Edison and when you find one, enter the home’s information into this calculator to assess its potential eligibility for this program. 
+            </div>
+        </td>
+        <td style="text-align:center; vertical-align:top;">
+            <br/>
+            <span class="{!if(finalResult=1,'','hide')}">
+                <a class="buttonApply" href="" target="_blank">
+                    &nbsp;APPLY FOR THIS PROPERTY&nbsp;
+                </a>
+                <br/><br/><br/>
+            </span>
+            <a class="buttonSubmit" href="https://cgph.my.salesforce-sites.com/EdisonAHPcalculator/EdisonAHP_PropertyCalculator?lp=0&br=0&hoa=0" target="_top"> ENTER ANOTHER PROPERTY</a>
+            
+        </td>
+    </tr>
+  
+</table>
+
+
+</apex:page>

@@ -1,0 +1,141 @@
+<apex:page standardController="HOMEtracker__Property__c">
+
+
+    <!-- STYLE -->
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'></link>
+    <style>     
+               
+        #SectionHeader {          
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #007cc2;
+            color: white;
+            padding: 2px;
+            padding-bottom: 2px;
+            width: 90%;
+            height: 50px;
+            font-size: 1.6em;
+            font-family: "Oswald", sans-serif;
+        }
+      
+        #thCenter {
+            text-align: center;
+            font-size: 1.6em;
+            font-weight: 100;            
+        }
+        
+        #HelpLink {          
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 5px;
+            padding-bottom: 10px;
+            width: 90%;
+            height: 75px;
+            font-size: 1.0em;
+            font-family: "Oswald", sans-serif;
+        }
+        
+        #PropertyDetails {          
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 5px;
+            padding-bottom: 10px;
+            width: 90%;
+            height: 75px;
+            font-size: 1.0em;
+            font-family: "Oswald", sans-serif;
+        }
+        
+        #PropertyText {          
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 100; 
+        }
+        #Invited {          
+            white-space: nowrap;
+            line-height: 3;
+            background-color: #00B050;
+            font-family: "Oswald";
+            font-size: 1.8em;
+            color: White;
+            width: 875 px;
+            padding: 2px 20px 2px 20px;
+        }
+        #NotInvited {          
+            white-space: nowrap;
+            line-height: 3;
+            background-color: #DD4477;
+            font-family: "Oswald";
+            font-size: 1.8em;
+            color: white;
+            width: 875 px;
+            padding: 2px 20px 2px 20px;
+        }
+          #SendInvites {          
+            white-space: nowrap;
+            line-height: 2;
+            background-color: #007cc2;
+            font-family: "Oswald";
+            font-size: 1.2em;
+            color: white;
+            width: 875 px;
+            padding: 2px 20px 2px 20px;
+        }
+  
+    </style>
+
+  
+    <!-- Header -->
+    <table id="SectionHeader">
+    <th id="thCenter">Eligible Applicants</th>
+    </table>
+
+    <!-- HELP ARTICLE LINK -->
+    <table id="HelpLink">
+    <th id="thCenter"><a href="https://cgph.my.salesforce.com/articles/Homekeeper_knowledge/Eligible-Applicants-Console-Help-Text" target="_blank">EA Page Help Article</a></th>
+    </table>   
+  
+  
+    <!-- PROPERTY DETAILS -->
+    <table id="PropertyDetails">
+    <tr>
+    <th id="thCenter">
+    {!HOMEtracker__Property__c.Name}
+    </th>
+    </tr>
+    <tr>
+    <td id="PropertyText">
+    {!HOMEtracker__Property__c.HOMEtracker__City__c}, {!HOMEtracker__Property__c.HOMEtracker__State__c}, {!HOMEtracker__Property__c.HOMEtracker__Postal_Code__c} in {!HOMEtracker__Property__c.Municipality_Name__r.Name}<br/>
+         {!HOMEtracker__Property__c.HOMEtracker__Number_of_Bedrooms__c}br &#183; {!HOMEtracker__Property__c.HOMEtracker__Number_of_Bathrooms__c}ba &#183; {!HOMEtracker__Property__c.Max_Income_Level__c}<br/>
+      {!HOMEtracker__Property__c.HOMEtracker__Property_Type__c} for  
+      <span style="display: {!IF(HOMEtracker__Property__c.HOMEtracker__Monthly_Rent__c = 0,'none','')}">
+          <apex:outputText value="{0, Number, Currency}">
+              <apex:param value="{!HOMEtracker__Property__c.HOMEtracker__Monthly_Rent__c}"/>
+          </apex:outputText>
+      </span>
+      <span style="display: {!IF(HOMEtracker__Property__c.HOMEtracker__List_Price__c = 0,'none','')}">
+          <apex:outputText value="{0, Number, Currency}">
+              <apex:param value="{!HOMEtracker__Property__c.HOMEtracker__List_Price__c }"/>
+          </apex:outputText>
+      </span><br/>
+      {!SUBSTITUTE(SUBSTITUTE(HOMEtracker__Property__c.Lottery_Number_for_Priority__c,'__c',''),'_',' ')}
+      <br/><br/>
+    </td>
+    </tr>
+    <tr>
+        <td id="PropertyText">
+        <i>click links below for reports:</i><br/>
+            <a id="Invited" style="text-decoration: none;" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008nmJJUAY/view?queryScope=userFolders&fv0={!HOMEtracker__Property__c.Campaign__r.Id}">INVITED</a>
+            <a id="NotInvited" style="text-decoration: none;" href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000008nmJYUAY/view?queryScope=userFolders&fv0={!HOMEtracker__Property__c.Campaign__r.Id}">NOT INVITED</a><br/>
+            <a id="SendInvites" style="text-decoration: none;" href="https://cgph--c.vf.force.com/flow/EA_Page_Email_Not_Invited?varID={!HOMEtracker__Property__c.Campaign__r.Id}&retURL={!HOMEtracker__Property__c.Id}">SEND INVITES</a><br/>
+        </td>
+    </tr>
+    </table>
+
+
+    <!-- REMAINING EMAILS -->
+
+ 
+</apex:page>

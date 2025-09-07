@@ -1,0 +1,245 @@
+<apex:page standardController="HOMEtracker__Property__c" extensions="OutreachTrackerUnitAllExt" sidebar="false">
+
+<!-- VARIABLES -->
+<apex:variable var="font" value="Roboto"/>
+<apex:variable var="size" value="9pt"/>
+<apex:variable var="sizeH" value="10pt"/>
+<apex:variable var="Header" value="rgb(0, 101, 168)"/>
+<apex:variable var="Total" value="#fcffa8"/>
+<apex:variable var="Primary" value="#b7e1cd"/>
+<apex:variable var="Backup" value="#ffeebc"/>
+<apex:variable var="Hidden" value="#e0dce6"/>
+<apex:variable var="Flagged" value="#ffb75d"/>
+<apex:variable var="None" value="#d4d4d4"/>
+<apex:variable var="width1" value="100px"/>
+<apex:variable var="width2" value="50px"/>
+<apex:variable var="width12" value="150px"/>
+<apex:variable var="width3" value="125px"/>
+<apex:variable var="width4" value="100px"/>
+<apex:variable var="width34" value="240px"/>
+
+<apex:variable var="CGPHblue" value="rgb(0, 101, 168)"/>
+
+<style>
+   @import url('https://fonts.googleapis.com/css?family={!font}'); 
+    table {border-collapse: collapse;}
+    td {padding: 2px 7px 2px 7px;font-family:{!font};font-size:{!size};}
+    th {padding: 2px 7px 2px 7px;font-family:{!font};font-size:{!sizeH}; text-align:center; vertical-align:bottom;} 
+    .header {font-weight:bold;font-size:{!sizeH};background-color:{!CGPHblue}; color:white; text-align:center;}
+    
+    .OutreachPrime {background-color:{!Primary}}
+    .OutreachFlag {background-color:{!Flagged}}
+    .OutreachBack {background-color:{!Backup}}
+    .OutreachHide {background-color:{!Hidden}}
+    .LandlordApproved {background-color:{!Primary}}
+    .LandlordNotApproved {background-color:{!Total}}
+    .CertDone{background-color:{!Primary}}
+    .CertNotDone{background-color:{!Total}}
+    .DoNotDisplay {display:none;}
+    .center {text-align:center;}
+    
+</style>
+
+<apex:variable var="group" value="{!IF(HOMEtracker__Property__c.Group_Property__c=true,1,0)}"/>
+<apex:variable var="ShowHidden" value="{!IF(HOMEtracker__Property__c.Show_Hidden__c=true,1,0)}"/>
+
+<apex:form >
+<table border="1" width="100%">
+    <tr>
+        <td colspan="12" height="40px">
+            <table border="0" width="100%">
+                <tr>
+                    <td width="200px">
+                        <div class="{!IF(group=1,'DoNotDisplay','')}">
+                        Group Property:<br/>
+                        <a href="/{!HOMEtracker__Property__c.Group_Property_Parent__r.Id}" target="_blank">{!HOMEtracker__Property__c.Group_Property_Parent__r.Name}</a>
+                        </div>
+                    </td>
+                    <td class="center">
+                        <a href="https://cgph--c.vf.force.com/flow/Outreach_Tracker_Show_Hidden?varID={!HOMEtracker__Property__c.Id}&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top">
+                            {!IF(ShowHidden=1,'HIDE','SHOW')} HIDDEN
+                        </a>
+                        <apex:commandButton id="saveButtonU" value="SAVE-U" action="{!saveU}" styleClass="buttonSave" style="display: none;"/>
+                        <apex:commandButton id="saveButtonG" value="SAVE-G" action="{!saveG}" styleClass="buttonSave" style="display: none;"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <apex:commandButton id="cancelButton" value="CANCEL" styleClass="buttonCancel" style="display: none"/>
+                    </td>
+                    <td width="200px">
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+       </td>
+    </tr>
+    <tr class="header">
+        <th>
+            Applicant<br/>Name 
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            UNIT
+        </th>
+        <th>
+            Priority
+        </th>
+        <th>
+            Date <br/>CGPH <br/>Added
+        </th>
+        <th>
+            Date <br/>Marked<br/> Primary
+        </th>
+        <th>
+            LL/DEV<br/> Approval 
+        </th>
+        <th>
+            LL/DEV<br/> Date
+        </th>
+<!--
+        <th>
+            LL/Dev<br/> Notes
+        </th>
+-->
+        <th>
+            Ready<br/> for Cert
+        </th>
+        <th>
+            Cert <br/>Begun
+        </th>
+        <th>
+            CGPH<br/> Result
+        </th>
+        <th>
+            CGPH <br/> Result <br/> Date
+        </th>
+    </tr>
+
+<apex:repeat var="x" value="{!IF(group=1, applicantsGroup,applicantsUnit)}">
+    <tr class="{!CASE(x.Tracker_Status__c,'Primary','OutreachPrime','Flagged','OutreachFlag','Backup','OutreachBack','Hidden',IF(ShowHidden=1,'OutreachHide','DoNotDisplay'),'','DoNotDisplay','DoNotDisplay')}">
+        <td>
+            <a href="/{!x.Id}" target="_top">
+                <b>{!x.Applicant_Name__c}</b>
+            </a>
+        </td>
+        <td>
+            <apex:actionRegion >
+                <apex:outputField value="{!x.Tracker_Status__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="{!IF(group=1,'saveButtonG','saveButtonU')},cancelButton"/>
+                </apex:outputField>
+            </apex:actionRegion>
+           
+        </td>
+        <td>
+            <nobr>
+            <span class="{!IF(ISBLANK(x.Property_Unit__c)=true,'','DoNotDisplay')}">
+            TBD
+            </span>
+            <span class="{!IF(ISBLANK(x.Property_Unit__c)=false,'','DoNotDisplay')}">
+            <a href="{!x.Property_Unit__c}" target="_blank">
+                <apex:outputtext value="{!x.Property_Unit__r.Unit_Number__c}"/>
+            </a>
+            </span>
+            <a href="https://cgph--c.vf.force.com/flow/OT_Find_Available_Properties_By_Development?varType=u&varDevID={!HOMEtracker__Property__c.Development_Address__r.Id}&varID={!x.Id}&varPropID={!HOMEtracker__Property__c.Id}&retURL=%2F{!HOMEtracker__Property__c.Id}" target="_top" style="text-decoration:none;"> 
+                <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/34/Home-icon.svg" height="14px"/>
+            </a>
+            
+            </nobr>
+            
+        </td>
+        
+        <td class="center">
+            {!x.SF_Priority__c}
+        </td>
+        <td>
+            <apex:actionRegion >
+                <apex:outputField value="{!x.Date_CGPH_Added_Name__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="{!IF(group=1,'saveButtonG','saveButtonU')},cancelButton"/>
+                </apex:outputField>
+            </apex:actionRegion>
+        </td>
+        <td>
+            <apex:actionRegion >
+                <apex:outputField value="{!x.Date_Marked_Primary__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="{!IF(group=1,'saveButtonG','saveButtonU')},cancelButton"/>
+                </apex:outputField>
+            </apex:actionRegion>
+        </td>
+        <td>
+            <apex:actionRegion >
+                <apex:outputField value="{!x.Landlord_Developer_Determination__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="{!IF(group=1,'saveButtonG','saveButtonU')},cancelButton"/>
+                </apex:outputField>
+            </apex:actionRegion>
+        </td>
+        <td>
+            <apex:actionRegion >
+                <apex:outputField value="{!x.Landlord_Developer_Determination_Date__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="{!IF(group=1,'saveButtonG','saveButtonU')},cancelButton"/>
+                </apex:outputField>
+            </apex:actionRegion>
+        </td>
+<!--
+            <apex:actionRegion >
+                <apex:outputField value="{!x.Landlord_Developer_Notes__c}">
+                    <apex:inlineEditSupport event="onDblClick" showOnEdit="{!IF(group=1,'saveButtonG','saveButtonU')},cancelButton"/>
+                </apex:outputField>
+            </apex:actionRegion>
+-->
+        <td>
+            <apex:outputField value="{!x.Date_Ready_for_Eligibility_Review__c}"/>
+        </td>
+        <td>
+            <apex:outputField value="{!x.Date_Eligibility_Review_Began__c}"/>
+        </td>
+        <td>
+            <apex:outputField value="{!x.CGPH_Determination__c}"/>
+        </td>
+        <td>
+            <apex:outputField value="{!x.CGPH_Approval_Denial_Date__c}"/>
+            {!IF(x.CGPH_Determination__c='Ineligible' && ISBLANK(x.CGPH_Approval_Denial_Date__c),'PENDING APPEAL','')}
+        </td>
+    </tr>
+</apex:repeat>
+
+</table>
+</apex:form>      
+
+<br/>
+<div id="GroupReportButton" class="{!IF(group=1,'','DoNotDisplay')}">
+group:
+<a href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005tmtGUAQ/view?queryScope=userFolders&fv0={!LEFT(HOMEtracker__Property__c.Id,15)}" target="_blank" style="text-decoration:none;">
+    <apex:image url="https://static.vecteezy.com/system/resources/previews/009/973/092/non_2x/people-icon-sign-symbol-design-free-png.png" height="20"/>
+</a>
+</div>
+
+<div id="UnitReportButton" class="{!IF(group!=1,'','DoNotDisplay')}">
+unit:
+<a href="https://cgph.lightning.force.com/lightning/r/Report/00O6O000005tmtGUAQ/view?queryScope=userFolders&fv0={!HOMEtracker__Property__c.Id}" target="_blank" style="text-decoration:none;">
+    <apex:image url="https://static.vecteezy.com/system/resources/previews/009/973/092/non_2x/people-icon-sign-symbol-design-free-png.png" height="20"/>
+</a>
+</div>
+
+
+<br/>
+<div style="{!IF($User.LastName='Burton','','display:none;')}">
+<br/>
+<a href="https://cgph--c.vf.force.com/apex/OutreachTrackerUnitAll?id={!property.Id}" target="_top">VF PAGE</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</apex:page>

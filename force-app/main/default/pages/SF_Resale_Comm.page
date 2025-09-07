@@ -1,0 +1,297 @@
+<apex:page standardController="HOMEtracker__Service_File__c" showheader="false">
+
+<!-- -------------- COLOR VARIABLES --------------- -->
+<apex:variable var="color1" value="#FFC1C1"/>
+<apex:variable var="color2" value="#FFF2CC"/>
+<apex:variable var="color3" value="#fce7dc"/>
+<apex:variable var="color4" value="#E2EFDA"/>
+<apex:variable var="color5" value="#dcecfc"/>
+<apex:variable var="linkBlue" value="#0b5cab"/>
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+    table {border-collapse:collapse;}
+    td    {height:30px; padding-left:10px; font-size:10.5pt; font-family:Open Sans; border-bottom: 1px solid #c9c9c9;}
+    a     {color:black;}
+    .head {background-color:#f3f3f3; display:none;}
+    .missing {color:red; font-weight:bold;}
+    .noBottom {border-bottom: 0px solid white;}
+    .XX {background-color:RGB(255,183,93);}
+    .c1 {background-color:{!color1};}
+    .c2 {background-color:{!color2};}
+    .c3 {background-color:{!color3};}
+    .c4 {background-color:{!color4};}
+    .c5 {background-color:{!color5};}
+    
+</style>
+
+<apex:variable var="width1" value="8%"/>
+<apex:variable var="width2" value="36%"/>
+<apex:variable var="width3" value="2%"/>
+<apex:variable var="match" value="!IF(HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c = TRUE, '1','0')}"/>
+
+
+
+<!-- -----------------------LINK FORMULAS------------------------- -->
+
+<!-- Step 1 (D) Begin Intent to Sell Email Setup-->
+<apex:variable var="EmailSetup1" value="mailto:{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}?bcc=noreply@cgph.net&subject=
+Intent to Sell / {!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name} / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Name} / 
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Name} {!HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c} Affordable Housing Program
+"/> 
+
+<!-- Step 1 (E) Begin Next Steps Email Setup -->
+<apex:variable var="EmailSetupNextSteps" value="mailto:{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}?bcc=noreply@cgph.net&subject=
+Next Steps / {!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name} / 
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Name} / 
+{!HOMEtracker__Service_File__c.Municipality_Lookup__r.Name} {!HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c} Affordable Housing Program"/>
+
+<!-- Step 2 (Option 1) (F) Generate Intent to Sell Email Text--> 
+<apex:variable var="ITSstep2" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a291N000003oOEi
+&DS7=3
+&OFN=INTENT+TO+SELL+EMAIL+TEXT+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+"/>
+
+
+<!-- Step 2 (Option 1) (G) Generate Group Showings Email Text -->
+<apex:variable var="GroupEmail1" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a291N000003dV6A
+&DS7=3
+&OFN=NEXT+STEPS+GROUP+SHOWINGS+EMAIL+TEXT+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+"/>
+
+<!-- Step 3 (Option 1) (E) Generate Intent to Sell Package -->
+<apex:variable var="ITSpackage" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateGroup=ITS
+&QueryId=[ITSProperty]a211N000001eGcY?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Id},
+[ITSMunicipality]a211N000001eGeG?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Id},
+[ITSApplicantContact]a211N000001eGfi?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Id}
+&OFN=Intent+To+Sell+Package+{!SUBSTITUTE(SUBSTITUTE(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name,' ','+'),'#','%23')}
+"/>
+
+<!-- Step 2 (Option 2) (H) Generate Appointments Email Text -->
+<apex:variable var="Step2Opt2Appts" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=00P1N00000jxcuc
+&DS7=3
+&OFN=NEXT+STEPS+APPOINTMENT+EMAIL+TEXT+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+"/>
+
+<!-- Step 2 (Option 2) (I) Generate Intent to Sell Email Text, Expired Controls - 95/5 -->
+<apex:variable var="ITSemailText955" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=00P3m0000110eKN
+&DS7=3
+&OFN=INTENT+TO+SELL+EMAIL+TEXT+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+"/>
+
+<!-- Step 3 (Option 2) (F) Generate Intent to Sell Package, Expired Controls - 95/5 -->
+<apex:variable var="ITSpackage955" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=00P3m000012fPVJ
+&DS7=3
+&QueryId=[ITSProperty]a211N000001eGcY?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Id},
+[ITSMunicipality]a211N000001eGeG?pv0={!HOMEtracker__Service_File__c.Municipality_ID__c},
+[ITSApplicantContact]a211N000001eGfi?pv0={!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Id}
+&OFN=Intent+To+Sell+Package+{!SUBSTITUTE(SUBSTITUTE(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name,' ','+'),'#','')}
+"/>
+
+<!-- Step 1 (H) Begin Group Showing Sign in Sheet Email Setup -->
+<apex:variable var="GroupShowEmailSetup" value="mailto:{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}?bcc=noreply@cgph.net&subject=
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name} / Group Showing / 
+{!HOMEtracker__Service_File__c.Next_Open_House_CALC__c}" />
+
+<!-- Step 2 (B) Group Showing Sign in Sheet -->
+<apex:variable var="GroupSignSheet" value="
+https://cgph--apxtconga4.vf.force.com/apex/APXTConga4__Conga_Composer
+?serverUrl={!$Api.Enterprise_Server_URL_370}
+&Id={!HOMEtracker__Service_File__c.Id}
+&TemplateId=a293m000004m5W2
+&DS7=3
+&OFN=Group+Showing+Sign+In+Sheet+{!SUBSTITUTE(SUBSTITUTE(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name,' ','+'),'#','')}"/>
+
+
+
+
+
+
+
+<!-- -----------------------TABLE BEGINS------------------------- -->
+
+
+
+<table border="0" width="100%">
+        <tr>
+        <td colspan="5" class="head">
+            Resale // 1a. Intent to Sell &amp; next Steps Communications for Seller
+            <a href="https://cgph--c.vf.force.com/apex/SF_Resale_Comm?id={!HOMEtracker__Service_File__c.Id}" target="_blank" style="{!IF($User.LastName='Burton','','display:none;')}">
+                VF PAGE
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td width="{!width1}" class="c1">
+<!-- Step 1 (D) Begin Intent to Sell Email Setup--> 
+         Step 1 
+        </td>
+        <td width="{!width2}" class="c1">       
+            <apex:outputLink value="{!EmailSetup1}">
+                Begin Intent to Sell Email Setup 
+            </apex:outputLink>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name='','','display:none')}">[ PROPERTY ]</span>
+            <span class="missing" style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__c),'','display:none')}">[ MUNI ]</span>
+            <span class="missing" style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c),'','display:none')}">[ MUNI TYPE ]</span>
+        </td>
+        <td width="{!width3}" class="noBottom">
+        </td>
+<!-- Step 1 (E) Begin Next Steps Email Setup -->
+        <td width="{!width1}"  class="c4"> 
+         Step 1
+        </td>
+        <td width="{!width2}" class="c4">
+            <apex:outputLink value="{!EmailSetupNextSteps}">
+                Begin Next Steps Email Setup
+            </apex:outputLink>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name='','','display:none')}">[ PROPERTY ]</span>
+            <span class="missing" style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__c),'','display:none')}">[ MUNI ]</span>
+            <span class="missing" style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Municipality_Lookup__r.Municipal_Type__c),'','display:none')}">[ MUNI TYPE ]</span>
+        </td>
+    </tr>
+    <tr>
+<!-- Step 2 (Option 1) (F) Generate Intent to Sell Email Text-->
+        <td class="c2">
+          Step 2 (Option 1)  
+        </td>
+        <td class="c2">
+            <a target="_blank" href="{!SUBSTITUTE(ITSstep2,' ','')}">
+                Generate Intent to Sell Email Text
+            </a>
+            
+<!-- check controls date -->
+<apex:variable var="DateCheck" value="{!IF(OR(
+                        ISNULL(HOMEtracker__Service_File__c.HOMEtracker__Property__r.test_date_controls_expire__c),
+                        HOMEtracker__Service_File__c.HOMEtracker__Property__r.test_date_controls_expire__c < (TODAY() + 180)
+                        ),1,0)}"/>
+            <a style="font-weight: bold;color:red;
+                {!IF(DateCheck=1,'','display:none;')}
+                {!IF($User.LastName='Burton','','display:none;')}"
+                href="https://cgph.my.salesforce.com/{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Id}"
+                target="_blank"
+                >[ CHECK CONTROLS ]</a>
+        </td>
+        <td class="noBottom">
+        </td>
+<!-- Step 2 (Option 1) (G) Generate Group Showings Email Text -->
+        <td class="c4">
+            Step 2 (Option 1)
+        </td>
+        <td class="c4">
+            <a target="_blank" href="{!SUBSTITUTE(GroupEmail1,' ','')}">
+                Generate Group Showings Email Text
+            </a>
+        </td>
+    </tr>
+    <tr>
+<!-- Step 3 (Option 1) (E) Generate Intent to Sell Package --> 
+        <td class="c2">
+            Step 3 (Option 1)
+        </td>
+        <td class="c2">
+            <a target="_blank" href="{!SUBSTITUTE(ITSpackage,' ','')}">
+                Generate Intent to Sell Package
+            </a>
+        </td>
+        <td class="noBottom">
+        </td>
+<!-- Step 2 (Option 2) (H) Generate Appointments Email Text -->
+        <td class="c4"> 
+         Step 2 (Option 2)
+        </td>
+        <td class="c4">
+            <a target="_blank" href="{!SUBSTITUTE(Step2Opt2Appts,' ','')}">
+                Generate Appointments Email Text
+            </a>
+        </td>
+    </tr>
+    <tr>
+<!-- Step 2 (Option 2) (I) Generate Intent to Sell Email Text, Expired Controls - 95/5 --> 
+        <td class="c3">
+         Step 2 (Option 2)
+        </td>
+        <td class="c3">
+            <a target="_blank" href="{!SUBSTITUTE(ITSemailText955,' ','')}">
+                Generate Intent to Sell Email Text, Expired Controls - 95/5
+            </a>
+        </td>
+        <td class="noBottom">
+        </td>
+<!-- Step 1 (H) Begin Group Showing Sign in Sheet Email Setup --> 
+        <td class="c5">
+         Step 1
+        </td>
+        <td class="c5">
+            <apex:outputLink value="{!GroupShowEmailSetup}">
+                Begin Group Showing Sign in Sheet Email Setup
+            </apex:outputLink>
+            <span class="missing" style="{!IF(HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name='','','display:none')}">[ PROPERTY ]</span>
+            <span class="missing" style="{!IF(ISBLANK(HOMEtracker__Service_File__c.Next_Open_House_CALC__c),'','display:none')}">[ OPEN HOUSE ]</span>
+        </td>
+    </tr>
+    <tr>
+<!-- Step 3 (Option 2) (F) Generate Intent to Sell Package, Expired Controls - 95/5 -->
+        <td class="c3"> 
+         Step 3 (Option 2) 
+        </td>
+        <td class="c3">
+            <a target="_blank" href="{!SUBSTITUTE(ITSpackage955,' ','')}">
+                Generate Intent to Sell Package, Expired Controls - 95/5
+            </a>
+        </td>
+        <td class="noBottom">
+        </td>
+        <!-- Step 2 (B) Group Showing Sign in Sheet --> 
+        <td class="c5">
+         Step 2
+        </td>
+        <td class="c5">
+            <a target="_blank" href="{!SUBSTITUTE(GroupSignSheet,' ','')}">
+                Group Showing Sign in Sheet
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+
+<div style="display:none"> <!-- for SOQL purposes -->
+{!HOMEtracker__Service_File__c.Verified_Salesforce_PH_Income_Match__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.Email}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Primary_contact_email__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Email_Recipients_for_Certs__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Municipality_Name__r.Municipal_Type__c}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Property__r.Development_address__r.Name}
+{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__r.LastName}
+{!HOMEtracker__Service_File__c.Case_Number__c}
+</div>
+
+</apex:page>

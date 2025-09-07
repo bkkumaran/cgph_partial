@@ -1,0 +1,1131 @@
+<apex:page standardController="TS_Contract__c" extensions="NoSlipCheckTotalExt,InvSetupContractsEXT" title="Invoicing | {!TS_Contract__c.Name}" >
+
+
+<!-- VARIABLES -->
+
+<apex:variable var="cBlue" value="RGB(50, 100, 200)"/>
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto');
+    
+    body    { font-family: Roboto; }
+    a       { text-decoration: none; }
+    a:hover { text-decoration: none !important; }
+    table   { border-collapse: collapse; }
+    td      { font-family: Roboto; }
+    .center {text-align: center; }
+    .icon   { opacity: 50%; }
+    .icon:hover { opacity: 100%; cursor: pointer;}
+    
+    .rowActive{ display:normal; }
+    .rowInactive{ display:{!IF($User.FirstName = 'John', 'normal;','none;')} }
+    
+    .tdPageHead{
+        background-color: white;
+        font-size: 20pt;
+        color:{!cBlue} !important;
+        text-align: left;
+        padding: 10px 10px 30px 10px;
+        }
+    .tdPageHeadLink{
+        color: {!cBlue} !important;
+        }
+    .tdPageLeft{
+        vertical-align: top;
+        text-align: left;
+        padding: 10px 0px 0px 0px;
+        }
+    .tdPageRight{
+        vertical-align: top;
+        text-align: left;
+        padding: 10px 0px 0px 20px;
+        }
+    .tdContHead {
+        font-family: 'Roboto';
+        font-size: 12pt;
+        font-weight:bold;
+        color:{!cBlue};
+        text-align: center;
+        }
+    .tdContRows{
+        padding: 0px 10px 0px 20px;
+        text-align: center;
+        }
+    .tdDivide {
+        background-color: RGB(153, 178, 229);
+        height: 2px;
+        padding: 0px 0px 0px 0px !important;
+        border: 0.5px solid #e3e3e3;
+        }
+    .tdActionTop{
+        font-size:18pt;
+        font-weight: bold;
+        color:{!cBlue};
+        padding: 2px 5px 10px 5px;
+        text-align: left;
+        }
+    .tdActionHead{
+        font-size:11pt;
+        font-weight: normal;
+        color:{!cBlue};
+        padding: 2px 5px 2px 5px;
+        border-bottom: 0.5px solid {!cBlue};
+        }
+    .tdActionRow{
+        font-size:10pt;
+        padding: 5px 5px 5px 5px;
+        border-bottom: 0.5px solid #e3e3e3;
+        }
+    .trActionRow{
+        background-color:white;
+        }
+    .trActionRow:hover{
+        background-color:RGB(255,255,215);
+        }
+    .actionDone {
+        font-family: 'Roboto';
+        font-size: 12pt;
+        font-weight: bold;
+        color: RGB(0,113,107);
+        }
+    .notesText{
+        font-size:12pt;
+        color:RGB(0,113,107);
+        text-align: left;
+        }
+    .propListHead{
+        font-family: 'Roboto';
+        font-size: 12pt;
+        font-weight:bold;
+        color:{!cBlue};
+        text-align: center;
+        }
+    .propList{
+        color: {!cBlue};
+        font-size: 10pt;
+        cursor: pointer;
+        }
+    .InProgYes {
+        color: {!cBlue};
+        font-size: 12pt;
+        font-weight: bold;
+        padding: 10px 5px 10px 5px;
+        border: 0.5px solid #e3e3e3;
+        }
+    .InProgNo {
+        color: black;
+        font-size: 12pt;
+        font-weight: bold;
+        padding: 5px 5px 5px 5px;
+        border: 0.5px solid #e3e3e3;
+        }
+    .tdActive {
+        background-color: white;
+        font-size: 12pt;
+        padding: 10px 5px 10px 5px;
+        border: 0.5px solid #e3e3e3;
+        }
+    .tdInactive {
+        font-size: 12pt;
+        background-color:#f2f2f2;
+        padding: 10px 5px 10px 5px;
+        border: 0.5px solid #e3e3e3;
+        opacity: 50%;
+        }
+    .pendingYes{
+        background-color: white;
+        font-weight:bold;
+        color: RGB(230,76,76);
+        font-size: 12pt;
+        padding: 10px 5px 10px 5px;
+        border: 0.5px solid #e3e3e3;
+        }
+    .pendingNo {
+        background-color: white;
+        font-size: 12pt;
+        color: {!cBlue};
+        padding: 10px 5px 10px 5px;
+        border: 0.5px solid #e3e3e3;
+        display:none;
+        }
+    .done {
+        font-family: Roboto;
+        font-size: 12pt;
+        font-weight: normal;
+        color: RGB(0,132,107);
+        }
+    .statusFix {
+        font-family: Roboto;
+        font-size: 14pt;
+        color: {!cBlue};
+        display: {!IF(countTotal = 0 , 'normal;','none;')}
+        }
+    .bContractName {
+        background-color: {!cBlue};
+        width: 150px;
+        color: white;
+        padding: 4px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        font-family:'Roboto';
+            }
+    .bContractName:hover{
+        background-color: #032D60 !important;
+        color: white;
+        cursor:pointer;
+            }
+    .bContractLinks{
+        background-color: white;
+        width: 149px;
+        border: 1px solid #f2f2f2;
+        color: {!cBlue};
+        padding: 4px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10pt;
+        font-family:'Roboto';
+            }
+    .bContractLinks:hover{
+        background-color: {!cBlue};
+        color: white;
+        cursor:pointer;
+            }
+    .bContractPastDue{
+        background-color: white;
+        width: 149px;
+        border: 1px solid #f2f2f2;
+        color: RGB(230,76,76);
+        padding: 4px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        font-family:'Roboto';
+            }
+    .bContractPastDue:hover{
+        background-color: RGB(230,76,76);
+        color: white;
+        cursor:pointer;
+            }
+    .markComplete{
+        font-family: roboto;
+        font-size: 12pt;
+        color: RGB(0,113,107);
+        }
+    .markComplete:hover {
+        cursor: pointer;
+        background-color: RGB(219, 255, 242);
+        font-weight: bold;
+        color: RGB(0,113,107) !important;
+        }
+    .markedComplete{
+        font-family: roboto;
+        font-size: 14pt;
+        color: RGB(0,113,107);
+        }  
+
+
+</style>
+
+
+<apex:variable var="retURL" value="%2Fone%2Fone.app%23%2FalohaRedirect%2Fapex%2FInvoiceProgressOnSetup%3Fid%3D{!TS_Contract__c.Id}%26act%3D{!$CurrentPage.parameters.act}"/>
+
+<body>
+
+
+
+
+<!-- ------------------------------- -->
+<!--             PAGE TABLE          -->
+<!-- ------------------------------- -->
+
+<table border="0" width="100%" style="border-color: red;">
+
+
+<!-- ------------------------------- -->
+<!--              HEADER             -->
+<!-- ------------------------------- -->
+    <tr>
+        <td colspan="3" class="tdPageHead">
+            <a href="https://cgph.lightning.force.com/lightning/r/TS_Contract__c/{!TS_Contract__c.Id}/view"
+            class="tdPageHeadLink"
+            target="_blank" 
+            >
+        <b>{!TS_Contract__c.Name}</b>
+    </a>
+    &nbsp; &nbsp;
+            Invoicing Progress 
+            <apex:outputText value="{0, date, MMMM' 'yyyy}">
+                <apex:param value="{!invDate}"/>
+            </apex:outputText>
+
+    &nbsp; &nbsp;
+            <a href="https://cgph--c.vf.force.com/apex/NoSlipCheckAll?r=0&a={!LEFT(TS_Contract__c.Name,1)}" target="_top">
+                <apex:image value="{!$Resource.WorkbookIcon}" height="30px"/>
+            </a>
+        </td>
+
+    </tr>
+
+<tr>
+
+
+<!-- ------------------------------- -->
+<!--         CONTRACTS TABLE         -->
+<!-- ------------------------------- -->
+ 
+<td class="tdPageLeft" style="vertical-align: top; border-right: 0.5px solid #e3e3e3;" width="200px">
+
+<table>
+    <tr>
+        <td style="text-align: center;" height="">
+            <div class="propListHead">
+                RELATED MUNICIPALITY
+            </div>
+            <a href="https://cgph.lightning.force.com/lightning/r/Municipality__c/{!TS_Contract__c.Municipality__r.Id}/view"
+            class="bContractLinks"
+            style="font-size:11pt !important;"
+            target="_blank">
+                    {!TS_Contract__c.Municipality__r.Name}
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;" height="100px">
+            <div class="propListHead">
+                ASSOCIATED PROPERTIES
+            </div>
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003GWGjMAO/view?queryScope=userFolders&fv0={!TS_Contract__c.Id}&fv1={!TS_Contract__c.Id}"
+            class="bContractLinks"
+            target="_blank">
+                    <apex:image value="https://upload.wikimedia.org/wikipedia/commons/8/8a/Icon-doc.svg" height="20px"/> Report
+            </a>
+        </td>
+    </tr>
+        
+    <tr>
+        <td class="tdContHead" style="text-align: center;">
+            ASSOCIATED CONTRACTS
+            <br/><br/>
+        </td>
+    </tr>
+ <apex:repeat var="c" value="{!listCont}">
+   <tr>
+        <td class="tdContRows">
+            <a class="bContractName" href="https://cgph.lightning.force.com/lightning/r/Contract/{!c.Id}/view" target="_blank">
+                {!c.Name}
+            </a><br/>
+            <a class="bContractLinks" href="{!c.Contract_PDF_URL__c}" target="_blank">
+                Contract PDF
+            </a><br/>
+            <a class="bContractLinks" href="{!c.Contract_Spreadsheet_URL__c}" target="_blank">
+                Spreadsheet
+            </a><br/>
+            <a class="bContractLinks" href="/one/one.app#/alohaRedirect/apex/BillingTermsCondensed?Id={!c.Id}" target="_blank">
+                Billing Terms
+            </a><br/>
+            <a class="bContractLinks" href="/one/one.app#/alohaRedirect/apex/contInvoice?Id={!c.Id}&Id2={!c.Prior_Contract__r.Id}" target="_blank">
+                Invoices
+            </a><br/>
+            <a class="bContractLinks" href="https://cgph.lightning.force.com/lightning/r/Account/{!c.Account.Id}/view" target="_blank">
+                Account
+            </a><br/>
+            <a class="bContractPastDue" 
+                style="{!IF(OR(c.Account.Total_Past_Due_Acc__c = 0,c.Account.Total_Past_Due_Acc__c = NULL), 'display:none;', '')}" 
+                href="https://cgph.lightning.force.com/lightning/r/Account/{!c.Account.Id}/view"
+                target="_blank">
+                    Past Due: 
+                <apex:outputField value="{!c.Account.Total_Past_Due_Acc__c}"/>
+            </a>
+            <br/>
+            <br/>
+        </td>
+    </tr>
+</apex:repeat>
+</table>
+</td>
+
+
+<!-- ------------------------------- -->
+<!--          PROGRESS TABLE         -->
+<!-- ------------------------------- -->
+<td class="tdPageRight" width="400px" >
+<div class="notesText">
+<b>Notes:</b> {!TS_Contract__c.Invoicing_Notes__c}
+<a href="https://cgph--c.vf.force.com/flow/Invoices_Update_Invoicing_Notes_on_Progress_Page?varID={!TS_Contract__c.Id}&retURL={!retURL}" target="_self" class="icon">
+<apex:image value="{!$Resource.EditPencil}" height="13px"/>
+</a>
+</div>
+<br/>
+
+<table>
+
+
+
+<!-- DIVIDER --> <tr><td colspan="2" class="tdDivide " style="{!IF(countTotal=0,'display:none;','')}"></td></tr>
+    
+<!-- IN PROGRESS INVOICES -->
+    <tr style="{!IF(countTotal=0,'display:none;','')}">
+        <td class="{!IF(cInProgress = 0, 'InProgNo', 'InProgYes' ) }" width="325px">
+            {!CASE(cInProgress, 0, 'No In Progress Invoices',1,'In Progress Invoice (1)', 'In Progress Invoices ('+TEXT(cInProgress)+')')}
+        </td>
+
+        <td class="{!IF(cInProgress = 0, 'InProgNo', 'InProgYes' ) }" style="text-align: center;">
+
+            <apex:repeat var="i" value="{!InProgress}">
+                <a href="https://cgph--c.vf.force.com/one/one.app#/alohaRedirect/apex/Invoice_Preview?Id={!i.Id}"
+                style="{!IF(cInProgress = 0, 'display: none;','')}"
+                class="icon"
+                target="_blank">
+                    <apex:image url="{!$Resource.Invoice_Icon}" height="20"/>
+                </a>
+            </apex:repeat>
+
+            <a  style="{!IF(cInProgress = 0, '','display: none;')}"
+                href="https://cgph--c.vf.force.com/flow/Invoices_Create_In_Progress_From_Setup?varSetupID={!TS_Contract__c.Id}&retURL={!retURL}"
+                class="icon"
+                target="_top">
+                    <apex:image url="{!$Resource.AddIcon}" height="17px"/>
+            </a>
+            
+            
+        </td>
+    </tr>
+    
+<!-- PENDING SLIPS -->
+    <tr>
+        <td class="{!IF( cPendingSlip = 0 , 'pendingNo','pendingYes')}">
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003QH1tMAG/view?queryScope=userFolders&fv0={!TS_Contract__c.Name}" target="_blank" class="icon">
+           <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+           </a>
+           Pending Slips
+           
+        </td>
+        <td  class="{!IF( cPendingSlip = 0 , 'pendingNo','pendingYes')}" style="text-align: center;">
+            {!cPendingSlip}
+        </td>
+    </tr>
+
+<!-- DIVIDER --> <tr><td colspan="2" class="tdDivide "></td></tr> 
+    
+<!-- MUNI SVCS HOURLY LOG ENTRIES -->
+    <tr class="{!IF( cMuniAAlogs = 0 , 'rowInactive','rowActive')}">
+        <td class="{!IF( cMuniAAlogs = 0 , 'tdInactive','tdActive')}">
+            <a href="https://cgph--c.vf.force.com/flow/Invoices_AA_Muni_Hourly_Entries_from_Logs?varID={!TS_Contract__c.Id}&retURL={!retURL}" class="icon" target="_self" >
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+            </a>
+            AA Muni Svcs Log Entries Needing Slips
+        </td>
+        <td class="{!IF( cMuniAAlogs = 0 , 'tdInactive','tdActive')}" style="text-align: center;">{!cMuniAAlogs}</td>
+    </tr>
+    
+<!-- REHAB HOURLY LOG ENTRIES TO SLIPS
+    <tr class="rowActive">
+        <td class="tdActive">
+            HR Hourly Log Entries Needing Slips
+        </td>
+        <td style="text-align: center; background-color:yellow;">
+            TBD
+        </td>
+    </tr>
+  -->   
+   
+<!-- RECURRING FLAT FEES -->
+    <tr class="{!IF( cRecFlatFeeBoth_new = 0 , 'rowInactive','rowActive')}">
+        <td class="{!IF( cRecFlatFeeBoth_new = 0 , 'tdInactive','tdActive')}">
+            <a href="https://cgph--c.vf.force.com/flow/Invoices_Find_Recurring_Flat_Fee_Contract?varSetupID={!TS_Contract__c.Id}&retURL={!retURL}" class="icon" target="_self">
+                <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+            </a>
+            Recurring Flat Fees
+        </td>
+        <td class="{!IF( cRecFlatFeeBoth_new = 0 , 'tdInactive','tdActive')}" style="text-align: center;">{!cRecFlatFeeBoth_new}</td>
+    </tr>
+
+<!-- AA ELIGIBILITIES -->
+    <tr class="{!IF( cAAElig = 0 , 'rowInactive','rowActive')}">
+            
+        <td class="{!IF( cAAElig = 0 , 'tdInactive','tdActive')}">
+            <a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=1" target="_self" class="icon">
+                <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+            </a>
+            AA Eligibilities
+        </td>
+        <td class="{!IF( cAAElig = 0 , 'tdInactive','tdActive')}" style="text-align: center;">
+            {!cAAElig}
+        </td>
+    </tr>
+
+<!-- PRIVATE OWNERSHIP ALL -->
+    <tr class="{!IF( cPrivSaleAll = 0 , 'rowInactive','rowActive')}">
+        <td class="{!IF( cPrivSaleAll = 0 , 'tdInactive','tdActive')}">
+            <a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=4" target="_self" class="icon">
+                <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+            </a>
+            AA Private Sale Fees
+        </td>
+        <td class="{!IF( cPrivSaleAll = 0 , 'tdInactive','tdActive')}" style="text-align: center;">
+            {!cPrivSaleAll}
+        </td>
+    </tr>
+    
+<!-- HR Billable Activities -->
+    <tr class="{!IF( cHRMiles = 0 , 'rowInactive','rowActive')}">
+        <td class="{!IF( cHRMiles = 0 , 'tdInactive','tdActive')}">
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003LB8PMAW/view?queryScope=userFolders&fv0={!TS_Contract__c.Name}&fv1={!TEXT(YEAR(invDate))}-{!TEXT(MONTH(invDate))}-{!TEXT(DAY(invDate))}"
+               class="icon"
+               target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+            </a>
+            HR Billable Activities
+        </td>
+        <td  class="{!IF( cHRMiles = 0 , 'tdInactive','tdActive')}" style="text-align: center;">
+            {!cHRMiles}
+        </td>
+    </tr>
+    
+<!-- AA ASSISTANCE APPS -->
+    <tr class="{!IF( cAssistApps = 0, 'rowInactive','rowActive')}">
+        <td class="{!IF( cAssistApps = 0, 'tdInactive','tdActive')}">
+            <a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=6" target="_self" class="icon">
+                <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+            </a>
+            AA Affordability Assistance Fees
+        </td>
+        <td class="{!IF( cAssistApps = 0, 'tdInactive','tdActive')}" style="text-align: center;">
+            {!cAssistApps}
+        </td>
+    </tr>    
+
+<!-- AA LISTING FEE -->
+    <tr class="{!IF( cAAListing = 0 , 'rowInactive','rowActive')}">
+        <td class="{!IF( cAAListing = 0 , 'tdInactive','tdActive')}">
+            <a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=3" target="_self" class="icon">
+                <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+            </a>
+            AA Listing Fees
+        </td>
+        <td  class="{!IF( cAAListing = 0 , 'tdInactive','tdActive')}" style="text-align: center;">
+            {!cAAListing}
+        </td>
+    </tr>
+
+<!-- MUNI CLOSING FEE -->
+    <tr class="{!IF( cMuniClosing = 0 , 'rowInactive','rowActive')}">
+        <td class="{!IF( cMuniClosing = 0 , 'tdInactive','tdActive')}">
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003LMlNMAW/view?queryScope=userFolders&fv9={!TS_Contract__c.Name}"
+                class="icon"
+                target="_blank"
+                >
+            <apex:image url="{!$Resource.Blue_Report_Icon}" height="15"/>
+            </a>
+            AA Municipal Closing Fees
+        </td>
+        <td class="{!IF( cMuniClosing = 0 , 'tdInactive','tdActive')}" style="text-align: center;">
+            {!cMuniClosing}
+        </td>
+    </tr>
+    
+<!-- PRIVATE CLIENT SETUP FEE -->
+    <tr class="{!IF( cClientSetup = 0 , 'rowInactive','rowActive')}">
+        <td class="{!IF( cClientSetup = 0 , 'tdInactive','tdActive')}">
+            <a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=7" target="_self" class="icon">
+                <apex:image url="{!$Resource.OpenRecordIcon}" height="15" />
+            </a>
+            AA Private Client Setup Fees
+        </td>
+        <td  class="{!IF( cClientSetup = 0 , 'tdInactive','tdActive')}" style="text-align: center;">
+            {!cClientSetup}
+        </td>
+    </tr>
+    
+<!-- WAITLIST FEE -->
+    <tr class="{!IF( cWaitlist = 0 , 'rowInactive','rowActive')}">
+        <td class="{!IF( cWaitlist = 0 , 'tdInactive','tdActive')}">
+            AA Muni Waitlist Import Fees 
+        </td>
+        <td  class="{!IF( cWaitlist = 0 , 'tdInactive','tdActive')}" style="text-align: center;">
+            {!cWaitlist}
+        </td>
+    </tr>
+
+<!-- EMAIL LIST FOR LANDLORD -->
+    <tr class="{!IF( cEmailList = 0 , 'rowInactive','rowActive')}">
+        <td class="{!IF( cEmailList = 0 , 'tdInactive','tdActive')}">
+            <a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=8" target="_self" class="icon">
+                <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+            </a>
+            AA Email Import List for Landlords
+        </td>
+        <td  class="{!IF( cEmailList = 0 , 'tdInactive','tdActive')}" style="text-align: center;">
+        {!cEmailList}
+        </td>
+    </tr>
+    <tr>
+    <td style="text-align: center;">
+    <br/><br/>
+    <div class="statusFix">
+        <apex:image value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Eo_circle_light-blue_checkmark.svg/512px-Eo_circle_light-blue_checkmark.svg.png" height="20px"/>
+        No further invoicing required!
+        <br/><br/>
+    </div>
+    <a href="https://cgph--c.vf.force.com/flow/Invoices_Quick_Update_Single_Setup_Status_to_Completed?varID={!TS_Contract__c.Id}&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FNoSlipCheckAll%3Fr%3D0%26a%3D{!LEFT(TS_Contract__c.Name,1)}"
+        class="markComplete"
+        style="{!IF(TS_Contract__c.Invoicing_Status__c != 'Review Needed', 'display: none;','')}"
+        target="_top">
+        ✏️ MARK COMPLETE
+    </a>
+    <div class="markedComplete" style="{!IF(TS_Contract__c.Invoicing_Status__c = 'Review Needed', 'display: none;','')}">
+        ✅ <b>INVOICING COMPLETE</b>
+    </div>
+    
+
+    </td>
+</tr>
+</table>
+</td>
+
+<!-- ------------------------------- -->
+<!--          ACTION FRAME           -->
+<!--
+ACTION LIST:
+0 - no action
+1 - AA Eligibilities
+2 - HR Billable Activities
+3 - AA Listing Fee
+4 - AA Private Sales All
+5 - AA Muni Closings
+6 - AA Assistance Apps
+7 - AA Private Client Setup
+8 - AA Email List for Landlords
+9 - AA Waitlist Import (???)
+<!-- ------------------------------- -->
+
+<td class="tdPageRight">
+
+<!-- ACTION 0: NONE -->
+    <div style="display:{!IF($CurrentPage.parameters.act = '0', 'normal;', 'none;')}" >
+        
+    </div>
+
+
+
+
+<!-- ACTION 1: AA ELIGIBILITIES -->
+
+
+<table style="display:{!IF(AND(cAAElig != 0, $CurrentPage.parameters.act = '1'), 'normal;', 'none;')}">
+    <tr>
+        <td colspan="6" class="tdActionTop">
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003LBYDMA4/view?queryScope=userFolders&fv8={!TS_Contract__c.Name}&fv7={!TEXT(YEAR(invDate))}-{!TEXT(MONTH(invDate))}-{!TEXT(DAY(invDate))}"
+               class="icon"
+               target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="18"/>
+            </a>
+            <b> AA ELIGIBILITIES </b>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdActionHead">
+            Service File Name
+        </td>
+        <td class="tdActionHead">
+            Case #
+        </td>
+        <td class="tdActionHead">
+            Property
+        </td>
+        <td class="tdActionHead">
+            Status
+        </td>
+        <td class="tdActionHead">
+            Backup
+        </td>
+        <td class="tdActionHead">
+            Eligibility Date
+        </td>
+    </tr>
+    <apex:repeat var="x" value="{!AAElig}">
+        <tr class="trActionRow">
+            <td class="tdActionRow">
+                <a href="https://cgph--c.vf.force.com/flow/Invoices_Add_AA_Eligibility_Slip?varSetupID={!TS_Contract__c.Id}&varSF_ID={!x.Id}&retURL={!retURL}"
+                       class="icon"
+                       target="_self">
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+                </a>
+                &nbsp;
+                <a href="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Service_File__c/{!x.Id}/view" target="_blank" >
+                    {!x.Name}
+                </a>
+            </td>
+            <td class="tdActionRow">
+                {!x.Case_Number__c}
+            </td>
+            <td class="tdActionRow">
+                <a href="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Property__c/{!x.HOMEtracker__Property__r.Id}/view" target="_blank" >
+                    {!x.HOMEtracker__Property__r.Name}
+                </a>
+            </td>
+            <td class="tdActionRow">
+                {!x.HOMEtracker__Status__c}
+            </td>
+            <td class="tdActionRow">
+                {!x.Backup_Property__c}
+            </td>
+            <td class="tdActionRow">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.Eligibility_Date__c}"/>
+                </apex:outputText>
+            </td>
+        </tr>
+    </apex:repeat>
+</table>
+
+<a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=0"
+    target="_self"
+    class="actionDone"
+    style="display:{!IF(AND(cAAElig = 0 , $CurrentPage.parameters.act = '1'), 'normal;','none;')}">
+    ↩ AA Eligibility Certifications Complete
+</a>
+
+
+<!-- ACTION 2: HR BILLABLE ACTIVITIES -->
+
+<!-- ACTION 3: AA Listing Fee -->
+
+
+<table style="display:{!IF(AND(cAAListing != 0, $CurrentPage.parameters.act = '3'), 'normal;', 'none;')}">
+    <tr>
+        <td colspan="2" class="tdActionTop">
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003LMdJMAW/view?queryScope=userFolders&fv5={!TS_Contract__c.Name}" class="icon" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="18"/>
+            </a>
+            <b> AA LISTING FEES </b>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdActionHead">
+            Property Address
+        </td>
+        <td class="tdActionHead">
+            Date Outreach Began
+        </td>
+    </tr>
+    <apex:repeat var="x" value="{!AAListing}">
+        <tr class="trActionRow">
+            <td class="tdActionRow" style="padding-right: 30px;">
+                <a href="https://cgph--c.vf.force.com/flow/Invoices_Generate_AA_Listing_Fee_Slip?varSetupID={!TS_Contract__c.Id}&varPropertyID={!x.Id}&retURL={!retURL}" class="icon" target="_self">
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+                </a>
+                &nbsp;
+                <a href="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Property__c/{!x.Id}/view" target="_blank" >
+                    {!x.Name}
+                </a>
+            </td>
+            <td class="tdActionRow">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.Date_Outreach_began__c}"/>
+                </apex:outputText>
+            </td>
+        </tr>
+    </apex:repeat>
+</table>
+
+<a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=0"
+    target="_self"
+    class="actionDone"
+    style="display:{!IF(AND(cAAListing = 0 , $CurrentPage.parameters.act = '3'), 'normal;','none;')}">
+    ↩ AA Listing Fees Complete
+</a>
+
+
+<!-- ACTION 4: AA Private Sales Fees -->
+<table style="display:{!IF(AND( cPrivSaleAll != 0, $CurrentPage.parameters.act = '4'), 'normal;', 'none;')}">
+    <tr>
+        <td colspan="10" class="tdActionTop">
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003LBefMAG/view?queryScope=userFolders&fv14={!TS_Contract__c.Name}&fv5={!TEXT(YEAR(invDate))}-{!TEXT(MONTH(invDate))}-{!TEXT(DAY(invDate))}&fv12={!TEXT(YEAR(invDate))}-{!TEXT(MONTH(invDate))}-{!TEXT(DAY(invDate))}&fv13={!TEXT(YEAR(invDate))}-{!TEXT(MONTH(invDate))}-{!TEXT(DAY(invDate))}" class="icon" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="18"/>
+            </a>
+            <b>
+                AA PRIVATE SALE FEES (Fee #1 {!TS_Contract__c.Private_Sale_Fee_1__c} &amp; Fee #2 Closing)
+                
+            </b>
+            
+        </td>
+    </tr>
+    <tr>
+        <td class="tdActionHead">
+            Property
+        </td>
+        <td class="tdActionHead" style="border-right: 1px solid #e3e3e3;">
+            Service File
+        </td>
+        <td class="tdActionHead center" style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Eligibility', 'display:normal;' , 'display:none;')}">
+            Eligibility Date
+        </td>
+        <td class="tdActionHead center" style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Eligibility', 'display:normal;' , 'display:none;')}border-right: 1px solid #e3e3e3;">
+            Eligibility Invoiced
+        </td>
+        <td class="tdActionHead center" style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Contract', 'display:normal;' , 'display:none;')}">
+            Contract Date
+        </td>
+        <td class="tdActionHead center" style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Contract', 'display:normal;' , 'display:none;')}">
+            Agreement Date
+        </td>
+        <td class="tdActionHead center" style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Contract', 'display:normal;' , 'display:none;')}border-right: 1px solid #e3e3e3;">
+            Contract Invoiced
+        </td>
+        <td class="tdActionHead center">
+            Close Date
+        </td>
+        <td class="tdActionHead center">
+            Sale Confirmed
+        </td>
+        <td class="tdActionHead center" style="border-right: 1px solid #e3e3e3;">
+            Closing Invoiced
+        </td>
+    </tr>
+    <apex:repeat var="x" value="{!PrivSaleAll}">
+        <tr class="trActionRow">
+ <!--               <a href="" class="icon" target="_self">
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+                </a> &nbsp;
+                -->
+                
+            <td class="tdActionRow" width="150px">
+                <a href="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Service_File__c/{!x.HOMEtracker__Property__r.Id}/view" target="_blank" >
+                    {!x.HOMEtracker__Property__r.Name}
+                </a>
+            </td>
+            <td class="tdActionRow" style="padding-right: 5px; border-right: 1px solid #e3e3e3;" width="150px">
+                <a href="https://cgph.lightning.force.com/lightning/r/HOMEtracker__Service_File__c/{!x.Id}/view" target="_blank" >
+                    {!x.Name}
+                </a>
+            </td>
+            <td class="tdActionRow center"  style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Eligibility', 'display:normal;' , 'display:none;')}border-left: 1px solid #e3e3e3;">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.Eligibility_Date__c}"/>
+                </apex:outputText>
+            </td>
+            <td class="tdActionRow center" style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Eligibility', 'display:normal;' , 'display:none;')}border-right: 1px solid #e3e3e3;">
+                <apex:outputField value="{!x.Invoiced__c}"/>
+            </td>
+
+            <td class="tdActionRow center" style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Contract', 'display:normal;' , 'display:none;')}border-left: 1px solid #e3e3e3;">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.HOMEtracker__Purchase_and_Sale_Contract_Executed__c}"/>
+                </apex:outputText>
+            </td>
+            <td class="tdActionRow center" style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Contract', 'display:normal;' , 'display:none;')}" >
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.Purchase_Agreement_Date__c}"/>
+                </apex:outputText>
+            </td>
+            <td class="tdActionRow center" style="{!IF(TS_Contract__c.Private_Sale_Fee_1__c = 'Contract', 'display:normal;' , 'display:none;')}border-right: 1px solid #e3e3e3;">
+                    <apex:outputField value="{!x.Sale_Contract_Invoiced__c}"/>
+            </td>
+            <td class="tdActionRow center" style="border-left: 1px solid #e3e3e3;">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.HOMEtracker__Close_Date__c}"/>
+                </apex:outputText>
+            </td>
+            <td class="tdActionRow center">
+                    <apex:outputField value="{!x.Closing_Workflow__r.Sale_Confirmed_Closed__c}"/>
+            </td>
+            <td class="tdActionRow center" style="border-right: 1px solid #e3e3e3;">
+                    <apex:outputField value="{!x.Closing_Invoiced__c}"/>
+            </td>
+        </tr>
+    </apex:repeat>
+</table>
+
+<a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=0"
+    target="_self"
+    class="actionDone"
+    style="display:{!IF(AND( cPrivSaleAll = 0 , $CurrentPage.parameters.act = '4'), 'normal;','none;')}">
+    ↩ AA Private Sale Fees Complete
+</a>
+
+
+
+
+
+
+
+<!-- ACTION 5: AA Muni Closings -->
+
+<!-- ACTION 6: AA Assistance Apps -->
+
+<table style="display:{!IF(AND( cAssistApps != 0, $CurrentPage.parameters.act = '6'), 'normal;', 'none;')}">
+    <tr>
+        <td colspan="6" class="tdActionTop">
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003LMWrMAO/view?queryScope=userFolders&fv5={!TS_Contract__c.Name}" class="icon" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="18"/>
+            </a>
+            <b> AFFORDABILITY ASSISTANCE FEES </b>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdActionHead">
+            Application
+        </td>
+        <td class="tdActionHead">
+            Program
+        </td>
+        <td class="tdActionHead">
+            Status
+        </td>
+        <td class="tdActionHead">
+            Service File
+        </td>
+        <td class="tdActionHead">
+            Docs Sent to Muni
+        </td>
+        <td class="tdActionHead">
+            Approval / Denial
+        </td>
+    </tr>
+    <apex:repeat var="x" value="{!AssistApps}">
+        <tr class="trActionRow">
+            <td class="tdActionRow" style="padding-right: 10px;">
+                <a href="https://cgph--c.vf.force.com/flow/Invoices_Generate_Affordability_Assistance_App_Fee_Slips?varSetupID={!TS_Contract__c.Id}&varApplicationID={!x.Id}&varSF_ID={!x.Service_File__r.Id}&retURL={!retURL}" class="icon" target="_self">
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+                </a>
+                &nbsp;
+                <a href="https://cgph.lightning.force.com/lightning/r/Program_Application__c/{!x.Id}/view" target="_blank" >
+                    {!x.Name}
+                </a>
+            </td>
+            <td class="tdActionRow" width="150px">
+                <a href="https://cgph.lightning.force.com/lightning/r/HR_Program__c/{!x.Program__r.Id}/view" target="_blank" >
+                    {!x.Program__r.Name}
+                </a>
+            </td>
+            <td class="tdActionRow"  style="padding-right: 10px;">
+                {!x.Application_Status__c}
+            </td>
+            <td class="tdActionRow" width="150px" style="padding-right: 10px;">
+                <a href="https://cgph.lightning.force.com/lightning/r/HR_Program__c/{!x.Service_File__r.Id}/view" target="_blank" >
+                    {!x.Service_File__r.Name}
+                </a>
+            </td>
+            <td class="tdActionRow" style="padding-right: 10px;">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.Date_Docs_Sent_to_Muni__c}"/>
+                </apex:outputText>
+            </td>
+            <td class="tdActionRow">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.Approval_or_Denial_Date__c}"/>
+                </apex:outputText>
+            </td>
+        </tr>
+    </apex:repeat>
+</table>
+
+<a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=0"
+    target="_self"
+    class="actionDone"
+    style="display:{!IF(AND( cAssistApps = 0 , $CurrentPage.parameters.act = '####'), 'normal;','none;')}">
+    ↩ AA Affordability Assistance Fees Complete
+</a>
+
+
+
+<!-- ACTION 7: AA Private Client Setup -->
+
+<table style="display:{!IF(AND( cClientSetup != 0, $CurrentPage.parameters.act = '7'), 'normal;', 'none;')}">
+    <tr>
+        <td colspan="6" class="tdActionTop">
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003LMobMAG/view?queryScope=userFolders&fv5={!TS_Contract__c.Name}" class="icon" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="18"/>
+            </a>
+            <b> ACTION-TYPE </b>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdActionHead">
+            Contract
+        </td>
+        <td class="tdActionHead">
+            Start Date
+        </td>
+        <td class="tdActionHead">
+            AA Setup Fee
+        </td>
+        <td class="tdActionHead">
+            Links
+        </td>
+    </tr>
+    <apex:repeat var="x" value="{!ClientSetup}">
+        <tr class="trActionRow">
+            <td class="tdActionRow" style="padding-right: 15px;">
+                <a href="https://cgph--c.vf.force.com/flow/Invoices_Generate?varSetupID={!TS_Contract__c.Id}&varContractID={!x.Id}&retURL={!retURL}" class="icon" target="_self">
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+                </a>
+                &nbsp;
+                <a href="https://cgph.lightning.force.com/lightning/r/Contract/{!x.Id}/view" target="_blank" >
+                    {!x.Name}
+                </a>
+            </td>
+            <td class="tdActionRow" style="padding-right: 10px;">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.StartDate}"/>
+                </apex:outputText>
+            </td>
+            <td class="tdActionRow">
+                <apex:outputText value="{0, number, currency}">
+                    <apex:param value="{!x.AA_Setup_Fee__c}"/>
+                </apex:outputText>
+            </td>
+            <td class="tdActionRow">
+                <apex:outputField value="{!x.Spreadsheet_Link__c}"/> &nbsp; &nbsp;
+                <apex:outputField value="{!x.Contract_PDF_Link__c}"/>
+            </td>
+        </tr>
+    </apex:repeat>
+</table>
+
+<a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=0"
+    target="_self"
+    class="actionDone"
+    style="display:{!IF(AND(cClientSetup = 0 , $CurrentPage.parameters.act = '7'), 'normal;','none;')}">
+    ↩ AA Private Client Setup Complete
+</a>
+
+
+
+
+<!-- ACTION 8: AA Email List for Landlords -->
+
+     
+<table style="display:{!IF(AND( cEmailList != 0, $CurrentPage.parameters.act = '8'), 'normal;', 'none;')}">
+    <tr>
+        <td colspan="6" class="tdActionTop">
+            <a href="https://cgph.lightning.force.com/lightning/r/Report/00OUq000003LNfpMAG/view?queryScope=userFolders&fv3={!TS_Contract__c.Name}" class="icon" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="18"/>
+            </a>
+            <b> AA Email Blast to Interest List </b>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdActionHead">
+            Property Address
+        </td>
+        <td class="tdActionHead">
+            Flyers Distributed
+        </td>
+    </tr>
+    <apex:repeat var="x" value="{!EmailList}">
+        <tr class="trActionRow">
+            <td class="tdActionRow" style="padding-right: 30px;">
+                <a href="https://cgph--c.vf.force.com/flow/Invoices_Generate_Email_Blast_Slip?varSetupID={!TS_Contract__c.Id}&varPropertyID={!x.Id}&retURL={!retURL}" class="icon" target="_self">
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+                </a>
+                &nbsp;
+                <a href="https://cgph.lightning.force.com/lightning/r/{!x.Id}/view" target="_blank" >
+                    {!x.Name}
+                </a>
+            </td>
+            <td class="tdActionRow">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.Flyers_Distributed__c}"/>
+                </apex:outputText>
+            </td>
+        </tr>
+    </apex:repeat>
+</table>
+
+<a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=0"
+    target="_self"
+    class="actionDone"
+    style="display:{!IF(AND(cAAElig = 0 , $CurrentPage.parameters.act = '####'), 'normal;','none;')}">
+    ↩ TYPE COMPLETE
+</a>
+
+
+<!-- ACTION 9: AA Waitlist Import (???) -->
+
+
+
+<!-- TEMPLATE ACTION TABLE -->
+<!--
+
+
+ADD THIS BUTTON TO THE PROGRESS TABLE LINE
+
+            <a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=####" target="_self" class="icon">
+                <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+            </a>
+            
+<table style="display:{!IF(AND( LISTCOUNT != 0, $CurrentPage.parameters.act = '####'), 'normal;', 'none;')}">
+    <tr>
+        <td colspan="6" class="tdActionTop">
+            <a href="REPORTLINK" class="icon" target="_blank">
+                <apex:image url="{!$Resource.Blue_Report_Icon}" height="18"/>
+            </a>
+            <b> ACTION-TYPE </b>
+        </td>
+    </tr>
+    <tr>
+        <td class="tdActionHead">
+            HEADER ONE
+        </td>
+    </tr>
+    <apex:repeat var="x" value="LISTVARIABLE">
+        <tr class="trActionRow">
+            <td class="tdActionRow" style="padding-right: 30px;">
+                <a href="FLOW PROCESS LINK" class="icon" target="_self">
+                    <apex:image url="{!$Resource.OpenRecordIcon}" height="15"/>
+                </a>
+                &nbsp;
+                <a href="LINK TO OPEN RECORD" target="_blank" >
+                    {!x.Name}
+                </a>
+            </td>
+            <td class="tdActionRow">
+                {!x.OTHERFIELDS}
+            </td>
+            <td class="tdActionRow">
+                <apex:outputText value="{0, date, MM'-'dd'-'yyyy}">
+                    <apex:param value="{!x.DATEFIELD}"/>
+                </apex:outputText>
+            </td>
+        </tr>
+    </apex:repeat>
+</table>
+
+<a href="/one/one.app#/alohaRedirect/apex/InvoiceProgressOnSetup?id={!TS_Contract__c.Id}&act=0"
+    target="_self"
+    class="actionDone"
+    style="display:{!IF(AND( COUNTTYPE = 0 , $CurrentPage.parameters.act = '####'), 'normal;','none;')}">
+    ↩ TYPE COMPLETE
+</a>
+
+
+
+
+
+-->
+
+
+
+
+
+
+
+</td>
+</tr>
+</table> <!-- page table -->
+
+
+<br/>
+<br/>
+<br/>
+
+
+</body>
+</apex:page>

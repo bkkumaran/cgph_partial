@@ -1,0 +1,90 @@
+<apex:page >
+CGPH EXPORTS
+<br/>
+<br/>
+<a  target="_blank" href="
+/apex/APXTConga4__Conga_Composer?serverUrl={!$Api.Enterprise_Server_URL_370}
+&id=006Uq00000H52VeIAJ
+&QueryId=
+[AllMunis]a211N000003Ohbn,
+[AllAA]a211N000003Ohdc,
+[AllHR]a211N000003OhdX,
+[AtlanticAA]a211N000003OhbY?pv0=Atlantic,
+[BergenAA]a211N000003OhbY?pv0=Bergen,
+[BurlingtonAA]a211N000003OhbY?pv0=Burlington,
+[CamdenAA]a211N000003OhbY?pv0=Camden,
+[CapeMayAA]a211N000003OhbY?pv0=Cape+May,
+[CumberlandAA]a211N000003OhbY?pv0=Cumberland,
+[EssexAA]a211N000003OhbY?pv0=Essex,
+[GloucesterAA]a211N000003OhbY?pv0=Gloucester,
+[HudsonAA]a211N000003OhbY?pv0=Hudson,
+[HunterdonAA]a211N000003OhbY?pv0=Hunterdon,
+[MercerAA]a211N000003OhbY?pv0=Mercer,
+[MiddlesexAA]a211N000003OhbY?pv0=Middlesex,
+[MonmouthAA]a211N000003OhbY?pv0=Monmouth,
+[MorrisAA]a211N000003OhbY?pv0=Morris,
+[OceanAA]a211N000003OhbY?pv0=Ocean,
+[PassaicAA]a211N000003OhbY?pv0=Passaic,
+[SalemAA]a211N000003OhbY?pv0=Salem,
+[SomersetAA]a211N000003OhbY?pv0=Somerset,
+[SussexAA]a211N000003OhbY?pv0=Sussex,
+[UnionAA]a211N000003OhbY?pv0=Union,
+[WarrenAA]a211N000003OhbY?pv0=Warren,
+[AtlanticHR]a211N000001kEF4?pv0=Atlantic,
+[BergenHR]a211N000001kEF4?pv0=Bergen,
+[BurlingtonHR]a211N000001kEF4?pv0=Burlington,
+[CamdenHR]a211N000001kEF4?pv0=Camden,
+[CapeMayHR]a211N000001kEF4?pv0=Cape+May,
+[CumberlandHR]a211N000001kEF4?pv0=Cumberland,
+[EssexHR]a211N000001kEF4?pv0=Essex,
+[GloucesterHR]a211N000001kEF4?pv0=Gloucester,
+[HudsonHR]a211N000001kEF4?pv0=Hudson,
+[HunterdonHR]a211N000001kEF4?pv0=Hunterdon,
+[MercerHR]a211N000001kEF4?pv0=Mercer,
+[MiddlesexHR]a211N000001kEF4?pv0=Middlesex,
+[MonmouthHR]a211N000001kEF4?pv0=Monmouth,
+[MorrisHR]a211N000001kEF4?pv0=Morris,
+[OceanHR]a211N000001kEF4?pv0=Ocean,
+[PassaicHR]a211N000001kEF4?pv0=Passaic,
+[SalemHR]a211N000001kEF4?pv0=Salem,
+[SomersetHR]a211N000001kEF4?pv0=Somerset,
+[SussexHR]a211N000001kEF4?pv0=Sussex,
+[UnionHR]a211N000001kEF4?pv0=Union,
+[WarrenHR]a211N000001kEF4?pv0=Warren
+&OFN=Client+Lists+Text
+&TemplateID=a29Uq0000019Y6jIAE
+&DxS7=3
+&retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FCGPH_Exports">
+Export Client List for Website
+</a>
+<br/><br/>
+
+<a href="https://cgph.lightning.force.com/lightning/r/APXTConga4__Conga_Template__c/a29Uq0000019Y6jIAE/view" target="_blank">
+<i> edit templplate </i> </a>
+
+
+<!--
+
+<a href="/apex/APXTConga4__Conga_Composer?serverUrl={!$Api.Enterprise_Server_URL_370}
+&id=006Uq00000H52VeIAJ
+&OFN=Proposal+AA+Client+List
+&QueryID=[Muni]a211N000001eKWS
+&TemplateID=a291N000003g1HS
+&DS7=3" target="_blank">
+Export AA Client List
+</a>
+<br/><br/>
+
+
+<a href="/apex/APXTConga4__Conga_Composer?serverUrl={!$Api.Enterprise_Server_URL_370}
+&id=006Uq00000H52VeIAJ
+&OFN=Proposal+Client+List
+&QueryID=[Muni]a213m0000024aXl
+&TemplateID=a291N000004G7si
+&DxS7=3" target="_blank">
+Export AA and HR Client List
+</a>
+<br/><br/>
+
+-->
+</apex:page>

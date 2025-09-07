@@ -1,0 +1,469 @@
+<apex:page standardController="user" extensions="UserCasesExt" showHeader="false" standardStylesheets="false" >
+
+<!-- COLOR VARIABLES -->
+
+<apex:variable var="colorPP" value="#0b5cab"/>
+<apex:variable var="colorPP2" value="#d1e8ff"/>
+<apex:variable var="colorAI" value="#de3e43"/>
+<apex:variable var="colorAI2" value="#fffbf0"/>
+<!-- <apex:variable var="colorAI2" value="#F7D1D2"/> -->
+<apex:variable var="colorUE" value="#e6993c"/>
+<apex:variable var="colorUE2" value="#FFE4C3"/>
+<apex:variable var="colorND" value="#6b4094"/>
+<apex:variable var="colorND2" value="#DBC9E5"/>
+<apex:variable var="colorOR" value="#00716b"/>
+<apex:variable var="colorOR2" value="#CCE3E2"/>
+<apex:variable var="colorXX" value="#666666"/>
+<apex:variable var="colorXX2" value="#e6e6e6"/>
+<apex:variable var="colorNew" value="yellow"/>
+<apex:variable var="colorStaff" value="rgb(37,113,170)"/>
+<apex:variable var="colorClear" value="white"/>
+<apex:variable var="colorBorder" value="#bfbfbf"/>
+<apex:variable var="colorhead" value="#E2E2E2"/>
+
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Open+Sans); 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed);
+
+    a {
+        font-family: 'Open Sans';
+        text-decoration:none;
+        color: inherit;
+        }
+    table {
+        border-collapse:collapse;
+        border-color:{!colorBorder};
+        }
+    th{
+        font-size: 11pt !important;
+        font-family: 'Open Sans';
+        font-weight: bold;
+        padding: 4px 10px 4px 10px;
+    }
+    td {
+        font-size: 9pt;
+        font-family: 'Open Sans';
+        padding: 4px 10px 4px 10px;
+        vertical-align:top;
+        }
+    .tr2{}
+    .tr2:hover {
+        font-weight:bold;
+        background-color:yellow !important;
+        color: black !important;
+        }
+
+    .left {
+        text-align:left;
+        }
+    .center{
+        text-align:center;
+        }
+    .right{
+        text-align:right;
+        }
+    .bAll {
+        padding:5px 10px 5px 10px;
+        font-weight:bold;
+        font-size:9pt;
+        font-family:Open Sans;
+        border-radius:6px;
+        }
+    .bShow {
+        background-color:#c9c9c9;
+        }
+    .bPP {
+        background-color:{!colorPP};
+        color:white;
+    }
+    .bAI {
+        background-color:{!colorAI};
+        color:white;
+    }
+    .bUE {
+        background-color:{!colorUE};
+        color:black;
+    }
+    .bND {
+        background-color:{!colorND};
+        color:white;
+    }
+    .bOR {
+        background-color:{!colorOR};
+        color:white;
+    }
+    .bXX {
+        background-color:{!colorXX};
+        color:white;
+    }
+    .bClear {
+        background-color:{!colorClear};
+        color:black;
+        border: 1px solid {!colorBorder};
+    }
+    .bNew {
+        background-color:{!colorNew};
+        color:black;
+        border: 1px solid {!colorBorder};
+    }
+    .bStaff {
+        background-color:{!colorStaff};
+        color:white;
+        border: 1px solid {!colorBorder};
+    }
+    .bHide {
+        background-color:{!colorAI};
+        color:white;
+    }
+    .bSave {
+        background-color:green;
+        color:white;
+    }
+
+    .spanLink:hover {
+        cursor: pointer;
+        }
+    .priority1 {
+        font-weight:bold;
+        color:white;
+        background-color:rgb(230,76,76) !important;
+        }
+    .priority2 {
+        font-weight:bold;
+        color:blue;
+        }
+    .priority3 {
+        font-weight:bold;
+        color:purple;
+        }
+    .priority4 {
+        font-weight:bold;
+        color:rgb(0,113,107);
+        }
+</style>
+
+
+
+
+
+
+<apex:form >
+
+<!-- --------------------------------------------------------------------------------- -->
+<!--                                   PAGE TABLE                                      -->
+<!-- --------------------------------------------------------------------------------- -->
+
+
+<table width="1600px" border="0" style="border-color:red">
+<tr>
+
+<td style="vertical-align:middle; height:35px; width:40%">
+
+<nobr>
+
+<span style="{!IF(catAI='1','display:none;','')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=1&cp=0&na=0&nd=0&or=0&ot=0&ue=0&xx=0&core.apexpages.devmode.url=0" class="bAll bShow" target="_top"> ACTION ITEMS</a>
+</span >
+<span style="{!IF(catAI='1','','display:none;')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=0&cp=0&na=0&nd=0&or=0&ot=0&ue=0&xx=0&core.apexpages.devmode.url=0" class="bAll bAI" target="_top"> ACTION ITEMS</a>
+</span >
+&nbsp;&nbsp;
+<span style="{!IF(catXX='1','display:none;','')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp={!catPP}&ai={!catAI}&cp={!catCP}&na={!catNA}&nd={!catND}&or={!catOR}&ot={!catOT}&ue={!catUE}&xx=1&core.apexpages.devmode.url=0" class="bAll bShow" target="_top"> UNASSIGNED</a>
+</span >
+<span style="{!IF(catXX='1','','display:none;')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp={!catPP}&ai={!catAI}&cp={!catCP}&na={!catNA}&nd={!catND}&or={!catOR}&ot={!catOT}&ue={!catUE}&xx=0&core.apexpages.devmode.url=0" class="bAll bXX" target="_top"> UNASSIGNED</a>
+</span >
+<!--
+&nbsp;&nbsp;
+<span style="{!IF(catPP='1','display:none;','')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai={!catAI}&cp={!catCP}&na={!catNA}&nd={!catND}&or={!catOR}&ot={!catOT}&ue={!catUE}&xx={!catXX}&core.apexpages.devmode.url=0" class="bAll bShow" target="_top"> PRIORITY </a>
+</span >
+<span style="{!IF(catPP='1','','display:none;')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=0&ai={!catAI}&cp={!catCP}&na={!catNA}&nd={!catND}&or={!catOR}&ot={!catOT}&ue={!catUE}&xx={!catXX}&core.apexpages.devmode.url=0" class="bAll bPP" target="_top"> PRIORITY </a>
+</span >
+-->
+&nbsp;&nbsp;
+<span style="{!IF(catOR='1','display:none;','')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=0&cp=0&na=0&nd=0&or=1&ot=0&ue=0&xx=0&core.apexpages.devmode.url=0" class="bAll bShow" target="_top"> ON RADAR</a>
+</span >
+<span style="{!IF(catOR='1','','display:none;')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=0&cp=0&na=0&nd=0&or=0&ot=0&ue=0&xx=0&core.apexpages.devmode.url=0" class="bAll bOR" target="_top"> ON RADAR</a>
+</span >
+&nbsp;&nbsp;
+<span style="{!IF(catND='1','display:none;','')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=0&cp=0&na=0&nd=1&or=0&ot=0&ue=0&xx=0&core.apexpages.devmode.url=0" class="bAll bShow" target="_top"> DECISION </a>
+</span >
+<span style="{!IF(catND='1','','display:none;')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=0&cp=0&na=0&nd=0&or=0&ot=0&ue=0&xx=0&core.apexpages.devmode.url=0" class="bAll bND" target="_top"> DECISION </a>
+</span >
+&nbsp;&nbsp;
+<span style="{!IF(catUE='1','display:none;','')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=0&cp=0&na=0&nd=0&or=0&ot=0&ue=1&xx=0&core.apexpages.devmode.url=0" class="bAll bShow" target="_top"> EVENT</a>
+</span >
+<span style="{!IF(catUE='1','','display:none;')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=0&cp=0&na=0&nd=0&or=0&ot=0&ue=0&xx=0&core.apexpages.devmode.url=0" class="bAll bUE" target="_top"> EVENT</a>
+</span >
+&nbsp;&nbsp;
+<span style="{!IF(catOT='1','display:none;','')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=0&cp=0&na=1&nd=0&or=0&ot=1&ue=0&xx=1&core.apexpages.devmode.url=0" class="bAll bShow" target="_top"> OTHER </a>
+</span >
+<span style="{!IF(catOT='1','','display:none;')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai=0&cp=0&na=0&nd=0&or=0&ot=0&ue=0&xx=0&core.apexpages.devmode.url=0" class="bAll bXX" target="_top"> OTHER </a>
+</span >
+<!--
+&nbsp;&nbsp;
+<a href="/apex/UserCases?id={!userID}&pp=1&ai=0&cp=0&na=0&nd=0&or=0&ot=0&ue=0&xx=0&core.apexpages.devmode.url=0" class="bAll bClear" target="_top"> HIDE ALL</a>
+-->
+&nbsp;&nbsp;
+<a href="https://cgph--c.vf.force.com/flow/Make_Case_for_User?retURL=%2Fapex%2FUserCases%3Fid%3D{!$User.Id}%26pp%3D{!catPP}%26ai%3D{!catAI}%26cp%3D{!catCP}%26na%3D{!catNA}%26nd%3D{!catND}%26or%3D{!catOR}%26ot%3D{!catOT}%26ue%3D{!catUE}%26xx%3D{!catXX}%26core.apexpages.devmode.url%3D0" class="bAll bNew" target="_top"> NEW CASE</a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://cgph.lightning.force.com/lightning/o/Case/list?filterName=00B3m000008y4WqEAI" class="bAll bStaff" target="_blank"> OFFICE CASES </a>
+
+</nobr>
+<!--
+<span style="{!IF(catPP='1','display:none;','')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp={!catPP}&ai={!catAI}&cp={!catCP}&na={!catNA}&nd={!catND}&or={!catOR}&ot={!catOT}&ue={!catUE}&xx={!catXX}&core.apexpages.devmode.url=0" class="bAll bShow" target="_top"> NAME </a>
+</span >
+<span style="{!IF(catPP='1','','display:none;')}">
+<a href="/apex/UserCases?id={!$User.Id}&pp={!catPP}&ai={!catAI}&cp={!catCP}&na={!catNA}&nd={!catND}&or={!catOR}&ot={!catOT}&ue={!catUE}&xx={!catXX}&core.apexpages.devmode.url=0" class="bAll bHide" target="_top"> NAME </a>
+</span >
+&nbsp;&nbsp;
+-->
+
+</td>
+<td style="width:10%;">
+<apex:commandButton id="saveButton" value="SAVE" action="{!save}" styleClass="bAll bSave" style="display: none;"/>
+&nbsp; &nbsp;
+<apex:commandButton id="cancelButton" value="CANCEL" action="{!cancel}" styleClass="bAll bShow" style="display: none;"/>
+</td>
+<td style="width:40%;">
+&nbsp;
+</td>
+</tr>
+    <tr>
+        <td style="text-align:center; font-size:11pt;color:blue;">
+            <a href="https://cgph.lightning.force.com/lightning/r/Dashboard/01ZUq00000AGPG1MAP/view?queryScope=userFolders" target="_blank"> <b>[DAILY DASHBOARD]</b> </a>
+            &nbsp; &nbsp;
+        </td>
+    </tr>
+<tr>
+<td colspan="2">
+
+<!-- --------------------------------------------------------------------------------- -->
+<!--                                   LEFT TABLE                                      -->
+<!-- --------------------------------------------------------------------------------- -->
+
+
+<table border="1" Style="border-color:{!colorBorder};">
+<tr style="background-color:{!colorHead}">
+    <th class="center">&nbsp;</th>
+    <th class="left">Subject</th>
+    <th class="center">Category</th>
+    <th class="center">Priority</th>
+    <th class="center">Start</th>
+    <th class="center">End</th>
+<!--    <th class="center">Flag</th>  -->
+    <th class="center">Close</th>
+</tr>
+
+<!--  ROW FORMATTING -->
+
+<apex:repeat value="{!listCases}" var="x">
+<tr class="{!IF(x.Priority_Num__c='1','priority1 ',IF(x.Priority_Num__c='2','priority2 ',IF(x.Priority_Num__c='3','priority3 ',IF(x.Priority_Num__c='4','priority4 ',''))))}tr2" style="
+{!IF(x.Agenda_Category__c='1 Prioritized Project','display:none;','')}
+{!IF(OR(x.Agenda_Category__c='',x.Agenda_Category__c='N/A'),'font-weight:bold; background-color:'+colorXX2+';','')}
+{!IF(OR(x.Agenda_Category__c='Action Item',x.Agenda_Category__c='In Progress'),'background-color:'+colorAI2+';','')}
+{!IF(x.Agenda_Category__c='Upcoming Event','background-color:'+colorUE2+';','')}
+{!IF(x.Agenda_Category__c='On Radar','background-color:'+colorOR2+';','')}
+{!IF(x.Agenda_Category__c='Needs Decision','background-color:'+colorND2+';','')}
+{!IF(AND(catAI="0",OR(x.Agenda_Category__c='Action Item',x.Agenda_Category__c='In Progress')),'display:none;','')}
+{!IF(AND(catCP="0",x.Agenda_Category__c='Contracts / Proposals'),'display:none;','')}
+{!IF(AND(catNA="0",x.Agenda_Category__c='N/A'),'display:none;','')}
+{!IF(AND(catND="0",x.Agenda_Category__c='Needs Decision'),'display:none;','')}
+{!IF(AND(catOR="0",x.Agenda_Category__c='On Radar'),'display:none;','')}
+{!IF(AND(catOT="0",x.Agenda_Category__c='Other'),'display:none;','')}
+{!IF(AND(catUE="0",x.Agenda_Category__c='Upcoming Event'),'display:none;','')}
+{!IF(AND(catXX="0",x.Agenda_Category__c=''),'display:none;','')}
+">
+
+    <td class="center">
+        <a href="/{!x.Id}" target="_blank">
+            <apex:image url="{!$Resource.blueFileIcon}" height="17"/>
+        </a>
+    </td>
+    <td class="left">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Subject}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+    <td class="left">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Agenda_Category__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+<!--
+    <td class="left">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Case_Category__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+-->
+    <td class="center" width="50px">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Priority_Num__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+    <td class="right" width="50px">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Planned_Start_Date__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+    <td class="right" width="50px">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Planned_End_Date__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+<!--
+    <td class="center">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Flag__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+-->
+    <td class="center">
+        <span class="spanLink" ondblclick="window.location='https://cgph--c.vf.force.com/flow/Cases_Quick_Close?varID={!x.Id}&varQ=q&retURL=%2Fapex%2FUserCases%3Fid%3D{!$User.Id}%26pp%3D{!catPP}%26ai%3D{!catAI}%26cp%3D{!catCP}%26na%3D{!catNA}%26nd%3D{!catND}%26or%3D{!catOR}%26ot%3D{!catOT}%26ue%3D{!catUE}%26xx%3D{!catXX}%26core.apexpages.devmode.url%3D0'" style="color:blue;text-decoration: underline;">
+            <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/36/CloseWindow.svg"/>
+        </span>
+    </td>
+
+<!--
+        <td>
+    {!x.Priority_Calc__c}
+    </td>
+-->
+
+</tr>
+
+</apex:repeat>
+</table>
+</td>
+
+
+<!-- --------------------------------------------------------------------------------- -->
+<!--                                   RIGHT TABLE                                     -->
+<!-- --------------------------------------------------------------------------------- -->
+
+<td>
+<table border="1" Style="border-color:{!colorBorder};">
+<tr style=";background-color:{!colorHead}">
+    <th class="center">&nbsp;</th>
+    <th class="left">Prioritized Large Project</th>
+<!--    <th class="center">Category</th>   -->
+    <th class="center">Priority</th>
+    <th class="center">Start</th>
+    <th class="center">End</th>
+<!--    <th class="center">Flag</th> -->
+    <th class="center">Close</th>
+</tr>
+<apex:repeat value="{!listCases}" var="x">
+<tr class="tr2" style="background-color:{!colorPP2};{!IF(AND(catPP="1",x.Agenda_Category__c='1 Prioritized Project'),'','display:none;')}">
+
+    <td class="center">
+        <a href="/{!x.Id}" target="_blank">
+            <apex:image url="{!$Resource.blueFileIcon}" height="17"/>
+        </a>
+    </td>
+    <td class="left">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Subject}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+    <td class="center" width="100px">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Priority_Num__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+    <td class="right" width="75px">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Planned_Start_Date__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+    <td class="right" width="75px">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Planned_End_Date__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+<!--
+    <td class="center">
+        <apex:actionRegion >
+            <apex:outputField value="{!x.Flag__c}">
+                <apex:inlineEditSupport event="onDblClick" showOnEdit="saveButton,cancelButton"/>
+            </apex:outputField>
+        </apex:actionRegion>
+    </td>
+-->
+
+    <td class="center">
+        <!--
+        <a href="https://cgph--c.vf.force.com/flow/Cases_Quick_Close?varID={!x.Id}&varQ=q&retURL=%2Fapex%2FUserCases%3Fid%3D{!$User.Id}%26pp%3D{!catPP}%26ai%3D{!catAI}%26cp%3D{!catCP}%26na%3D{!catNA}%26nd%3D{!catND}%26or%3D{!catOR}%26ot%3D{!catOT}%26ue%3D{!catUE}%26xx%3D{!catXX}%26core.apexpages.devmode.url%3D0" target="_top">
+        <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/36/CloseWindow.svg"/>
+        </a>
+        -->
+        <span class="spanLink" ondblclick="window.location='https://cgph--c.vf.force.com/flow/Cases_Quick_Close?varID={!x.Id}&varQ=q&retURL=%2Fapex%2FUserCases%3Fid%3D{!$User.Id}%26pp%3D{!catPP}%26ai%3D{!catAI}%26cp%3D{!catCP}%26na%3D{!catNA}%26nd%3D{!catND}%26or%3D{!catOR}%26ot%3D{!catOT}%26ue%3D{!catUE}%26xx%3D{!catXX}%26core.apexpages.devmode.url%3D0'" style="color:blue;text-decoration: underline;">
+            <apex:image url="https://upload.wikimedia.org/wikipedia/commons/3/36/CloseWindow.svg"/>
+        </span>
+
+            
+    </td>
+</tr>
+
+</apex:repeat>
+</table>
+</td>
+</tr>
+
+
+
+</table>
+
+
+
+
+
+
+
+<apex:variable var="link" value="/apex/UserCases?id={!$User.Id}&pp=1&ai={!catAI}&cp={!catCP}&na={!catNA}&nd={!catND}&or={!catOR}&ot={!catOT}&ue={!catUE}&xx={!catXX}&core.apexpages.devmode.url=0"/>
+
+<a href="{!SUBSTITUTE(link,' ','')}" target="_top">Link</a>
+&nbsp;
+
+<a href="/apex/UserCases?id={!$User.Id}&pp=1&ai={!catAI}&cp={!catCP}&na={!catNA}&nd={!catND}&or={!catOR}&ot={!catOT}&ue={!catUE}&xx={!catXX}" target="_top">VF</a>
+
+
+</apex:form>
+</apex:page>
