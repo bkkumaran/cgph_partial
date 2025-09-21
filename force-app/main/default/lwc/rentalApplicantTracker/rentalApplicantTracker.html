@@ -180,16 +180,47 @@
                                                 class="editable-field-standard">
                                             </lightning-combobox>
                                         </td>
-                                        <!-- Unit - READ ONLY (not editable in Visualforce) -->
+                                        <!-- Unit - Shows current unit and assignment actions -->
                                         <td data-label="Unit">
-                                            <lightning-input 
-                                                type="text" 
-                                                value={applicant.unit}
-                                                disabled={isUnitDisabled}
-                                                readonly
-                                                variant="label-hidden"
-                                                class="editable-field-standard readonly-field">
-                                            </lightning-input>
+                                            <div class="unit-assignment-container">
+                                                <!-- Current Unit Display -->
+                                                <div class="unit-display">
+                                                    <template if:true={applicant.hasSpecificUnit}>
+                                                        <span class="specific-unit">{applicant.unit}</span>
+                                                    </template>
+                                                    <template if:false={applicant.hasSpecificUnit}>
+                                                        <span class="group-property">Group Property</span>
+                                                    </template>
+                                                </div>
+                                                
+                                                <!-- Unit Assignment Actions -->
+                                                <div class="unit-actions slds-m-top_xx-small">
+                                                    <!-- Show "Assign Unit" button for eligible applicants -->
+                                                    <template if:true={applicant.canAssignUnit}>
+                                                        <lightning-button
+                                                            label="Assign Unit"
+                                                            variant="brand"
+                                                            size="small"
+                                                            data-applicant-id={applicant.id}
+                                                            data-property-id={propertyGroup.id}
+                                                            onclick={handleAssignUnit}
+                                                            class="assign-unit-btn">
+                                                        </lightning-button>
+                                                    </template>
+                                                    
+                                                    <!-- Show "Cancel Assignment" button for applicants with specific units -->
+                                                    <template if:true={applicant.hasSpecificUnit}>
+                                                        <lightning-button
+                                                            label="Cancel Assignment"
+                                                            variant="neutral"
+                                                            size="small"
+                                                            data-applicant-id={applicant.id}
+                                                            onclick={handleCancelUnitAssignment}
+                                                            class="cancel-assignment-btn">
+                                                        </lightning-button>
+                                                    </template>
+                                                </div>
+                                            </div>
                                         </td>
                                         <!-- Priority - READ ONLY (not editable in Visualforce) -->
                                         <td data-label="Priority">

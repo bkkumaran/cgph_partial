@@ -992,3 +992,80 @@
     margin-left: 0;
     margin-right: 0;
 }
+
+/* Unit Assignment Styles */
+.unit-assignment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 140px;
+    width: 100%;
+}
+
+.unit-display {
+    margin-bottom: 0.25rem;
+    width: 100%;
+}
+
+.specific-unit {
+    color: #0070d2;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.group-property {
+    color: #706e6b;
+    font-style: italic;
+    font-size: 0.8125rem;
+}
+
+.unit-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+}
+
+.assign-unit-btn,
+.cancel-assignment-btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    min-height: 1.5rem;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.assign-unit-btn {
+    background-color: #0070d2;
+    border-color: #0070d2;
+    color: white;
+}
+
+.assign-unit-btn:hover {
+    background-color: #005fb2;
+    border-color: #005fb2;
+}
+
+.cancel-assignment-btn {
+    background-color: #f3f3f3;
+    border-color: #d8dde6;
+    color: #080707;
+}
+
+.cancel-assignment-btn:hover {
+    background-color: #e5e5e5;
+    border-color: #c9ccd4;
+}
+
+/* Update Unit column width to accommodate new functionality */
+.editable-table th:nth-child(3) { 
+    min-width: 140px; 
+    width: 140px;
+    border: 2px solid #d8dde6 !important; 
+} /* Unit */
+
+.editable-table td:nth-child(3) { 
+    min-width: 140px; 
+    width: 140px;
+    border: 2px solid #d8dde6 !important; 
+} /* Unit */

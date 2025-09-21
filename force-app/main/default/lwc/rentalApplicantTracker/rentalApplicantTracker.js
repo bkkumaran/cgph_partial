@@ -8,6 +8,9 @@ import Id from '@salesforce/user/Id';
 import getOutreachTrackingByProperty from '@salesforce/apex/OutreachControllerLWC.getOutreachTrackingByProperty';
 import saveOutreachTrackings from '@salesforce/apex/OutreachControllerLWC.saveOutreachTrackings';
 import saveSingleOutreachTracking from '@salesforce/apex/OutreachControllerLWC.saveSingleOutreachTracking';
+import assignUnitToApplicant from '@salesforce/apex/OutreachControllerLWC.assignUnitToApplicant';
+import cancelUnitAssignment from '@salesforce/apex/OutreachControllerLWC.cancelUnitAssignment';
+import getAvailableUnitsForDevelopment from '@salesforce/apex/OutreachControllerLWC.getAvailableUnitsForDevelopment';
 
 // Object and Field references
 import OUTREACH_TRACKING_OBJECT from '@salesforce/schema/Outreach_Tracking__c';
@@ -30,7 +33,7 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     // User permissions and field editability (matching Visualforce logic)
     userId = Id;
     @track isUserCGPHStaff = true; // Default to true for now - should be determined by user profile/role
-    @track isUserLandlordDeveloper = false; // Default to false - should be determined by user profile/role
+    @track isUserLandlordDeveloper = true; // Default to true - should be determined by user profile/role
     
     // Properties to hold record type info
     @track outreachTrackingRecordTypeId;
@@ -169,7 +172,7 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             console.table(listWrapper.otList);
 
             const applicants = listWrapper.otList.map(ot => this.transformOutreachTrackingToApplicant(ot));
-            // console.table(applicants);
+            console.table(applicants);
             
             groups.push({
                 id: propertyKey,
@@ -214,6 +217,15 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             isFlaggedForOutreach: ot.Service_File__r?.Pre_Applicant__r?.Flagged_for_Outreach__c || false,
             flaggedOutreachNotes: ot.Service_File__r?.Pre_Applicant__r?.Flagged_for_Outreach_Notes__c || '',
             preApplicantId: ot.Service_File__r?.Pre_Applicant__r?.Id || '',
+            
+            // Unit assignment properties
+            hasSpecificUnit: ot.Property_Unit__c != null,
+            isGroupProperty: ot.Service_File__r?.HOMEtracker__Property__r?.Group_Property__c || false,
+            propertyUnitId: ot.Property_Unit__c,
+            developmentId: ot.Service_File__r?.HOMEtracker__Property__r?.Development_address__r?.Id,
+            canAssignUnit: (ot.Service_File__r?.HOMEtracker__Property__r?.Group_Property__c && 
+                           ot.Landlord_Developer_Determination__c === 'Approved' && 
+                           ot.Property_Unit__c == null),
             
             // Store original SF record for updates
             __originalRecord: ot
@@ -910,6 +922,22 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
                     updatedPropertyGroups[propertyIndex].applicants[applicantIndex].approvedForFullReviewText = value ? 'Yes' : 'No';
                 }
                 
+                // Automatic date population when Tracker_Status__c changes
+                if (field === 'status') {
+                    const applicant = updatedPropertyGroups[propertyIndex].applicants[applicantIndex];
+                    const currentDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                    
+                    // Auto-populate Date_CGPH_Added_Name__c if blank and status is Primary or Backup
+                    if ((value === 'Primary' || value === 'Backup') && !applicant.dateCGPHAdded) {
+                        updatedPropertyGroups[propertyIndex].applicants[applicantIndex].dateCGPHAdded = currentDate;
+                    }
+                    
+                    // Auto-populate Date_Marked_Primary__c if blank and status is Primary
+                    if (value === 'Primary' && !applicant.dateMarkedPrimary) {
+                        updatedPropertyGroups[propertyIndex].applicants[applicantIndex].dateMarkedPrimary = currentDate;
+                    }
+                }
+                
                 // Update CSS classes immediately if status or approval fields changed
                 if (field === 'status' || field === 'approvalDenial') {
                     const applicant = updatedPropertyGroups[propertyIndex].applicants[applicantIndex];
@@ -922,7 +950,7 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
                 // Save to Salesforce if we have original record and propertyId (not using fallback data)
                 const applicant = updatedPropertyGroups[propertyIndex].applicants[applicantIndex];
                 if (this.propertyId && applicant.__originalRecord) {
-                    await this.saveFieldToSalesforce(applicant, field, value);
+                    await this.saveFieldToSalesforce(applicant, field, value, updatedPropertyGroups[propertyIndex].applicants[applicantIndex]);
                 }
                 
                 // Show success message
@@ -936,10 +964,32 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     }
     
     // Save individual field changes to Salesforce
-    async saveFieldToSalesforce(applicant, field, value) {
+    async saveFieldToSalesforce(applicant, field, value, updatedApplicant) {
        //try {
             const originalRecord = applicant.__originalRecord;
-            const fieldMapping = this.mapFieldToSalesforceField(field, value);
+            let fieldMapping = this.mapFieldToSalesforceField(field, value);
+            
+            // Handle automatic date updates when status changes
+            if (field === 'status') {
+                const additionalUpdates = {};
+                
+                // Check if Date_CGPH_Added_Name__c was auto-populated
+                if ((value === 'Primary' || value === 'Backup') && 
+                    updatedApplicant.dateCGPHAdded && 
+                    !applicant.__originalRecord.Date_CGPH_Added_Name__c) {
+                    additionalUpdates.Date_CGPH_Added_Name__c = updatedApplicant.dateCGPHAdded;
+                }
+                
+                // Check if Date_Marked_Primary__c was auto-populated
+                if (value === 'Primary' && 
+                    updatedApplicant.dateMarkedPrimary && 
+                    !applicant.__originalRecord.Date_Marked_Primary__c) {
+                    additionalUpdates.Date_Marked_Primary__c = updatedApplicant.dateMarkedPrimary;
+                }
+                
+                // Merge additional updates with the main field mapping
+                fieldMapping = { ...fieldMapping, ...additionalUpdates };
+            }
             
             const recordToUpdate = {
                 Id: originalRecord.Id,
@@ -965,7 +1015,7 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             }
             
             // Update the original record in memory to keep it in sync
-            this.updateOriginalRecord(originalRecord.Id, field, value);
+            this.updateOriginalRecord(originalRecord.Id, fieldMapping);
             
             // Update CSS classes if status or approval fields changed (affects colors)
             if (field === 'status' || field === 'approvalDenial') {
@@ -1016,18 +1066,16 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     }
     
     // Update the original record in memory
-    updateOriginalRecord(recordId, field, value) {
+    updateOriginalRecord(recordId, fieldMapping) {
         this.propertyGroups.forEach(propertyGroup => {
             propertyGroup.applicants.forEach(applicant => {
                 if (applicant.__originalRecord && applicant.__originalRecord.Id === recordId) {
-                    const sfFieldMapping = this.mapFieldToSalesforceField(field, value);
-                    
                     // Create a new mutable copy of the original record
                     const updatedOriginalRecord = { ...applicant.__originalRecord };
                     
                     // Apply the field updates to the mutable copy
-                    Object.keys(sfFieldMapping).forEach(sfField => {
-                        updatedOriginalRecord[sfField] = sfFieldMapping[sfField];
+                    Object.keys(fieldMapping).forEach(sfField => {
+                        updatedOriginalRecord[sfField] = fieldMapping[sfField];
                     });
                     
                     // Replace the original record with the updated mutable copy
@@ -1129,5 +1177,174 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
                 }));
             }, 1000);
         }
+    }
+
+    // Unit Assignment Methods
+
+    /**
+     * Handle unit assignment button click
+     * Opens unit selection modal for approved group property applicants
+     */
+    async handleAssignUnit(event) {
+        const applicantId = event.target.dataset.applicantId;
+        const propertyId = event.target.dataset.propertyId;
+        
+        // Find the applicant record
+        const applicant = this.findApplicantById(applicantId);
+        if (!applicant) {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: 'Applicant record not found',
+                variant: 'error'
+            }));
+            return;
+        }
+        
+        // Validate applicant is eligible for unit assignment
+        if (!applicant.canAssignUnit) {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Not Eligible',
+                message: 'Unit assignment is only available for approved group property applicants without a specific unit',
+                variant: 'warning'
+            }));
+            return;
+        }
+        
+        try {
+            // Get available units for the development
+            const availableUnits = await getAvailableUnitsForDevelopment({ 
+                developmentId: applicant.developmentId 
+            });
+            
+            if (!availableUnits || availableUnits.length === 0) {
+                this.dispatchEvent(new ShowToastEvent({
+                    title: 'No Units Available',
+                    message: 'No individual units are available for assignment in this development',
+                    variant: 'info'
+                }));
+                return;
+            }
+            
+            // Show unit selection dialog (would typically be a modal, but using simple prompt for now)
+            const unitOptions = availableUnits.map(unit => 
+                `${unit.Unit_Number__c || unit.Name} - $${unit.Rent_or_List_Price__c || 'Price TBD'}`
+            ).join('\n');
+            
+            const selectedIndex = parseInt(prompt(
+                `Select unit for ${applicant.applicantName}:\n\n${unitOptions}\n\nEnter number (0-${availableUnits.length - 1}) or cancel:`
+            ));
+            
+            if (selectedIndex >= 0 && selectedIndex < availableUnits.length) {
+                await this.confirmUnitAssignment(applicantId, availableUnits[selectedIndex].Id, availableUnits[selectedIndex]);
+            }
+            
+        } catch (error) {
+            console.error('Error in handleAssignUnit:', error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: 'Failed to load available units: ' + error.body?.message || error.message,
+                variant: 'error'
+            }));
+        }
+    }
+    
+    /**
+     * Confirm unit assignment selection and update the record
+     */
+    async confirmUnitAssignment(applicantId, unitId, unitRecord) {
+        try {
+            // Confirm the assignment
+            const confirmMessage = `Assign ${unitRecord.Unit_Number__c || unitRecord.Name} to this applicant? This will update their unit association from the group property to this specific unit.`;
+            
+            if (!confirm(confirmMessage)) {
+                return;
+            }
+            
+            // Call Apex method to update the record
+            const result = await assignUnitToApplicant({
+                outreachTrackingId: applicantId,
+                propertyUnitId: unitId
+            });
+            
+            // Show success message
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Unit Assigned',
+                message: result,
+                variant: 'success'
+            }));
+            
+            // Refresh the data to show the updated unit information
+            await this.loadOutreachTrackingData();
+            
+        } catch (error) {
+            console.error('Error in confirmUnitAssignment:', error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Assignment Failed',
+                message: 'Failed to assign unit: ' + (error.body?.message || error.message),
+                variant: 'error'
+            }));
+        }
+    }
+    
+    /**
+     * Handle cancel unit assignment (return to group property)
+     */
+    async handleCancelUnitAssignment(event) {
+        const applicantId = event.target.dataset.applicantId;
+        
+        const applicant = this.findApplicantById(applicantId);
+        if (!applicant) {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: 'Applicant record not found',
+                variant: 'error'
+            }));
+            return;
+        }
+        
+        // Confirm the cancellation
+        const confirmMessage = `Cancel unit assignment for ${applicant.applicantName}? This will return them to the group property association.`;
+        
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+        
+        try {
+            // Call Apex method to cancel the assignment
+            const result = await cancelUnitAssignment({
+                outreachTrackingId: applicantId
+            });
+            
+            // Show success message
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Assignment Cancelled',
+                message: result,
+                variant: 'success'
+            }));
+            
+            // Refresh the data to show the updated information
+            await this.loadOutreachTrackingData();
+            
+        } catch (error) {
+            console.error('Error in handleCancelUnitAssignment:', error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Cancellation Failed',
+                message: 'Failed to cancel unit assignment: ' + (error.body?.message || error.message),
+                variant: 'error'
+            }));
+        }
+    }
+    
+    /**
+     * Helper method to find applicant by ID across all property groups
+     */
+    findApplicantById(applicantId) {
+        for (const propertyGroup of this.propertyGroups) {
+            const found = propertyGroup.applicants.find(applicant => applicant.id === applicantId);
+            if (found) {
+                return found;
+            }
+        }
+        return null;
     }
 }
