@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Months_to_Close__c</fullName>
+    <externalId>false</externalId>
+    <formula>ROUND((HOMEtracker__Close_Date__c-HOMEtracker__Purchase_and_Sale_Contract_Executed__c)/30,0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This is the approximate number of months it took for the home to close from the day it went under contract.</inlineHelpText>
+    <label>Months to Close</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

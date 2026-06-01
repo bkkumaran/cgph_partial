@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_rental_control_date_info</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Current_Owner_Service_File__c</columns>
+    <columns>HOMEtracker__Date_Placed_in_Program__c</columns>
+    <columns>Date_First_Occupied__c</columns>
+    <columns>Date_of_Initial_Rental_Pricing__c</columns>
+    <columns>Rent_when_First_Occupied__c</columns>
+    <columns>Initial_rental_pricing__c</columns>
+    <columns>Initial_affordability_of_Unit__c</columns>
+    <columns>of_years_in_initial_afford_peri__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Windsor Castle apartments</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+        <value>camelot</value>
+    </filters>
+    <label>AA rental control date info</label>
+</ListView>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X2015_2025_rehab_credit_info__c</fullName>
+    <inlineHelpText>Indicate what round (1,2 3, or 4 ) that the unit has been credited to. Include the date you made this finding and our initials. This information may be used to determine whether the unit is eligible for a rehab credit in the current round.</inlineHelpText>
+    <label>Unit credited to Round 1, 2, 3 or 4?</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

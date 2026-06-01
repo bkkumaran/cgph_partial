@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Outreach_Stage__c</fullName>
+    <inlineHelpText>Each phase starts with the activity named, and includes all activities up to the next phase.  Ex. 2. EA Page run includes running the EA page, waiting for RTV submissions, processing the submissions, removing ineligible people, then once applicants are invited change the status to 3. Invitations to Submit.</inlineHelpText>
+    <label>Outreach Stage</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0. Waiting for Income Limits</fullName>
+                <default>false</default>
+                <label>0. Waiting for Income Limits</label>
+            </value>
+            <value>
+                <fullName>0. Waiting, Coming Soon</fullName>
+                <default>false</default>
+                <label>0. Waiting, Coming Soon</label>
+            </value>
+            <value>
+                <fullName>0.5 Needs Manager Setup</fullName>
+                <default>false</default>
+                <label>0.5 Needs Manager Setup</label>
+            </value>
+            <value>
+                <fullName>0.6 Listing sent to landlord/developer waiting for approval</fullName>
+                <default>false</default>
+                <label>0.6 Listing sent to landlord/developer waiting for approval</label>
+            </value>
+            <value>
+                <fullName>1. Applicants Needed</fullName>
+                <default>false</default>
+                <label>1. Applicants Needed</label>
+            </value>
+            <value>
+                <fullName>1.5. Manager Review</fullName>
+                <default>false</default>
+                <label>1.5. Manager Review</label>
+            </value>
+            <value>
+                <fullName>2. Manager Import</fullName>
+                <default>false</default>
+                <label>2. Manager Import</label>
+            </value>
+            <value>
+                <fullName>2.5 EA Page run</fullName>
+                <default>false</default>
+                <label>2.5 EA Page Run</label>
+            </value>
+            <value>
+                <fullName>3. Invitations to Submit Sent</fullName>
+                <default>false</default>
+                <label>3. Invitations to Submit Sent</label>
+            </value>
+            <value>
+                <fullName>4. Referred to Landlord</fullName>
+                <default>false</default>
+                <label>4. Referred to Landlord / Seller</label>
+            </value>
+            <value>
+                <fullName>4.5 Sent to Visit Unit (Open House)</fullName>
+                <default>false</default>
+                <label>4.5 Sent to Visit Unit (Open House)</label>
+            </value>
+            <value>
+                <fullName>5. Income Cert Begins</fullName>
+                <default>false</default>
+                <label>5. Income Cert Begins</label>
+            </value>
+            <value>
+                <fullName>6. Rental Pending</fullName>
+                <default>false</default>
+                <label>6. Rental / Sale Pending</label>
+            </value>
+            <value>
+                <fullName>7. Rental / Sale Complete</fullName>
+                <default>false</default>
+                <label>7. Rental / Sale Complete</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Calculate_Utilities__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Utility_Calculator_Data_Check__c &lt;&gt; &quot;Good&quot;, &quot;Resolve the Utility Calculator Data Check&quot;, 
+
+HYPERLINK(&quot;https://cgph.my.salesforce.com/flow/Utility_Calculation?Property_ID=&quot; &amp; Id &amp;
+
+&quot;&amp;Debug=Not%20Enabled&quot; &amp;
+
+&quot;&amp;Property_Name=&quot; &amp; SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Name,&quot;,&quot;,&quot;%2C&quot;),&quot; &quot;,&quot;%20&quot;),&quot;-&quot;,&quot;%2D&quot;),&quot;#&quot;,&quot;%23&quot;) &amp;
+
+IF(INCLUDES(Development_address__r.Utilities_Included__c, &quot;Heat&quot;)=TRUE, &quot;&amp;Add_Heat=No&quot;, &quot;&amp;Add_Heat=Yes&quot;) &amp;
+IF(INCLUDES(Development_address__r.Utilities_Included__c, &quot;Cooking&quot;)=TRUE, &quot;&amp;Add_Cooking=No&quot;, &quot;&amp;Add_Cooking=Yes&quot;) &amp;
+
+IF(INCLUDES(Development_address__r.Utilities_Included__c, &quot;Air Conditioning&quot;)=TRUE, &quot;&amp;Add_Air_Conditioning=No&quot;, &quot;&amp;Add_Air_Conditioning=Yes&quot;) &amp;
+
+IF(INCLUDES(Development_address__r.Utilities_Included__c, &quot;Electricity&quot;)=TRUE, &quot;&amp;Add_Electricity=No&quot;, &quot;&amp;Add_Electricity=Yes&quot;) &amp;
+IF(INCLUDES(Development_address__r.Utilities_Included__c, &quot;Water Heat&quot;)=TRUE, &quot;&amp;Add_Water_Heat=No&quot;, &quot;&amp;Add_Water_Heat=Yes&quot;) &amp;
+IF(INCLUDES(Development_address__r.Utilities_Included__c, &quot;Water&quot;)=TRUE, &quot;&amp;Add_Water=No&quot;, &quot;&amp;Add_Water=Yes&quot;) &amp;
+IF(INCLUDES(Development_address__r.Utilities_Included__c, &quot;Sewer&quot;)=TRUE, &quot;&amp;Add_Sewer=No&quot;, &quot;&amp;Add_Sewer=Yes&quot;) &amp;
+IF(INCLUDES(Development_address__r.Utilities_Included__c, &quot;Trash&quot;)=TRUE, &quot;&amp;Add_Trash=No&quot;, &quot;&amp;Add_Trash=Yes&quot;) &amp;
+
+&quot;&amp;Number_Of_Bedrooms=&quot; &amp; TEXT(HOMEtracker__Number_of_Bedrooms__c) &amp;
+
+&quot;&amp;Utility_Year=&quot; &amp; Development_address__r.Utility_Year__c &amp;
+&quot;&amp;Building_Type=&quot; &amp; TEXT(Development_address__r.Bldg_Type_for_Utilities__c) &amp;
+
+&quot;&amp;Heat_Type=&quot; &amp; TEXT(Development_address__r.HOMEtracker__Heating__c) &amp;
+&quot;&amp;Cooking_Type=&quot; &amp; TEXT(Development_address__r.Stove_Type__c) &amp;
+&quot;&amp;Water_Heat_Type=&quot; &amp; TEXT(Development_address__r.Water_Heater_Type__c) &amp;
+
+&quot;&amp;retURL=https://cgph.my.salesforce.com/&quot; &amp; Id
+
+, &quot;Calculate Utilities - Will Overwrite the Utilities Field&quot;, &quot;_parent&quot;))</formula>
+    <inlineHelpText>Click to calculate the total utilities for this unit. Make sure to save a pdf of the results and attach to the property.</inlineHelpText>
+    <label>Calculate Utilities</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_Ownership_Waiver__c</fullName>
+    <description>Indicate whether an Ownership Waiver is being applied for this income certification. To be eligible, the applicant must have a firm mortgage commitment and complete a Homebuyer Education course before closing.</description>
+    <inlineHelpText>Indicate whether an Ownership Waiver is being applied for this income certification. To be eligible, the applicant must have a firm mortgage commitment and complete a Homebuyer Education course before closing.</inlineHelpText>
+    <label>Ownership Waiver?</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

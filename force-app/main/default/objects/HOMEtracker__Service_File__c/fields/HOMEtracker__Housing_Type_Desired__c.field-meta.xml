@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Housing_Type_Desired__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Select the Applicant&apos;s first choice. Tip: This field can be used to better understand the demand for different housing types.</description>
+    <inlineHelpText>Select the Applicant&apos;s first choice.
+
+Tip: This field can be used to better understand the demand for different housing types.</inlineHelpText>
+    <label>Housing Type Desired</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Single-Family Detached</fullName>
+                <default>false</default>
+                <label>Single-Family Detached</label>
+            </value>
+            <value>
+                <fullName>Condominium Unit</fullName>
+                <default>false</default>
+                <label>Condominium Unit</label>
+            </value>
+            <value>
+                <fullName>Townhome</fullName>
+                <default>false</default>
+                <label>Townhome</label>
+            </value>
+            <value>
+                <fullName>Duplex</fullName>
+                <default>false</default>
+                <label>Duplex</label>
+            </value>
+            <value>
+                <fullName>Mobile or Manufactured</fullName>
+                <default>false</default>
+                <label>Mobile or Manufactured</label>
+            </value>
+            <value>
+                <fullName>Land</fullName>
+                <default>false</default>
+                <label>Land</label>
+            </value>
+            <value>
+                <fullName>Apartment Unit</fullName>
+                <default>false</default>
+                <label>Apartment Unit</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

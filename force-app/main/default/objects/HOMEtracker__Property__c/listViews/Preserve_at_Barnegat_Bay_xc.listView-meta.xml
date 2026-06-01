@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Preserve_at_Barnegat_Bay_xc</fullName>
+    <columns>NAME</columns>
+    <columns>Original_Purchase_Price__c</columns>
+    <columns>HOMEtracker__List_Price__c</columns>
+    <columns>Initial_affordability_of_Unit__c</columns>
+    <columns>Bedroom_Count__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Type_of_Affordability_Controls__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Preserve at Barnegat Bay</value>
+    </filters>
+    <filters>
+        <field>Group_Property__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <label>Preserve at Barnegat Bay xc</label>
+</ListView>

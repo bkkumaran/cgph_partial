@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Connect_Group_Property_Units__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Group_Property__c = true,
+HYPERLINK(
+&apos;https://cgph--c.vf.force.com/flow/Outreach_Find_Property_Matches_to_Group_Property?varDevID=&apos;&amp;Development_address__r.Id&amp;
+&apos;&amp;varID=&apos;&amp;Id,
+&apos;CLICK HERE&apos;,
+&apos;_Blank&apos;
+
+),
+&apos;N/A&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Connect Group Property Units</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

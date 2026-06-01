@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_Ownerships_Edits</fullName>
+    <columns>NAME</columns>
+    <columns>Bedroom_Count__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Maximum_Re_Sale_Price__c</columns>
+    <columns>HOMEtracker__List_Price__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Foxtail Creek</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <label>AA Ownerships Edits</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

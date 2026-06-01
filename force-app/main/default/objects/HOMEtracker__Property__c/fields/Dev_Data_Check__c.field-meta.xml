@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dev_Data_Check__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(TEXT(HOMEtracker__Property_Type__c)=&quot;&quot;,&quot;-Add Property Type&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(TEXT(Credit_Check_Required__c)=&quot;&quot;,&quot;-Add Credit Check Required&quot; &amp;BR(),&quot;&quot;) &amp;
+
+/*IF(TEXT(Background_Check_Required__c)=&quot;&quot;,&quot;-Add Background Check Required&quot; &amp;BR(),&quot;&quot;) &amp;*/
+
+IF(ISBLANK(Minimum_Credit_Score_to_be_Eligible__c),&quot;-Add Min Credit Score&quot; &amp;BR(),&quot;&quot;) &amp; 
+IF(AND(TEXT(Credit_Check_Required__c)=&quot;Yes&quot;,TEXT(Co_Signers_Allowed__c)=&quot;&quot;),&quot;-Add Co-Signers Allowed&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(AND(TEXT(Rental_or_Sale_Development__c)=&quot;Sale&quot;,TEXT(Development_Financing_Requirements__c)=&quot;&quot;),&quot;-Add Development Financing Requirement&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(ISBLANK(Utilities_Included__c),&quot;-Add Utilities Included&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(TEXT(Elevator__c)=&quot;&quot;,&quot;-Add Elevator&quot; &amp;BR(),&quot;&quot;) &amp; 
+IF(TEXT(Smoking_Allowed__c)=&quot;&quot;,&quot;-Add Smoking&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(AND(TEXT(Rental_or_Sale_Development__c)= &quot;Rental&quot;, Security_deposit_required__c=&quot;&quot;),&quot;-Add Required Security Deposit&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(Text(Required_Deposit__c)=&quot;&quot;,&quot;-Add Required Deposit&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(ISPICKVAL(Age_Restriction__c,&quot;&quot;),&quot;-Add Age Restriction&quot; &amp; BR(),&quot;&quot;) &amp; 
+
+IF(ISBLANK(Number_of_units__c),&quot;-Add Number of Units&quot; &amp;BR(),&quot;&quot;) &amp; 
+IF(ISBLANK(Unit_Mix__c),&quot;-Add Unit Mix&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(ISBLANK(Affordability_restriction_del__c),&quot;-Add Affordability Restriction&quot; &amp;BR(),&quot;&quot;) &amp; 
+IF(TEXT(Rental_or_Sale_Development__c)=&quot;&quot;,&quot;-Add Rental or Sale Development Type&quot; &amp;BR(),&quot;&quot;) &amp; 
+IF(NOT(ISBLANK(Development_address__c)),&quot;-Remove Development&quot; &amp;BR(),&quot;&quot;)</formula>
+    <label>Dev Data Check</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

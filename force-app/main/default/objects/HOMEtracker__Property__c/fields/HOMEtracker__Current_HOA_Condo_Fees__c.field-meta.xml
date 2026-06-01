@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Current_HOA_Condo_Fees__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The amount of the most recent Condo/HOA Fee. The most recent Fee is the one with the greatest Effective From date where the Effective From date is less than today&apos;s date AND the Effective To date is blank or greater than today&apos;s date.</description>
+    <inlineHelpText>The amount of the most recent Condo/HOA Fee/Lot Rent. The most recent Fee is the one with the greatest Effective From date where the Effective From date is less than today&apos;s date AND the Effective To date is blank or greater than today&apos;s date.</inlineHelpText>
+    <label>Current HOA/Condo Fees</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

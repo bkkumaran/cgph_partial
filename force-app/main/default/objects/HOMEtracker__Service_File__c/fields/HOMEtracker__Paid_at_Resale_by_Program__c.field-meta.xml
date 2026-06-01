@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Paid_at_Resale_by_Program__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Enter the total amount provided by the program to the next buyer AND listed as reductions to the amount due to seller (lines 501-509). Typically this is the difference between Purchase Option Price and Contract Sales Price.</description>
+    <inlineHelpText>Enter the total amount provided by the program to the next buyer AND listed as reductions to the amount due to seller (lines 501-509). Typically this is the difference between Purchase Option Price and Contract Sales Price.</inlineHelpText>
+    <label>Paid at Resale by Program</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

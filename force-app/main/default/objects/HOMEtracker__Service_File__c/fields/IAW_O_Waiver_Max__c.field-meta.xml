@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_O_Waiver_Max__c</fullName>
+    <description>The maximum allowed Percent of Income Spent on Housing Expenses for ownership units with a waiver at the time of income certification.</description>
+    <formula>IAW_O_Waiver_Max_Import__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The maximum allowed Percent of Income Spent on Housing Expenses for ownership units with a waiver at the time of income certification.</inlineHelpText>
+    <label>(Waiver) Max %</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

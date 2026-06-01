@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Workshop_Date__c</fullName>
+    <description>Enter the date of the next MTA workshop. Format: Thursday, October 10th 2019</description>
+    <inlineHelpText>Enter the date of the next MTA workshop. Format: Thursday, October 10th 2019</inlineHelpText>
+    <label>Next Workshop Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Show_on_AA_Invoiced_CALC__c</fullName>
+    <formula>AND(
+HOMEtracker__Property__c !=&quot;&quot;,
+!CONTAINS(Name, &quot;Test&quot;),
+OR(
+AND(  HOMEtracker__Application_Complete_Date__c  &gt;= DATE( 2015,6,1), NOT(ISBLANK(Date_Invoiced__c))),
+AND(  Assistance_Complete_Date__c  &gt;=DATE( 2015,6,1),  NOT(ISBLANK(Date_Assistance_Invoiced__c))),
+AND(  HOMEtracker__Close_Date__c  &gt;=DATE( 2015,6,1), NOT(ISBLANK(Date_Closing_Invoiced__c))),
+AND(  Date_Application_Terminated_Withdrawn__c  &gt;=DATE(2015,6,1),NOT(ISBLANK(Date_Invoice_Processed__c)))
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Show on AA Invoiced CALC</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

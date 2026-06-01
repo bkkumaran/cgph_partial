@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Applicant_Street__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The street address of the applicant at the time the application is submitted.
+
+Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout.</description>
+    <inlineHelpText>The street address of the applicant at the time the application is submitted.
+
+Tip: Use the Copy Address to Contacts link to sync this address with the Contact record.</inlineHelpText>
+    <label>Applicant Street</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

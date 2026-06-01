@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Signed_Commitment_Agreement__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The commitment agreement defines the actions applicants agree to take in order to remain on the waiting list, and the actions that program agrees to take in order to provide a home to purchase. If checked, the applicant has signed the agreement.</description>
+    <inlineHelpText>The commitment agreement defines the actions applicants agree to take in order to remain on the waiting list, and the actions that program agrees to take in order to provide a home to purchase. If checked, the applicant has signed the agreement.</inlineHelpText>
+    <label>Signed Commitment Agreement</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

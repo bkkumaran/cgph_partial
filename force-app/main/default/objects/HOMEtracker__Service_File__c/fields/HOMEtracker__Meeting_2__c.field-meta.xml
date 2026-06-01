@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Meeting_2__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The date the applicant attended a required meeting. Used for workflow tracking during the application process. Tip: Define what your program meeting requirements are and update this help text.</description>
+    <inlineHelpText>The date the applicant attended a required meeting. Used for workflow tracking during the application process.
+
+Tip: Define what your program meeting requirements are and update this help text.</inlineHelpText>
+    <label>Meeting 2</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Intro_Call_Date__c</fullName>
+    <externalId>false</externalId>
+    <formula>TEXT(MONTH(Development_address__r.Intro_Call_Actual_Date__c))&amp;&quot;/&quot;&amp;
+TEXT(DAY(Development_address__r.Intro_Call_Actual_Date__c))&amp;&quot;/&quot;&amp;
+TEXT(YEAR(Development_address__r.Intro_Call_Actual_Date__c))</formula>
+    <inlineHelpText>The most recent date on this development&apos;s checklist where the Intro Call Date was marked as &quot;Actual Date&quot;</inlineHelpText>
+    <label>Last Intro Call Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

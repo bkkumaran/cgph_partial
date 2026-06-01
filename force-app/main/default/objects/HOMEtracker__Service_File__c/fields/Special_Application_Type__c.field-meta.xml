@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Special_Application_Type__c</fullName>
+    <description>Select a value if this is not for an applicant moving into a rental or sale property.</description>
+    <inlineHelpText>Select a value if this is not for an applicant moving into a rental or sale property.</inlineHelpText>
+    <label>Special Application  Service File Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Recertification</fullName>
+                <default>false</default>
+                <label>Recertification</label>
+            </value>
+            <value>
+                <fullName>Affordability Assistance</fullName>
+                <default>false</default>
+                <label>Affordability Assistance</label>
+            </value>
+            <value>
+                <fullName>Direct Invitation</fullName>
+                <default>false</default>
+                <label>Direct Invitation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

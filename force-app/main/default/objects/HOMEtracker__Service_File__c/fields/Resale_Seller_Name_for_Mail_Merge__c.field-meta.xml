@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resale_Seller_Name_for_Mail_Merge__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter the name of the seller for the resale of this property. This name will be used in the closing docs for the resale.</inlineHelpText>
+    <label>Resale Seller Name for Mail Merge</label>
+    <length>100</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

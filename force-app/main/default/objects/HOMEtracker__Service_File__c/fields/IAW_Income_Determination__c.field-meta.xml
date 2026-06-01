@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_Income_Determination__c</fullName>
+    <description>Auto Calculates by comparing the Annual Income (Eligibility) to the Moderate, Low, and Very Low Income Limit fields. Click the Update Income Limits button to populate those fields.</description>
+    <externalId>false</externalId>
+    <formula>IF(OR(
+ISBLANK(Very_Low_Income_Limit__c),
+ISBLANK(Low_Income_Limit__c),
+ISBLANK(Moderate_Income_Limit__c)), &quot;Click Update Income Limits Button&quot;,
+
+IF(
+HOMEtracker__Annual_Income_Eligibility__c &lt;= Very_Low_Income_Limit__c, &quot;Very Low&quot;,
+
+IF(AND(
+HOMEtracker__Annual_Income_Eligibility__c &gt; Very_Low_Income_Limit__c,
+HOMEtracker__Annual_Income_Eligibility__c &lt;= Low_Income_Limit__c), &quot;Low&quot;,
+
+IF(AND(
+HOMEtracker__Annual_Income_Eligibility__c &gt; Low_Income_Limit__c,
+HOMEtracker__Annual_Income_Eligibility__c &lt;= Moderate_Income_Limit__c), &quot;Moderate&quot;,
+
+IF(
+HOMEtracker__Annual_Income_Eligibility__c &gt; Moderate_Income_Limit__c, &quot;Over Income&quot;,
+
+&quot;Ineligible&quot;)))))</formula>
+    <inlineHelpText>Auto Calculates by comparing the Annual Income (Eligibility) to the Moderate, Low, and Very Low Income Limit fields. Click the Update Income Limits button to populate those fields.</inlineHelpText>
+    <label>Income Determination</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

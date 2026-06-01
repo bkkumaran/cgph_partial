@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aberdeen_Place_initial_sale_information</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>Date_First_Occupied__c</columns>
+    <columns>Original_Purchase_Price__c</columns>
+    <columns>HOMEtracker__Date_Placed_in_Program__c</columns>
+    <columns>of_years_in_initial_afford_peri__c</columns>
+    <columns>Initial_affordability_of_Unit__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Type_of_Affordability_Controls__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Monmouth Views</value>
+    </filters>
+    <filters>
+        <field>Group_Property__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Available for Sale/Resale,Owner Occupied,Available For Rent,Available for Rent - part of group,Rental Pending,Rented,Initial Sales in Progress,Initial Sales - In Progress,Initial lease up in progress,Initial Lease up completed</value>
+    </filters>
+    <label>Aberdeen Place initial sale information</label>
+</ListView>

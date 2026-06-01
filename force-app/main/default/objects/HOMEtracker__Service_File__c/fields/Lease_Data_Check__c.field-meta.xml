@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lease_Data_Check__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(OR(Current_Lease_Start_Date__c = Lease_Start_date__c,AND(ISBLANK(Current_Lease_Start_Date__c),ISBLANK(Lease_Start_date__c))) , &quot;&quot;, (&quot;START DATE&quot;&amp;BR()))&amp;
+IF(OR(Current_Lease_End_Date__c = Lease_End_Date__c,AND(ISBLANK(Current_Lease_End_Date__c),ISBLANK(Lease_End_Date__c))) , &quot;&quot;, (&quot;END DATE&quot;&amp;BR()))&amp;
+IF(Current_Lease_Rent__c = Current_Rent__c , &quot;&quot;, (&quot;RENT&quot;&amp;BR()))&amp;
+IF(Current_Lease_Increase_Year__c= Year_of_Last_COAH_increase__c , &quot;&quot;,(&quot;INCREASE YEAR&quot;&amp;BR()))&amp;
+IF(Current_Lease_Increase__c = Percent_last_COAH_increase__c , &quot;&quot;,(&quot;INCREASE&quot;&amp;BR()))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Compares the lease data on the service file (rent, dates, %, etc.) with the current lease object attached to the service file below.  If any text shows up, that signifies the fields are not matching up correctly</inlineHelpText>
+    <label>Lease Data Check</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

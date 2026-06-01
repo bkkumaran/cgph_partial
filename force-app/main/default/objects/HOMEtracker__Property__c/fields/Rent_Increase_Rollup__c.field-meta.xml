@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rent_Increase_Rollup__c</fullName>
+    <inlineHelpText>The year of the most recent rental increase record attached to this property.</inlineHelpText>
+    <label>Rent Increase Rollup</label>
+    <summarizedField>Annual_Rental_Increase__c.Increase_Year__c</summarizedField>
+    <summaryForeignKey>Annual_Rental_Increase__c.Property__c</summaryForeignKey>
+    <summaryOperation>max</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

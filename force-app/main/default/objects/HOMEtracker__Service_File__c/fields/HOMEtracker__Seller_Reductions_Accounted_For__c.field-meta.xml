@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Seller_Reductions_Accounted_For__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This formula helps you identify whether the seller&apos;s HUD-1 information is filled in correctly. This formula indicates whether Total Reductions to Amount Due to Seller equals Gross Amount Due minus Net Cash to Seller.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(TEXT(HOMEtracker__Resale_Type__c)), 
+&quot;Unknown. Enter Resale Type to use Seller Reductions Accounted For.&quot;, 
+
+IF(OR(BEGINS(TEXT(HOMEtracker__Resale_Type__c), &quot;Foreclosure&quot; ),BEGINS(TEXT(HOMEtracker__Resale_Type__c) , &quot;Deed In Lieu&quot; )), 
+&quot;Not applicable. Because this is a &quot; &amp; TEXT(HOMEtracker__Resale_Type__c) &amp; &quot; type of resale you will not have a settlement statement to reconcile.&quot;, 
+
+IF(ISBLANK(HOMEtracker__Net_Cash_to_Seller_at_Closing__c), 
+&quot;Unknown. Enter Net Cash to Seller and Gross Amount Due to Seller.&quot;, IF(ISBLANK(HOMEtracker__Gross_Amount_Due_to_Seller__c),&quot;Unknown. Enter Net Cash to Seller and Gross Amount Due to Seller.&quot;, 
+
+IF(((HOMEtracker__Gross_Amount_Due_to_Seller__c - IF(ISBLANK(HOMEtracker__Total_Reductions_to_Amount_Due_Seller__c), 0, HOMEtracker__Total_Reductions_to_Amount_Due_Seller__c)) == HOMEtracker__Net_Cash_to_Seller_at_Closing__c ), &quot;Yes&quot;, &quot;No. Your numbers are off by $&quot; &amp; TEXT(ABS(HOMEtracker__Gross_Amount_Due_to_Seller__c - IF(ISBLANK(HOMEtracker__Total_Reductions_to_Amount_Due_Seller__c), 0, HOMEtracker__Total_Reductions_to_Amount_Due_Seller__c) - HOMEtracker__Net_Cash_to_Seller_at_Closing__c)) &amp; &quot;. Check the input fields to Total Reductions to Amount Due Seller. Total Reductions to Amount Due Seller (&quot; &amp; IF(ISBLANK(HOMEtracker__Total_Reductions_to_Amount_Due_Seller__c), &quot;blank&quot;, &quot;$&quot; &amp; TEXT(HOMEtracker__Total_Reductions_to_Amount_Due_Seller__c)) &amp; &quot;) should equal Gross Amount Due to Seller ($&quot; &amp; TEXT(HOMEtracker__Gross_Amount_Due_to_Seller__c) &amp; &quot;) minus Net Cash to Seller at Closing ($&quot; &amp; TEXT(HOMEtracker__Net_Cash_to_Seller_at_Closing__c) &amp; &quot;).&quot;)))))</formula>
+    <inlineHelpText>This formula helps you identify whether the seller&apos;s HUD-1 information is filled in correctly. This formula indicates whether Total Reductions to Amount Due to Seller equals Gross Amount Due minus Net Cash to Seller.</inlineHelpText>
+    <label>Seller Reductions Accounted For?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

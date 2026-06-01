@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Cooling__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Select the type of cooling system installed, if any.</description>
+    <inlineHelpText>Select the type of cooling system installed, if any.</inlineHelpText>
+    <label>Cooling</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Central AC</fullName>
+                <default>false</default>
+                <label>Central AC</label>
+            </value>
+            <value>
+                <fullName>Window AC Unit</fullName>
+                <default>false</default>
+                <label>Window AC Unit</label>
+            </value>
+            <value>
+                <fullName>Central AC and Window AC Unit</fullName>
+                <default>false</default>
+                <label>Central AC and Window AC Unit</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Initial_Pricing_Notes__c</fullName>
+    <description>Enter any relevant notes related to the initial pricing of this property. For example, the income limit year used to calculate the pricing and what increases are allowed at vacancy.</description>
+    <inlineHelpText>Enter any relevant notes related to the initial pricing of this property. For example, the income limit year used to calculate the pricing and what increases are allowed at vacancy.</inlineHelpText>
+    <label>Initial Pricing Notes</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

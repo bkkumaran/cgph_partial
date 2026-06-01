@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TEST_Not_Invited</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>TEST Not Invited</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://cgph--c.vf.force.com/flow/EA_Page_MP_Cleanup?varID={!HOMEtracker__Property__c.CampaignId__c}&amp;retURL=https%3A%2F%2Fcgph--c.vf.force.com%2Fapex%2FEAPage2nV2%3Fid%3D{!HOMEtracker__Property__c.Id}%26cId%3D{!HOMEtracker__Property__c.CampaignId__c}</url>
+</WebLink>

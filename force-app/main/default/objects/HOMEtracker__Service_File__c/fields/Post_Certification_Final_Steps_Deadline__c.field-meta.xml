@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Post_Certification_Final_Steps_Deadline__c</fullName>
+    <description>The deadline for the applicant to complete the final steps outlined in their certification email. This is not the Buyer&apos;s Ed deadline.</description>
+    <inlineHelpText>The deadline for the applicant to complete the final steps outlined in their certification email. This is not the Buyer&apos;s Ed deadline.</inlineHelpText>
+    <label>Certified Applicant Final Steps Deadline</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

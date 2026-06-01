@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Freehold_Township_Project</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Current_Owner_Service_File__c</columns>
+    <columns>Freehold_ext_of_control_research__c</columns>
+    <columns>HOMEtracker__Date_Placed_in_Program__c</columns>
+    <columns>of_years_in_initial_afford_peri__c</columns>
+    <columns>Date_freehold_initial_sale_info_entered__c</columns>
+    <columns>Freehold_initial_sale_date_comments__c</columns>
+    <columns>Extension_of_Controls_notes__c</columns>
+    <columns>Original_Purchase_Price__c</columns>
+    <columns>Block__c</columns>
+    <columns>Lot__c</columns>
+    <columns>Development_address__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Freehold_ext_of_control_research__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <label>AA Freehold Township Project</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

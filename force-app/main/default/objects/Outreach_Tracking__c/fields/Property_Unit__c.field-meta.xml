@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Property_Unit__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>Enter the property here, of if part of a group listing enter the appropriate property unit once applicable.</inlineHelpText>
+    <label>Property / Unit</label>
+    <referenceTo>HOMEtracker__Property__c</referenceTo>
+    <relationshipLabel>Outreach Tracking</relationshipLabel>
+    <relationshipName>Outreach_Tracking</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

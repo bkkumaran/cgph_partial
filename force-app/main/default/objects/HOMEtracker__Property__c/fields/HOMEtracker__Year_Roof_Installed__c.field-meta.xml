@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Year_Roof_Installed__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Year roof installed or re-roofed. Used to calculate Age of Roof.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Year roof installed or re-roofed. Used to calculate Age of Roof.</inlineHelpText>
+    <label>Year Roof Installed</label>
+    <length>4</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

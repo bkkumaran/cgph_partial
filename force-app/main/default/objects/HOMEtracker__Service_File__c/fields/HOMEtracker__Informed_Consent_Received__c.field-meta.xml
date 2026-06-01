@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Informed_Consent_Received__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Enter Yes if a signed consent form has been received. Enter No if the applicant has declined to sign the consent form.</description>
+    <inlineHelpText>Enter Yes if a signed consent form has been received. Enter No if the applicant has declined to sign the consent form.</inlineHelpText>
+    <label>Informed Consent Received</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

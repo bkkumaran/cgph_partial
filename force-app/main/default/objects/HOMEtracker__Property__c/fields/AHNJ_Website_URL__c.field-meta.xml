@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AHNJ_Website_URL__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Devel_Visible_on_Website__c = true, &quot;https://www.affordablehomesnewjersey.com/all-opportunities/developments/?did=&quot;&amp; Id,&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AHNJ Website URL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

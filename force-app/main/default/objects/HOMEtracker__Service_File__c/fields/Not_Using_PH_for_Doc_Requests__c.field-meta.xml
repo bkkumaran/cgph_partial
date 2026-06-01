@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_Using_PH_for_Doc_Requests__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this if we are not sending document requests / corrections through Public House.</description>
+    <inlineHelpText>Check this if we are not sending document requests / corrections through Public House.</inlineHelpText>
+    <label>Not Using PH for Doc Requests</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

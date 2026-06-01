@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Property__c</fullName>
+    <formula>ISBLANK(Development_address__c)=false &amp;&amp;
+(RecordType.Name = &apos;Homeownership&apos; || RecordType.Name = &apos;Rental Unit&apos; )&amp;&amp;
+Exclude_From_Inventory__c = false &amp;&amp;
+CONTAINS(TEXT(HOMEtracker__Status__c),&apos;Available&apos;)&amp;&amp;
+TEXT(Development_address__r.Google_Tracker_Review__c) != &apos;&apos;&amp;&amp;
+TEXT(Development_address__r.Google_Tracker_Review__c) != &apos;No Review&apos;&amp;&amp;
+Test_Property__c = false</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Active Property</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

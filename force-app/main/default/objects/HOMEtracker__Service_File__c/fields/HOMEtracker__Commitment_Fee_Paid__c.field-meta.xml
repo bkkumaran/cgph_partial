@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Commitment_Fee_Paid__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The date the fee was received. This is not for tracking the Application Fee or Earnest Money Paid. Used for tracking additional deposits and/or fees during the application and contract period.</description>
+    <inlineHelpText>The date the fee was received. This is not for tracking the Application Fee or Earnest Money Paid. Used for tracking additional deposits and/or fees during the application and contract period.</inlineHelpText>
+    <label>Commitment Fee Paid</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

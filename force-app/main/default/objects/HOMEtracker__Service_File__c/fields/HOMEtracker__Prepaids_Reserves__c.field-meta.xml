@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Prepaids_Reserves__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. From page 2 of the HUD-1 Settlement Statement -Section 900. and 1000. Includes days of interest, days of taxes and any insurance payment.</description>
+    <inlineHelpText>From page 2 of the HUD-1 Settlement Statement -Section 900. and 1000. Includes days of interest, days of taxes and any insurance payment.</inlineHelpText>
+    <label>Pre-Paids/Reserves</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

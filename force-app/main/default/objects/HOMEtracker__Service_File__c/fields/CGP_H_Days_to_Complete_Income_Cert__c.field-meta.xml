@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CGP_H_Days_to_Complete_Income_Cert__c</fullName>
+    <description>Auto calculated. 
+
+If Certified: [Eligibility Date] - [Income Certification Start Date]
+If Failed/Withdrawn/Cert On Hold/Cert Expired: [Date Terminated / Withdrawn / On Hold] - [Income Certification Start Date]</description>
+    <externalId>false</externalId>
+    <formula>Cert_or_Inelig_Date__c - Income_Certification_Start_Date__c</formula>
+    <inlineHelpText>Auto calculated. 
+
+If Certified: [Eligibility Date] - [Income Certification Start Date]
+If Failed/Withdrawn/Cert On Hold/Cert Expired: [Date Terminated / Withdrawn / On Hold] - [Income Certification Start Date]</inlineHelpText>
+    <label>CGP&amp;H Days to Complete Income Cert</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

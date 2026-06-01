@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Limited_English_Proficiency__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Client’s limited English proficiency as defined in 9902 form. The CMS assigns a reference ID associated with the appropriate descriptions. This field is required for 9902 reporting. Contact HomeKeeper Support before customizing to prevent errors when generating the 9902.</description>
+    <label>Limited English Proficiency</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Limited English Proficient</fullName>
+                <default>false</default>
+                <label>Limited English Proficient</label>
+            </value>
+            <value>
+                <fullName>Not Limited English Proficient</fullName>
+                <default>false</default>
+                <label>Not Limited English Proficient</label>
+            </value>
+            <value>
+                <fullName>Chose not to respond</fullName>
+                <default>false</default>
+                <label>Chose not to respond</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

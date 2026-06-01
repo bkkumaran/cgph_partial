@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Paid_Advertising_Requirements__c</fullName>
+    <inlineHelpText>Enter location of paid advertising, frequency of paid advertisements and when advertisements must be placed by.</inlineHelpText>
+    <label>Paid Ads &amp; Housing Search Website Rqr&apos;d</label>
+    <length>500</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>30</visibleLines>
+</CustomField>

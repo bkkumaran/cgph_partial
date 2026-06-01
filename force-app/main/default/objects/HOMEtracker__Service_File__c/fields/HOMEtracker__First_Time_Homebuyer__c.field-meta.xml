@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__First_Time_Homebuyer__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. Does your program consider the applicant a first-time homebuyer? Tip: There are several ways to define a first-time homebuyer, so make sure your program adopts a standard definition and applies it consistently.</description>
+    <inlineHelpText>Does your program consider the applicant a first-time homebuyer? 
+
+Tip: There are several ways to define a first-time homebuyer, so make sure your program adopts a standard definition and applies it consistently.</inlineHelpText>
+    <label>First-Time Homebuyer</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

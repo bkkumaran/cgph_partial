@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Partnership__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Did any other entities partner with your organization to develop this property? If so, what type(s)?</description>
+    <inlineHelpText>Did any other entities partner with your organization to develop this property? If so, what type(s)?</inlineHelpText>
+    <label>Partnership</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Non-profit developer</fullName>
+                <default>false</default>
+                <label>Non-profit developer</label>
+            </value>
+            <value>
+                <fullName>For-profit developer</fullName>
+                <default>false</default>
+                <label>For-profit developer</label>
+            </value>
+            <value>
+                <fullName>Local government</fullName>
+                <default>false</default>
+                <label>Local government</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

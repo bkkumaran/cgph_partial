@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vacancy_Increase_Percent__c</fullName>
+    <formula>(IF(Post_2014_Inc_Limits_Adopted__c=false,1,IF( Initial_Rental_Pricing_Year__c &lt; 2019, $Setup.Rental_Increases__c.X2019__c+1,1))*
+IF(Post_2014_Inc_Limits_Adopted__c=false,1,IF( Initial_Rental_Pricing_Year__c &lt; 2018, $Setup.Rental_Increases__c.X2018__c+1,1))*
+IF(Post_2014_Inc_Limits_Adopted__c=false,1,IF( Initial_Rental_Pricing_Year__c &lt; 2017, $Setup.Rental_Increases__c.X2017__c+1,1))*
+IF(Post_2014_Inc_Limits_Adopted__c=false,1,IF( Initial_Rental_Pricing_Year__c &lt; 2016, $Setup.Rental_Increases__c.X2016__c+1,1))*
+IF(Post_2014_Inc_Limits_Adopted__c=false,1,IF( Initial_Rental_Pricing_Year__c &lt; 2015, $Setup.Rental_Increases__c.X2015__c+1,1))*
+IF( Initial_Rental_Pricing_Year__c &lt; 2014, $Setup.Rental_Increases__c.X2014__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2013, $Setup.Rental_Increases__c.X2013__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2012, $Setup.Rental_Increases__c.X2012__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2011, $Setup.Rental_Increases__c.X2011__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2010, $Setup.Rental_Increases__c.X2010__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2009, $Setup.Rental_Increases__c.X2009__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2008, $Setup.Rental_Increases__c.X2008__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2007, $Setup.Rental_Increases__c.X2007__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2006, $Setup.Rental_Increases__c.X2006__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2005, $Setup.Rental_Increases__c.X2005__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2004, $Setup.Rental_Increases__c.X2004__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2003, $Setup.Rental_Increases__c.X2003__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2002, $Setup.Rental_Increases__c.X2002__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2001, $Setup.Rental_Increases__c.X2001__c+1,1)* 
+IF( Initial_Rental_Pricing_Year__c &lt; 2000, $Setup.Rental_Increases__c.X2000__c+1,1)-1)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Vacancy Increase Percent</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

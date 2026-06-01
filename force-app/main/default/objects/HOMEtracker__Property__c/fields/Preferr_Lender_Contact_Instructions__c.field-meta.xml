@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Preferr_Lender_Contact_Instructions__c</fullName>
+    <description>Instructions on how to contact the preferred lender and apply for a mortgage pre-approval. These instructions will appear in the Mortgage Pre-Approval emails. (First 0-255 characters).</description>
+    <inlineHelpText>Instructions on how to contact the preferred lender and apply for a mortgage pre-approval. These instructions will appear in the Mortgage Pre-Approval emails. (First 0-255 characters).</inlineHelpText>
+    <label>Preferred Lender Contact Instructions 1</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

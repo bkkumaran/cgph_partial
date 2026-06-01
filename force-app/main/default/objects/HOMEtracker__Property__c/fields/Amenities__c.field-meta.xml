@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Amenities__c</fullName>
+    <label>Complex Amenities</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>24 Hour Fitness Center</fullName>
+                <default>false</default>
+                <label>24 Hour Fitness Center</label>
+            </value>
+            <value>
+                <fullName>24-hour private duty nursing for a fee</fullName>
+                <default>false</default>
+                <label>24-hour private duty nursing for a fee</label>
+            </value>
+            <value>
+                <fullName>Amazon Package Lockers</fullName>
+                <default>false</default>
+                <label>Amazon Package Lockers</label>
+            </value>
+            <value>
+                <fullName>Amenity Alcove with Co-Working Lounge and Individual Working Stations</fullName>
+                <default>false</default>
+                <label>Amenity Alcove with Co-Working Lounge and Individual Working Stations</label>
+            </value>
+            <value>
+                <fullName>Amenity Terrace with Lounge Seating, Fire Pits, and BBQ Stations</fullName>
+                <default>false</default>
+                <label>Amenity Terrace with Lounge Seating, Fire Pits, and BBQ Stations</label>
+            </value>
+            <value>
+                <fullName>Amenity Terrace with Lounge Seating and Grill</fullName>
+                <default>false</default>
+                <label>Amenity Terrace with Lounge Seating and Grill</label>
+            </value>
+            <value>
+                <fullName>Basketball Courts</fullName>
+                <default>false</default>
+                <label>Basketball Courts</label>
+            </value>
+            <value>
+                <fullName>BBQ Area</fullName>
+                <default>false</default>
+                <label>BBQ Area</label>
+            </value>
+            <value>
+                <fullName>Bicycle Share</fullName>
+                <default>false</default>
+                <label>Bicycle Share</label>
+            </value>
+            <value>
+                <fullName>Bike Rack</fullName>
+                <default>false</default>
+                <label>Bike Rack</label>
+            </value>
+            <value>
+                <fullName>Bike Room with Shared Bikes</fullName>
+                <default>false</default>
+                <label>Bike Room with Shared Bikes</label>
+            </value>
+            <value>
+                <fullName>Bike Storage</fullName>
+                <default>false</default>
+                <label>Bike Storage</label>
+            </value>
+            <value>
+                <fullName>Bike Wash</fullName>
+                <default>false</default>
+                <label>Bike Wash</label>
+            </value>
+            <value>
+                <fullName>Billiards</fullName>
+                <default>false</default>
+                <label>Billiards</label>
+            </value>
+            <value>
+                <fullName>Bocce Court</fullName>
+                <default>false</default>
+                <label>Bocce Court</label>
+            </value>
+            <value>
+                <fullName>Breakfast and dinner</fullName>
+                <default>false</default>
+                <label>Breakfast and dinner</label>
+            </value>
+            <value>
+                <fullName>Business Center</fullName>
+                <default>false</default>
+                <label>Business Center</label>
+            </value>
+            <value>
+                <fullName>Car Chargers</fullName>
+                <default>false</default>
+                <label>Car Chargers</label>
+            </value>
+            <value>
+                <fullName>Club House</fullName>
+                <default>false</default>
+                <label>Clubhouse</label>
+            </value>
+            <value>
+                <fullName>Clubroom</fullName>
+                <default>false</default>
+                <label>Clubroom</label>
+            </value>
+            <value>
+                <fullName>Community computer</fullName>
+                <default>false</default>
+                <label>Community computer</label>
+            </value>
+            <value>
+                <fullName>Community Garden</fullName>
+                <default>false</default>
+                <label>Community Garden</label>
+            </value>
+            <value>
+                <fullName>Community Room</fullName>
+                <default>false</default>
+                <label>Community Room</label>
+            </value>
+            <value>
+                <fullName>Complimentary Wi-Fi in community areas</fullName>
+                <default>false</default>
+                <label>Complimentary Wi-Fi in community areas</label>
+            </value>
+            <value>
+                <fullName>Concierge Service</fullName>
+                <default>false</default>
+                <label>Concierge Service</label>
+            </value>
+            <value>
+                <fullName>Conference Room</fullName>
+                <default>false</default>
+                <label>Conference Room</label>
+            </value>
+            <value>
+                <fullName>Controlled Access</fullName>
+                <default>false</default>
+                <label>Controlled Access</label>
+            </value>
+            <value>
+                <fullName>Courtyard</fullName>
+                <default>false</default>
+                <label>Courtyard</label>
+            </value>
+            <value>
+                <fullName>Co-working Space</fullName>
+                <default>false</default>
+                <label>Co-working Space</label>
+            </value>
+            <value>
+                <fullName>Delivered meals for nominal fee</fullName>
+                <default>false</default>
+                <label>Delivered meals for nominal fee</label>
+            </value>
+            <value>
+                <fullName>Dog Park</fullName>
+                <default>false</default>
+                <label>Dog Park</label>
+            </value>
+            <value>
+                <fullName>Dog Spa</fullName>
+                <default>false</default>
+                <label>Dog Spa</label>
+            </value>
+            <value>
+                <fullName>EV Charging</fullName>
+                <default>false</default>
+                <label>EV Charging</label>
+            </value>
+            <value>
+                <fullName>Event space</fullName>
+                <default>false</default>
+                <label>Event space</label>
+            </value>
+            <value>
+                <fullName>Exercise Room</fullName>
+                <default>false</default>
+                <label>Exercise Room</label>
+            </value>
+            <value>
+                <fullName>Family Private Dining</fullName>
+                <default>false</default>
+                <label>Family Private Dining</label>
+            </value>
+            <value>
+                <fullName>Fire Pit Lounge</fullName>
+                <default>false</default>
+                <label>Fire Pit Lounge</label>
+            </value>
+            <value>
+                <fullName>Fitness Center</fullName>
+                <default>false</default>
+                <label>Fitness Center</label>
+            </value>
+            <value>
+                <fullName>Game Room</fullName>
+                <default>false</default>
+                <label>Game Room</label>
+            </value>
+            <value>
+                <fullName>Gas Grill</fullName>
+                <default>false</default>
+                <label>Gas Grill</label>
+            </value>
+            <value>
+                <fullName>Gazebo</fullName>
+                <default>false</default>
+                <label>Gazebo</label>
+            </value>
+            <value>
+                <fullName>Golf Simulator</fullName>
+                <default>false</default>
+                <label>Golf Simulator</label>
+            </value>
+            <value>
+                <fullName>Grilling Area</fullName>
+                <default>false</default>
+                <label>Grilling Area</label>
+            </value>
+            <value>
+                <fullName>Gym</fullName>
+                <default>false</default>
+                <label>Gym</label>
+            </value>
+            <value>
+                <fullName>Housekeeping for fee</fullName>
+                <default>false</default>
+                <label>Housekeeping for fee</label>
+            </value>
+            <value>
+                <fullName>Indoor Pool</fullName>
+                <default>false</default>
+                <label>Indoor Pool</label>
+            </value>
+            <value>
+                <fullName>Internet Cafe</fullName>
+                <default>false</default>
+                <label>Internet Cafe</label>
+            </value>
+            <value>
+                <fullName>Keyless Entry</fullName>
+                <default>false</default>
+                <label>Keyless Entry</label>
+            </value>
+            <value>
+                <fullName>Kids Room</fullName>
+                <default>false</default>
+                <label>Kids Room</label>
+            </value>
+            <value>
+                <fullName>Large Patio Space</fullName>
+                <default>false</default>
+                <label>Large Patio Space</label>
+            </value>
+            <value>
+                <fullName>Lawn Tennis</fullName>
+                <default>false</default>
+                <label>Lawn Tennis</label>
+            </value>
+            <value>
+                <fullName>Library</fullName>
+                <default>false</default>
+                <label>Library</label>
+            </value>
+            <value>
+                <fullName>Lobby</fullName>
+                <default>false</default>
+                <label>Lobby</label>
+            </value>
+            <value>
+                <fullName>Lounge</fullName>
+                <default>false</default>
+                <label>Lounge</label>
+            </value>
+            <value>
+                <fullName>Media Room</fullName>
+                <default>false</default>
+                <label>Media Room</label>
+            </value>
+            <value>
+                <fullName>Meditation Garden</fullName>
+                <default>false</default>
+                <label>Meditation Garden</label>
+            </value>
+            <value>
+                <fullName>Movie Room</fullName>
+                <default>false</default>
+                <label>Movie Room</label>
+            </value>
+            <value>
+                <fullName>Central laundry room</fullName>
+                <default>false</default>
+                <label>On-Site Laundry Room</label>
+            </value>
+            <value>
+                <fullName>On-site Retail</fullName>
+                <default>false</default>
+                <label>On-site Retail</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Outdoor Courtyard</fullName>
+                <default>false</default>
+                <label>Outdoor Courtyard</label>
+            </value>
+            <value>
+                <fullName>Outdoor exercise area</fullName>
+                <default>false</default>
+                <label>Outdoor Exercise Area</label>
+            </value>
+            <value>
+                <fullName>Outdoor Games</fullName>
+                <default>false</default>
+                <label>Outdoor Games</label>
+            </value>
+            <value>
+                <fullName>Outdoor Patio</fullName>
+                <default>false</default>
+                <label>Outdoor Patio</label>
+            </value>
+            <value>
+                <fullName>Outdoor Patio with fire pit</fullName>
+                <default>false</default>
+                <label>Outdoor Patio with fire pit</label>
+            </value>
+            <value>
+                <fullName>Outdoor Pool</fullName>
+                <default>false</default>
+                <label>Outdoor Pool</label>
+            </value>
+            <value>
+                <fullName>Outdoor Recreation Area</fullName>
+                <default>false</default>
+                <label>Outdoor Recreation Area</label>
+            </value>
+            <value>
+                <fullName>Outdoor Saltwater Heated Pool with Spa</fullName>
+                <default>false</default>
+                <label>Outdoor Saltwater Heated Pool with Spa</label>
+            </value>
+            <value>
+                <fullName>Outdoor Space</fullName>
+                <default>false</default>
+                <label>Outdoor Space</label>
+            </value>
+            <value>
+                <fullName>Outdoor Terrace</fullName>
+                <default>false</default>
+                <label>Outdoor Terrace</label>
+            </value>
+            <value>
+                <fullName>Package Delivery System</fullName>
+                <default>false</default>
+                <label>Package System</label>
+            </value>
+            <value>
+                <fullName>Park / trails</fullName>
+                <default>false</default>
+                <label>Park / trails</label>
+            </value>
+            <value>
+                <fullName>Party Room</fullName>
+                <default>false</default>
+                <label>Party Room</label>
+            </value>
+            <value>
+                <fullName>Passive Open Space</fullName>
+                <default>false</default>
+                <label>Passive Open Space</label>
+            </value>
+            <value>
+                <fullName>PC Room</fullName>
+                <default>false</default>
+                <label>PC Room</label>
+            </value>
+            <value>
+                <fullName>Personal maintenance for a fee</fullName>
+                <default>false</default>
+                <label>Personal maintenance for a fee</label>
+            </value>
+            <value>
+                <fullName>Pet Play Area</fullName>
+                <default>false</default>
+                <label>Pet Play Area</label>
+            </value>
+            <value>
+                <fullName>Pet Spa</fullName>
+                <default>false</default>
+                <label>Pet Spa</label>
+            </value>
+            <value>
+                <fullName>Pet Washing Station</fullName>
+                <default>false</default>
+                <label>Pet Washing Station</label>
+            </value>
+            <value>
+                <fullName>Pickleball Courts</fullName>
+                <default>false</default>
+                <label>Pickleball Courts</label>
+            </value>
+            <value>
+                <fullName>Picnic Areas</fullName>
+                <default>false</default>
+                <label>Picnic Areas</label>
+            </value>
+            <value>
+                <fullName>Playground</fullName>
+                <default>false</default>
+                <label>Playground</label>
+            </value>
+            <value>
+                <fullName>Play Room</fullName>
+                <default>false</default>
+                <label>Play Room</label>
+            </value>
+            <value>
+                <fullName>Pool</fullName>
+                <default>false</default>
+                <label>Pool</label>
+            </value>
+            <value>
+                <fullName>Pool Table</fullName>
+                <default>false</default>
+                <label>Pool Table</label>
+            </value>
+            <value>
+                <fullName>Private Dining Room</fullName>
+                <default>false</default>
+                <label>Private Dining Room</label>
+            </value>
+            <value>
+                <fullName>Private work from home office spaces</fullName>
+                <default>false</default>
+                <label>Private work from home office spaces</label>
+            </value>
+            <value>
+                <fullName>Putting Green</fullName>
+                <default>false</default>
+                <label>Putting Green</label>
+            </value>
+            <value>
+                <fullName>Resident Gardening Area</fullName>
+                <default>false</default>
+                <label>Resident Gardening Area</label>
+            </value>
+            <value>
+                <fullName>Resident Lounge</fullName>
+                <default>false</default>
+                <label>Resident Lounge</label>
+            </value>
+            <value>
+                <fullName>Rooftop Deck</fullName>
+                <default>false</default>
+                <label>Rooftop Deck</label>
+            </value>
+            <value>
+                <fullName>Rooftop Pool with Sundeck</fullName>
+                <default>false</default>
+                <label>Rooftop Pool with Sundeck</label>
+            </value>
+            <value>
+                <fullName>Rooftop resident lounge</fullName>
+                <default>false</default>
+                <label>Rooftop resident lounge</label>
+            </value>
+            <value>
+                <fullName>Salon</fullName>
+                <default>false</default>
+                <label>Salon</label>
+            </value>
+            <value>
+                <fullName>Sauna</fullName>
+                <default>false</default>
+                <label>Sauna</label>
+            </value>
+            <value>
+                <fullName>Shared Courtyard</fullName>
+                <default>false</default>
+                <label>Shared Courtyard</label>
+            </value>
+            <value>
+                <fullName>Shuffleboard</fullName>
+                <default>false</default>
+                <label>Shuffleboard</label>
+            </value>
+            <value>
+                <fullName>Spa</fullName>
+                <default>false</default>
+                <label>Spa</label>
+            </value>
+            <value>
+                <fullName>Sports Simulator</fullName>
+                <default>false</default>
+                <label>Sports Simulator</label>
+            </value>
+            <value>
+                <fullName>Storage</fullName>
+                <default>false</default>
+                <label>Storage</label>
+            </value>
+            <value>
+                <fullName>Sun Terrace</fullName>
+                <default>false</default>
+                <label>Sun Terrace</label>
+            </value>
+            <value>
+                <fullName>Swimming Pool</fullName>
+                <default>false</default>
+                <label>Swimming Pool</label>
+            </value>
+            <value>
+                <fullName>Tennis Court</fullName>
+                <default>false</default>
+                <label>Tennis Court</label>
+            </value>
+            <value>
+                <fullName>Theater Room</fullName>
+                <default>false</default>
+                <label>Theater Room</label>
+            </value>
+            <value>
+                <fullName>Tot Lot</fullName>
+                <default>false</default>
+                <label>Tot Lot</label>
+            </value>
+            <value>
+                <fullName>Transportation</fullName>
+                <default>false</default>
+                <label>Transportation</label>
+            </value>
+            <value>
+                <fullName>TV Room</fullName>
+                <default>false</default>
+                <label>TV Room</label>
+            </value>
+            <value>
+                <fullName>Two Story Fitness Center</fullName>
+                <default>false</default>
+                <label>Two Story Fitness Center</label>
+            </value>
+            <value>
+                <fullName>Video Intercom</fullName>
+                <default>false</default>
+                <label>Video Intercom</label>
+            </value>
+            <value>
+                <fullName>Volleyball Court</fullName>
+                <default>false</default>
+                <label>Volleyball Court</label>
+            </value>
+            <value>
+                <fullName>Walking path</fullName>
+                <default>false</default>
+                <label>Walking path</label>
+            </value>
+            <value>
+                <fullName>Work from home pods</fullName>
+                <default>false</default>
+                <label>Work from home pods</label>
+            </value>
+            <value>
+                <fullName>Yoga Room</fullName>
+                <default>false</default>
+                <label>Yoga Room</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

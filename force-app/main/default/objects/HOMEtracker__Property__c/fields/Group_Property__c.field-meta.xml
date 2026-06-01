@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Group_Property__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this field if this property is being used to outreach for a group of similar properties in the same development.</description>
+    <inlineHelpText>Check this field if this property is being used to outreach for a group of similar properties in the same development.</inlineHelpText>
+    <label>Group Property?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

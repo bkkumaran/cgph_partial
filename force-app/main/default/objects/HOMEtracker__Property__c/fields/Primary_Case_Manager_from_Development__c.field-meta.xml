@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Case_Manager_from_Development__c</fullName>
+    <description>Auto filled from the development.</description>
+    <externalId>false</externalId>
+    <formula>Development_address__r.Primary_Case_manager__r.FirstName &amp; &quot; &quot; &amp; Development_address__r.Primary_Case_manager__r.LastName</formula>
+    <inlineHelpText>Auto filled from the development.</inlineHelpText>
+    <label>Primary Case Manager from Development</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

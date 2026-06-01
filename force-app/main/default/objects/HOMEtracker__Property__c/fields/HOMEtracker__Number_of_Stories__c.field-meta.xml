@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Number_of_Stories__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Total number of stories, including finished lofts, attic and/or basement.</description>
+    <inlineHelpText>Total number of stories, including finished lofts, attic and/or basement.</inlineHelpText>
+    <label>Number of Stories</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 story</fullName>
+                <default>false</default>
+                <label>1 story</label>
+            </value>
+            <value>
+                <fullName>2 stories</fullName>
+                <default>false</default>
+                <label>2 stories</label>
+            </value>
+            <value>
+                <fullName>3 or more</fullName>
+                <default>false</default>
+                <label>3 or more</label>
+            </value>
+            <value>
+                <fullName>Split level</fullName>
+                <default>false</default>
+                <label>Split level</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

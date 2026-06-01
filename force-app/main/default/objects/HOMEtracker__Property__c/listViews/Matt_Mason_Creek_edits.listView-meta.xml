@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Matt_Mason_Creek_edits</fullName>
+    <columns>Income_Level__c</columns>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__List_Price__c</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>Pet_Policy__c</columns>
+    <columns>Property_Images__c</columns>
+    <columns>HOMEtracker__Number_of_Bathrooms__c</columns>
+    <columns>Additional_Parking_Fee__c</columns>
+    <columns>HOMEtracker__Current_HOA_Condo_Fees__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>contains</operation>
+        <value>The Villages at Mason Ridge</value>
+    </filters>
+    <label>Matt Mason Ridge edits</label>
+</ListView>

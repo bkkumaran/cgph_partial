@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COAH_Regions__c</fullName>
+    <label>COAH Regions</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Region 1 (Bergen, Hudson, Passaic, Sussex)</fullName>
+                <default>false</default>
+                <label>Region 1 (Bergen, Hudson, Passaic, Sussex)</label>
+            </value>
+            <value>
+                <fullName>Region 2 (Essex, Morris, Union, Warren)</fullName>
+                <default>false</default>
+                <label>Region 2 (Essex, Morris, Union, Warren)</label>
+            </value>
+            <value>
+                <fullName>Region 3 (Hunterdon, Middlesex, Somerset)</fullName>
+                <default>false</default>
+                <label>Region 3 (Hunterdon, Middlesex, Somerset)</label>
+            </value>
+            <value>
+                <fullName>Region 4 (Mercer, Monmouth, Ocean)</fullName>
+                <default>false</default>
+                <label>Region 4 (Mercer, Monmouth, Ocean)</label>
+            </value>
+            <value>
+                <fullName>Region 5 (Burlington, Camden, Gloucester)</fullName>
+                <default>false</default>
+                <label>Region 5 (Burlington, Camden, Gloucester)</label>
+            </value>
+            <value>
+                <fullName>Region 6 (Atlantic, Cape May, Cumberland, Salem)</fullName>
+                <default>false</default>
+                <label>Region 6 (Atlantic, Cape May, Cumberland, Salem)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

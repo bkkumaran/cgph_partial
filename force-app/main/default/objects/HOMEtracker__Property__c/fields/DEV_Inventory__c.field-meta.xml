@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DEV_Inventory__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(  RecordTypeId = &apos;012o00000003bU2&apos;,HYPERLINK(&apos;https://cgph.lightning.force.com/lightning/r/Report/00O6O000008SdVQUA0/view?queryScope=userFolders&amp;fv0=&apos;&amp; Name ,&quot;INVENTORY&quot;),
+HYPERLINK(&apos;https://cgph.lightning.force.com/lightning/r/Report/00O6O000008SdVQUA0/view?queryScope=userFolders&amp;fv0=&apos;&amp;  Development_address__r.Name ,&quot;DEVELOPMENT INVENTORY&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>DEV Inventory</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HM_Bedminster_DR_periods</fullName>
+    <columns>Development_address__c</columns>
+    <columns>NAME</columns>
+    <columns>of_years_in_initial_afford_peri__c</columns>
+    <columns>Date_Initial_Controls_Expire__c</columns>
+    <columns>Controls_Extended__c</columns>
+    <columns>of_years_in_new_affordability_period__c</columns>
+    <columns>Extension_of_control_verified__c</columns>
+    <columns>Extension_of_Controls_notes__c</columns>
+    <columns>controls_extended_NO_NEW_CREDIT__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <filters>
+        <field>Municipality_Name__c</field>
+        <operation>equals</operation>
+        <value>bedminster</value>
+    </filters>
+    <label>_HM Bedminster DR periods</label>
+</ListView>

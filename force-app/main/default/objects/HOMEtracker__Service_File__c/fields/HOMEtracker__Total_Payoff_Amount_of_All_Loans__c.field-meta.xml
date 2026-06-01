@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Total_Payoff_Amount_of_All_Loans__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Total amount of all loan payoffs at closing. (HUD-1 504 and higher). Optional: itemize the individual payoffs on the related Funding Source record. 
+
+Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout.</description>
+    <inlineHelpText>Total amount of all loan payoffs at closing. (HUD-1 504 and higher). Optional: itemize the individual payoffs on the related Funding Source record.</inlineHelpText>
+    <label>Total Payoff Amount of All Loans</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

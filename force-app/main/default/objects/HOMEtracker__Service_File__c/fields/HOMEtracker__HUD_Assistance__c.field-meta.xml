@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__HUD_Assistance__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Type of additional HUD programs the client is receiving. If the value is not available it defaults it to ‘Other HUD Program’. This field is required for 9902 reporting. Contact HomeKeeper Support before customizing to prevent errors when generating the 9902.</description>
+    <inlineHelpText>Type of additional HUD programs the client is receiving.</inlineHelpText>
+    <label>HUD Assistance</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Rental Voucher</fullName>
+                <default>false</default>
+                <label>Rental Voucher</label>
+            </value>
+            <value>
+                <fullName>Place Based Rental Assistance</fullName>
+                <default>false</default>
+                <label>Place Based Rental Assistance</label>
+            </value>
+            <value>
+                <fullName>Home Ownership Voucher</fullName>
+                <default>false</default>
+                <label>Home Ownership Voucher</label>
+            </value>
+            <value>
+                <fullName>Purchase REO Property</fullName>
+                <default>false</default>
+                <label>Purchase REO Property</label>
+            </value>
+            <value>
+                <fullName>Down Payment Assistance</fullName>
+                <default>false</default>
+                <label>Down Payment Assistance</label>
+            </value>
+            <value>
+                <fullName>Other HUD Program</fullName>
+                <default>false</default>
+                <label>Other HUD Program</label>
+            </value>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

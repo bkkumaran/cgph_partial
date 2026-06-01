@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Subtotal__c</fullName>
+    <description>HR Total Value / HR Market Ratio</description>
+    <formula>IF(HR_Subtotal_Override__c &gt;0, HR_Subtotal_Override__c, 
+IF(OR(HR_Land_Value__c=0,HR_Total_Value__c=0),0,HR_Total_Value__c /  HR_Market_Ratio__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>HR Subtotal</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Min_Household_Size__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(VALUE(TEXT(HOMEtracker__Number_of_Bedrooms__c))&lt;=1, VALUE(TEXT(HOMEtracker__Number_of_Bedrooms__c)),
+  If( ISPICKVAL(Listing_Stage__c , &apos;Reduced bedroom/household size restricted&apos;), VALUE(TEXT(HOMEtracker__Number_of_Bedrooms__c))-1,
+    If(  ISPICKVAL(Listing_Stage__c , &apos;Open Listing&apos;), 1,VALUE(TEXT(HOMEtracker__Number_of_Bedrooms__c)))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Min Household Size</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Full_Address__c</fullName>
+    <externalId>false</externalId>
+    <formula>HOMEtracker__Property__r.Name&amp;BR()&amp;HOMEtracker__Property__r.HOMEtracker__City__c&amp;&quot;, &quot;&amp;HOMEtracker__Property__r.HOMEtracker__State__c&amp;&quot; &quot;&amp;HOMEtracker__Property__r.HOMEtracker__Postal_Code__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Full Address</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

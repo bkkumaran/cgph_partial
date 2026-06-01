@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Terminated_Cabinet_Number__c</fullName>
+    <description>Number of the cabinet in which terminated files for this property are located.</description>
+    <inlineHelpText>Number of the cabinet in which terminated files for this property are located.</inlineHelpText>
+    <label>OLD Cabinet Number (Terminated)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Cabinet_Number</valueSetName>
+    </valueSet>
+</CustomField>

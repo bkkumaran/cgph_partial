@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Custom_Pre_app_Link__c</fullName>
+    <description>If you want a custom &quot;How to Apply&quot; section on this development&apos;s page on the website, enter the pre-app link here. Example: https://dev.affordablehomesnewjersey.com/cooper-tower-pre-application/</description>
+    <inlineHelpText>If you want a custom &quot;How to Apply&quot; section on this development&apos;s page on the website, enter the pre-app link here. Example: https://dev.affordablehomesnewjersey.com/cooper-tower-pre-application/</inlineHelpText>
+    <label>Custom Pre-app Link</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

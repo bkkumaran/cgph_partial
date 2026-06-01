@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Credit_Card_Payment_Behavior__c</fullName>
+    <deprecated>false</deprecated>
+    <description>&quot;How much do you typically pay on your credit card monthly bills?&quot;</description>
+    <inlineHelpText>&quot;How much do you typically pay on your credit card monthly bills?&quot;</inlineHelpText>
+    <label>Credit Card Payment Behavior</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No credit cards</fullName>
+                <default>false</default>
+                <label>No credit cards</label>
+            </value>
+            <value>
+                <fullName>The full balance</fullName>
+                <default>false</default>
+                <label>The full balance</label>
+            </value>
+            <value>
+                <fullName>Less than the full balance, more than the minimum required</fullName>
+                <default>false</default>
+                <label>Less than the full balance, more than the minimum required</label>
+            </value>
+            <value>
+                <fullName>The minimum required</fullName>
+                <default>false</default>
+                <label>The minimum required</label>
+            </value>
+            <value>
+                <fullName>Less than the minimum required</fullName>
+                <default>false</default>
+                <label>Less than the minimum required</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

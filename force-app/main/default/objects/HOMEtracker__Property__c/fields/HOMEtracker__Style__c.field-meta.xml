@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Style__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Tip: Customize the picklist to better reflect your portfolio.</description>
+    <inlineHelpText>Tip: Customize the picklist to better reflect your portfolio.</inlineHelpText>
+    <label>Style</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Brown Shingle</fullName>
+                <default>false</default>
+                <label>Brown Shingle</label>
+            </value>
+            <value>
+                <fullName>Bungalow</fullName>
+                <default>false</default>
+                <label>Bungalow</label>
+            </value>
+            <value>
+                <fullName>Cabin</fullName>
+                <default>false</default>
+                <label>Cabin</label>
+            </value>
+            <value>
+                <fullName>Cape Cod</fullName>
+                <default>false</default>
+                <label>Cape Cod</label>
+            </value>
+            <value>
+                <fullName>Colonial</fullName>
+                <default>false</default>
+                <label>Colonial</label>
+            </value>
+            <value>
+                <fullName>Contemporary</fullName>
+                <default>false</default>
+                <label>Contemporary</label>
+            </value>
+            <value>
+                <fullName>Cottage</fullName>
+                <default>false</default>
+                <label>Cottage</label>
+            </value>
+            <value>
+                <fullName>Craftsman</fullName>
+                <default>false</default>
+                <label>Craftsman</label>
+            </value>
+            <value>
+                <fullName>Custom</fullName>
+                <default>false</default>
+                <label>Custom</label>
+            </value>
+            <value>
+                <fullName>English</fullName>
+                <default>false</default>
+                <label>English</label>
+            </value>
+            <value>
+                <fullName>Farm House</fullName>
+                <default>false</default>
+                <label>Farm House</label>
+            </value>
+            <value>
+                <fullName>Fixer-Handyman Special</fullName>
+                <default>false</default>
+                <label>Fixer-Handyman Special</label>
+            </value>
+            <value>
+                <fullName>French Country</fullName>
+                <default>false</default>
+                <label>French Country</label>
+            </value>
+            <value>
+                <fullName>French Provincial</fullName>
+                <default>false</default>
+                <label>French Provincial</label>
+            </value>
+            <value>
+                <fullName>Manufactured Housing</fullName>
+                <default>false</default>
+                <label>Manufactured Housing</label>
+            </value>
+            <value>
+                <fullName>Mediterranean</fullName>
+                <default>false</default>
+                <label>Mediterranean</label>
+            </value>
+            <value>
+                <fullName>Normandy</fullName>
+                <default>false</default>
+                <label>Normandy</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Prairie</fullName>
+                <default>false</default>
+                <label>Prairie</label>
+            </value>
+            <value>
+                <fullName>Ranch/Rambler</fullName>
+                <default>false</default>
+                <label>Ranch/Rambler</label>
+            </value>
+            <value>
+                <fullName>Spanish</fullName>
+                <default>false</default>
+                <label>Spanish</label>
+            </value>
+            <value>
+                <fullName>Traditional</fullName>
+                <default>false</default>
+                <label>Traditional</label>
+            </value>
+            <value>
+                <fullName>Tudor</fullName>
+                <default>false</default>
+                <label>Tudor</label>
+            </value>
+            <value>
+                <fullName>Victorian</fullName>
+                <default>false</default>
+                <label>Victorian</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

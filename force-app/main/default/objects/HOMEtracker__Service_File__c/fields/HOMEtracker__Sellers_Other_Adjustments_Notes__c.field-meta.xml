@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Sellers_Other_Adjustments_Notes__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field is no longer being used as of version 1.10 and should be removed from all layouts. Formerly used to explain the calculation in Seller&apos;s Other Adjustments at Closing, a formula field that is now obsolete. See 1.10 Release Notes for more info.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Summarize the other adjustments calculated in Seller&apos;s Other Adjustments at Closing. For example, &quot;Includes credits to the buyers for required repairs.&quot;</inlineHelpText>
+    <label>Seller&apos;s Other Adjustments Notes (OLD)</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Settlement_Charges_to_Borrower__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The data stored in this field is linked to the HomeKeeper National Data Hub. HUD-1 Line 103. The sum of all fees paid by the borrower/buyer at closing. Sometimes called closing costs. This field was added in 1.10 in order to improve the user process for entering amounts due.</description>
+    <inlineHelpText>Line 103 on the HUD-1. The sum of all fees paid by the borrower/buyer at closing. Sometimes called closing costs.</inlineHelpText>
+    <label>Settlement Charges to Borrower</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

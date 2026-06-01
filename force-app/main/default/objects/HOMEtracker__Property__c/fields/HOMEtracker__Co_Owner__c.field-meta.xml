@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Co_Owner__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This is automatically populated from the current homeowner Service File related to this Property.</description>
+    <inlineHelpText>This is automatically populated from the current homeowner Service File related to this Property.</inlineHelpText>
+    <label>Co-Owner</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Properties (Co-Owner)</relationshipLabel>
+    <relationshipName>Properties1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

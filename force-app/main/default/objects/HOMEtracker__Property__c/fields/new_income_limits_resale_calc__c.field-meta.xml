@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>new_income_limits_resale_calc__c</fullName>
+    <inlineHelpText>Homes in process of selling when new increase came out.  Enter status and priority</inlineHelpText>
+    <label>new income limits resale calc</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No increase - none this year</fullName>
+                <default>false</default>
+                <label>No increase - none this year</label>
+            </value>
+            <value>
+                <fullName>No increase - sellers choice</fullName>
+                <default>false</default>
+                <label>No increase - sellers choice</label>
+            </value>
+            <value>
+                <fullName>No increase - No eligible for new increase b/c selling for lower</fullName>
+                <default>false</default>
+                <label>No increase - No eligible for new increase b/c selling for lower</label>
+            </value>
+            <value>
+                <fullName>No increase – initial sale</fullName>
+                <default>false</default>
+                <label>No increase – initial sale</label>
+            </value>
+            <value>
+                <fullName>No increase - Under contract or certified applicant</fullName>
+                <default>false</default>
+                <label>No increase - Under contract or certified applicant</label>
+            </value>
+            <value>
+                <fullName>Priority 1 increase – apps under review</fullName>
+                <default>false</default>
+                <label>Priority 1 increase – apps under review</label>
+            </value>
+            <value>
+                <fullName>Priority 2 increase – apps invited</fullName>
+                <default>false</default>
+                <label>Priority 2 increase – apps invited</label>
+            </value>
+            <value>
+                <fullName>Priority 3 increase – invited to group showing</fullName>
+                <default>false</default>
+                <label>Priority 3 increase – invited to group showing</label>
+            </value>
+            <value>
+                <fullName>Priority 4 increase</fullName>
+                <default>false</default>
+                <label>Priority 4 increase</label>
+            </value>
+            <value>
+                <fullName>Taking Increase -done</fullName>
+                <default>false</default>
+                <label>Taking Increase -done</label>
+            </value>
+            <value>
+                <fullName>Not applicable - done</fullName>
+                <default>false</default>
+                <label>Not applicable - done</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

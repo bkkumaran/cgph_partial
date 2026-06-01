@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Gross_Monthly_Income__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Auto-calculated. Annual Income (Gross) divided by 12.</description>
+    <formula>HOMEtracker__Total_Pretax_Income_This_Year__c / 12</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Auto-calculated. Annual Income (Gross) divided by 12.</inlineHelpText>
+    <label>Gross Monthly Income</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

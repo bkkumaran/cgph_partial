@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Accessory_Apt_CR</fullName>
+    <columns>NAME</columns>
+    <columns>Municipality_Name__c</columns>
+    <columns>HOMEtracker__City__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>Status_Message__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>startsWith</operation>
+        <value>Accessory</value>
+    </filters>
+    <label>Accessory_Apt_CR</label>
+</ListView>

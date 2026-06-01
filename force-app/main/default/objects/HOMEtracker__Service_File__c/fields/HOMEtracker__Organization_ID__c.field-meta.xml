@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Organization_ID__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Used to support reports that will be sent to researchers from multiple organizations as part of the 2012 CHIP evaluation.</description>
+    <externalId>false</externalId>
+    <formula>$Organization.Id</formula>
+    <inlineHelpText>The salesforce.com Organization ID attached to this instance.</inlineHelpText>
+    <label>Organization ID</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

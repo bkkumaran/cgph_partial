@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__How_Many_Addresses_In_5_Years_Prior__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The number of previous addresses the applicant listed for the past 5 years.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number of previous addresses the applicant listed for the past 5 years.</inlineHelpText>
+    <label>How Many Addresses In 5 Years Prior</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

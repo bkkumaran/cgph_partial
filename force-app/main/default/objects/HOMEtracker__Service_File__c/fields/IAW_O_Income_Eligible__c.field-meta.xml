@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_O_Income_Eligible__c</fullName>
+    <description>Calculated based on the &quot;Meets Max &amp; Min Income Limit&quot; fields, Waiver fields, and Special Consideration field. If &quot;Yes&quot;, any conditions will be specified. Priority: Special Considerations, Ownership Waiver, Over Inc (Mod), Max Inc Limit, Min Inc Limit.</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(Meets_Max_Income_Limit__c = &quot;No&quot;,
+Meets_Min_Income_Limit__c = &quot;No&quot;), &quot;ERROR&quot;,
+
+IF(TEXT(IAW_Special_Consideration__c) = &quot;Yes&quot;,
+&quot;Yes (Special Consideration)&quot;,
+
+IF(TEXT(IAW_Ownership_Waiver__c) = &quot;Yes&quot;,
+&quot;Yes (Waiver)&quot;,
+
+IF(HOMEtracker__Annual_Income_Eligibility__c &gt;
+Moderate_Income_Limit__c, &quot;No (Over Income)&quot;,
+
+IF(Meets_Max_Income_Limit__c = &quot;No&quot;,
+&quot;No (Over Max Income)&quot;,
+
+IF(Meets_Min_Income_Limit__c = &quot;No&quot;,
+&quot;No (Under Min Income)&quot;,
+
+IF(Meets_Min_Income_Limit__c = &quot;Yes (Waiver)&quot;,
+&quot;Yes (Waiver)&quot;,
+
+IF(Meets_Min_Income_Limit__c = &quot;Yes&quot;,
+&quot;Yes&quot;,
+
+&quot;ERROR&quot;))))))))</formula>
+    <inlineHelpText>Calculated based on the &quot;Meets Max &amp; Min Income Limit&quot; fields, Waiver fields, and Special Consideration field. If &quot;Yes&quot;, any conditions will be specified. Priority: Special Considerations, Ownership Waiver, Over Inc (Mod), Max Inc Limit, Min Inc Limit.</inlineHelpText>
+    <label>Income Eligible?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

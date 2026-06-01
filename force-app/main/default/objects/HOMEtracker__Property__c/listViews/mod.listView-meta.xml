@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mod</fullName>
+    <columns>NAME</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Max_Income_Level__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>Income_Level__c</field>
+        <operation>notEqual</operation>
+        <value>Very Low,Low,Moderate</value>
+    </filters>
+    <label>mod</label>
+</ListView>

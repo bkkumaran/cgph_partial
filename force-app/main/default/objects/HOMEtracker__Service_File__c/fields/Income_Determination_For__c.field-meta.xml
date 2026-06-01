@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Income_Determination_For__c</fullName>
+    <description>Displays the Income Determination value for the Municipality Affordable Assistance Report. If the IAW was not used, it will pull from the Manual Income Determination field.</description>
+    <externalId>false</externalId>
+    <formula>IF(IAW_Income_Determination__c=&quot;Click Update Income Limits Button&quot;,
+
+IF(TEXT(Manual_Income_Determination__c)=&quot;&quot;,&quot;Run IAW or Choose Income Level from Manual Income Determination Field&quot;,
+
+TEXT(Manual_Income_Determination__c))
+
+,IAW_Income_Determination__c)</formula>
+    <inlineHelpText>Displays the Income Determination value for the Municipality Affordable Assistance Report. If the IAW was not used, it will pull from the Manual Income Determination field.</inlineHelpText>
+    <label>Income Determination for MAA Report</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

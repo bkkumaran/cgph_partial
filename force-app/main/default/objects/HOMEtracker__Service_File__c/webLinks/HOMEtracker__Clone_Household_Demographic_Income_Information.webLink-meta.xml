@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Clone_Household_Demographic_Income_Information</fullName>
+    <availability>online</availability>
+    <description>Clone Service File&apos;s Household, Demographic &amp; Income Information</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Clone Household, Demographic &amp; Income Information</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)} 
+
+var result = sforce.apex.execute(&quot;HOMEtracker.SpecialCloneServiceFile&quot;,&quot;specialCloneServiceFile&quot;,{serviceFileID: &quot;{!CASESAFEID(HOMEtracker__Service_File__c.Id)}&quot;}); 
+//alert(&apos;Cloning Service File&apos;); 
+// redirect to the new cloned service file 
+top.location.replace(&quot;/&quot; + result +&apos;/e?retURL=&apos;+result);</url>
+</WebLink>

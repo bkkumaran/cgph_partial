@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Original_Loan_Principal_at_Resale__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This trigger-calculated field sums funding sources from all loans that do not have a payoff date before resale. Of those, this field is the sum of: the Amount of all Funding Sources where Funding Source Type is Loan (Purchase); plus the sum of the Amounts of all Funding Sources where Funding Source Type is Loan (Rehab) or Loan (Other Post-Purchase); plus the sum of Greater Amount Borrowed for all Funding Sources where the Funding Source Type is Loan (Refinance). For refinance loans, the Greater Amount Borrowed is calculated using either the Original Amount of Retired Loan(s) or the Amount of the refinanced loan, whichever is higher. This will only calculate when Resale Close Date is not blank.</description>
+    <inlineHelpText>This calculated field shows the sum of loan funding sources that do not have a payoff date before resale. For refinance loans, this is calculated using either the Original Amount of Retired Loan(s) or Amount of the refinanced loan, whichever is higher.</inlineHelpText>
+    <label>Original Loan Principal at Resale</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

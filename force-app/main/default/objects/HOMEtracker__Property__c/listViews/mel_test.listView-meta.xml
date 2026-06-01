@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mel_test</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>The Hills- Village Green</value>
+    </filters>
+    <filters>
+        <field>Controls_Extended__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Group_Property__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>mel test</label>
+</ListView>

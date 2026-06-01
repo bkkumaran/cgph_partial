@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gateways_at_randolph</fullName>
+    <columns>NAME</columns>
+    <columns>Group_Property_Parent__c</columns>
+    <columns>Group_Property__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Gateways at Randolph</value>
+    </filters>
+    <label>gateways at randolph</label>
+</ListView>

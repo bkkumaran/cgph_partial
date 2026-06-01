@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Amenity_Fee__c</fullName>
+    <description>No mandatory rental amenity fee are allowed by affordable housing rules.  Options are:  
+1.  no charge for use of amenities by affordable tenants.
+2. There is an optional  $xxx (monthly or annual or 1 time) amenity fee for use of community amenities
+3. N/A because there are no amenities</description>
+    <externalId>false</externalId>
+    <inlineHelpText>No mandatory rental amenity fee allowed by affordable housing rules.  Options are:  
+1.  no charge for use of amenities by affordable tenants.
+2. There is an optional  $xxx (monthly or annual or 1 time) amenity fee for use of community amenities
+3. N/A</inlineHelpText>
+    <label>Amenity Fee</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vacancy_Pricing__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISBLANK(Development_address__r.DIPA__c) = true,&quot;Update &apos;Date of Initial Pricing Adjustment&apos; on Development&quot;,
+HYPERLINK(
+&quot;/apex/APXTConga4__Conga_Composer?serverUrl=&quot; &amp; $Api.Enterprise_Server_URL_370 &amp;
+&quot;&amp;Id=&quot; &amp; Id &amp;
+&quot;&amp;OFN=Vacancy+Pricing+&quot; &amp; Name &amp;
+&quot;&amp;DC=&quot; &amp;
+IF( OR(ISBLANK(  Date_of_Initial_Rental_Pricing__c  ),Initial_rental_pricing__c=0,ISBLANK(  Initial_rental_pricing__c  )), &quot;1&quot; , &quot;0&quot;) &amp;
+&quot;&amp;DCL=MISSING+Initial+Pricing+OR+Date+of+Initial+Pricing&amp;TemplateID=a291N000004G8DC&amp;DS7=3&quot;,&quot;Click Here To Export&quot;,&quot;_blank&quot;)
+)</formula>
+    <label>Vacancy Pricing</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

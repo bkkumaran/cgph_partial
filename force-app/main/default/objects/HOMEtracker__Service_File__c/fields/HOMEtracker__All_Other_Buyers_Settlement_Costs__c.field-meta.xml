@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__All_Other_Buyers_Settlement_Costs__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The data stored in this field is no longer linked to the HomeKeeper National Data Hub (starting with version 1.10). This field was previously used to track the sum of Lines 102 to 112 MINUS Prepaids/Reserves, Section 900 and 1000, but required a lot of manual calculation by users. Instead, users now enter the amounts due from buyer into separate fields. Historical data stored in this field will still be used in 3 formula fields: &apos;Gross Amount Due Accounted For?&apos;, &apos;Discount Relative to Market Value&apos;, and &apos;Subsidy Beyond Market Value&apos;, all of which function differently if there is data in this field than if it is blank. No manual updates to historical files are required.</description>
+    <inlineHelpText>This field is no longer active. This field has been replaced by a calculated field, Buyer&apos;s Total Investment at Closing. Make sure that all files have Funding Source records that capture investment.</inlineHelpText>
+    <label>All Other Buyer&apos;s Settlement Costs (OLD)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

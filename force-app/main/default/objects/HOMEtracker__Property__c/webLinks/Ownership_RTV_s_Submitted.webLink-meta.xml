@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ownership_RTV_s_Submitted</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Temp Do not Use</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://cgph.my.salesforce.com/00Oo0000005GQ0D?
+
+pv0={!HOMEtracker__Property__c.Name} &amp;
+pv1={Property Questionnaire} &amp;
+pv2={Pending} &amp;
+
+pv3={Requested to Visit} &amp;
+pv4={!HOMEtracker__Property__c.Campaign__c} &amp;
+
+pv5={!HOMEtracker__Property__c.Name} &amp;
+pv6={Property Questionnaire} &amp;
+pv7={Pending} &amp;
+
+pv8={!HOMEtracker__Property__c.Name} &amp;
+pv9={Property Questionnaire} &amp;
+pv10={Pending} &amp;
+
+pv11={!HOMEtracker__Property__c.Name} &amp;
+pv12={Property Questionnaire} &amp;
+pv13={Pending}</url>
+</WebLink>

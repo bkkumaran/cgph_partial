@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_Ren_Square</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>HOMEtracker__Monthly_Rent__c</columns>
+    <columns>Building_Number__c</columns>
+    <columns>Unit_Number__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Residences at North Village</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+        <value>mod</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <label>AA Ren Square</label>
+</ListView>

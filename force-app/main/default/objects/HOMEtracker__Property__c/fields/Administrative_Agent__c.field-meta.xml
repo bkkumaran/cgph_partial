@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Administrative_Agent__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>Who is the current administrative agent for this development? (Account Object)</inlineHelpText>
+    <label>Administrative Agent</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Properties (Administrative Agent)</relationshipLabel>
+    <relationshipName>Admin_Agent_Property</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Include_on_Tracker__c</fullName>
+    <formula>AND(
+OR(
+AND(CONTAINS(TEXT(Application_Workflow_Status__c ),&apos;Application Received&apos;),NOT(Contains(TEXT(Application_Workflow_Status__c ),&apos;Backup&apos;))),
+OR(
+TEXT( HOMEtracker__Status__c )= &apos;Application in Process&apos;,
+TEXT( HOMEtracker__Status__c )= &apos;Application in Process - Alternate Property&apos;,
+TEXT( HOMEtracker__Status__c )= &apos;Application in Process - Old Docs&apos;
+)
+),
+AND(
+NOT(TEXT( HOMEtracker__Status__c )=&apos;Current Owner&apos;),
+NOT(TEXT( HOMEtracker__Status__c )=&apos;Current Renter&apos;),
+NOT(TEXT( HOMEtracker__Status__c )=&apos;Failed Income Certification&apos;),
+NOT(TEXT( HOMEtracker__Status__c )=&apos;Failed Pre-Screen&apos;),
+NOT(TEXT( HOMEtracker__Status__c )=&apos;Past Renter&apos;),
+NOT(TEXT( HOMEtracker__Status__c )=&apos;&apos;),
+NOT(CONTAINS(TEXT( HOMEtracker__Status__c ),&apos;Withdrawn&apos;))
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Include on Tracker</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

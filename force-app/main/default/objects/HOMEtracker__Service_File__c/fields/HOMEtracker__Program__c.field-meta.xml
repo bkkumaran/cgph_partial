@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Program__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The program or service that the applicant is applying for. Tip: Save time by selecting a picklist default. Please note: Depending on the program, the data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this picklist or hide this field from the layout. A Program must be selected in order to submit transaction data to the HomeKeeper National Data Hub.</description>
+    <inlineHelpText>The program or service that the applicant is applying for. 
+
+Tip: Save time by selecting a picklist default.</inlineHelpText>
+    <label>Program</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Allamuchy Township</fullName>
+                <default>false</default>
+                <label>Allamuchy Township</label>
+            </value>
+            <value>
+                <fullName>Berlin Township</fullName>
+                <default>false</default>
+                <label>Berlin Township</label>
+            </value>
+            <value>
+                <fullName>Bloomingdale Borough</fullName>
+                <default>false</default>
+                <label>Bloomingdale Borough</label>
+            </value>
+            <value>
+                <fullName>East Windsor Township</fullName>
+                <default>false</default>
+                <label>East Windsor Township</label>
+            </value>
+            <value>
+                <fullName>Edgewater Borough</fullName>
+                <default>false</default>
+                <label>Edgewater Borough</label>
+            </value>
+            <value>
+                <fullName>Edison Township</fullName>
+                <default>false</default>
+                <label>Edison Township</label>
+            </value>
+            <value>
+                <fullName>Flemington</fullName>
+                <default>false</default>
+                <label>Flemington</label>
+            </value>
+            <value>
+                <fullName>Franklin Township</fullName>
+                <default>false</default>
+                <label>Franklin Township</label>
+            </value>
+            <value>
+                <fullName>Freehold Township</fullName>
+                <default>false</default>
+                <label>Freehold Township</label>
+            </value>
+            <value>
+                <fullName>Glen Rock Borough</fullName>
+                <default>false</default>
+                <label>Glen Rock Borough</label>
+            </value>
+            <value>
+                <fullName>Greenwich</fullName>
+                <default>false</default>
+                <label>Greenwich</label>
+            </value>
+            <value>
+                <fullName>Highland Park</fullName>
+                <default>false</default>
+                <label>Highland Park</label>
+            </value>
+            <value>
+                <fullName>Hillsborough Township</fullName>
+                <default>false</default>
+                <label>Hillsborough Township</label>
+            </value>
+            <value>
+                <fullName>Hoboken City</fullName>
+                <default>false</default>
+                <label>Hoboken City</label>
+            </value>
+            <value>
+                <fullName>Holmdel Township</fullName>
+                <default>false</default>
+                <label>Holmdel Township</label>
+            </value>
+            <value>
+                <fullName>Howell Township</fullName>
+                <default>false</default>
+                <label>Howell Township</label>
+            </value>
+            <value>
+                <fullName>Lyndhurst Township</fullName>
+                <default>false</default>
+                <label>Lyndhurst Township</label>
+            </value>
+            <value>
+                <fullName>Mansfield Township</fullName>
+                <default>false</default>
+                <label>Mansfield Township</label>
+            </value>
+            <value>
+                <fullName>Maplewood Township</fullName>
+                <default>false</default>
+                <label>Maplewood Township</label>
+            </value>
+            <value>
+                <fullName>Marlboro Township</fullName>
+                <default>false</default>
+                <label>Marlboro Township</label>
+            </value>
+            <value>
+                <fullName>Montgomery Township</fullName>
+                <default>false</default>
+                <label>Montgomery Township</label>
+            </value>
+            <value>
+                <fullName>Ocean Township</fullName>
+                <default>false</default>
+                <label>Ocean Township</label>
+            </value>
+            <value>
+                <fullName>Old Bridge</fullName>
+                <default>false</default>
+                <label>Old Bridge</label>
+            </value>
+            <value>
+                <fullName>Passaic City</fullName>
+                <default>false</default>
+                <label>Passaic City</label>
+            </value>
+            <value>
+                <fullName>Springfield Township</fullName>
+                <default>false</default>
+                <label>Springfield Township</label>
+            </value>
+            <value>
+                <fullName>Stafford Township</fullName>
+                <default>false</default>
+                <label>Stafford Township</label>
+            </value>
+            <value>
+                <fullName>Union Township</fullName>
+                <default>false</default>
+                <label>Union Township</label>
+            </value>
+            <value>
+                <fullName>Upper Freehold Township</fullName>
+                <default>false</default>
+                <label>Upper Freehold Township</label>
+            </value>
+            <value>
+                <fullName>Voorhees Township</fullName>
+                <default>false</default>
+                <label>Voorhees Township</label>
+            </value>
+            <value>
+                <fullName>Wanaque Borough</fullName>
+                <default>false</default>
+                <label>Wanaque Borough</label>
+            </value>
+            <value>
+                <fullName>West Long Branch Borough</fullName>
+                <default>false</default>
+                <label>West Long Branch Borough</label>
+            </value>
+            <value>
+                <fullName>Willingboro Township</fullName>
+                <default>false</default>
+                <label>Willingboro Township</label>
+            </value>
+            <value>
+                <fullName>Woodbridge</fullName>
+                <default>false</default>
+                <label>Woodbridge</label>
+            </value>
+            <value>
+                <fullName>Wood-Ridge Township</fullName>
+                <default>false</default>
+                <label>Wood-Ridge Township</label>
+            </value>
+            <value>
+                <fullName>Watchung</fullName>
+                <default>false</default>
+                <label>Watchung</label>
+            </value>
+            <value>
+                <fullName>Deed Restricted Ownership</fullName>
+                <default>false</default>
+                <label>Deed Restricted Ownership</label>
+            </value>
+            <value>
+                <fullName>Rental</fullName>
+                <default>false</default>
+                <label>Rental</label>
+            </value>
+            <value>
+                <fullName>Ownership</fullName>
+                <default>false</default>
+                <label>Ownership</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

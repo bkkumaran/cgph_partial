@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rental_Assistance_Permitted__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>If checked and the applicant can&apos;t afford the rent, the landlord may approve the applicant if family, friends or organizations will assist in paying the rent. Auto filled from the &quot;Development Allows Rental Assistance?&quot; field on the Development.</description>
+    <inlineHelpText>If checked and the applicant can&apos;t afford the rent, the landlord may approve the applicant if family, friends or organizations will assist in paying the rent. Auto filled from the &quot;Development Allows Rental Assistance?&quot; field on the Development.</inlineHelpText>
+    <label>Rental Assistance Permitted</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

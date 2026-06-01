@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MY_post_at_beg_of_AMP</fullName>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Initial_affordability_of_Unit__c</columns>
+    <columns>Initial_rental_pricing__c</columns>
+    <columns>HOMEtracker__Monthly_Rent__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>contains</operation>
+        <value>enclave at woodcrest</value>
+    </filters>
+    <filters>
+        <field>of_years_in_initial_afford_peri__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Cherry Hill Enclave rents</label>
+</ListView>

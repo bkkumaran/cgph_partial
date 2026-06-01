@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Initial_Rent_Date_Occupied_Verified__c</fullName>
+    <inlineHelpText>Process of verifying initial rent, date occupied on rental units.</inlineHelpText>
+    <label>Initial Rent &amp; Date Occupied Verified</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Verified MB</fullName>
+                <default>false</default>
+                <label>Verified MB</label>
+            </value>
+            <value>
+                <fullName>Phase 1</fullName>
+                <default>false</default>
+                <label>Phase 1</label>
+            </value>
+            <value>
+                <fullName>Phase 2</fullName>
+                <default>false</default>
+                <label>Phase 2</label>
+            </value>
+            <value>
+                <fullName>Initial Lease up in progress</fullName>
+                <default>false</default>
+                <label>Initial Lease up in progress</label>
+            </value>
+            <value>
+                <fullName>Needs Follow-up</fullName>
+                <default>false</default>
+                <label>Needs Follow-up</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

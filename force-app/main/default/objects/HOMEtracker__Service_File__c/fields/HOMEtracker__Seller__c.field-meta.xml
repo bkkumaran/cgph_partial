@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Seller__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The Service File of the seller in this transaction. If no associated Service File, enter seller information in the notes and leave this field blank.</description>
+    <inlineHelpText>The Service File of the seller in this transaction.  If no associated Service File, enter seller information in the notes and leave this field blank.</inlineHelpText>
+    <label>Seller</label>
+    <referenceTo>HOMEtracker__Service_File__c</referenceTo>
+    <relationshipLabel>Services (Seller)</relationshipLabel>
+    <relationshipName>Services2</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

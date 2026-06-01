@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Funding_Source_Total__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. This is the total of Funding Sources for the Purchase Transaction only. It is the sum of related Funding Sources where Type is one of the following: Loan (Purchase), Gift (Private), Grant (Public/Non-Profit), Buyer&apos;s Cash, Credit (Seller / Lender), Other</description>
+    <inlineHelpText>This is the total of Funding Sources for the Purchase Transaction only. It is the sum of related Funding Sources where Type is one of the following: Loan (Purchase), Gift (Private), Grant (Public/Non-Profit), Buyer&apos;s Cash, Credit (Seller / Lender), Other</inlineHelpText>
+    <label>Funding Source Total</label>
+    <summarizedField>HOMEtracker__Funding_Source__c.HOMEtracker__Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>HOMEtracker__Funding_Source__c.HOMEtracker__Funding_Source_Type__c</field>
+        <operation>equals</operation>
+        <value>Loan (Purchase), Gift (Private), Grant (Public/Non-Profit), Buyer&apos;s Cash, Credit (Seller / Lender), Other</value>
+    </summaryFilterItems>
+    <summaryForeignKey>HOMEtracker__Funding_Source__c.HOMEtracker__Service_File__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

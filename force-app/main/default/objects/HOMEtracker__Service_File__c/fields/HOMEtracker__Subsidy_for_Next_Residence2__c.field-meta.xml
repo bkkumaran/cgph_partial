@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Subsidy_for_Next_Residence2__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change the field or hide the field from the layout. If seller is purchasing another home, have they or will they receive financial assistance from a public agency to help with the purchase? This field is important to help document the number of owners that move on to unassisted market-rate ownership.</description>
+    <inlineHelpText>If seller is purchasing another home, have they or will they receive financial assistance from a public agency to help with the purchase? This field is important to help document the number of owners that move on to unassisted market-rate ownership.</inlineHelpText>
+    <label>Subsidy for Next Residence</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

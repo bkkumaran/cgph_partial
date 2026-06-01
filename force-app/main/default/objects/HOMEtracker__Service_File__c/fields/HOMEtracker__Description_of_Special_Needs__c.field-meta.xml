@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Description_of_Special_Needs__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Special needs or accommodations requested by the Applicant. For example, &quot;one-level only&quot; or &quot;at least one ADA-accessible bathroom required.&quot;</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Special needs or accommodations requested by the Applicant. For example, &quot;one-level only&quot; or &quot;at least one ADA-accessible bathroom required.&quot;</inlineHelpText>
+    <label>Description of Special Needs</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

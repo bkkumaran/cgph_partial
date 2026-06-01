@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Equity__c</fullName>
+    <formula>IF( HR_Subtotal_Override__c &gt; 0, HR_Subtotal_Override__c - HR_Mortgage__c,
+IF(OR(HR_Land_Value__c=0,HR_Total_Value__c=0),0,HR_Subtotal__c -  HR_Mortgage__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>HR Subtotal - HR Mortgage</inlineHelpText>
+    <label>HR Equity</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

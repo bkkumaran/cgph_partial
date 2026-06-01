@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Years_Since_Bankruptcy_Discharge__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The date difference between the close date and the date of bankruptcy discharge. If no close date is available, the current date is used.</description>
+    <externalId>false</externalId>
+    <formula>(IF( ISNULL(  HOMEtracker__Close_Date__c ) , TODAY() , HOMEtracker__Close_Date__c ) -  HOMEtracker__Date_of_Bankruptcy_Discharge__c) / 365</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The date difference between the close date and the date of bankruptcy discharge. If no close date is available, the current date is used.</inlineHelpText>
+    <label>Years Since Bankruptcy Discharge</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

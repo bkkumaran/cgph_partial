@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Kick_off_follow_up_neeed__c</fullName>
+    <inlineHelpText>follow-up needed on kick off activities</inlineHelpText>
+    <label>Kick off follow-up need</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MUNI AA | NOT DEV AA</fullName>
+                <default>false</default>
+                <label>MUNI AA | NOT DEV AA</label>
+            </value>
+            <value>
+                <fullName>SETUP: Getting under contract</fullName>
+                <default>false</default>
+                <label>SETUP: Getting under contract</label>
+            </value>
+            <value>
+                <fullName>SETUP: Delay requesting set up info - Project too far off</fullName>
+                <default>false</default>
+                <label>SETUP: Delay requesting set up info - Project too far off</label>
+            </value>
+            <value>
+                <fullName>SETUP: Requested set up info</fullName>
+                <default>false</default>
+                <label>SETUP: Requested set up info</label>
+            </value>
+            <value>
+                <fullName>SETUP: Missing requested set up info</fullName>
+                <default>false</default>
+                <label>SETUP: Missing requested set up info</label>
+            </value>
+            <value>
+                <fullName>SETUP: Enter CDS / Binder / Project Set-up</fullName>
+                <default>false</default>
+                <label>SETUP: Enter CDS / Binder / Project Set-up</label>
+            </value>
+            <value>
+                <fullName>SETUP: Drafting Final Confirmation email</fullName>
+                <default>false</default>
+                <label>SETUP: Drafting Final Confirmation email</label>
+            </value>
+            <value>
+                <fullName>SETUP: Final Confirm email sent / Rqst flyer upon confirm</fullName>
+                <default>false</default>
+                <label>SETUP: Final Confirm email sent / Rqst flyer upon confirm</label>
+            </value>
+            <value>
+                <fullName>SETUP: Need to Publish</fullName>
+                <default>false</default>
+                <label>SETUP: Need to Publish</label>
+            </value>
+            <value>
+                <fullName>AMP in progress: NEEDED Deed, Flyer, POAs</fullName>
+                <default>false</default>
+                <label>AMP in progress: NEEDED Deed, Flyer, POAs</label>
+            </value>
+            <value>
+                <fullName>AMP in progress: NEEDED Deed, POAs</fullName>
+                <default>false</default>
+                <label>AMP in progress: NEEDED Deed, POAs</label>
+            </value>
+            <value>
+                <fullName>AMP in progress: NEEDED POAs</fullName>
+                <default>false</default>
+                <label>AMP in progress: NEEDED POAs</label>
+            </value>
+            <value>
+                <fullName>AMP in progress: NEEDED Deed</fullName>
+                <default>false</default>
+                <label>AMP in progress: NEEDED Deed</label>
+            </value>
+            <value>
+                <fullName>AMP in progress: COMPLETE</fullName>
+                <default>false</default>
+                <label>AMP in progress: COMPLETE</label>
+            </value>
+            <value>
+                <fullName>AMP Complete: NEED Deedy</fullName>
+                <default>false</default>
+                <label>AMP Complete: NEED Deed</label>
+            </value>
+            <value>
+                <fullName>AMP Complete: Need Leased-up / Sold Information</fullName>
+                <default>false</default>
+                <label>AMP Complete: Need Leased-up / Sold Information</label>
+            </value>
+            <value>
+                <fullName>AMP Complete: Handoff Process Review Needed</fullName>
+                <default>false</default>
+                <label>AMP Complete: Handoff Process Review Needed</label>
+            </value>
+            <value>
+                <fullName>Sale of Property: AA Approval Needed</fullName>
+                <default>false</default>
+                <label>Sale of Property: AA Approval Needed</label>
+            </value>
+            <value>
+                <fullName>Affirmative Marketing in Progress</fullName>
+                <default>false</default>
+                <label>Affirmative Marketing in Progress</label>
+            </value>
+            <value>
+                <fullName>Prepping for Affirmative Marketing</fullName>
+                <default>false</default>
+                <label>Prepping for Affirmative Marketing</label>
+            </value>
+            <value>
+                <fullName>Proof of Publication Needed</fullName>
+                <default>false</default>
+                <label>Proof of Publication Needed</label>
+            </value>
+            <value>
+                <fullName>Coming Soon</fullName>
+                <default>false</default>
+                <label>Coming Soon</label>
+            </value>
+            <value>
+                <fullName>Lottery Completed</fullName>
+                <default>false</default>
+                <label>Lottery Completed_units filled</label>
+            </value>
+            <value>
+                <fullName>None needed</fullName>
+                <default>false</default>
+                <label>None needed</label>
+            </value>
+            <value>
+                <fullName>Other Immediate Follow-up Needed</fullName>
+                <default>false</default>
+                <label>Other Immediate Follow-up Needed</label>
+            </value>
+            <value>
+                <fullName>Transitioning from Another Admin Agent</fullName>
+                <default>false</default>
+                <label>Transitioning from Another Admin Agent</label>
+            </value>
+            <value>
+                <fullName>High</fullName>
+                <default>false</default>
+                <label>Upcoming client High priority</label>
+            </value>
+            <value>
+                <fullName>Low</fullName>
+                <default>false</default>
+                <label>Upcoming client Low priority</label>
+            </value>
+            <value>
+                <fullName>Medium</fullName>
+                <default>false</default>
+                <label>Upcoming client Medium priority</label>
+            </value>
+            <value>
+                <fullName>Lottery Completed- Initial lease up/sales in progress</fullName>
+                <default>false</default>
+                <label>Lottery Completed- Initial lease up/sales in progress</label>
+            </value>
+            <value>
+                <fullName>Not following up on issues per muni</fullName>
+                <default>false</default>
+                <label>Not following up on issues per muni</label>
+            </value>
+            <value>
+                <fullName>Currently resolving issues</fullName>
+                <default>false</default>
+                <label>Currently resolving issues</label>
+            </value>
+            <value>
+                <fullName>Waiting on new income limits</fullName>
+                <default>false</default>
+                <label>Waiting on new income limits</label>
+            </value>
+            <value>
+                <fullName>Will resolve in 2023</fullName>
+                <default>false</default>
+                <label>Will resolve in 2023</label>
+            </value>
+            <value>
+                <fullName>Municipality Instructed CGP&amp;H to not resolve</fullName>
+                <default>false</default>
+                <label>Municipality Instructed CGP&amp;H to not resolve</label>
+            </value>
+            <value>
+                <fullName>AMP Complete: w/ Outreach Team - DEED needed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>AMP Complete: w/ Outreach Team - DEED needed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

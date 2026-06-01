@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Total_Monthly_Housing_Costs__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. Automatically calculated. The sum of Monthly Principal and Interest Payments plus Monthly Tax Liability plus Monthly Insurance Costs plus Total Program Fee plus HOA and Condo Dues plus Other Monthly Housing Expense/Adjustment.</description>
+    <formula>IF ((HOMEtracker__Monthly_Principal_Interest_Payments__c  + HOMEtracker__Monthly_Tax_Liability__c +  HOMEtracker__Monthly_Insurance_Costs__c +  HOMEtracker__Total_Program_Fee__c +  HOMEtracker__HOA_Condo_Dues__c +  HOMEtracker__Other_Monthly_Housing_Expense_Adjustment__c != 0), HOMEtracker__Monthly_Principal_Interest_Payments__c  + HOMEtracker__Monthly_Tax_Liability__c +  HOMEtracker__Monthly_Insurance_Costs__c +  HOMEtracker__Total_Program_Fee__c +  HOMEtracker__HOA_Condo_Dues__c +  HOMEtracker__Other_Monthly_Housing_Expense_Adjustment__c, 
+null)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Automatically calculated. The sum of Monthly Principal and Interest Payments plus Monthly Tax Liability plus Monthly Insurance Costs plus Total Program Fee plus HOA and Condo Dues plus Other Monthly Housing Expense/Adjustment.</inlineHelpText>
+    <label>Total Monthly Housing Costs</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

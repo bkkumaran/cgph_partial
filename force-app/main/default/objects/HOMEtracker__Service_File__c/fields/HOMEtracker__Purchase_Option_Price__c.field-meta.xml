@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Purchase_Option_Price__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. The maximum allowable resale price. Purchase Option Price Before Adjustments + Sum of Improvements + Other Adjustments.</description>
+    <formula>HOMEtracker__Purchase_Option_Price_Before_Adjustments__c +  HOMEtracker__Sum_of_Improvements_Adjustments__c +  HOMEtracker__Other_Adjustments__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The maximum allowable resale price. Purchase Option Price Before Adjustments + Sum of Improvements + Other Adjustments.</inlineHelpText>
+    <label>Purchase Option Price</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

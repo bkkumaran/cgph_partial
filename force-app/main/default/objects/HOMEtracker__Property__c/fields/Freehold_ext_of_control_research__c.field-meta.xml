@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Freehold_ext_of_control_research__c</fullName>
+    <description>for use by michelle during research for ext of control project</description>
+    <inlineHelpText>for use by michelle during research for ext of control project</inlineHelpText>
+    <label>Freehold ext of control research</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Found original AHA</fullName>
+                <default>false</default>
+                <label>Found original AHA</label>
+            </value>
+            <value>
+                <fullName>Found RESALE AHA but missing origianl</fullName>
+                <default>false</default>
+                <label>Found RESALE AHA, but missing original</label>
+            </value>
+            <value>
+                <fullName>Still looking for AHA</fullName>
+                <default>false</default>
+                <label>Still looking for AHA</label>
+            </value>
+            <value>
+                <fullName>Found AH Unit Deed, still looking for AHA</fullName>
+                <default>false</default>
+                <label>Found AH Unit Deed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

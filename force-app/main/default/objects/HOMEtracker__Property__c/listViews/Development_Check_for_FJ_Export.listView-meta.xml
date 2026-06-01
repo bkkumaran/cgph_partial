@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Development_Check_for_FJ_Export</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Property_Type__c</columns>
+    <columns>Elevator__c</columns>
+    <columns>Utilities_Included__c</columns>
+    <columns>Credit_Check_Required__c</columns>
+    <columns>Background_Check_Required__c</columns>
+    <columns>Minimum_Credit_Score_to_be_Eligible__c</columns>
+    <columns>Co_Signers_Allowed__c</columns>
+    <columns>Credit_Background_Check_Fee__c</columns>
+    <columns>Credit_Background_Check_Fee_Notes__c</columns>
+    <columns>Smoking_Allowed__c</columns>
+    <columns>Amenities__c</columns>
+    <columns>X3x_Rent_Requirement__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <label>AA Development Check for FJ Export</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

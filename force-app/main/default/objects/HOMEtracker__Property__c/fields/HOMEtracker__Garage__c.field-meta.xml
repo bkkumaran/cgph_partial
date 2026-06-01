@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Garage__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicate whether there is a garage, how many cars and whether it is attached or detached.</description>
+    <inlineHelpText>Indicate whether there is a garage, how many cars and whether it is attached or detached.</inlineHelpText>
+    <label>Garage</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0</fullName>
+                <default>false</default>
+                <label>0</label>
+            </value>
+            <value>
+                <fullName>1/Attached</fullName>
+                <default>false</default>
+                <label>1/Attached</label>
+            </value>
+            <value>
+                <fullName>1/Detached</fullName>
+                <default>false</default>
+                <label>1/Detached</label>
+            </value>
+            <value>
+                <fullName>2/Attached</fullName>
+                <default>false</default>
+                <label>2/Attached</label>
+            </value>
+            <value>
+                <fullName>2/Detached</fullName>
+                <default>false</default>
+                <label>2/Detached</label>
+            </value>
+            <value>
+                <fullName>1/Carport</fullName>
+                <default>false</default>
+                <label>1/Carport</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

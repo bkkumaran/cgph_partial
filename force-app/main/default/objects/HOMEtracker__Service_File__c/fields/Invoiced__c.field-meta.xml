@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoiced__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Check this box when a certification has been invoiced.  Also check if not invoicing so it will not show up in future reports.</inlineHelpText>
+    <label>Certification Invoiced?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

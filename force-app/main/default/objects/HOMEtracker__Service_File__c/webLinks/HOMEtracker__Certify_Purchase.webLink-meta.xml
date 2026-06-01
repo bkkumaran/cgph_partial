@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Certify_Purchase</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Certify Purchase</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+
+var valid = true;
+var confirmed = false;
+var message = &apos;The following fields must be filled out before you can certify the purchase: \n\n&apos;;
+
+if ( {!ISBLANK( HOMEtracker__Service_File__c.HOMEtracker__Applicant__c )} ) {
+    valid = false;
+    message += &apos;* Applicant\n&apos;;
+}
+
+if ( {!ISBLANK(  HOMEtracker__Service_File__c.HOMEtracker__Property__c  )} ) {
+    valid = false;
+    message += &apos;* Property\n&apos;;
+}
+
+if ( {!ISBLANK(  HOMEtracker__Service_File__c.HOMEtracker__Purchase_Price__c  )} ) {
+    valid = false;
+    message += &apos;* Purchase Price\n&apos;;
+}
+
+if ( {!ISBLANK(  HOMEtracker__Service_File__c.HOMEtracker__Close_Date__c  )} ) {
+    valid = false;
+    message += &apos;* Close Date\n&apos;;
+}
+
+var confirmationMessage = &quot;Certify the purchase only after you have entered and verified all purchase transaction and homebuyer information.\n\nWhen you certify the purchase, the following fields will be updated:\n- Purchase Certification Date is set to Today’s date \n- Subsidy Beyond Market Value and Close Date are copied into Certified versions of those fields \n- Number of Children at Purchase and Number of Seniors At Purchase are populated based on household members’ Birthdates and the Service File Close Date \n \n\nBefore proceeding, remember to: \n *Copy the Property address to Applicant and Co-Applicant Contact records. Use the Purchase Summary or Copy Address to Contacts link. \n *Update statuses to reflect ownership. Use the Purchase Summary or Update Status button to update statuses on the Property, Applicant Contact and Service File.\n\nAre you ready to Certify the Purchase?&quot;;
+
+if (valid) {
+// confirm
+confirmed = window.confirm(confirmationMessage); 
+} else {
+// show error message
+alert(message);
+}
+
+if (confirmed) {
+// run the webservice 
+var serviceFileID = sforce.apex.execute(&quot;HOMEtracker.ServiceFileWebServices&quot;,&quot;certifyPurchase&quot;, {serviceFileID: &quot;{!CASESAFEID(HOMEtracker__Service_File__c.Id)}&quot;}); 
+
+// redirect to the new task 
+top.location.replace(&quot;/&quot; + serviceFileID);
+}</url>
+</WebLink>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Del_Webb_Pricing</fullName>
+    <columns>NAME</columns>
+    <columns>Max_Income_Level__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>HOMEtracker__Interior__c</columns>
+    <columns>Send_Unit_No_Longer_Available_Emails__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Marlboro Grove</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Under Construction,Available for Sale/Resale</value>
+    </filters>
+    <label>AA Del Webb Pricing</label>
+</ListView>

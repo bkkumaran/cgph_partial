@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Restriction_Start_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>If there are any program restrictions, enter the start date.  For example, the date the ground lease or deed restrictions goes into effect. Some programs use this field to populate closing documents.</description>
+    <inlineHelpText>If there are any program restrictions, enter the start date.  For example, the date the ground lease or deed restrictions goes into effect. Some programs use this field to populate closing documents.</inlineHelpText>
+    <label>Restriction Start Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

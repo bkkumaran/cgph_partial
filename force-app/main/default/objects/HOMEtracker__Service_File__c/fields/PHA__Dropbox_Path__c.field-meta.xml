@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PHA__Dropbox_Path__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF(AND(NOT(ISNULL($Setup.PHA__Housing_Applications__c.PHA__Cloud_Storage_Root_Folder__c)), NOT(ISBLANK($Setup.PHA__Housing_Applications__c.PHA__Cloud_Storage_Root_Folder__c))),
+&apos;/&apos; &amp; $Setup.PHA__Housing_Applications__c.PHA__Cloud_Storage_Root_Folder__c,
+&apos;&apos;
+)
+&amp;&apos;&apos;&amp;
+IF(AND(NOT(ISNULL(TEXT(HOMEtracker__Program__c))), NOT(ISBLANK(TEXT(HOMEtracker__Program__c)))),
+&apos;/&apos; &amp; TEXT(HOMEtracker__Program__c),
+&apos;&apos;
+)
+&amp;&apos;&apos;&amp;
+IF( AND(AND(NOT(ISNULL((PHA__De_coupling_Service_File_Folder_Name__c))), NOT(ISBLANK((PHA__De_coupling_Service_File_Folder_Name__c))))), &apos;/&apos; &amp;(PHA__De_coupling_Service_File_Folder_Name__c &amp; &apos; &apos; &amp; (Id)) , 
+IF(NOT(ISBLANK(Name)),
+&apos;/&apos; &amp; Name,
+&apos;&apos;
+))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Document Storage Path</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

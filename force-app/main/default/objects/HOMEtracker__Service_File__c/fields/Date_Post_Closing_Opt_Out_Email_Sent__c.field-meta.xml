@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Post_Closing_Opt_Out_Email_Sent__c</fullName>
+    <description>The date the &quot;Post Closing - Opt Out Email&quot; email was sent.</description>
+    <inlineHelpText>The date the &quot;Post Closing - Opt Out Email&quot; email was sent.</inlineHelpText>
+    <label>Date Post Closing Opt Out Email Sent</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

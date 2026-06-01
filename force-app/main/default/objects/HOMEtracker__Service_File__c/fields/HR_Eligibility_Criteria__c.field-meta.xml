@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Eligibility_Criteria__c</fullName>
+    <inlineHelpText>Select each item once you have verified its status for eligibility</inlineHelpText>
+    <label>HR Eligibility Criteria</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unit Located in Target Area</fullName>
+                <default>false</default>
+                <label>Unit Located in Target Area</label>
+            </value>
+            <value>
+                <fullName>Property Taxes Current</fullName>
+                <default>false</default>
+                <label>Property Taxes Current</label>
+            </value>
+            <value>
+                <fullName>Insurance Up-To-Date</fullName>
+                <default>false</default>
+                <label>Insurance Up-To-Date</label>
+            </value>
+            <value>
+                <fullName>Water/Sewer/HOA Current</fullName>
+                <default>false</default>
+                <label>Water/Sewer/HOA Current</label>
+            </value>
+            <value>
+                <fullName>Proof of Ownership</fullName>
+                <default>false</default>
+                <label>Proof of Ownership</label>
+            </value>
+            <value>
+                <fullName>Sufficient Equity</fullName>
+                <default>false</default>
+                <label>Sufficient Equity</label>
+            </value>
+            <value>
+                <fullName>Substantial Flood Analysis</fullName>
+                <default>false</default>
+                <label>Substantial Flood Analysis</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>7</visibleLines>
+</CustomField>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mel_s_old_outreach_cases</fullName>
+    <columns>NAME</columns>
+    <columns>Primary_Outreach_Coordintor__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>Primary_Case_manager__c</columns>
+    <columns>Primary_Case_Manager_from_Development__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Primary_Case_manager__c</field>
+        <operation>equals</operation>
+        <value>melissa Langer</value>
+    </filters>
+    <label>mel&apos;s old outreach cases</label>
+</ListView>

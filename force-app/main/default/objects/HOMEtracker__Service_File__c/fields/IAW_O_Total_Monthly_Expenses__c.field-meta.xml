@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_O_Total_Monthly_Expenses__c</fullName>
+    <description>Monthly Payment + Monthly Taxes + PMI + Insurance + HOA/Condo Dues/Lot Rent/Pad Fee</description>
+    <formula>IAW_Monthly_Payment__c + IAW_Monthly_Taxes__c + IAW_PMI__c + IAW_Insurance__c + HOMEtracker__HOA_Condo_Dues__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Monthly Payment + Monthly Taxes + PMI + Insurance + HOA/Condo Dues/Lot Rent/Pad Fee</inlineHelpText>
+    <label>Total Monthly Expenses</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

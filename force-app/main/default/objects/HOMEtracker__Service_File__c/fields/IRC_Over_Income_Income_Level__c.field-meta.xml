@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IRC_Over_Income_Income_Level__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Auto checked if the &quot;Over Income - Income Level, May Qualify for Other Income Levels&quot; reason is selected in the &quot;Application Ineligibility Reason(s)&quot; field. Used for Ineligibility CONGA merge.</description>
+    <inlineHelpText>Auto checked if the &quot;Over Income - Income Level, May Qualify for Other Income Levels&quot; reason is selected in the &quot;Application Ineligibility Reason(s)&quot; field. Used for Ineligibility CONGA merge.</inlineHelpText>
+    <label>IRC_Over Income Income Level</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Subsidy_Beyond_Market_Value__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. Auto-calculated. The amount by which the total subsidy invested by the program exceeds the property&apos;s market value. This money is not considered Community Investment. For files with a value in All Other Buyer&apos;s Settlement Costs (OLD), the formula is: Funding Source Total plus Total Allocations to Property minus Appraised Unrestricted Market Value minus Prepaids/Reserves minus All Other Buyer&apos;s Settlement Costs. For all other files, the formula is: Funding Source Total plus Total Allocations to Property minus Appraised Unrestricted Market Value minus Settlement Charges to Borrower minus Other Amounts Due from Buyer. For more information about community investment, see https://homekeeper.zendesk.com/entries/27825633</description>
+    <formula>IF (!ISNULL(HOMEtracker__All_Other_Buyers_Settlement_Costs__c), 
+
+(0 - (HOMEtracker__Appraised_Unrestricted_Market_Value__c  + 
+	IF(ISNULL(HOMEtracker__Prepaids_Reserves__c), 0, HOMEtracker__Prepaids_Reserves__c) +  
+	HOMEtracker__All_Other_Buyers_Settlement_Costs__c  - 
+	HOMEtracker__Funding_Source_Total__c   -  
+	IF(ISNULL(HOMEtracker__Property__r.HOMEtracker__Total_Allocations__c), 0, HOMEtracker__Property__r.HOMEtracker__Total_Allocations__c))),
+
+	(HOMEtracker__Funding_Source_Total__c + 
+	IF(ISNULL(HOMEtracker__Property__r.HOMEtracker__Total_Allocations__c), 0, HOMEtracker__Property__r.HOMEtracker__Total_Allocations__c) - 
+	HOMEtracker__Appraised_Unrestricted_Market_Value__c - 
+	HOMEtracker__Settlement_Charges_to_Borrower__c - 
+	IF(ISNULL(HOMEtracker__Other_Amounts_Due_from_Buyer__c), 0, HOMEtracker__Other_Amounts_Due_from_Buyer__c)))</formula>
+    <inlineHelpText>Auto-calculated. The amount by which the total subsidy invested by the program exceeds the property&apos;s market value. This money is not considered Community Investment.</inlineHelpText>
+    <label>Subsidy Beyond Market Value</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

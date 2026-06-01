@@ -1,0 +1,2658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Group_Education_Only</fullName>
+    <active>false</active>
+    <compactLayoutAssignment>HOMEtracker__HomeKeeper_Compact_Layout_Group</compactLayoutAssignment>
+    <description>Workshops &amp; classes only (Use 1-1 Counseling for individual counseling)</description>
+    <label>Group Education Only</label>
+    <picklistValues>
+        <picklist>Affordable_Housing_docs_on_file__c</picklist>
+        <values>
+            <fullName>Hamilton Park Complete %28cert K and cert J%2C 95%2F5 mortgage note%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No affordable housing documents on file</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partial documents on file</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Union - Affordable docs executed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>App_in_Process__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Applicant_has_no_Bank_Accounts__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Applicant_has_no_Income__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Application_Ineligibility_Reason_s__c</picklist>
+        <values>
+            <fullName>Did Not Submit Supporting Documents - No WL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Submit Supporting Documents - WL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Does Not Meet Age-Restriction Requirements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Does Not Meet Local Preference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Does Not Meet Veterans%27 Preference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Household Too Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Household Too Small</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other - See Ineligibility Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Out of Region</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over Income - Income Level%2C May Qualify for Other Income Levels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over Income - Specific Region or All Regions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Under Income</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Application_Workflow_Status__c</picklist>
+        <values>
+            <fullName>Application Received - Backup Ready for Full Income Certification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application Received - Full Income Certification In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application Received - Peer Review Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application Received - Peer Review In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application Received - Ready for Full Income Certification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application Received - Ready for Peer Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invited - Waiting to Submit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-Screen Complete%2C Not Yet Referred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting for Rental Pre-Screen</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CCO_form_for_bank_owned_properties__c</picklist>
+        <values>
+            <fullName>Not Needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requested</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Eligible_Bedroom_Count__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Financing_Home__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Applicant_Late_Payment_History__c</picklist>
+        <values>
+            <fullName>2-3 times</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 or more times</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Never</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Once</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Applicant_Past_Foreclosure__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__At_Risk_Of_Homelessness__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Bankruptcy__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Brain_Injured__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Chronic_Mental_Illness__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Colonias_Resident__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Credit_Card_Payment_Behavior__c</picklist>
+        <values>
+            <fullName>Less than the full balance%2C more than the minimum required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Less than the minimum required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No credit cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The full balance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The minimum required</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Credit_Counseling__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Current_Housing_Type__c</picklist>
+        <values>
+            <fullName>Apartment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condominium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hotel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>House%2Ftownhouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shelter</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Current_Living_Situation__c</picklist>
+        <values>
+            <fullName>Lease Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Live in Hotel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Live in Shelter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Live with Parents %2F Relatives %2F Friends</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Own</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Desired_Neighborhood_Characteristics__c</picklist>
+        <values>
+            <fullName>Part of the shared equity program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proximity to amenities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proximity to family%2Ffriends</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proximity to work%2Fschool</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety%2Fcrime</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Schools</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strong housing market</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Developmentally_Disabled__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Disaster_or_Emergency__c</picklist>
+        <values>
+            <fullName>2020 COVID-19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Earnest_Money_Paid__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Educational_Attainment__c</picklist>
+        <values>
+            <fullName>Associate%27s Degree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bachelor%27s Degree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Certification from a vocational or technical training program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High school diploma or equivalent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Less than HS Diploma</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Master%27s or other graduate degree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Some post-secondary education</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Ethnicity__c</picklist>
+        <values>
+            <fullName>Chose Not to Respond</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hispanic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Hispanic</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Farm_Worker__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Frail_Or_Elderly__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__HUD_Assistance__c</picklist>
+        <values>
+            <fullName>Down Payment Assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Ownership Voucher</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other HUD Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Place Based Rental Assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchase REO Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental Voucher</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__HUD_Income_Category__c</picklist>
+        <values>
+            <fullName>Extremely Low%3A %3C 30%25 AMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low Income%3A 51%25-80%25 AMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moderate Income%3A 81%25-120%25 AMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Low%3A 31%25-50%25 AMI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Head_of_Household_Type__c</picklist>
+        <values>
+            <fullName>Female-headed single parent household</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Male-headed single parent household</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Married with dependents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Married without dependents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single Adult</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Two or more unrelated adults</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Housing_Type_Desired__c</picklist>
+        <values>
+            <fullName>Apartment Unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condominium Unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Land</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile or Manufactured</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single-Family Detached</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Townhome</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__How_Did_You_Hear_About_Program__c</picklist>
+        <values>
+            <fullName>Earned media - news articles%2C LTE%2C etc%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Homebuyer education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internet search</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paid advertising -  newspaper%2Fmagazine</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paid advertising -  other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paid advertising - radio%2FTV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poster%2Fflyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Service Announcement - radio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Service Announcement - television</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real estate listing - MLS%2C Craigslist%2C etc%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refered by another ageny%2Fnon-profit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refered by lender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred by real estate agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Word of mouth - Current%2FPast homeowner or staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Word of mouth - general</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Hurdles_to_Overcome__c</picklist>
+        <values>
+            <fullName>Debt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insufficient income</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insufficient savings for downpayment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lack of references</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over income</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Own existing home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending divorce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor credit history</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Too many assets</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Informed_Consent_Received__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Initial_Purchase__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Insulation__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Limited_English_Proficiency__c</picklist>
+        <values>
+            <fullName>Chose not to respond</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Limited English Proficient</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Limited English Proficient</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__LivingSituation__c</picklist>
+        <values>
+            <fullName>Adequate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Good</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Living_with_HIV_or_AIDS__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Marital_Status__c</picklist>
+        <values>
+            <fullName>Divorced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Married %2F Domestic Partnership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Separated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single - Never Married</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Widowed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Months_to_Financial_Readiness__c</picklist>
+        <values>
+            <fullName>10 or more months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2-4 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5-7 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7-9 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Less than 1 month</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Most_Recent_Address_Rural_Area_Status__c</picklist>
+        <values>
+            <fullName>Chose not to respond</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Does not live in rural area</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lives in rural area</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Most_Recent_HUD_9902_Income_Level__c</picklist>
+        <values>
+            <fullName>%3C 30%25 of AMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%3E 100%25 AMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30 - 49%25 of AMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>50 - 79%25 of AMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>80 - 100%25 of AMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chose not to respond</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Most_Recent_State__c</picklist>
+        <values>
+            <fullName>AK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ME</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ND</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NJ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WY</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Neighborhood_Desired__c</picklist>
+        <values>
+            <fullName>%28CONFIGURE NEIGHBORHOODS%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Next_Home_Tenure_Type__c</picklist>
+        <values>
+            <fullName>Neither</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Own</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Next_Housing_Type__c</picklist>
+        <values>
+            <fullName>Apartment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condominium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>House%2Ftownhouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Living with family%2Ffriends</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shelter%2Fhomeless</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Occupation__c</picklist>
+        <values>
+            <fullName>Administrative Assistant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Artist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Automotive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank Teller</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carpenter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Casino</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Construction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cook</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custodian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Service Representative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Day Care Provider</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Driver - Bus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Driver - Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Driver - Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Electrician</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Engineer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Farmer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grocery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group home Provide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Health Care - Support Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Health Care Provider</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hospitality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>House Keeper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT%2FTechnology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landscaping</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maintenance%2FJanitor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manufacturing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newspaper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Profit Employee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Office Administrator</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Painter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plumber</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Postal Worker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Restaurant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Clerk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>School Administrator</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Teacher%2FAide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tourism</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veterinarian</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Overall_Experience__c</picklist>
+        <values>
+            <fullName>Bad</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fair</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Good</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Bad</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Good</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Overcrowded__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Owned_Home__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Primary_Language_Spoken__c</picklist>
+        <values>
+            <fullName>ASL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arabic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armenian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chinese - Cantonese</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chinese - Mandarin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>English</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>French</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>French Creole</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>German</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Greek</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gujarati</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hindi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hmong</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Italian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Japanese</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Korean</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Persian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Polish</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portuguese</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Russian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somali</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spanish</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tagalog</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Urdu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vietnamese</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Primary_Reason_for_Purchase__c</picklist>
+        <values>
+            <fullName>Affordability of homes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change in family situation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desire for a home in a better area</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desire for a newly built or custom-built home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desire for larger home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desire for smaller home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desire for vacation home%2Finvestment property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desire to be closer to family%2Ffriends%2Frelatives</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desire to be closer to job%2Fschool%2Ftransit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desire to own a home of my own</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Establish household</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Greater number of homes on the market for sale%2Fbetter choice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home buyer tax credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Job-related relocation or move</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchased home for family member or relative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retirement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tax benefits</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Program__c</picklist>
+        <values>
+            <fullName>Deed Restricted Ownership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ownership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Race__c</picklist>
+        <values>
+            <fullName>American Indian AND Black</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>American Indian AND White</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>American Indian or Alaska Native</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Asian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Asian AND White</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Black or African American</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Black or African American AND White</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chose Not to Respond</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Native Hawaiian or Pacific Islander</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other multiple race</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>White</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Reason_for_Sale__c</picklist>
+        <values>
+            <fullName>Can not afford the mortgage and other expenses of owning home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change in family situation %28e%2Eg%2E%2C marriage%2C birth of a child%2C divorce%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Death</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home is too large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home is too small</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Job relocation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moving due to retirement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neighborhood has become less desirable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program enforcement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Upkeep of home is too difficult due to health or financial limitations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Want to move closer to current job</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Want to move closer to friends or family</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Want to own unrestricted home</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Receiving_Section_8_Subsidy__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Referred_By__c</picklist>
+        <values>
+            <fullName>Agency Outreach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Another Agency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Another Person</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HUD Outreach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate Agent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Region__c</picklist>
+        <values>
+            <fullName>%28Configure Regions%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Rental_Interest__c</picklist>
+        <values>
+            <fullName>1BR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2BR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3BR</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Require_ADA_Accessible__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Resale_Type__c</picklist>
+        <values>
+            <fullName>Deed In Lieu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foreclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foreclosure with Property Rescue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Short Sale to Eligible Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Short Sale to Ineligible Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold to Eligible Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold to Eligible Buyer to Prevent Foreclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold to Ineligible Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold to Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold to Program to Prevent Foreclosure</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Single_Parent_HH__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Standard_Plumbing__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application in Process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assistance Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Current Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Current Renter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ineligible</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Past Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Past Renter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wait List</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Subsidy_for_Next_Residence2__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Substance_Abuser__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Support_Dependents__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Survivor_of_Domestic_Violence__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Type_of_Assistance_Requested__c</picklist>
+        <values>
+            <fullName>Conservation %2F Energy Assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Counseling Services for the Homeless</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education %2F Group Workshop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Emergency Loan %2F Grant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Management Counseling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Improvement Loan %2F Grant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Maintenance Counseling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mortgage Delinquency Counseling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-Purchase Homebuyer Counseling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental Assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental Housing Counseling</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Utilities_Included_in_Rent__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Veteran__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Work_in_County__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HR_Eligibility_Criteria__c</picklist>
+        <values>
+            <fullName>Insurance Up-To-Date</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proof of Ownership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Taxes Current</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Substantial Flood Analysis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sufficient Equity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unit Located in Target Area</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Water%2FSewer%2FHOA Current</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HR_Legacy_Eligibility__c</picklist>
+        <values>
+            <fullName>Ineligible</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low Eligible</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mod Eligible</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HR_Unit_Type__c</picklist>
+        <values>
+            <fullName>Investor-Owned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multi-Family Additional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single-Family or Primary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Household_Member_Currently_Owns_Real_Est__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IAW_Meets_Household_Size_Requirements__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IAW_Meets_Income_Level_Requirements__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IAW_Ownership_Waiver__c</picklist>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IAW_R_3x_Rent_Requirement_z__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IAW_R_Age_Restriction_z__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IAW_R_Rental_Assistance_Permitted_z__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IAW_Special_Consideration__c</picklist>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Ineligibility_Reason__c</picklist>
+        <values>
+            <fullName>Applicant%27s Income Below Minimum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant%27s Income Exceeds Maximum Limit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low not Very Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moderate not Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moderate not Very Low</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Invited_for_Affordable_Assistance__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Manual_Income_Determination__c</picklist>
+        <values>
+            <fullName>Ineligible</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moderate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over Income</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Low</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Meets_Age_Restriction_Requirements__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Meets_Regional_Asset_Limit__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Meets_Regional_Preference_Requirements__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Need_Homebuyer_Ed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Need_Renter_Ed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Application_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Document Corrections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Document Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invited</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Asset_Debt_Income_Opt_Out__c</picklist>
+        <values>
+            <fullName>No Asset</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Debt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Income</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Imputed_Income_Type__c</picklist>
+        <values>
+            <fullName>Calculated</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Override</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Max_Calculation_Type__c</picklist>
+        <values>
+            <fullName>HUD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MTSP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Median</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Modified</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Min_Calculation_Type__c</picklist>
+        <values>
+            <fullName>AMI%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Override</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Public_House_Category__c</picklist>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Renew</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Signature_Status_Co_Applicant__c</picklist>
+        <values>
+            <fullName>Requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Signed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Uploaded to Cloud</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Signature_Status__c</picklist>
+        <values>
+            <fullName>Requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Signed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Uploaded to Cloud</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Submission_Stage__c</picklist>
+        <values>
+            <fullName>Agree to Terms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirm Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Electronic Signature</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pay Fees</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Peer_Review_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent Back with Comments</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Refinance_Request_Email_Type__c</picklist>
+        <values>
+            <fullName>Lender Requirement Email</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sale_Contract_Invoiced__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_File_Type_for_Direct_Invitation__c</picklist>
+        <values>
+            <fullName>Current Owner%2FTenant</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Special_Application_Type__c</picklist>
+        <values>
+            <fullName>Affordability Assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recertification</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Submitted_Internal_Updates_Sent_Email__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Title_on_File__c</picklist>
+        <values>
+            <fullName>No title on file</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tile on File -Township has lien</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Title on File - No Township Lien</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Title on File but name does not match owner</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Work_County__c</picklist>
+        <values>
+            <fullName>Atlantic County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bergen County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Burlington County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Camden County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cape May County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cumberland County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Do not work in New Jersey</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Essex County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gloucester County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hudson County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hunterdon County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mercer County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Middlesex County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monmouth County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Morris County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ocean County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passaic County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salem County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somerset County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sussex County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Union County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warren County</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

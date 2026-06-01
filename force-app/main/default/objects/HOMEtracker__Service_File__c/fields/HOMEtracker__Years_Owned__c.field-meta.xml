@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Years_Owned__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. This formula shows the number of years between the Resale Close Date and the Certified Close Date. If Resale Close Date and Resale Type are both blank, this will be calculated as the number of years between today and the Certified Close Date.</description>
+    <externalId>false</externalId>
+    <formula>IF(!ISBLANK(HOMEtracker__Certified_Closed_Date__c), IF(!ISBLANK(HOMEtracker__Resale_Close_Date__c), ( HOMEtracker__Resale_Close_Date__c - HOMEtracker__Certified_Closed_Date__c ) / 365.2425, IF(ISPICKVAL(HOMEtracker__Resale_Type__c, &quot;&quot;), ( TODAY() - HOMEtracker__Certified_Closed_Date__c ) / 365.2425, null)), null)</formula>
+    <inlineHelpText>This formula shows the number of years between the Resale Close Date and the Certified Close Date. If Resale Close Date and Resale Type are both blank, this will be calculated as the number of years between today and the Certified Close Date.</inlineHelpText>
+    <label>Years Owned</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

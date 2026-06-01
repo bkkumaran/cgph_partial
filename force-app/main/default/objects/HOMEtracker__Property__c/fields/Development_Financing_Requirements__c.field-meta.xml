@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Development_Financing_Requirements__c</fullName>
+    <description>Financing tips for buyers of affordable homes.  this will appear on listings for ownership units</description>
+    <label>Development Financing Requirements</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>All non-cash buyers must be able to qualify for a mortgage.  CGP&amp;H will provide you a list of lenders.  Lenders not on this list may not be able to finance mortgages for deed restricted affordable homes.</fullName>
+                <default>true</default>
+                <label>All non-cash buyers must be able to qualify for a mortgage.  CGP&amp;H will provide you a list of lenders.  Lenders not on this list may not be able to finance mortgages for deed restricted affordable homes.</label>
+            </value>
+            <value>
+                <fullName>There is no fee to apply for this program.  All non-cash buyers must be able to qualify for a mortgage.</fullName>
+                <default>false</default>
+                <label>There is no fee to apply for this program.  All non-cash buyers must be able to qualify for a mortgage.</label>
+            </value>
+            <value>
+                <fullName>All non-cash buyers must be able to qualify for a mortgage. Please contact First Credit Corporation, Manufactured Home Finance &amp; Insurance regarding financing options at 1-800-562-6036, or www.firstcreditcorp.com.</fullName>
+                <default>false</default>
+                <label>All non-cash buyers must be able to qualify for financing. Please contact First Credit Corporation, Manufactured Home Finance &amp; Insurance at 1-800-562-6036 or www.firstcreditcorp.com or Priority Funding at www.priloan.com regarding financing options.</label>
+            </value>
+            <value>
+                <fullName>If you are interested in purchasing an affordable home, you must be able to secure financing. You may work with any lender. Buyers have recently worked with Peapack-Gladstone Bank, Amaro Pereira, (908) 334-8789, apereira@pgbank.com.</fullName>
+                <default>false</default>
+                <label>If you are interested in purchasing an affordable home, you must be able to secure financing. You may work with any lender. Buyers have recently worked with Peapack-Gladstone Bank, Amaro Pereira, (908) 334-8789, apereira@pgbank.com.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

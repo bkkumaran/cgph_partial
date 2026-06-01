@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_2nd_Document_Corrections_Reminder__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check to manually send the &quot;SECOND REQUEST Additional Information/Documents Requested by...&quot; reminder email. Make sure to update the &quot;Document Request Due&quot; and &quot;Document Request Due Time&quot; fields before checking.</description>
+    <inlineHelpText>Check to manually send the &quot;SECOND REQUEST Additional Information/Documents Requested by...&quot; reminder email. Make sure to update the &quot;Document Request Due&quot; and &quot;Document Request Due Time&quot; fields before checking.</inlineHelpText>
+    <label>Send 2nd Document Corrections Reminder</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

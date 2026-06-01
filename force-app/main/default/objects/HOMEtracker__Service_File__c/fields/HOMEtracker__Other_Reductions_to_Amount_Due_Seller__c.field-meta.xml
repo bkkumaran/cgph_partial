@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Other_Reductions_to_Amount_Due_Seller__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The data stored in this field is linked to the HomeKeeper National Data Hub. Enter any amounts listed on Lines 501, 503, or 506-509 that are NOT included in Total Payoff Amount of All Loans or Paid at Resale by Program.</description>
+    <inlineHelpText>Enter any amounts listed on Lines 501, 503, or 506-509 that are NOT included in Total Payoff Amount of All Loans or Paid at Resale by Program.</inlineHelpText>
+    <label>Other Reductions to Amount Due Seller</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mortgage_Rate__c</fullName>
+    <description>Mortgage Rate at time of Certification. Click the Update Expenses Variables button to populate with current information.</description>
+    <inlineHelpText>Mortgage Rate at time of Certification. Click the Update Expenses Variables button to populate with current information.</inlineHelpText>
+    <label>Mortgage Rate</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

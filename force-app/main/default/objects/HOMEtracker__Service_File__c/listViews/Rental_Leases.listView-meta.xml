@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rental_Leases</fullName>
+    <columns>HOMEtracker__Program__c</columns>
+    <columns>HOMEtracker__Property__c</columns>
+    <columns>NAME</columns>
+    <columns>Lease_Start_date__c</columns>
+    <columns>Lease_End_Date__c</columns>
+    <columns>Year_of_Last_COAH_increase__c</columns>
+    <columns>Percent_last_COAH_increase__c</columns>
+    <columns>Current_Rent__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Service_File__c.Rental</value>
+    </filters>
+    <filters>
+        <field>Municipality__c</field>
+        <operation>equals</operation>
+        <value>sparta</value>
+    </filters>
+    <label>AA Rental Leases</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

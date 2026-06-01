@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Buyers_Initial_Cash_Equity__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. Automatically calculated. Buyer&apos;s Total Investment at Closing minus Pre-paids/Reserves. This formula was updated in 1.10 to use the new field, Buyer&apos;s Total Investment at Closing, instead of the old one, Buyer&apos;s Total Cash Investment, which was made obsolete and renamed to Buyer&apos;s Total Cash Investment (OLD).</description>
+    <formula>HOMEtracker__Buyers_Total_Investment_at_Closing__c - HOMEtracker__Prepaids_Reserves__c</formula>
+    <inlineHelpText>Automatically calculated. Buyer&apos;s Total Investment at Closing minus Pre-paids/Reserves.</inlineHelpText>
+    <label>Buyer&apos;s Initial Cash Equity</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

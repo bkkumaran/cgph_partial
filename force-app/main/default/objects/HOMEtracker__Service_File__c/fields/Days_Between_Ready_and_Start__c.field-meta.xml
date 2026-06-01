@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_Between_Ready_and_Start__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Ready_for_Full_Income_Cert_Date__c ) ,NULL,
+IF(ISBLANK(Income_Certification_Start_Date__c ), TODAY()-Ready_for_Full_Income_Cert_Date__c ,
+Income_Certification_Start_Date__c -  Ready_for_Full_Income_Cert_Date__c ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Calculated number of days between the Ready for Income Cert date and the Income Certification Start Date</inlineHelpText>
+    <label>Days Between Ready and Start</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

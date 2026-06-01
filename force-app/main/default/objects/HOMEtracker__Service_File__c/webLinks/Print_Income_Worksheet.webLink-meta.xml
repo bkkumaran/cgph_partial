@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Print_Income_Worksheet</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>HR Print Worksheet</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://composer.congamerge.com
+?sessionId={!API.Session_ID}
+&amp;serverUrl={!API.Partner_Server_URL_290}
+&amp;id={!HOMEtracker__Service_File__c.Id}
+&amp;TemplateId=a293m000004m9Bc
+&amp;OFN=Income%20Calculation%20Worksheet+{!HOMEtracker__Service_File__c.HR_Case_File__c}
+&amp;ReportId=[ISD]00O3m000005MtRo?pv0={!HOMEtracker__Service_File__c.Id}
+&amp;DS7=3</url>
+</WebLink>

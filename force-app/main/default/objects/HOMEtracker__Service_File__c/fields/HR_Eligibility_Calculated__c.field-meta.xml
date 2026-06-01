@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Eligibility_Calculated__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( HR_HH_Override__c = 0, &quot;No HH Size&quot;,
+IF( HOMEtracker__Annual_Income_Eligibility__c = 0, &quot;No Income&quot;,
+IF( HOMEtracker__Annual_Income_Eligibility__c &lt;= Low_Income_Limit__c , &quot;Low Eligible&quot;,
+IF( HOMEtracker__Annual_Income_Eligibility__c &lt;= Moderate_Income_Limit__c, &quot;Mod Eligible&quot;,&quot;Ineligible&quot;))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>HR Eligibility Calculated</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

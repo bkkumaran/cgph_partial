@@ -1,9 +1,4 @@
 {
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/.sfdx": true
-  },
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -19,6 +14,44 @@
     "**/.tmp": true,
     "**/.settings": true,
     "**/.exchange_modules_tmp": true,
+    "**/CVS": true,
+    "**/core/build/repository/**": true,
+    "**/core/ext/**": true,
+    "**/target/**": true,
+    "**/bin/**": true,
+    "META-INF/": true,
     ".mule": true
-  }
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/core/build/repository/**": true,
+    "**/core/ext/**": true,
+    "**/target/**": true,
+    "**/bin/**": true
+  },
+  "perforce.maxBuffer": 10485760,
+  "perforce.editOnFileSave": true,
+  "perforce.editOnFileModified": true,
+  "perforce.addOnFileCreate": true,
+  "perforce.deleteOnFileDelete": true,
+  "perforce.client": "username-localhost-blt",
+  "perforce.user": "username",
+  "perforce.port": "ssl:host:port",
+  "extensions.ignoreRecommendations": true,
+  "salesforcedx-vscode-lightning.activationMode": "always",
+  "salesforcedx-vscode-lightning.showLightningExplorer": true,
+  "salesforcedx-vscode-core.internal-development": false,
+  "eslint.workingDirectories": [
+    "/Users/balaskandhan/CGPH_PARTIAL"
+  ],
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
+  "eslint.options": {
+    "overrideConfigFile": "/Users/balaskandhan/CGPH_PARTIAL/.eslintrc.json"
+  },
+  "xml.preferences.showSchemaDocumentationType": "none"
 }

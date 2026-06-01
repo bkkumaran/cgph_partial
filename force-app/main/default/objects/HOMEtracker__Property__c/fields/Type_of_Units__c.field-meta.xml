@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_Units__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( TEXT( HOMEtracker__Property_Type__c) = &quot;Independent Living Facility&quot;,&quot;Independent Living Facility&quot;,
+IF( TEXT( HOMEtracker__Property_Type__c) = &quot;Assisted Living&quot;,&quot;Assisted Living&quot;,
+IF( TEXT(Special_Circumstances__c) = &quot;Rehabilitation&quot;,&quot;Rehabilitation&quot;,
+    IF(TEXT(Special_Circumstances__c) = &quot;RCA&quot;,&quot;RCA&quot;,
+    IF(TEXT(Special_Circumstances__c)=&quot;Special Needs&quot;,&quot;Special Needs &quot; &amp; TEXT( Rental_or_Sale_Development__c ),
+CASE(TEXT(Age_Restriction__c),
+&quot;&quot;,&quot;Family &quot;,
+&quot;None&quot;,&quot;Family &quot;,
+&quot;Age Restricted &quot;)&amp; TEXT( Rental_or_Sale_Development__c )
+)))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The following fields on the Development determine this text: &quot;Special Circumstances&quot;, &quot;Age Restriction&quot;, &quot;property type&quot; and &quot;Rental or Sale Development&quot; all in the &quot;Development Characteristics&quot; section.</inlineHelpText>
+    <label>Type of Units</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

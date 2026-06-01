@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__HUD_Income_Category__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Does not auto-select a value. The range is based on the income limits published by HUD. Use only if required or reporting purposes.</description>
+    <inlineHelpText>Does not auto-select a value. The range is based on the income limits published by HUD. Use only if required or reporting purposes.</inlineHelpText>
+    <label>HUD Income Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Extremely Low: &lt; 30% AMI</fullName>
+                <default>false</default>
+                <label>Extremely Low: &lt; 30% AMI</label>
+            </value>
+            <value>
+                <fullName>Very Low: 31%-50% AMI</fullName>
+                <default>false</default>
+                <label>Very Low: 31%-50% AMI</label>
+            </value>
+            <value>
+                <fullName>Low Income: 51%-80% AMI</fullName>
+                <default>false</default>
+                <label>Low Income: 51%-80% AMI</label>
+            </value>
+            <value>
+                <fullName>Moderate Income: 81%-120% AMI</fullName>
+                <default>false</default>
+                <label>Moderate Income: 81%-120% AMI</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

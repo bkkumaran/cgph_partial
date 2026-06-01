@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Middle_School__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The default public middle school for this property.</description>
+    <inlineHelpText>The default public middle school for this property.</inlineHelpText>
+    <label>Middle School</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>(Configure Middle Schools)</fullName>
+                <default>false</default>
+                <label>(Configure Middle Schools)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

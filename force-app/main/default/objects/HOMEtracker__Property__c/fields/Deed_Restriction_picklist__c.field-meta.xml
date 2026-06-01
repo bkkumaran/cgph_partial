@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deed_Restriction_picklist__c</fullName>
+    <label>Deed Restriction picklist</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Need</fullName>
+                <default>true</default>
+                <label>Draft: NEEDED</label>
+            </value>
+            <value>
+                <fullName>Draft: BEING CREATED</fullName>
+                <default>false</default>
+                <label>Draft: BEING CREATED</label>
+            </value>
+            <value>
+                <fullName>Drafted  and sent to developer - follow-up needed</fullName>
+                <default>false</default>
+                <label>Draft: SENT TO DEVELOPER</label>
+            </value>
+            <value>
+                <fullName>At CGP&amp;H - waiting for signature</fullName>
+                <default>false</default>
+                <label>Draft: AWAITING CGP&amp;H SIGNATURE</label>
+            </value>
+            <value>
+                <fullName>Sent to muni for signature</fullName>
+                <default>false</default>
+                <label>Draft: SENT TO MUNI</label>
+            </value>
+            <value>
+                <fullName>Recorded copy on file</fullName>
+                <default>false</default>
+                <label>DEED RECORDED &amp; FILED</label>
+            </value>
+            <value>
+                <fullName>OLD - NEEDS FOLLOW-UP</fullName>
+                <default>false</default>
+                <label>OLD - NEEDS FOLLOW-UP</label>
+            </value>
+            <value>
+                <fullName>NOT FOUND - TRANSFERRED TO MUNI ATTRNY</fullName>
+                <default>false</default>
+                <label>NOT FOUND - TRANSFERRED TO MUNI ATTRNY</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>Drafted and sent to client</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Drafted and sent to developer</label>
+            </value>
+            <value>
+                <fullName>Need - High priority</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Need - High priority</label>
+            </value>
+            <value>
+                <fullName>Waiting for recorded doc to come back from county</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Waiting for recorded doc to come back from county</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

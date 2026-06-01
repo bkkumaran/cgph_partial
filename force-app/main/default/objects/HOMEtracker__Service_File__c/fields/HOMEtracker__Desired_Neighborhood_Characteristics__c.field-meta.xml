@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Desired_Neighborhood_Characteristics__c</fullName>
+    <deprecated>false</deprecated>
+    <description>&quot;What is important to you about the neighborhood where you purchase a home? Select your top 3:&quot;</description>
+    <inlineHelpText>&quot;What is important to you about the neighborhood where you purchase a home? Select your top 3:&quot;</inlineHelpText>
+    <label>Desired Neighborhood Characteristics</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Schools</fullName>
+                <default>false</default>
+                <label>Schools</label>
+            </value>
+            <value>
+                <fullName>Safety/crime</fullName>
+                <default>false</default>
+                <label>Safety/crime</label>
+            </value>
+            <value>
+                <fullName>Proximity to work/school</fullName>
+                <default>false</default>
+                <label>Proximity to work/school</label>
+            </value>
+            <value>
+                <fullName>Proximity to amenities</fullName>
+                <default>false</default>
+                <label>Proximity to amenities</label>
+            </value>
+            <value>
+                <fullName>Proximity to family/friends</fullName>
+                <default>false</default>
+                <label>Proximity to family/friends</label>
+            </value>
+            <value>
+                <fullName>Strong housing market</fullName>
+                <default>false</default>
+                <label>Strong housing market</label>
+            </value>
+            <value>
+                <fullName>Part of the shared equity program</fullName>
+                <default>false</default>
+                <label>Part of the shared equity program</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>8</visibleLines>
+</CustomField>

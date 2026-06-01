@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ITSEC_Est_Profit_Restricted__c</fullName>
+    <description>(Max Restricted Sale Price) - (Est Affordable Housing Fee)</description>
+    <formula>ITSEC_Max_Restricted_Sale_Price__c - ITSEC_Est_Affordable_Housing_Fee__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>(Max Restricted Sale Price) - (Est Affordable Housing Fee)</inlineHelpText>
+    <label>Est Profit (Restricted)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

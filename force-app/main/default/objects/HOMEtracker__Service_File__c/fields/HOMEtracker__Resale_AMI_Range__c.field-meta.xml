@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Resale_AMI_Range__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Populated by workflow because formula field was too long to compile.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is a formula field used to group Resale - Percent of AMI for reports and dashboards.</inlineHelpText>
+    <label>Resale AMI % Range</label>
+    <length>100</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

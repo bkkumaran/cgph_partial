@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Sellers_Nominal_Rate_of_Return__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. This formula shows the Seller&apos;s Gain divided by the Buyer&apos;s Total Investment at Closing. If the Buyer&apos;s Total Investment at Closing is zero, it substitutes a value of $1 in its place.</description>
+    <formula>HOMEtracker__Sellers_Gain__c / IF(HOMEtracker__Buyers_Total_Investment_at_Closing__c == 0, 1, HOMEtracker__Buyers_Total_Investment_at_Closing__c)</formula>
+    <inlineHelpText>This formula shows the Seller&apos;s Gain divided by the Buyer&apos;s Total Investment at Closing. If the Buyer&apos;s Total Investment at Closing is zero, it substitutes a value of $1 in its place.</inlineHelpText>
+    <label>Seller&apos;s Nominal Rate of Return</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

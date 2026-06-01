@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Gross_Amount_Due_from_Borrower__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Line 120./301. on the HUD-1. Required in order to reconcile with Funding Source Total.</description>
+    <inlineHelpText>Line 120./301. on the HUD-1. Required in order to reconcile with Funding Source Total.</inlineHelpText>
+    <label>Gross Amount Due from Borrower</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

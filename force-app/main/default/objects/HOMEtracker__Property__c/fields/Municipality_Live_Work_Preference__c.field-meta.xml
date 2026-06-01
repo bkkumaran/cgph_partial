@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Municipality_Live_Work_Preference__c</fullName>
+    <description>If checked preference is given to applicants who live/work in the region.</description>
+    <formula>Municipality_Name__r.Live_Work_Preference__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>If checked preference is given to applicants who live/work in the region.</inlineHelpText>
+    <label>Regional Live/Work Preference</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

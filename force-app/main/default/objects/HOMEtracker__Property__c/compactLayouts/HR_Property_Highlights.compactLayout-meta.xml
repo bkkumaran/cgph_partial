@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Property_Highlights</fullName>
+    <fields>Name</fields>
+    <fields>RecordTypeId</fields>
+    <fields>Current_HR_Case_File__c</fields>
+    <label>HR Property Highlights</label>
+</CompactLayout>

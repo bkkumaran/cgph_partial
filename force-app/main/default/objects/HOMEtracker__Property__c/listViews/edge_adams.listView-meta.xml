@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>edge_adams</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>HOMEtracker__Number_of_Bathrooms__c</columns>
+    <columns>Local_Preference_Type__c</columns>
+    <columns>Consider_Local_Preference__c</columns>
+    <columns>Local_Preference_for_Priority__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Data_Check__c</columns>
+    <columns>HOMEtracker__Monthly_Rent__c</columns>
+    <columns>Utilities__c</columns>
+    <columns>Utilities_Comments__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Edge Adams</value>
+    </filters>
+    <label>AA edge adams</label>
+</ListView>

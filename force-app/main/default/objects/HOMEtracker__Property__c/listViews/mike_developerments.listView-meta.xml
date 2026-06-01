@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mike_developerments</fullName>
+    <columns>NAME</columns>
+    <columns>Municipality_Name__c</columns>
+    <columns>Primary_Case_manager__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Primary_Case_manager__c</field>
+        <operation>contains</operation>
+        <value>Angelica</value>
+    </filters>
+    <label>mike developerments</label>
+</ListView>

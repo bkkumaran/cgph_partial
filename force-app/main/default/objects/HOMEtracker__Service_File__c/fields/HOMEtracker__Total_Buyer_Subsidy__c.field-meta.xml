@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Total_Buyer_Subsidy__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. This calculated summary field shows the sum of the Amount of all Funding Sources where a) Type is Grant (Public/Non-Profit), or b) Type is Loan (Purchase) and No Payments in First 5 Years is true.</description>
+    <inlineHelpText>This calculated summary field shows the sum of the Amount of all Funding Sources where a) Type is Grant (Public/Non-Profit), or b) Type is Loan (Purchase) and No Payments in First 5 Years is true.</inlineHelpText>
+    <label>Total Buyer Subsidy</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Export_Lease_History</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Export Lease History</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>/apex/APXTConga4__Conga_Composer?serverUrl={!$Api.Partner_Server_URL_370}&amp;id=
+{!HOMEtracker__Property__c.HOMEtracker__Current_Owner_Service_FileId__c}&amp;OFN= {! HOMEtracker__Property__c.Name }+Leases&amp;TemplateId=a296O00000IXivqQAD&amp;QueryId=[LEASES]a211N000003OirAQAS?pv0={!HOMEtracker__Property__c.HOMEtracker__Current_Owner_Service_FileId__c}&amp;DS7=3</url>
+</WebLink>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Minimum_Down_Payment_Required__c</fullName>
+    <defaultValue>0</defaultValue>
+    <description>The minimum down payment required (%) based on the applicant&apos;s mortgage pre-approval.
+
+Note: Put 0% for cash buyers.</description>
+    <inlineHelpText>The minimum down payment required (%) based on the applicant&apos;s mortgage pre-approval.
+
+Note: Put 0% for cash buyers.</inlineHelpText>
+    <label>Minimum Down Payment Required?</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

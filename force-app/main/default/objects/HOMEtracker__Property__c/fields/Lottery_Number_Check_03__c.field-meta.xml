@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lottery_Number_Check_03__c</fullName>
+    <description>Check For Non-CGP&amp;H Lottery Number (Edison MTA)</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(Development_address__r.Id = &quot;a0Jo000000LLFu9&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Edison_Market_to_Affordable__c&quot;), &quot;Lottery number should be Edison_Market_to_Affordable__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000V5xlz&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Edison_Market_to_Affordable__c&quot;), &quot;Lottery number should be Edison_Market_to_Affordable__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000V61VE&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Edison_Market_to_Affordable__c&quot;), &quot;Lottery number should be Edison_Market_to_Affordable__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000V61aO&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Edison_Market_to_Affordable__c&quot;), &quot;Lottery number should be Edison_Market_to_Affordable__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000V61t6&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Edison_Market_to_Affordable__c&quot;), &quot;Lottery number should be Edison_Market_to_Affordable__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000V62Lv&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Edison_Market_to_Affordable__c&quot;), &quot;Lottery number should be Woodmont_Station_at_Cranford__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000V62TE&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Edison_Market_to_Affordable__c&quot;), &quot;Lottery number should be Edison_Market_to_Affordable__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000V66Ed&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Edison_Market_to_Affordable__c&quot;), &quot;Lottery number should be Edison_Market_to_Affordable__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(
+
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000LLFu9&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000V5xlz&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000V61VE&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000V61aO&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000V61t6&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000V62Lv&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000V62TE&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000V66Ed&quot;
+
+), &quot;Good&quot;, &quot;Good&quot; 
+
+)))))))))</formula>
+    <inlineHelpText>For properties with non CGP&amp;H lottery numbers, make sure to outreach as follows before moving to the next listing stage:
+1. Non CGP&amp;H Lottery Numbers
+2. CGP&amp;H Lottery Numbers
+3. Interest Date</inlineHelpText>
+    <label>Lottery Number Check 03</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

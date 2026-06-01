@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Primary_Reason_for_Purchase__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change the picklist values or hide the field from the layout. Select the reason that is the best fit. If none apply, select Other.</description>
+    <inlineHelpText>Select the reason that is the best fit. If none apply, select Other.</inlineHelpText>
+    <label>Primary Reason for Purchase</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Desire to own a home of my own</fullName>
+                <default>false</default>
+                <label>Desire to own a home of my own</label>
+            </value>
+            <value>
+                <fullName>Desire for larger home</fullName>
+                <default>false</default>
+                <label>Desire for larger home</label>
+            </value>
+            <value>
+                <fullName>Change in family situation</fullName>
+                <default>false</default>
+                <label>Change in family situation</label>
+            </value>
+            <value>
+                <fullName>Home buyer tax credit</fullName>
+                <default>false</default>
+                <label>Home buyer tax credit</label>
+            </value>
+            <value>
+                <fullName>Job-related relocation or move</fullName>
+                <default>false</default>
+                <label>Job-related relocation or move</label>
+            </value>
+            <value>
+                <fullName>Affordability of homes</fullName>
+                <default>false</default>
+                <label>Affordability of homes</label>
+            </value>
+            <value>
+                <fullName>Desire to be closer to family/friends/relatives</fullName>
+                <default>false</default>
+                <label>Desire to be closer to family/friends/relatives</label>
+            </value>
+            <value>
+                <fullName>Desire for a home in a better area</fullName>
+                <default>false</default>
+                <label>Desire for a home in a better area</label>
+            </value>
+            <value>
+                <fullName>Desire to be closer to job/school/transit</fullName>
+                <default>false</default>
+                <label>Desire to be closer to job/school/transit</label>
+            </value>
+            <value>
+                <fullName>Desire for smaller home</fullName>
+                <default>false</default>
+                <label>Desire for smaller home</label>
+            </value>
+            <value>
+                <fullName>Retirement</fullName>
+                <default>false</default>
+                <label>Retirement</label>
+            </value>
+            <value>
+                <fullName>Establish household</fullName>
+                <default>false</default>
+                <label>Establish household</label>
+            </value>
+            <value>
+                <fullName>Greater number of homes on the market for sale/better choice</fullName>
+                <default>false</default>
+                <label>Greater number of homes on the market for sale/better choice</label>
+            </value>
+            <value>
+                <fullName>Tax benefits</fullName>
+                <default>false</default>
+                <label>Tax benefits</label>
+            </value>
+            <value>
+                <fullName>Desire for a newly built or custom-built home</fullName>
+                <default>false</default>
+                <label>Desire for a newly built or custom-built home</label>
+            </value>
+            <value>
+                <fullName>Purchased home for family member or relative</fullName>
+                <default>false</default>
+                <label>Purchased home for family member or relative</label>
+            </value>
+            <value>
+                <fullName>Financial security</fullName>
+                <default>false</default>
+                <label>Financial security</label>
+            </value>
+            <value>
+                <fullName>Desire for vacation home/investment property</fullName>
+                <default>false</default>
+                <label>Desire for vacation home/investment property</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PHA__Application_Due_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>Date full application is due. Update this field if applicant has not submitted yet and you are extending the deadline.</inlineHelpText>
+    <label>Application Due</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

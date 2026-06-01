@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_project_binders</fullName>
+    <columns>Municipality_Name__c</columns>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>notEqual</operation>
+        <value>Not administered directly by CGP&amp;H</value>
+    </filters>
+    <label>AA project binders</label>
+</ListView>

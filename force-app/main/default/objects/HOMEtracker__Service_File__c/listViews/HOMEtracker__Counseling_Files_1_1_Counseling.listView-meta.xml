@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Counseling_Files_1_1_Counseling</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Applicant__c</columns>
+    <columns>HOMEtracker__Co_Applicant__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Service_File__c.HOMEtracker__X1_1_Counseling</value>
+    </filters>
+    <label>Counseling Files: 1-1 Counseling</label>
+</ListView>

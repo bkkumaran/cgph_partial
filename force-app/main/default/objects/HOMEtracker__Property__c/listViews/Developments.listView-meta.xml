@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Developments</fullName>
+    <columns>Rental_or_Sale_Development__c</columns>
+    <columns>Development_Financing_Requirements__c</columns>
+    <columns>NAME</columns>
+    <columns>Municipality_Acct__c</columns>
+    <columns>Number_of_units__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>HOMEtracker__Tenure_Type__c</columns>
+    <columns>Primary_contact__c</columns>
+    <columns>Is_wait_list_closed__c</columns>
+    <columns>Waiting_list_status__c</columns>
+    <columns>Waiting_list_comments__c</columns>
+    <columns>HOMEtracker__Interior__c</columns>
+    <columns>Credit_Background_Check_Fee_Notes__c</columns>
+    <columns>Minimum_Credit_Score_to_be_Eligible__c</columns>
+    <columns>Credit_Check_Required__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <label>AA All Developments</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

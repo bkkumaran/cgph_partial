@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_Lease__c</fullName>
+    <description>Lease dates for month to month lease indicate when landlord can take increase</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Lease dates for month to month lease indicate when landlord can take increase</inlineHelpText>
+    <label>Notes/Type of Lease</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

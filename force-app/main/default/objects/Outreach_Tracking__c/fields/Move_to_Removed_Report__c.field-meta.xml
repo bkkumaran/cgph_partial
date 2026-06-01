@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Move_to_Removed_Report__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Check this box to move a removed applicant from the applicant tracker to the removed applicants page.</inlineHelpText>
+    <label>Move to Removed Report</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Number_of_Seniors_in_Household__c</fullName>
+    <defaultValue>0</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the national performance database.  Do not change this field or hide it from the layout. Count of number of Household Members 62 or older. This would be a roll-up sum field if the summary field limit were not already reached.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Count of number of Household Members 62 or older.</inlineHelpText>
+    <label>Number of Seniors in Household</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

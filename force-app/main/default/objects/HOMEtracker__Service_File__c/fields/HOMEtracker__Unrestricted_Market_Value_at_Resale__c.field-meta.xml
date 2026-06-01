@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Unrestricted_Market_Value_at_Resale__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. If this is a resale to a buyer with a Service File, this will be copied from the buyer&apos;s Service File when you click Sync Buyer/Seller Data. Enter here only if there is no buyer service file. You should also create a corresponding appraisal record.</description>
+    <inlineHelpText>If this is a resale to a buyer with a Service File, this will be copied from the buyer&apos;s Service File when you click Sync Buyer/Seller Data. Enter here only if there is no buyer service file. You should also create a corresponding appraisal record.</inlineHelpText>
+    <label>Unrestricted Market Value at Resale</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

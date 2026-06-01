@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Appeal_Deadline__c</fullName>
+    <description>The appeal deadline the applicant has to submit the missing supporting documents by.</description>
+    <inlineHelpText>The appeal deadline the applicant has to submit the missing supporting documents by.</inlineHelpText>
+    <label>Appeal Deadline</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

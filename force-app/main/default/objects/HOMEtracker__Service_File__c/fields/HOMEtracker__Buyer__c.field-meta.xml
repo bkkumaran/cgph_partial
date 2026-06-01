@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Buyer__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The Service File of the buyer. If the home is being sold back to the program, or transferred to a lender or buyer outside the program, leave blank.</description>
+    <inlineHelpText>The Service File of the buyer. If the home is being sold back to the program, or transferred to a lender or buyer outside the program, leave blank.</inlineHelpText>
+    <label>Buyer</label>
+    <referenceTo>HOMEtracker__Service_File__c</referenceTo>
+    <relationshipLabel>Services (Buyer)</relationshipLabel>
+    <relationshipName>Services1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

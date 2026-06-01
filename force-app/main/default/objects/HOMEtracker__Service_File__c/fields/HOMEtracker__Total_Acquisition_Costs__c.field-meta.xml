@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Total_Acquisition_Costs__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Auto-calculated. Estimated Closing Costs plus Home Purchase Price</description>
+    <formula>HOMEtracker__Estimated_Closing_Costs__c +  HOMEtracker__Purchase_Price__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Auto-calculated. Estimated Closing Costs plus Home Purchase Price</inlineHelpText>
+    <label>Estimated Acquisition Costs</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

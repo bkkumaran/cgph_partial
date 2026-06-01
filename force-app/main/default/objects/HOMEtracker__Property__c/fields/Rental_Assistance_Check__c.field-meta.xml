@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rental_Assistance_Check__c</fullName>
+    <description>Checks to see if the &quot;Rental Assistance Permitted&quot; field on the property is in agreement with the &quot;Development Allows Rental Assistance?&quot; field on the development. They should be.</description>
+    <externalId>false</externalId>
+    <formula>IF(TEXT(Development_address__r.Development_Allows_Rental_Assistance__c) = &quot;&quot;, &quot;ERROR - NOT CONFIRMED&quot;,
+
+IF(AND(TEXT(Development_address__r.Development_Allows_Rental_Assistance__c) = &quot;Yes&quot;, Rental_Assistance_Permitted__c = FALSE), &quot;ERROR&quot;,
+
+IF(AND(TEXT(Development_address__r.Development_Allows_Rental_Assistance__c) = &quot;No&quot;, Rental_Assistance_Permitted__c = TRUE), &quot;ERROR&quot;,
+
+&quot;Good&quot;
+
+)))</formula>
+    <inlineHelpText>Checks to see if the &quot;Rental Assistance Permitted&quot; field on the property is in agreement with the &quot;Development Allows Rental Assistance?&quot; field on the development. They should be.</inlineHelpText>
+    <label>Rental Assistance Check</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

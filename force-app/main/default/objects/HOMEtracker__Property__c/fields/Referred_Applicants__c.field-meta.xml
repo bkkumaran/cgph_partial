@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Referred_Applicants__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+&quot;https://cgph.lightning.force.com/lightning/r/Report/00O6O000005tllLUAQ/view?queryScope=userFolders&amp;fv2=&quot;&amp; Id ,
+&quot;Include Referred&quot;,
+&quot;_Blank&quot;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Outreach applicants report that includes referred applicants</inlineHelpText>
+    <label>With Referred Applicants</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

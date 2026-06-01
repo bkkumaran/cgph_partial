@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Cert_K_Sent_to_Development__c</fullName>
+    <description>If the &quot;Required to Send Cert K After Cert?&quot; field on the property&apos;s development is &quot;Yes&quot;, enter the date the Certificate K was sent to the development.</description>
+    <inlineHelpText>If the &quot;Required to Send Cert K After Cert?&quot; field on the property&apos;s development is &quot;Yes&quot;, enter the date the Certificate K was sent to the development.</inlineHelpText>
+    <label>Date Cert K Sent to Development</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

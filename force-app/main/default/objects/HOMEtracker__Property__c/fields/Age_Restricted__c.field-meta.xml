@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Age_Restricted__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( TEXT(Age_Restriction__c),
+&apos;&apos;,&apos;Unknown&apos;,
+&apos;None&apos;,&apos;Not Age Restricted&apos;,
+&apos;Age Restricted&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Field is populated by data in Age Restriction field</inlineHelpText>
+    <label>Age Restricted</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NAAC_Date_Completed_Updated_Add_Rem_Log__c</fullName>
+    <description>Enter once the final updates have been made to the Updated Addition/Removal Log. Usually after a random drawing has been completed or existing lottery numbers have been restored.</description>
+    <inlineHelpText>Enter once the final updates have been made to the Updated Addition/Removal Log. Usually after a random drawing has been completed or existing lottery numbers have been restored.</inlineHelpText>
+    <label>Date Completed</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

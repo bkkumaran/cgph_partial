@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MY_aa_marketing_flyers</fullName>
+    <columns>NAME</columns>
+    <columns>Flyer_status__c</columns>
+    <columns>Flyers_Distributed__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Kick_off_follow_up_neeed__c</field>
+        <operation>contains</operation>
+        <value>Proof of Publication Needed,Affirmative Marketing in Progress,Prepping for Aff</value>
+    </filters>
+    <label>MY aa marketing flyers</label>
+</ListView>

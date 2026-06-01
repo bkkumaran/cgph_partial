@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_notified_to_fill_vacancy__c</fullName>
+    <inlineHelpText>Enter the date the landlord authorizes CGP&amp;H to start filling vacant unit.  (This date may be early than the date we begin outreach.)</inlineHelpText>
+    <label>Date notified to fill vacancy</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

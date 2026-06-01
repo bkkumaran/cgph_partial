@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Certified_Percent_of_AMI_Eligibility__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Copies the value of the Percent of AMI (Eligibility) field at when the Certify Income button is pressed.</description>
+    <formula>HOMEtracker__Certified_Annual_Income_Eligibility__c / HOMEtracker__Certified_AMI__c</formula>
+    <inlineHelpText>Copies the value of the Percent of AMI (Eligibility) field at when the Certify Income button is pressed.</inlineHelpText>
+    <label>Certified Percent of AMI (Eligibility)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Services_with_HUB_Ethnicity</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Ethnicity__c</columns>
+    <columns>HOMEtracker__National_HUB_Ethnicity__c</columns>
+    <columns>HOMEtracker__Race__c</columns>
+    <columns>HOMEtracker__National_HUB_Race__c</columns>
+    <columns>HOMEtracker__Primary_Language_Spoken__c</columns>
+    <columns>HOMEtracker__National_HUB_Language__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Service_File__c.HOMEtracker__Homeownership</value>
+    </filters>
+    <label>Services with HUB Ethnicity</label>
+</ListView>

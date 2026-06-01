@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vacancy_Pricing</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Vacancy Pricing</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>/apex/APXTConga4__Conga_Composer?serverUrl={!$Api.Enterprise_Server_URL_370}
+&amp;Id={!HOMEtracker__Property__c.Id}
+&amp;OFN=Vacancy+Pricing+{!HOMEtracker__Property__c.Name}
+&amp;DC={!IF( OR(ISBLANK(  HOMEtracker__Property__c.Date_of_Initial_Rental_Pricing__c  ),HOMEtracker__Property__c.Initial_rental_pricing__c=0,ISBLANK(  HOMEtracker__Property__c.Initial_rental_pricing__c  )), &quot;1&quot; , &quot;0&quot;)} 
+&amp;DCL=MISSING+Initial+Pricing+OR+Date+of+Initial+Pricing
+&amp;TemplateID=a291N000004G8DC
+&amp;DS7=3</url>
+</WebLink>

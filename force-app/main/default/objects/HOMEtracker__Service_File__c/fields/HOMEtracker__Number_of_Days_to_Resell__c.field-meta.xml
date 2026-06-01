@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Number_of_Days_to_Resell__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Auto-calculated. Resale Close Date minus Notice of Intent to Sell Received.</description>
+    <externalId>false</externalId>
+    <formula>HOMEtracker__Resale_Close_Date__c - HOMEtracker__Notice_of_Intent_to_Sell__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Auto-calculated. Resale Close Date minus Notice of Intent to Sell Received.</inlineHelpText>
+    <label>Number of Days to Resell</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

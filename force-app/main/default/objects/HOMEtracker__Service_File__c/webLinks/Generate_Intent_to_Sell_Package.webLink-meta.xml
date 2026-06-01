@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Generate_Intent_to_Sell_Package</fullName>
+    <availability>online</availability>
+    <description>Generates an Intent to Sell Package for the Applicant and Property associated with this Service File.</description>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Generate Intent to Sell Package</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>/apex/APXTConga4__Conga_Composer?serverUrl={!API.Partner_Server_URL_370}
+&amp;id={!HOMEtracker__Service_File__c.Id}
+&amp;TemplateId=00P1N00000WvisD
+&amp;TemplateGroup=AA,Merges
+&amp;OFN=Intent+to+Sell+Package+{!HOMEtracker__Service_File__c.HOMEtracker__Property__c}
+&amp;QueryId=[ITSProperty]a211N000001eGcY
+?pv0={!HOMEtracker__Service_File__c.HOMEtracker__PropertyId__c},[ITSMunicipality]a211N000001eGeG
+?pv0={!HOMEtracker__Service_File__c.Municipality_ID__c},
+[ITSApplicantContact]a211N000001eGfi
+?pv0={!HOMEtracker__Service_File__c.HOMEtracker__ApplicantId__c}</url>
+</WebLink>

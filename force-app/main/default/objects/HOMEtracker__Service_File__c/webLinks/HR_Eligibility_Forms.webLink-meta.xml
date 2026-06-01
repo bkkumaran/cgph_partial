@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Eligibility_Forms</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>HR Eligibility Forms</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://composer.congamerge.com
+?sessionId={!API.Session_ID}
+&amp;serverUrl={!API.Partner_Server_URL_290}
+&amp;id={!HOMEtracker__Service_File__c.Id}
+&amp;TemplateGroup=HR+Eligibility+STANDARD,HR+Elig+
+{!HOMEtracker__Property__c.Name_NickName_Calc__c}
+&amp;OFN={!HOMEtracker__Service_File__c.Name}+{Template.Label}
+&amp;QueryId=[HRCF]a213m000003YLj7?pv0={!HOMEtracker__Service_File__c.HR_Case_FileId__c}</url>
+</WebLink>

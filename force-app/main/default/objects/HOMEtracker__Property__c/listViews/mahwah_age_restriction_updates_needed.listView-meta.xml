@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mahwah_age_restriction_updates_needed</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Municipality_Name__c</field>
+        <operation>equals</operation>
+        <value>mahwah</value>
+    </filters>
+    <filters>
+        <field>Age_Restricted__c</field>
+        <operation>equals</operation>
+        <value>unknown</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <label>mahwah age restriction updates needed</label>
+</ListView>

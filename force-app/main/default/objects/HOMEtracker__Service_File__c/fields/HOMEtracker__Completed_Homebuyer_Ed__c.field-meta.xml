@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Completed_Homebuyer_Ed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the national performance database. Do not change this field or hide it from the layout. If checked, the applicant has met the program&apos;s homebuyer education requirement. The box will be automatically checked if Date of Homebuyer Ed Certificate is filled in.</description>
+    <inlineHelpText>If checked, the applicant has met the program&apos;s homebuyer education requirement. The box will be automatically checked if Date of Homebuyer Ed Certificate is filled in.</inlineHelpText>
+    <label>Completed Homebuyer Ed</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

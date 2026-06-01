@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approximate_Annual_Property_Taxes__c</fullName>
+    <formula>if(ISPICKVAL( HOMEtracker__Property_Type__c, &apos;Mobile or Manufactured Home&apos;),0,HOMEtracker__List_Price__c  *  Municipality_Name__r.General_Tax_Rate__c  *  Municipality_Name__r.Equalization_Ratio__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This field is auto-calculated as follows: &quot;List Price&quot; (from the Property) x &quot;General Tax Rate&quot; (from the Municipality) x &quot;Equalization Ratio&quot; (from the Municipality).</inlineHelpText>
+    <label>Annual Property Taxes (Approximate)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

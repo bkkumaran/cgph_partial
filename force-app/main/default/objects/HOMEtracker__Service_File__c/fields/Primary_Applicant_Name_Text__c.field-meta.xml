@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Applicant_Name_Text__c</fullName>
+    <description>Autofills from the Applicant Contact. Used on the full app portal.</description>
+    <externalId>false</externalId>
+    <formula>HOMEtracker__Applicant__r.Applicant_Name_for_Mail_Merge__c</formula>
+    <inlineHelpText>Autofills from the Applicant Contact. Used on the full app portal.</inlineHelpText>
+    <label>Primary Applicant</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

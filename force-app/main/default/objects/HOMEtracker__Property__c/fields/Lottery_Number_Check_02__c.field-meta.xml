@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lottery_Number_Check_02__c</fullName>
+    <description>Check For Non-CGP&amp;H Lottery Number - 1 (Not Edison MTA)</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(Development_address__r.Id = &quot;a0Jo000000LLwRj&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Centerplace_at_Edison__c&quot;), &quot;Lottery number should be Centerplace_at_Edison__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000LLwRP&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Rivendell_Heights__c&quot;), &quot;Lottery number should be Rivendell_Heights__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000mohxj&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Edison_Market_to_Affordable__c&quot;), &quot;Lottery number should be Edison_Market_to_Affordable__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0Jo000000LKqIJ&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Village_Court_Seniors__c&quot;), &quot;Lottery number should be Village_Court_Seniors__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0J1N00001hysKY&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Fairway_28__c&quot;), &quot;Lottery number should be Fairway_28__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0J1N00001a7UtA&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Woodmont_Station_at_Cranford__c&quot;), &quot;Lottery number should be Woodmont_Station_at_Cranford__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0J1N00001f9qcj&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Valley_Bloom__c&quot;), &quot;Lottery number should be Valley_Bloom__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0J1N00001fB67S&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Laurel_Green__c&quot;), &quot;Lottery number should be Laurel_Green__c unless you have exhausted the wl for the listing stage.&quot;,
+
+IF(AND(Development_address__r.Id = &quot;a0J3m00001ibfH2&quot;, TEXT(Lottery_Number_for_Priority__c) &lt;&gt; &quot;Village_of_Bridgewater__c&quot;), &quot;Lottery number should be Village_of_Bridgewater__c unless you have exhausted the wl for the listing stage.&quot;,
+
+
+IF(AND(
+
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000LLwRj&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000LLwRP&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000mohxj&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0Jo000000LKqIJ&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0J1N00001hysKY&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0J1N00001a7UtA&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0J1N00001f9qcj&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0J1N00001fB67S&quot;,
+Development_address__r.Id &lt;&gt; &quot;a0J3m00001ibfH2&quot;
+
+), &quot;Good&quot;, &quot;Good&quot; 
+
+))))))))))</formula>
+    <inlineHelpText>For properties with non CGP&amp;H lottery numbers, make sure to outreach as follows before moving to the next listing stage:
+1. Non CGP&amp;H Lottery Numbers
+2. CGP&amp;H Lottery Numbers
+3. Interest Date</inlineHelpText>
+    <label>Lottery Number Check 02</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

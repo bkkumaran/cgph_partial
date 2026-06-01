@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__View_Exit_Survey</fullName>
+    <availability>online</availability>
+    <description>Navigate from Service File directly to Resale Summary page with Exit Survey fields.</description>
+    <displayType>link</displayType>
+    <height>600</height>
+    <linkType>page</linkType>
+    <masterLabel>View Exit Survey</masterLabel>
+    <openType>sidebar</openType>
+    <page>HOMEtracker__Resale_Summary_Wizard_Step5</page>
+    <protected>false</protected>
+</WebLink>

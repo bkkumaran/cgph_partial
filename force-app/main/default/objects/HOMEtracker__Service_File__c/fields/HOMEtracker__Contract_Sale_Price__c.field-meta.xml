@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Contract_Sale_Price__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the national performance database.  Do not change this field or hide it from the layout. This price has the ground lease reissuance fee as well as the amount deducted from the seller added back in. Best practice is to collect those funds and use them to repair or maintain the home.
+
+Actual Sales/Purchase Price from item 101/401. on the HUD-1. This amount gets copied to the next buyers&apos; Home Purchase Price when the Sync Buyer/Seller button is used.</description>
+    <inlineHelpText>Actual Sales/Purchase Price from item 101/401. on the HUD-1. This amount gets copied to the next buyers&apos; Home Purchase Price when the Sync Buyer/Seller button is used.</inlineHelpText>
+    <label>Contract Sales Price</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

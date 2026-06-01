@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Abbreviated_Legal_Description__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Legal Description from the title report - used to mail-merge into program documents such as a ground lease, deed of trust, loan documents, etc.</description>
+    <inlineHelpText>Legal Description from the title report - used to mail-merge into program documents such as a ground lease, deed of trust, loan documents, etc.</inlineHelpText>
+    <label>Abbreviated Legal Description</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

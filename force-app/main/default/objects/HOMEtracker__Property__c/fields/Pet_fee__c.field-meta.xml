@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pet_fee__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This text will show on the listing and should contain a short blurb about any pet fees and/or policies.  If  no pets allowed, do not enter info in Pet Listing Info and fields.  (entering info will show duplicate info on website and listings)</inlineHelpText>
+    <label>Pet Listing Information &amp; Fees</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

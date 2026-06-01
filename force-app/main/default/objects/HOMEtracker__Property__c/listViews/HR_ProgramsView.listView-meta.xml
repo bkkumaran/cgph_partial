@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_ProgramsView</fullName>
+    <columns>NAME</columns>
+    <columns>Municipality_Name__c</columns>
+    <columns>OBJECT_ID</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Housing Rehabilitation Program</value>
+    </filters>
+    <label>HR Programs</label>
+    <sharedTo>
+        <group>HR_Group</group>
+    </sharedTo>
+</ListView>

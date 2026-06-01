@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X95_Difference_for_Township__c</fullName>
+    <description>95% of the difference between the Estimated Market Sale Price and the Maximum Re-Sale Price for the Township.</description>
+    <formula>IF((MRSP_Est_Market_Price__c * 0.95)&lt;0,0,(MRSP_Est_Market_Price__c * 0.95))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>95% of the difference between the Estimated Market Sale Price and the Maximum Re-Sale Price for the Township.</inlineHelpText>
+    <label>95% of Difference for Township</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Group_Property_Parent__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>If this property is a single unit that is part of a group property for outreach, enter the group property that it is a part of in this field.</inlineHelpText>
+    <label>Group Property</label>
+    <referenceTo>HOMEtracker__Property__c</referenceTo>
+    <relationshipLabel>Properties (Group Property)</relationshipLabel>
+    <relationshipName>Group_Properties</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

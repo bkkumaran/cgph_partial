@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Lender__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This is automatically copied from the largest Funding Source with a type of &quot;Loan (Purchase).&quot; To update, edit the related Funding Source record.</description>
+    <inlineHelpText>This is automatically copied from the largest Funding Source with a type of &quot;Loan (Purchase).&quot; To update, edit the related Funding Source record.</inlineHelpText>
+    <label>Lender</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Services (Lender)</relationshipLabel>
+    <relationshipName>Services6</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Current_Bedrooms__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The number of bedrooms in the Applicant&apos;s home at the time of application.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number of bedrooms in the Applicant&apos;s home at the time of application.</inlineHelpText>
+    <label>Applicant Bedrooms</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

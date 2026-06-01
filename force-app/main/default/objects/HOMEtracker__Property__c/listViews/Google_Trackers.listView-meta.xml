@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Google_Trackers</fullName>
+    <columns>NAME</columns>
+    <columns>Google_Tracker_Link__c</columns>
+    <columns>Google_Tracker_Made_With_General_Gmail__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Google_Tracker_Link__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>AA Google Trackers</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

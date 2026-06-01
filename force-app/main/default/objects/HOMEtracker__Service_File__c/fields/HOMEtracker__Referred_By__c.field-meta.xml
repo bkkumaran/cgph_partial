@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Referred_By__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicate the source of reference from which the client learned about the counseling program.  If the value is not available default it to ‘N/A’. This field is required for 9902 reporting. Custom values must be less than 40 characters to prevent errors when generating the 9902 report. Contact HomeKeeper Support before customizing to prevent errors when generating the 9902.</description>
+    <label>Referred By</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>HUD Outreach</fullName>
+                <default>false</default>
+                <label>HUD Outreach</label>
+            </value>
+            <value>
+                <fullName>Agency Outreach</fullName>
+                <default>false</default>
+                <label>Agency Outreach</label>
+            </value>
+            <value>
+                <fullName>Another Person</fullName>
+                <default>false</default>
+                <label>Another Person</label>
+            </value>
+            <value>
+                <fullName>Lender</fullName>
+                <default>false</default>
+                <label>Lender</label>
+            </value>
+            <value>
+                <fullName>Another Agency</fullName>
+                <default>false</default>
+                <label>Another Agency</label>
+            </value>
+            <value>
+                <fullName>Real Estate Agent</fullName>
+                <default>false</default>
+                <label>Real Estate Agent</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

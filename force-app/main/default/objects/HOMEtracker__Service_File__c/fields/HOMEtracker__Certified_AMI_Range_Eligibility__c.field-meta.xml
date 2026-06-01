@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Certified_AMI_Range_Eligibility__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF( HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &lt; 0.5, &apos;&lt;50%&apos;,
+IF(HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &gt;= 0.5 &amp;&amp; HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &lt; 0.6, &apos;50-59%&apos;,
+IF(HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &gt;= 0.6 &amp;&amp; HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &lt; 0.7, &apos;60-69%&apos;,
+IF(HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &gt;= 0.7 &amp;&amp; HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &lt; 0.8, &apos;70-79%&apos;,
+IF(HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &gt;= 0.8 &amp;&amp; HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &lt; 0.9, &apos;80-89%&apos;,
+IF(HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &gt;= 0.9 &amp;&amp; HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &lt; 1.0, &apos;90-99%&apos;,
+IF(HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &gt;= 1.0 &amp;&amp; HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &lt; 1.1, &apos;100-109%&apos;,
+IF(HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &gt;= 1.1 &amp;&amp; HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &lt; 1.2, &apos;110-119%&apos;,
+IF(HOMEtracker__Certified_Percent_of_AMI_Eligibility__c &gt;= 1.2, &apos;120%+&apos;,&apos;&apos;)))))))))</formula>
+    <inlineHelpText>This is a formula field used to group Certified Percent of AMI (Eligibility) for reports and dashboards.</inlineHelpText>
+    <label>Certified AMI % Range (Eligibility)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

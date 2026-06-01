@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_Onboarding_new_developments</fullName>
+    <columns>Kick_off_follow_up_neeed__c</columns>
+    <columns>NAME</columns>
+    <columns>Kick_off_Coordinator__c</columns>
+    <columns>Kick_off_next_action_step_date__c</columns>
+    <columns>Kick_off_Notes__c</columns>
+    <columns>Municipality_Name__c</columns>
+    <columns>Number_of_units__c</columns>
+    <columns>Rental_or_Sale_Development__c</columns>
+    <columns>Lottery_Deadline_date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Kick_off_follow_up_neeed__c</field>
+        <operation>notEqual</operation>
+        <value>None needed</value>
+    </filters>
+    <label>AA Onboarding new developments</label>
+</ListView>

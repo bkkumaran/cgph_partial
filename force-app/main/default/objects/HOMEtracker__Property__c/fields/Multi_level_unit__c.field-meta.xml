@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Multi_level_unit__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box if the home has more than one story and the additional stories are only accessible by stairs.</description>
+    <inlineHelpText>Check this box if the home has more than one story and the additional stories are only accessible by stairs.</inlineHelpText>
+    <label>Multi-Level Unit</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

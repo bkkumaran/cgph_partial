@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>The_Brooks_at_Freehold</fullName>
+    <columns>NAME</columns>
+    <columns>Original_Purchase_Price__c</columns>
+    <columns>HOMEtracker__List_Price__c</columns>
+    <columns>HOMEtracker__Date_Placed_in_Program__c</columns>
+    <columns>of_years_in_initial_afford_peri__c</columns>
+    <columns>Initial_affordability_of_Unit__c</columns>
+    <columns>Bedroom_Count__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Type_of_Affordability_Controls__c</columns>
+    <columns>Building_Number__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>The Brooks at Freehold</value>
+    </filters>
+    <filters>
+        <field>Group_Property__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <label>The Brooks at Freehold</label>
+</ListView>

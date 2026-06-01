@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Household_Size_Link__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( HR_HH_Override__c &gt; 0,
+TEXT(HR_HH_Override__c)+&quot;___&quot;+HYPERLINK(&apos;/flow/HRHHSize?varID=&apos;+Id+&apos;&amp;retURL=&apos;+Id,&quot; (Click to Change)&quot;, &apos;_parent&apos;)
+,HYPERLINK(&apos;/flow/HRHHSize?varID=&apos;+Id+&apos;&amp;retURL=&apos;+Id,&apos;Click to Add&apos;, &apos;_parent&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>HR Household Size</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

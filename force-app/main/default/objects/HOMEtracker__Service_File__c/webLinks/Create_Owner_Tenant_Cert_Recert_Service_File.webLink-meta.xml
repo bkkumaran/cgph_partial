@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Create_Owner_Tenant_Cert_Recert_Service_File</fullName>
+    <availability>online</availability>
+    <description>Click to create an initial certification or recertification service file for a current owner or tenant.</description>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Direct Application Invitation (Not Set Up for Current Owners / Tenants Yet)</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/flow/SF_Owner_Tenant_Cert_Recert_Process?varExistingServiceFileId={!HOMEtracker__Service_File__c.Id}&amp;varContactApplicantId={!HOMEtracker__Service_File__c.HOMEtracker__ApplicantId__c}&amp;varContactCoApplicantId={!HOMEtracker__Service_File__c.HOMEtracker__Co_ApplicantId__c}&amp;varPropertyId={!HOMEtracker__Service_File__c.HOMEtracker__PropertyId__c}&amp;retURL={!HOMEtracker__Service_File__c.Id}</url>
+</WebLink>

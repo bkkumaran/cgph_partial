@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Date_Placed_in_Program__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub.
+
+The date that this property first came into the portfolio. For example, the date of the first sale, or the date you first purchased the property.
+
+Tip: Determine how your program defines this and be consistent. Update this help text to clarify usage.</description>
+    <inlineHelpText>The date  that the affordability period began.  (For ownership units, this is usually the date of the first sale.   For rental units, this is usually the date the first income certified household occupied the unit or the date of the deed restriction.</inlineHelpText>
+    <label>Date Placed in Program</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Municipality_Billing_State__c</fullName>
+    <description>Auto-filled from the Property&apos;s Municipality&apos;s Account when the &quot;Update Income Limits &amp; Expense Variables&quot; button is clicked.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Auto-filled from the Property&apos;s Municipality&apos;s Account when the &quot;Update Income Limits &amp; Expense Variables&quot; button is clicked.</inlineHelpText>
+    <label>Municipality Billing State</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

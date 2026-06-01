@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_for_Google_Tracker</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Export Google Tracker Data</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://cgph--c.vf.force.com/flow/Outreach_Timeline_update_Applicant_on_Tracker_Date?varID={!HOMEtracker__Property__c.Id}&amp;retURL=
+%2Fapex%2FAPXTConga4__Conga_Composer%3FserverUrl%3D{!$Api.Enterprise_Server_URL_370}
+%26Id%3D{!HOMEtracker__Property__c.Id}
+%26TemplateId%3Da291N000003o8kB
+%26QueryId%3D%5BSF%5Da216O00000Ln7ZO%3Fpv0%3D{!HOMEtracker__Property__c.Id}
+%26ExcelAutoFitColumns%3D1
+%26OFN%3DGoogle%2BTracker%2BData%2B{!HOMEtracker__Property__c.Name}
+%26DS7%3D3</url>
+</WebLink>

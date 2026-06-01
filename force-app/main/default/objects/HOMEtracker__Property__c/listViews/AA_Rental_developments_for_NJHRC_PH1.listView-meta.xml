@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_Rental_developments_for_NJHRC_PH1</fullName>
+    <columns>NAME</columns>
+    <columns>Municipality_Name__c</columns>
+    <columns>NJHRC_Rental_Listing__c</columns>
+    <columns>NJHRC_Rental_Listing_Notes__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Rental_or_Sale_Development__c</field>
+        <operation>equals</operation>
+        <value>Rental</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>notEqual</operation>
+        <value>Not administered directly by CGP&amp;H</value>
+    </filters>
+    <filters>
+        <field>Devel_Visible_on_Website__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>AA Rental developments for NJHRC PH1</label>
+</ListView>

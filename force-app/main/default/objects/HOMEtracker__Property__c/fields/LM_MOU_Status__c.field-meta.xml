@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LM_MOU_Status__c</fullName>
+    <inlineHelpText>status of MOU</inlineHelpText>
+    <label>MOU Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MOU signed by homeowner</fullName>
+                <default>false</default>
+                <label>MOU signed by homeowner</label>
+            </value>
+            <value>
+                <fullName>MOU signed by homeowner and Mayor</fullName>
+                <default>false</default>
+                <label>MOU signed by homeowner and Mayor</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

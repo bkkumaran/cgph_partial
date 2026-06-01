@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Interior__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicate whether interior of home has special features, including ceiling fan, laundry, hardwood floors, etc.</description>
+    <inlineHelpText>Indicate whether interior of home has special features, including ceiling fan, laundry, hardwood floors, etc.</inlineHelpText>
+    <label>Interior</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>9&apos; Ceilings</fullName>
+                <default>false</default>
+                <label>9&apos; Ceilings</label>
+            </value>
+            <value>
+                <fullName>Balcony</fullName>
+                <default>false</default>
+                <label>Balcony</label>
+            </value>
+            <value>
+                <fullName>Built in Closets</fullName>
+                <default>false</default>
+                <label>Built in Closets</label>
+            </value>
+            <value>
+                <fullName>Cable Ready</fullName>
+                <default>false</default>
+                <label>Cable Ready</label>
+            </value>
+            <value>
+                <fullName>Carbon Monoxide Detector</fullName>
+                <default>false</default>
+                <label>Carbon Monoxide Detector</label>
+            </value>
+            <value>
+                <fullName>Carpet Floor</fullName>
+                <default>false</default>
+                <label>Carpet Floor</label>
+            </value>
+            <value>
+                <fullName>Ceiling Fan</fullName>
+                <default>false</default>
+                <label>Ceiling Fan</label>
+            </value>
+            <value>
+                <fullName>Central AC</fullName>
+                <default>false</default>
+                <label>Central AC</label>
+            </value>
+            <value>
+                <fullName>Central AC and Window AC Unit</fullName>
+                <default>false</default>
+                <label>Central AC and Window AC Unit</label>
+            </value>
+            <value>
+                <fullName>Clothes Dryer - Front Loading</fullName>
+                <default>false</default>
+                <label>Clothes Dryer - Front Loading</label>
+            </value>
+            <value>
+                <fullName>Clothes Dryer - Top Loading</fullName>
+                <default>false</default>
+                <label>Clothes Dryer - Top Loading</label>
+            </value>
+            <value>
+                <fullName>Clothes Washer - Front Loading</fullName>
+                <default>false</default>
+                <label>Clothes Washer - Front Loading</label>
+            </value>
+            <value>
+                <fullName>Clothes Washer - Top Loading</fullName>
+                <default>false</default>
+                <label>Clothes Washer - Top Loading</label>
+            </value>
+            <value>
+                <fullName>Den</fullName>
+                <default>false</default>
+                <label>Den</label>
+            </value>
+            <value>
+                <fullName>Dishwasher</fullName>
+                <default>false</default>
+                <label>Dishwasher</label>
+            </value>
+            <value>
+                <fullName>Dual Vanities in Master Bathroom</fullName>
+                <default>false</default>
+                <label>Dual Vanities in Master Bathroom</label>
+            </value>
+            <value>
+                <fullName>Engineered Oak Flooring</fullName>
+                <default>false</default>
+                <label>Engineered Oak Flooring</label>
+            </value>
+            <value>
+                <fullName>Expansive Windows</fullName>
+                <default>false</default>
+                <label>Expansive Windows</label>
+            </value>
+            <value>
+                <fullName>Finished attic</fullName>
+                <default>false</default>
+                <label>Finished Attic</label>
+            </value>
+            <value>
+                <fullName>Fire Extinguisher</fullName>
+                <default>false</default>
+                <label>Fire Extinguisher</label>
+            </value>
+            <value>
+                <fullName>Fireplace</fullName>
+                <default>false</default>
+                <label>Fireplace</label>
+            </value>
+            <value>
+                <fullName>Fire Suppression/Sprinkler System</fullName>
+                <default>false</default>
+                <label>Fire Suppression/Sprinkler System</label>
+            </value>
+            <value>
+                <fullName>Furnished</fullName>
+                <default>false</default>
+                <label>Furnished</label>
+            </value>
+            <value>
+                <fullName>Garbage Disposal</fullName>
+                <default>false</default>
+                <label>Garbage Disposal</label>
+            </value>
+            <value>
+                <fullName>Gourmet Inspired Kitchens</fullName>
+                <default>false</default>
+                <label>Gourmet Inspired Kitchens</label>
+            </value>
+            <value>
+                <fullName>Granite Countertop</fullName>
+                <default>false</default>
+                <label>Granite Countertop</label>
+            </value>
+            <value>
+                <fullName>Hardwood Floor</fullName>
+                <default>false</default>
+                <label>Hardwood Floor</label>
+            </value>
+            <value>
+                <fullName>High-Speed Internet Ready</fullName>
+                <default>false</default>
+                <label>High-Speed Internet Ready</label>
+            </value>
+            <value>
+                <fullName>Intercom System</fullName>
+                <default>false</default>
+                <label>Intercom System</label>
+            </value>
+            <value>
+                <fullName>In-wall AC</fullName>
+                <default>false</default>
+                <label>In-wall AC</label>
+            </value>
+            <value>
+                <fullName>Keyless Entry</fullName>
+                <default>false</default>
+                <label>Keyless Entry</label>
+            </value>
+            <value>
+                <fullName>Laminate Floor</fullName>
+                <default>false</default>
+                <label>Laminate Floor</label>
+            </value>
+            <value>
+                <fullName>Linoleum Floor</fullName>
+                <default>false</default>
+                <label>Linoleum Floor</label>
+            </value>
+            <value>
+                <fullName>LVT Flooring</fullName>
+                <default>false</default>
+                <label>LVT Flooring</label>
+            </value>
+            <value>
+                <fullName>Marble Floor</fullName>
+                <default>false</default>
+                <label>Marble Floor</label>
+            </value>
+            <value>
+                <fullName>Microwave</fullName>
+                <default>false</default>
+                <label>Microwave</label>
+            </value>
+            <value>
+                <fullName>Miniblinds</fullName>
+                <default>false</default>
+                <label>Miniblinds</label>
+            </value>
+            <value>
+                <fullName>PTAC (ductless) Air Conditioning</fullName>
+                <default>false</default>
+                <label>PTAC (ductless) Air Conditioning</label>
+            </value>
+            <value>
+                <fullName>Quartz Countertops</fullName>
+                <default>false</default>
+                <label>Quartz Countertops</label>
+            </value>
+            <value>
+                <fullName>Range</fullName>
+                <default>false</default>
+                <label>Range</label>
+            </value>
+            <value>
+                <fullName>Recreation room</fullName>
+                <default>false</default>
+                <label>Recreation room</label>
+            </value>
+            <value>
+                <fullName>Red Oak Wood Flooring</fullName>
+                <default>false</default>
+                <label>Red Oak Wood Flooring</label>
+            </value>
+            <value>
+                <fullName>Refrigerator Hook-up</fullName>
+                <default>false</default>
+                <label>Refrigerator Hook-up</label>
+            </value>
+            <value>
+                <fullName>Refrigerator</fullName>
+                <default>false</default>
+                <label>Refrigerator</label>
+            </value>
+            <value>
+                <fullName>Refrigerator - Freezer on Bottom</fullName>
+                <default>false</default>
+                <label>Refrigerator - Freezer on Bottom</label>
+            </value>
+            <value>
+                <fullName>Refrigerator - Freezer on Top</fullName>
+                <default>false</default>
+                <label>Refrigerator - Freezer on Top</label>
+            </value>
+            <value>
+                <fullName>Refrigerator - No Freezer</fullName>
+                <default>false</default>
+                <label>Refrigerator - No Freezer</label>
+            </value>
+            <value>
+                <fullName>Refrigerator - Side By Side Doors</fullName>
+                <default>false</default>
+                <label>Refrigerator - Side By Side Doors</label>
+            </value>
+            <value>
+                <fullName>Safety railings in bathroom</fullName>
+                <default>false</default>
+                <label>Safety railings in bathroom</label>
+            </value>
+            <value>
+                <fullName>Shades on Windows</fullName>
+                <default>false</default>
+                <label>Shades on Windows</label>
+            </value>
+            <value>
+                <fullName>Skylights</fullName>
+                <default>false</default>
+                <label>Skylights</label>
+            </value>
+            <value>
+                <fullName>Slate Floor</fullName>
+                <default>false</default>
+                <label>Slate Floor</label>
+            </value>
+            <value>
+                <fullName>Smoke Detector</fullName>
+                <default>false</default>
+                <label>Smoke Detector</label>
+            </value>
+            <value>
+                <fullName>Stacked Clothes Washer &amp; Dryer</fullName>
+                <default>false</default>
+                <label>Stacked Clothes Washer &amp; Dryer</label>
+            </value>
+            <value>
+                <fullName>Stainless Steel Appliances</fullName>
+                <default>false</default>
+                <label>Stainless Steel Appliances</label>
+            </value>
+            <value>
+                <fullName>Stone Surface Top in Kitchen</fullName>
+                <default>false</default>
+                <label>Stone Surface Top in Kitchen</label>
+            </value>
+            <value>
+                <fullName>Stove</fullName>
+                <default>false</default>
+                <label>Stove</label>
+            </value>
+            <value>
+                <fullName>Strobe Fire Alarm in Unit</fullName>
+                <default>false</default>
+                <label>Strobe Fire Alarm in Unit</label>
+            </value>
+            <value>
+                <fullName>Tile Floor</fullName>
+                <default>false</default>
+                <label>Tile Floor</label>
+            </value>
+            <value>
+                <fullName>Trash Compactor</fullName>
+                <default>false</default>
+                <label>Trash Compactor</label>
+            </value>
+            <value>
+                <fullName>Vinyl Floor</fullName>
+                <default>false</default>
+                <label>Vinyl Floor</label>
+            </value>
+            <value>
+                <fullName>Vinyl Plank Floor</fullName>
+                <default>false</default>
+                <label>Vinyl Plank Floor</label>
+            </value>
+            <value>
+                <fullName>Walk-in closet</fullName>
+                <default>false</default>
+                <label>Walk-in closet</label>
+            </value>
+            <value>
+                <fullName>Washer and Dryer</fullName>
+                <default>false</default>
+                <label>Washer and Dryer</label>
+            </value>
+            <value>
+                <fullName>Washer and Dryer Hook-ups</fullName>
+                <default>false</default>
+                <label>Washer and Dryer Hook-ups</label>
+            </value>
+            <value>
+                <fullName>White &amp; Walnut Custom Cabinetry</fullName>
+                <default>false</default>
+                <label>White &amp; Walnut Custom Cabinetry</label>
+            </value>
+            <value>
+                <fullName>White Ceramic Tile Backsplash</fullName>
+                <default>false</default>
+                <label>White Ceramic Tile Backsplash</label>
+            </value>
+            <value>
+                <fullName>Window AC Unit</fullName>
+                <default>false</default>
+                <label>Window AC Unit</label>
+            </value>
+            <value>
+                <fullName>Washer</fullName>
+                <default>false</default>
+                <label>Washer</label>
+            </value>
+            <value>
+                <fullName>Dryer</fullName>
+                <default>false</default>
+                <label>Dryer</label>
+            </value>
+            <value>
+                <fullName>Washer Hook Up</fullName>
+                <default>false</default>
+                <label>Washer Hook Up</label>
+            </value>
+            <value>
+                <fullName>Dryer Hook Up</fullName>
+                <default>false</default>
+                <label>Dryer Hook Up</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rent_calculation_at_vacancy_comments__c</fullName>
+    <inlineHelpText>Enter any comments related to the calculation of the current monthly rent at the most recent vacancy (rent amount, increase taken, etc.).</inlineHelpText>
+    <label>Rent Calculation at Vacancy Comments</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inventory_Sort__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Group_Property__c = true,
+
+(((((VALUE(TEXT(HOMEtracker__Number_of_Bedrooms__c ))*10)+
+CASE( TEXT( Income_Level__c ) ,
+&apos;Very Low&apos;,1,
+&apos;Low&apos;,2,
+&apos;Moderate&apos;,3,0)
+)*100)+LEN(Name)
+)*1000000)+FLOOR(MAX( HOMEtracker__List_Price__c ,  HOMEtracker__Monthly_Rent__c ))
+,
+
+(((((IF(ISBLANK(Group_Property_Parent__c),99,
+(VALUE(TEXT(Group_Property_Parent__r.HOMEtracker__Number_of_Bedrooms__c ))*10)+
+CASE( TEXT( Group_Property_Parent__r.Income_Level__c ) ,
+&apos;Very Low&apos;,1,
+&apos;Low&apos;,2,
+&apos;Moderate&apos;,3,0)
+)*100)+LEN(Group_Property_Parent__r.Name))
+*1000000)+FLOOR(MAX( HOMEtracker__List_Price__c ,  HOMEtracker__Monthly_Rent__c )))
++0.1)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Inventory Sort</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

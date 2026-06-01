@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Populate_Income_Limits__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( HR_HH_Override__c = 0, &quot;Enter household size&quot;,
+IF( OR(ISBLANK(IAW_Income_Limit__c),Moderate_Income_Limit__c=0,IAW_Median_Income__c=0,Low_Income_Limit__c=0), 
+HYPERLINK(
+&quot;/flow/HR_Income_Limits?varSFID=&quot;+Id+
+&quot;&amp;varHH=&quot;+TEXT(HR_HH_Override__c)+
+&quot;&amp;retURL=&quot;+Id
+,&apos;Click Here&apos;,
+&apos;_parent&apos;),
+&apos;COMPLETE &apos;+HYPERLINK(
+&quot;/flow/HR_Income_Limits?varSFID=&quot;+Id+
+&quot;&amp;varHH=&quot;+TEXT(HR_HH_Override__c)+
+&quot;&amp;retURL=&quot;+Id
+,&apos;(Click to Change)&apos;,
+&apos;_parent&apos;)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Click link to add income limit data from the municipality object.  To run again, delete the income limit data and click the link again.</inlineHelpText>
+    <label>HR Populate Income Limits</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

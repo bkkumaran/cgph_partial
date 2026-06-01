@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Copy_Address_to_Contacts</fullName>
+    <availability>online</availability>
+    <description>Copies one of three addresses from the Service File (applicant, property, or seller) to the Contact record of the applicant, co-applicant, or both.</description>
+    <displayType>link</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Copy Address to Contacts</masterLabel>
+    <openType>replace</openType>
+    <page>HOMEtracker__Copy_Address_to_Contact</page>
+    <protected>false</protected>
+</WebLink>

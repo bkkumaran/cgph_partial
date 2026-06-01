@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__How_Did_You_Hear_About_Program__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Tip: Refine this picklist to mirror your marketing strategies.  Ask &quot;How did you first hear about our program?&quot; on your initial intake form or application and create reports in order to measure the effectiveness of your outreach efforts.</description>
+    <inlineHelpText>Tip: Refine this picklist to mirror your marketing strategies.  Ask &quot;How did you first hear about our program?&quot; on your initial intake form or application and create reports in order to measure the effectiveness of your outreach efforts.</inlineHelpText>
+    <label>How Did You Hear About Program</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Word of mouth - Current/Past homeowner or staff</fullName>
+                <default>false</default>
+                <label>Word of mouth - Current/Past homeowner or staff</label>
+            </value>
+            <value>
+                <fullName>Word of mouth - general</fullName>
+                <default>false</default>
+                <label>Word of mouth - general</label>
+            </value>
+            <value>
+                <fullName>Poster/flyer</fullName>
+                <default>false</default>
+                <label>Poster/flyer</label>
+            </value>
+            <value>
+                <fullName>Event</fullName>
+                <default>false</default>
+                <label>Event</label>
+            </value>
+            <value>
+                <fullName>Internet search</fullName>
+                <default>false</default>
+                <label>Internet search</label>
+            </value>
+            <value>
+                <fullName>Paid advertising -  newspaper/magazine</fullName>
+                <default>false</default>
+                <label>Paid advertising -  newspaper/magazine</label>
+            </value>
+            <value>
+                <fullName>Paid advertising - radio/TV</fullName>
+                <default>false</default>
+                <label>Paid advertising - radio/TV</label>
+            </value>
+            <value>
+                <fullName>Paid advertising -  other</fullName>
+                <default>false</default>
+                <label>Paid advertising -  other</label>
+            </value>
+            <value>
+                <fullName>Public Service Announcement - radio</fullName>
+                <default>false</default>
+                <label>Public Service Announcement - radio</label>
+            </value>
+            <value>
+                <fullName>Public Service Announcement - television</fullName>
+                <default>false</default>
+                <label>Public Service Announcement - television</label>
+            </value>
+            <value>
+                <fullName>Real estate listing - MLS, Craigslist, etc.</fullName>
+                <default>false</default>
+                <label>Real estate listing - MLS, Craigslist, etc.</label>
+            </value>
+            <value>
+                <fullName>Earned media - news articles, LTE, etc.</fullName>
+                <default>false</default>
+                <label>Earned media - news articles, LTE, etc.</label>
+            </value>
+            <value>
+                <fullName>Refered by lender</fullName>
+                <default>false</default>
+                <label>Refered by lender</label>
+            </value>
+            <value>
+                <fullName>Referred by real estate agent</fullName>
+                <default>false</default>
+                <label>Referred by real estate agent</label>
+            </value>
+            <value>
+                <fullName>Refered by another ageny/non-profit</fullName>
+                <default>false</default>
+                <label>Refered by another ageny/non-profit</label>
+            </value>
+            <value>
+                <fullName>Homebuyer education</fullName>
+                <default>false</default>
+                <label>Homebuyer education</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

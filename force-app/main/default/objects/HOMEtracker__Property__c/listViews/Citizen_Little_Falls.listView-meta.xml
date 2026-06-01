@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Citizen_Little_Falls</fullName>
+    <columns>NAME</columns>
+    <columns>Income_Level__c</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>HOMEtracker__Staff_Notes__c</columns>
+    <columns>HOMEtracker__Monthly_Rent__c</columns>
+    <columns>Maximum_Household_Size__c</columns>
+    <columns>Utilities__c</columns>
+    <columns>Utility_Calculator_Data_Check__c</columns>
+    <columns>Rent_when_First_Occupied__c</columns>
+    <columns>Initial_rental_pricing__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>citizen little falls</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Number_of_Bedrooms__c</field>
+        <operation>equals</operation>
+        <value>0,1</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <label>Citizen Little Falls</label>
+</ListView>

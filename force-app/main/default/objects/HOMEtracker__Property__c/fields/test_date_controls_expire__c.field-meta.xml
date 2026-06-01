@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>test_date_controls_expire__c</fullName>
+    <description>Date controls expired is automatically calculated based on control period start date and number of years in control period.</description>
+    <formula>IF(
+
+AND(
+
+MONTH(HOMEtracker__Date_Placed_in_Program__c) = 2,DAY(HOMEtracker__Date_Placed_in_Program__c) = 29), 
+
+DATE( YEAR(HOMEtracker__Date_Placed_in_Program__c) + VALUE(of_years_in_initial_afford_peri__c), 3, 1), 
+
+DATE( YEAR(HOMEtracker__Date_Placed_in_Program__c) + VALUE(of_years_in_initial_afford_peri__c), MONTH(HOMEtracker__Date_Placed_in_Program__c), DAY(HOMEtracker__Date_Placed_in_Program__c) ) 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Date controls expired is automatically calculated based on control period start date and number of years in control period.  If different than inputted date, use other date.</inlineHelpText>
+    <label>Date Controls Expire (Calculated)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

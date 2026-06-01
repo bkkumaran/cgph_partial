@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Sellers_Other_Adjustments_at_Closing__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: This formula field is no longer being used as of version 1.10 and should be removed from all layouts. However, this field is still linked to the HomeKeeper National Data Hub in order to address legacy data. See 1.10 Release Notes for more info. Formula is: Contract Sales Price minus Seller&apos;s Closing Costs minus Total Payoff Amount of All Loans minus Net Cash to Seller minus Broker Commission minus Paid at Resale by Program.</description>
+    <formula>IF((HOMEtracker__Contract_Sale_Price__c &gt; 0), HOMEtracker__Contract_Sale_Price__c - HOMEtracker__Seller_s_Closing_Costs__c -   HOMEtracker__Total_Payoff_Amount_of_All_Loans__c -  HOMEtracker__Net_Cash_to_Seller_at_Closing__c -  HOMEtracker__Broker_Commission__c -  HOMEtracker__Paid_at_Resale_by_Program__c , NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This formula shows Contract Sales Price minus Seller&apos;s Closing Costs minus Total Payoff Amount of All Loans minus Net Cash to Seller minus Broker Commission minus Paid at Resale by Program.</inlineHelpText>
+    <label>Seller&apos;s Other Adjust. at Closing (OLD)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

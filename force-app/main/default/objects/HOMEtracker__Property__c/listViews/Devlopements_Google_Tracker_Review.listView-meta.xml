@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Devlopements_Google_Tracker_Review</fullName>
+    <columns>Primary_Case_manager__c</columns>
+    <columns>NAME</columns>
+    <columns>Google_Tracker_Review__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Initial Sales in Progress,Initial Sale of Units Completed,Initial lease up in progress,Initial Lease up completed,New Client,Available for rent/sale - on hold by finance,Initial Rental/Sale On-hold bc nonresponsive</value>
+    </filters>
+    <filters>
+        <field>Google_Tracker_Review__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Devlopements Google Tracker Review</label>
+</ListView>

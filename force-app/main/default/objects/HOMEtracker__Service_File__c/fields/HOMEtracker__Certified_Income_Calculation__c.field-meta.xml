@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Certified_Income_Calculation__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Copies from Eligibility Income Calculation (hidden) at the time of income certification. Includes calculations from all related Income Sources where &quot;Do Not Include...&quot; is not checked.</description>
+    <inlineHelpText>Copies from Eligibility Income Calculation (hidden) at the time of income certification. Includes calculations from all related Income Sources where &quot;Do Not Include...&quot; is not checked.</inlineHelpText>
+    <label>Certified Eligibility Income Calculation</label>
+    <length>32000</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

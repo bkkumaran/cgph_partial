@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Reason_for_Sale__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change the picklist values or hide the field from the layout. Select the reason that is the best fit. If none apply, select Other. Do not edit these values.</description>
+    <inlineHelpText>Select the reason that is the best fit. If none apply, select Other. Do not edit these values.</inlineHelpText>
+    <label>Reason for Sale</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Want to own unrestricted home</fullName>
+                <default>false</default>
+                <label>Want to own unrestricted home</label>
+            </value>
+            <value>
+                <fullName>Home is too small</fullName>
+                <default>false</default>
+                <label>Home is too small</label>
+            </value>
+            <value>
+                <fullName>Job relocation</fullName>
+                <default>false</default>
+                <label>Job relocation</label>
+            </value>
+            <value>
+                <fullName>Want to move closer to friends or family</fullName>
+                <default>false</default>
+                <label>Want to move closer to friends or family</label>
+            </value>
+            <value>
+                <fullName>Neighborhood has become less desirable</fullName>
+                <default>false</default>
+                <label>Neighborhood has become less desirable</label>
+            </value>
+            <value>
+                <fullName>Change in family situation (e.g., marriage, birth of a child, divorce)</fullName>
+                <default>false</default>
+                <label>Change in family situation (e.g., marriage, birth of a child, divorce)</label>
+            </value>
+            <value>
+                <fullName>Home is too large</fullName>
+                <default>false</default>
+                <label>Home is too large</label>
+            </value>
+            <value>
+                <fullName>Moving due to retirement</fullName>
+                <default>false</default>
+                <label>Moving due to retirement</label>
+            </value>
+            <value>
+                <fullName>Want to move closer to current job</fullName>
+                <default>false</default>
+                <label>Want to move closer to current job</label>
+            </value>
+            <value>
+                <fullName>Upkeep of home is too difficult due to health or financial limitations</fullName>
+                <default>false</default>
+                <label>Upkeep of home is too difficult due to health or financial limitations</label>
+            </value>
+            <value>
+                <fullName>Can not afford the mortgage and other expenses of owning home</fullName>
+                <default>false</default>
+                <label>Can not afford the mortgage and other expenses of owning home</label>
+            </value>
+            <value>
+                <fullName>Death</fullName>
+                <default>false</default>
+                <label>Death</label>
+            </value>
+            <value>
+                <fullName>Program enforcement</fullName>
+                <default>false</default>
+                <label>Program enforcement</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Target_Cert_Date_Order__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISNULL(Date_unit_will_be_availalbe__c ),99999999,
+(YEAR(Date_unit_will_be_availalbe__c)*10000)+
+(MONTH(Date_unit_will_be_availalbe__c)*100)+
+(DAY(Date_unit_will_be_availalbe__c))
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Target Cert Date Order</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

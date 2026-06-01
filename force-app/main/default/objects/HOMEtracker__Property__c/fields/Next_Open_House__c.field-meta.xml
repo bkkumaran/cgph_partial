@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Open_House__c</fullName>
+    <description>If there is an upcoming open house, ONLY enter the date and time written in this format: 
+Monday, June 12th (06/12/17) 5:00 - 8:00 PM</description>
+    <inlineHelpText>If there is an upcoming open house, ONLY enter the date and time written in this format: 
+Monday, June 12th (06/12/17) 5:00 - 8:00 PM</inlineHelpText>
+    <label>Next Open House</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

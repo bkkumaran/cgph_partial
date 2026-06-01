@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Refinance_Request_Email_Type__c</fullName>
+    <inlineHelpText>This picklist field determines what refinance request email text will be. For instruction on what option to choose view this article https://cgph.my.salesforce.com/kA13m000000CvFr.</inlineHelpText>
+    <label>Refinance Request Email Picklist</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Initial Response for Refinance Request Email</fullName>
+                <default>false</default>
+                <label>Initial Response for Refinance Request Email</label>
+            </value>
+            <value>
+                <fullName>Lender Request Response Email</fullName>
+                <default>false</default>
+                <label>Lender Request Response Email</label>
+            </value>
+            <value>
+                <fullName>Generate Refinance Response Email Text</fullName>
+                <default>false</default>
+                <label>Generate Refinance Response Email Text</label>
+            </value>
+            <value>
+                <fullName>Lender Requirement Email</fullName>
+                <default>false</default>
+                <label>Lender Requirement Email</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

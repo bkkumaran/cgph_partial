@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Admin_by_CGP_H_Availability_Text__c</fullName>
+    <description>Enter  availability text to appear on the development page of the AA Website for developments administered by CGP&amp;H.</description>
+    <inlineHelpText>Enter  availability text to appear on the development page of the AA Website for developments administered by CGP&amp;H.
+
+Launch: &lt;#&gt; rental &lt;OR SALE&gt; apartments will be available at DVELOPMENT NAME&gt;.  Join the MUNICIPALITY rental &lt;OR SALE&gt; waiting list by LOTTERY DATE to be included in the random selection. Veteran’s preference (if applicable).
+
+Removal: We anticipate contacting the first applicants for the # apartments at DEVELOPMENT NAME in MONTH YYYY.  Schedule is subject to change.</inlineHelpText>
+    <label>Admin by CGP&amp;H Availability Text</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

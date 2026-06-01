@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Total_Development_Costs__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The sum of the amount of all Development Costs for this Property.</description>
+    <inlineHelpText>The sum of the amount of all Development Costs for this Property. Development Costs refers to work paid for by the organization. They are not attached to a Service File.</inlineHelpText>
+    <label>ZZ DO NOT USE</label>
+    <summarizedField>HOMEtracker__Development_Cost__c.HOMEtracker__Cost__c</summarizedField>
+    <summaryForeignKey>HOMEtracker__Development_Cost__c.HOMEtracker__Property__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

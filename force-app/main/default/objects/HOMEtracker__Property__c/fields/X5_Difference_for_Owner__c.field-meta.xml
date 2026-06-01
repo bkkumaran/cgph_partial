@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X5_Difference_for_Owner__c</fullName>
+    <description>5% of the difference between the Estimated Market Sale Price and the Maximum Re-Sale Price for the Seller.</description>
+    <formula>IF((MRSP_Est_Market_Price__c * 0.05)&lt;0,0,(MRSP_Est_Market_Price__c * 0.05))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>5% of the difference between the Estimated Market Sale Price and the Maximum Re-Sale Price for the Seller.</inlineHelpText>
+    <label>5% of Difference for Owner</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

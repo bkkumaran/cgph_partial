@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Qualifying_Amt_Available_House_Payments__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Auto-calculated. Qualifying Housing Ratio multiplied by Gross Monthly Income.</description>
+    <formula>HOMEtracker__Gross_Monthly_Income__c *  HOMEtracker__Qualifying_Housing_Ratio__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Auto-calculated. Qualifying Housing Ratio multiplied by Gross Monthly Income.</inlineHelpText>
+    <label>Qualifying Amt. Available-House Payments</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

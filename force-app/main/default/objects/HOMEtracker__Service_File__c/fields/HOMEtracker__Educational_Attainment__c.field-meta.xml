@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Educational_Attainment__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change the picklist values or hide the field from the layout. The highest level attained by either the Applicant or Co-Applicant. This information is copied from Application Household Member records. Tip: Edit the Educational Level of the related Household Members to make changes. This field is required for 9902 reporting. Contact HomeKeeper Support before customizing to prevent errors when generating the 9902.</description>
+    <inlineHelpText>The highest level attained by either the Applicant or Co-Applicant. This information is copied from Application Household Member records. 
+
+Tip: Edit the Educational Level of the related Household Members to make changes.</inlineHelpText>
+    <label>Educational Attainment</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Less than HS Diploma</fullName>
+                <default>false</default>
+                <label>Less than HS Diploma</label>
+            </value>
+            <value>
+                <fullName>High school diploma or equivalent</fullName>
+                <default>false</default>
+                <label>High school diploma or equivalent</label>
+            </value>
+            <value>
+                <fullName>Some post-secondary education</fullName>
+                <default>false</default>
+                <label>Some post-secondary education</label>
+            </value>
+            <value>
+                <fullName>Certification from a vocational or technical training program</fullName>
+                <default>false</default>
+                <label>Certification from a vocational or technical training program</label>
+            </value>
+            <value>
+                <fullName>Associate&apos;s Degree</fullName>
+                <default>false</default>
+                <label>Associate&apos;s Degree</label>
+            </value>
+            <value>
+                <fullName>Bachelor&apos;s Degree</fullName>
+                <default>false</default>
+                <label>Bachelor&apos;s Degree</label>
+            </value>
+            <value>
+                <fullName>Master&apos;s or other graduate degree</fullName>
+                <default>false</default>
+                <label>Master&apos;s or other graduate degree</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

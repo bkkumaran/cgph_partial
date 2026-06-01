@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Is_Primary_Applicant_Male_or_Female__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Returns a number greater than 0 if the primary applicant gender is Male or Female</description>
+    <label>Is Primary Applicant Male or Female</label>
+    <summaryFilterItems>
+        <field>HOMEtracker__Household_Member__c.HOMEtracker__Application_Role__c</field>
+        <operation>equals</operation>
+        <value>Primary Applicant</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>HOMEtracker__Household_Member__c.HOMEtracker__Gender__c</field>
+        <operation>notEqual</operation>
+        <value></value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>HOMEtracker__Household_Member__c.HOMEtracker__Gender__c</field>
+        <operation>notEqual</operation>
+        <value>Other</value>
+    </summaryFilterItems>
+    <summaryForeignKey>HOMEtracker__Household_Member__c.HOMEtracker__Service_File__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

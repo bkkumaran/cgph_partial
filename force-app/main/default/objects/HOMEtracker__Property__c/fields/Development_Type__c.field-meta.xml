@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Development_Type__c</fullName>
+    <label>Development Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Apartments</fullName>
+                <default>false</default>
+                <label>Apartments</label>
+            </value>
+            <value>
+                <fullName>Condominium</fullName>
+                <default>false</default>
+                <label>Condominium</label>
+            </value>
+            <value>
+                <fullName>Mobile or manufactured</fullName>
+                <default>false</default>
+                <label>Mobile or manufactured</label>
+            </value>
+            <value>
+                <fullName>Single Family homes</fullName>
+                <default>false</default>
+                <label>Single Family homes</label>
+            </value>
+            <value>
+                <fullName>Town Homes</fullName>
+                <default>false</default>
+                <label>Town Homes</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

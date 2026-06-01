@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Total_Improvements_Adjustments__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The sum of the value of all Improvements &amp; Adjustments made to this Property. Improvements &amp; Adjustments refer to work paid for by the homeowner. They are attached to the Service File responsible for completing this work.</description>
+    <inlineHelpText>The sum of the value of all Improvements &amp; Adjustments made to this Property. Improvements &amp; Adjustments refer to work paid for by the homeowner. They are attached to the Service File responsible for completing this work.</inlineHelpText>
+    <label>Total Improvements &amp; Adjustments</label>
+    <summarizedField>HOMEtracker__Improvements_Adjustments__c.HOMEtracker__Value__c</summarizedField>
+    <summaryForeignKey>HOMEtracker__Improvements_Adjustments__c.HOMEtracker__Property__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

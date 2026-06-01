@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_Mortgage_Pre_Approval_Email__c</fullName>
+    <description>Opens a view where you can mark that you have sent a &quot;Mortgage Pre-Approval&quot; email for ten applicants at a time.</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;/ui/list/FilterEditPage?id=00B3m000005PLuP&quot;
+
++&quot;&amp;fval1=%22&quot;+
+
+IF(CONTAINS(Name,&quot;#&quot;)=TRUE, SUBSTITUTE(Name, &quot;#&quot;, &quot;%23&quot;), Name) 
+
++&quot;%22&quot;
++&quot;&amp;fval2=%22Eligible%2C%20Pending%20Staff%20Action%22&quot;
++&quot;&amp;fval3=Pending&quot;
++&quot;&amp;fval4=Property%20Questionnaire&quot;
++&quot;&amp;fval5=False&quot;+
+
+&quot;&amp;retURL=%2Fa1I%3Ffcf%3D00B1N000005Fr8h&quot;
+
+, &quot;Click Here&quot;)&amp;
+IF(OR($User.LastName = &quot;Burton&quot;,$User.LastName = &quot;Langer&quot;,$User.LastName=&quot;Santiago&quot;,$User.LastName=&quot;Calle&quot;,$User.LastName=&quot;Membreno&quot;,$User.LastName=&quot;Peterson&quot;,$User.LastName=&quot;Sullivan&quot;,$User.LastName=&quot;Membreno&quot;,$User.LastName=&quot;Ritenband&quot;),
+&quot;...........&quot;&amp;
+HYPERLINK(
+&quot;https://cgph--c.vf.force.com/flow/Outreach_Send_to_Obtain_MPA?varPropID=&quot;&amp; Id &amp;&quot;&amp;retURL=https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FHOMEtracker__Property__c%2F&quot;&amp; Id &amp;&quot;%2Fview&quot;,
+&quot;NEW&quot;,&quot;_Top&quot;),&apos;&apos;)</formula>
+    <inlineHelpText>Opens a view where you can mark that you have sent a &quot;Mortgage Pre-Approval&quot; email for ten applicants at a time.</inlineHelpText>
+    <label>Send Mortgage Pre-Approval Emails, O</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

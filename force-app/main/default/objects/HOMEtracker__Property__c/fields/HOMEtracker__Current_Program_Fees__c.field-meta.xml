@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Current_Program_Fees__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The amount of the most recent Land Use plus most recent Replacement Reserves plus most recent Covenant Fee. The most recent fee is the one with the greatest Effective From date that is before today AND the Effective To date is blank or after today.</description>
+    <inlineHelpText>The amount of the most recent Land Use plus most recent Replacement Reserves plus most recent Covenant Fee. The most recent fee is the one with the greatest Effective From date that is before today AND the Effective To date is blank or after today.</inlineHelpText>
+    <label>Current Program Fees</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

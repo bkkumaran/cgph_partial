@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_First_Year_Leases_Date__c</fullName>
+    <label>Latest First Year Leases Date</label>
+    <summarizedField>Annual_Rental_Increase__c.Year_1_lease_on_file__c</summarizedField>
+    <summaryForeignKey>Annual_Rental_Increase__c.Property__c</summaryForeignKey>
+    <summaryOperation>max</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

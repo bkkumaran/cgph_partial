@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>new_income_limits_resale_notes__c</fullName>
+    <inlineHelpText>Enter notes related to informing seller and buyer of new sales price when need to raise while in process of selling home.</inlineHelpText>
+    <label>new income limits resale notes</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

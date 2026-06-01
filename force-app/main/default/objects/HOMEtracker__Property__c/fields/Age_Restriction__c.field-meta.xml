@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Age_Restriction__c</fullName>
+    <description>If this is a family development, select &quot;None&quot;. Otherwise, &quot;55+ Exclusive&quot; means all hh members must be 55 or older; &quot;Over 18&quot; means one hh member must be 55 or older and the youngest hh member must be 19 or older; etc. This info is used for the listing.</description>
+    <inlineHelpText>If this is a family development, select &quot;None&quot;. Otherwise, &quot;55+ Exclusive&quot; means all hh members must be 55 or older; &quot;Over 18&quot; means one hh member must be 55 or older and the youngest hh member must be 19 or older; etc. This info is used for the listing.</inlineHelpText>
+    <label>Age Restriction</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>None</fullName>
+                <default>true</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>55+ Exclusive</fullName>
+                <default>false</default>
+                <label>55+ Exclusive</label>
+            </value>
+            <value>
+                <fullName>Over 18</fullName>
+                <default>false</default>
+                <label>Over 18</label>
+            </value>
+            <value>
+                <fullName>Over 17</fullName>
+                <default>false</default>
+                <label>Over 17</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

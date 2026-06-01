@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PHA__Total_Required_Documents_In_Review__c</fullName>
+    <deprecated>false</deprecated>
+    <label>Total Required Documents In Review</label>
+    <summaryFilterItems>
+        <field>PHA__Required_Document__c.PHA__Required__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>PHA__Required_Document__c.PHA__Status__c</field>
+        <operation>equals</operation>
+        <value>Ready for Review</value>
+    </summaryFilterItems>
+    <summaryForeignKey>PHA__Required_Document__c.PHA__Service_File__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

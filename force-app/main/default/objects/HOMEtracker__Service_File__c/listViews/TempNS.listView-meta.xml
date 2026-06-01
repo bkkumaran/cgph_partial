@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TempNS</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Applicant__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>HOMEtracker__Property__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Service_File__c.HOMEtracker__Homeownership</value>
+    </filters>
+    <filters>
+        <field>Municipality__c</field>
+        <operation>equals</operation>
+        <value>Livingston</value>
+    </filters>
+    <label>TEMPNS</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

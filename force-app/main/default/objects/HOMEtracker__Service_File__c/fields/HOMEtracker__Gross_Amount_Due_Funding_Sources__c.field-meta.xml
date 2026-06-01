@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Gross_Amount_Due_Funding_Sources__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. If Gross Amount Due does not match Funding Sources, make sure Gross Amount Due and all Funding Sources are entered.</description>
+    <externalId>false</externalId>
+    <formula>IF ((HOMEtracker__Gross_Amount_Due_from_Borrower__c &gt; 0), IF (HOMEtracker__Gross_Amount_Due_from_Borrower__c  == HOMEtracker__Funding_Source_Total__c, &apos;Yes&apos;, IF (HOMEtracker__Gross_Amount_Due_from_Borrower__c  &gt; HOMEtracker__Funding_Source_Total__c, &apos;No, Gross Amount Due is $&apos; &amp; TEXT(HOMEtracker__Gross_Amount_Due_from_Borrower__c  - HOMEtracker__Funding_Source_Total__c) &amp; &apos; more than the Funding Source Total.&apos;, &apos;No, Gross Amount Due is $&apos; &amp; TEXT(HOMEtracker__Funding_Source_Total__c - HOMEtracker__Gross_Amount_Due_from_Borrower__c ) &amp; &apos; less than the Funding Source Total.&apos; )), &apos;No, make sure Gross Amount Due and all Funding Sources are entered&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>If not, make sure Gross Amount Due and all Funding Sources are entered.</inlineHelpText>
+    <label>Gross Amount Due = Funding Sources?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

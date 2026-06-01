@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_Inwood</fullName>
+    <columns>NAME</columns>
+    <columns>Bedroom_Count__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Initial_rental_pricing__c</columns>
+    <columns>Date_of_Initial_Rental_Pricing__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Inwood at Renaissance Square</value>
+    </filters>
+    <label>AA Inwood</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

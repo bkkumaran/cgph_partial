@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Years_In_Current_Home__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The number of years the applicant occupied their home prior to purchase. This formula shows the number of years between the Certified Close Date and Date in Applicant Home, or the years since Date in Applicant Home if purchase has not been certified.</description>
+    <externalId>false</externalId>
+    <formula>(IF( ISNULL( HOMEtracker__Certified_Closed_Date__c ) , TODAY() , HOMEtracker__Certified_Closed_Date__c ) - HOMEtracker__Date_in_Current_Home__c) / 365.2425</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The number of years the applicant occupied their home prior to purchase. This formula shows the number of years between the Certified Close Date and Date in Applicant Home, or the years since Date in Applicant Home if purchase has not been certified.</inlineHelpText>
+    <label>Years In Applicant Home</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

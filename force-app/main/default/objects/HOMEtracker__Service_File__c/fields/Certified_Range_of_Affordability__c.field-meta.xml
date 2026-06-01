@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Certified_Range_of_Affordability__c</fullName>
+    <inlineHelpText>This is calculated in the Excel Eligibility spreadsheet: Gross Income / Median Income.</inlineHelpText>
+    <label>Historic Certified Range of Afford</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

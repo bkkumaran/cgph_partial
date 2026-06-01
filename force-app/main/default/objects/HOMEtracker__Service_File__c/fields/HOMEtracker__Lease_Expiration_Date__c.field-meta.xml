@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Lease_Expiration_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>&quot;If you have lease on your current housing, when does it expire?&quot;</description>
+    <inlineHelpText>&quot;If you have lease on your current housing, when does it expire?&quot;</inlineHelpText>
+    <label>Lease Expiration Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

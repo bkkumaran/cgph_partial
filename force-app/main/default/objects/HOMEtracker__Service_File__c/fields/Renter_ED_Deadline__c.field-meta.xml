@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Renter_ED_Deadline__c</fullName>
+    <description>The applicant&apos;s deadline to provide a certificate or a letter of completion for their Renter&apos;s or Homeowner&apos;s Education class by.</description>
+    <inlineHelpText>The applicant&apos;s deadline to provide a certificate or a letter of completion for their Renter&apos;s or Homeowner&apos;s Education class by.</inlineHelpText>
+    <label>ED Deadline</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Property_Questionnaire_Link__c</fullName>
+    <description>Does not include Pre-Applicant data included in link displayed in Profile.</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(Property_Questionnaire_URL__c,&quot;Link&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Does not include Pre-Applicant data included in link displayed in Profile.</inlineHelpText>
+    <label>Request to Visit Link</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

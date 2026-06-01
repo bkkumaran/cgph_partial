@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_Year__c</fullName>
+    <description>The Year of the Income Limits used for this certification. Click the Update Income Limits button to populate with current information.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The Year of the Income Limits used for this certification. Click the Update Income Limits button to populate with current information.</inlineHelpText>
+    <label>Year</label>
+    <length>6</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

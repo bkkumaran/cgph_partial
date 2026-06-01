@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact__c</fullName>
+    <description>The applicant&apos;s contact.</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;https://cgph.my.salesforce.com/&quot; &amp; HOMEtracker__Applicant__r.Contact_ID__c , HOMEtracker__Applicant__r.FirstName &amp; &quot; &quot; &amp; HOMEtracker__Applicant__r.LastName)</formula>
+    <inlineHelpText>The applicant&apos;s contact.</inlineHelpText>
+    <label>Primary Applicant</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_SSN_verified__c</fullName>
+    <description>Date SSN lookup via Equifax Work Number</description>
+    <inlineHelpText>Date SSN lookup via Equifax Work Number. Leave blank if not looked=up</inlineHelpText>
+    <label>Equifax - Date SSN  Lookup</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

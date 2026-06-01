@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_Region__c</fullName>
+    <description>The Property&apos;s region. Used by the Update Income Limits button to gather the correct Income Limits.</description>
+    <externalId>false</externalId>
+    <formula>TEXT(HOMEtracker__Property__r.Municipality_Name__r.Region__c)</formula>
+    <inlineHelpText>The Property&apos;s region. Used by the Update Income Limits button to gather the correct Income Limits.</inlineHelpText>
+    <label>Region</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

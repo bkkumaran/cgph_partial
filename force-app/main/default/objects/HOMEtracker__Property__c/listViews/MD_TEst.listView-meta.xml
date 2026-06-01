@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MD_TEst</fullName>
+    <columns>NAME</columns>
+    <columns>Devel_Visible_on_Website__c</columns>
+    <columns>Pets_allowed__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Avalon Princeton on Harrison</value>
+    </filters>
+    <label>MD TEst</label>
+</ListView>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Source_of_Home__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub.
+
+How this home/land first came into the program&apos;s portfolio.</description>
+    <inlineHelpText>How this home/land first came into the program&apos;s portfolio.</inlineHelpText>
+    <label>Source of Home</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New construction</fullName>
+                <default>false</default>
+                <label>New construction</label>
+            </value>
+            <value>
+                <fullName>Acquisition and rehab</fullName>
+                <default>false</default>
+                <label>Acquisition and rehab</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_File_Type_for_Direct_Invitation__c</fullName>
+    <description>Used to determine the type of direct application process the applicant will undergo (if a new service file is created, which communications are sent, etc.).</description>
+    <inlineHelpText>Used to determine the type of direct application process the applicant will undergo (if a new service file is created, which communications are sent, etc.).</inlineHelpText>
+    <label>Service File Type for Direct Invitation</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Applicant - No Outreach</fullName>
+                <default>false</default>
+                <label>Applicant - No Outreach</label>
+            </value>
+            <value>
+                <fullName>Current Owner/Tenant</fullName>
+                <default>false</default>
+                <label>Current Owner/Tenant</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,3249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Sub_Unit</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>HR_Property_Highlights</compactLayoutAssignment>
+    <description>This is the Housing Rehabilitation Additional Property. It is manually created by a staff member when there is more than one unit for the same Case File.</description>
+    <label>HR Sub Unit</label>
+    <picklistValues>
+        <picklist>AHMS_Monitoring_Notes__c</picklist>
+        <values>
+            <fullName>Affordability %25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective Date of Controls</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Family%2FAge Restricted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Income Level</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Length of Controls %28Years%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Number of Bedrooms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perpetual Yes%2FNo</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>AHMS_Project_Data__c</picklist>
+        <values>
+            <fullName>Imported from CTM %E2%80%93 not reviewed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Project- Ready for AHMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Entered- Planned Project</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Entered in AHMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Entered in AHMS- Updates Needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Monitoring Needed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Active_Cabinet_Location__c</picklist>
+        <values>
+            <fullName>Corinne%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>David %26 Rick%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jim%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>John %26 JoEllen%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Katherine%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mary Alice %26 Noopur%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Michelle%2C Dan%2C %26 Mike%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Files Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>O Drive %28Electronic Only%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Production Room %26 Hall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Server Room Area</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ximena%27s Office</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Active_Cabinet_Number__c</picklist>
+        <values>
+            <fullName>01</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>02</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>03</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>04</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>05</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>06</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>07</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>08</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>09</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19a</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19b</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>22</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>23</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>26</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>27</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>28</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Administered_by_CGP_H_Since__c</picklist>
+        <values>
+            <fullName>1993</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1994</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1995</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1996</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1997</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1998</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1999</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2001</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2002</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2003</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2004</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2005</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2006</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2007</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2008</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2009</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2010</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2011</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2012</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2013</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2014</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2015</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2016</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2017</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2018</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2025</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2026</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2027</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2028</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2029</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2030</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2031</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2032</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2033</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2034</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2035</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2036</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2037</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2038</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2039</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2040</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Affordability__c</picklist>
+        <values>
+            <fullName>100%25 Affordable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inclusionary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Affordability_restriction_del__c</picklist>
+        <values>
+            <fullName>HUD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LIHTC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moderate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very-low</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Affordable_controls_data_entry__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 5</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Age_Restriction__c</picklist>
+        <values>
+            <fullName>55%2B Exclusive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Over 17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over 18</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Amenities__c</picklist>
+        <values>
+            <fullName>BBQ Area</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Basketball Courts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Club House</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clubroom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Community Room</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complimentary Wi-Fi in community areas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exercise Room</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outdoor Patio with fire pit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Playground</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pool</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Swimming Pool</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tennis Court</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Volleyball Court</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Background_Check_Required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Bldg_Type_for_Utilities__c</picklist>
+        <values>
+            <fullName>High-Rise with Elevator</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Home %28Manufactured Home%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Older Multi-Family %28Low Rise%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Row House%2FGarden Apt %28Rowhouse%2FTownhouse%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single Family Detached</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Two-Three Family%2FDuplex %28Semi-Detached%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>COAH_Regions__c</picklist>
+        <values>
+            <fullName>Region 1 %28Bergen%2C Hudson%2C Passaic%2C Sussex%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Region 2 %28Essex%2C Morris%2C Union%2C Warren%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Region 3 %28Hunterdon%2C Middlesex%2C Somerset%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Region 4 %28Mercer%2C Monmouth%2C Ocean%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Region 5 %28Burlington%2C Camden%2C Gloucester%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Region 6 %28Atlantic%2C Cape May%2C Cumberland%2C Salem%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Calculation_Status__c</picklist>
+        <values>
+            <fullName>Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Camp_Member_Add_Job_Status__c</picklist>
+        <values>
+            <fullName>Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preparing</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Co_Signers_Allowed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Contract_Status__c</picklist>
+        <values>
+            <fullName>Contract DECLINED %28Using another AA%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract REQUESTED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract SENT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract SIGNED</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Cooking__c</picklist>
+        <values>
+            <fullName>Electric</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gas</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Credit_Check_Required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Deed_Restriction_picklist__c</picklist>
+        <values>
+            <fullName>Draft%3A BEING CREATED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NOT FOUND - TRANSFERRED TO MUNI ATTRNY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Need</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OLD - NEEDS FOLLOW-UP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recorded copy on file</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Development_Allows_Rental_Assistance__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Development_Binder_Status__c</picklist>
+        <values>
+            <fullName>Digital</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hard copy</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Development_Financing_Requirements__c</picklist>
+        <values>
+            <fullName>All non-cash buyers must be able to qualify for a mortgage%2E  CGP%26H will provide you a list of lenders%2E  Lenders not on this list may not be able to finance mortgages for deed restricted affordable homes%2E</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>All non-cash buyers must be able to qualify for a mortgage%2E Please contact First Credit Corporation%2C Manufactured Home Finance %26 Insurance regarding financing options at 1-800-562-6036%2C or www%2Efirstcreditcorp%2Ecom%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>If you are interested in purchasing an affordable home%2C you must be able to secure financing%2E You may work with any lender%2E%C2%A0Buyers have recently worked with Peapack-Gladstone Bank%2C Amaro Pereira%2C %28908%29 334-8789%2C%C2%A0apereira%40pgbank%2Ecom%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There is no fee to apply for this program%2E  All non-cash buyers must be able to qualify for a mortgage%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Development_Type__c</picklist>
+        <values>
+            <fullName>Apartments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condominium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile or manufactured</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single Family homes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Town Homes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Disabled_eligible_regardless_of_age__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EA_Layout__c</picklist>
+        <values>
+            <fullName>Include Invited</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Uninvited only</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Elevator__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Email_blast_to_interest_list__c</picklist>
+        <values>
+            <fullName>In progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>FHA_approved_complex__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Flood_Zone_Type__c</picklist>
+        <values>
+            <fullName>100 year</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>500 year</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Floor_unit_is_located_on__c</picklist>
+        <values>
+            <fullName>10th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1st</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2nd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3rd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8th</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9th</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Freehold_ext_of_control_research__c</picklist>
+        <values>
+            <fullName>Found RESALE AHA but missing origianl</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Found original AHA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Still looking for AHA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Google_Tracker_Review__c</picklist>
+        <values>
+            <fullName>2 Days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Daily</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weekly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Cooling__c</picklist>
+        <values>
+            <fullName>Central AC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Central AC and Window AC Unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Window AC Unit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Development__c</picklist>
+        <values>
+            <fullName>Adelphia Green</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fox Chase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Glen Brook Estates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Glen Rock square</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gracewood Glen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hamilton Park</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hidden Woods</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High Pointe Station</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Independence Square</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenox Meadows</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monmouth Chase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Montgomery Glen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Montgomery Hills</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Towne Village</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Palmer Square</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passaic NSP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pelican Court</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perry%27s Lake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pine Crest Village</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pointe De Jardin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strickland Farms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The Cove at Howell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The Orchards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Villages at Heritage Woods</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Villages at Mapleton</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wanaque Parkside</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wanaque Reserve</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Willingboro NSP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wyndham Place</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yardley Manor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Elementary__c</picklist>
+        <values>
+            <fullName>%28Configure Elementary Schools%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Exterior__c</picklist>
+        <values>
+            <fullName>Back Porch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Balcony</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fenced Back Yard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fenced Front Yard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Front Porch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garden</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Greenhouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lawn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pond</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Pool</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Screened Porch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sprinkler System</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tool Shed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unfenced Yard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Fireplace__c</picklist>
+        <values>
+            <fullName>1%2Fgas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2Fwood</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2Fwoodstove</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Garage__c</picklist>
+        <values>
+            <fullName>0</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2FAttached</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2FCarport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2FDetached</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2FAttached</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2FDetached</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Heating__c</picklist>
+        <values>
+            <fullName>Electric</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Natural Gas</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__High_School__c</picklist>
+        <values>
+            <fullName>%28Configure High Schools%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Interior__c</picklist>
+        <values>
+            <fullName>Cable Ready</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carbon Monoxide Detector</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carpet Floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ceiling Fan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Central AC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Central AC and Window AC Unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clothes Dryer - Front Loading</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clothes Dryer - Top Loading</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clothes Washer - Front Loading</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clothes Washer - Top Loading</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dishwasher</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fire Extinguisher</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fire Suppression%2FSprinkler System</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fireplace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Furnished</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garbage Disposal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Granite Countertop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardwood Floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High-Speed Internet Ready</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intercom System</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Laminate Floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Linoleum Floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marble Floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microwave</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miniblinds</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refrigerator - Freezer on Bottom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refrigerator - Freezer on Top</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refrigerator - No Freezer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refrigerator - Side By Side Doors</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Skylights</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Slate Floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Smoke Detector</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stacked Clothes Washer %26 Dryer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stainless Steel Appliances</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strobe Fire Alarm in Unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tile Floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trash Compactor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vinyl Floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Washer and Dryer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Washer and Dryer Hook-ups</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Window AC Unit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Limited_Tax_Abatement__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Middle_School__c</picklist>
+        <values>
+            <fullName>%28Configure Middle Schools%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Neighborhood__c</picklist>
+        <values>
+            <fullName>%28Configure Neighborhoods%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Number_of_Bathrooms__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3%2E5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4%2B</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Number_of_Bedrooms__c</picklist>
+        <values>
+            <fullName>0</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Number_of_Stories__c</picklist>
+        <values>
+            <fullName>1 story</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 stories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 or more</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Split level</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Partnership__c</picklist>
+        <values>
+            <fullName>For-profit developer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-profit developer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Program__c</picklist>
+        <values>
+            <fullName>Allamuchy Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Berlin Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bloomingdale Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>East Windsor Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Edgewater Borough</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Franklin Township %28Somerset County%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Freehold Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Glen Rock Borough</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Highland Park</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hillsborough Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hoboken City</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Holmdel Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Howell Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lyndhurst</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mansfield Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maplewood Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marlboro Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Montgomery Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ocean Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Old Bridge Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passaic City</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Springfield Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stafford</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Union Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Upper Freehold Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voorhees Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wanaque</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>West Long Branch Borough</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Willingboro Township</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wood-Ridge Borough</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Woodbridge</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Property_Type__c</picklist>
+        <values>
+            <fullName>Apartment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assisted Living</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condominium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile or Manufactured Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single-Family Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Townhome</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Roof__c</picklist>
+        <values>
+            <fullName>Clay%2FConcrete Tile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Composition%2FAsphalt Shingles</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Metal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rolled Composition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single-Ply</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Slate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tar and Gravel%2FHot Mop%2FBuilt-up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wood Shakes%2FShingles</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Sewer__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRIVATE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PUBLIC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Source_of_Home__c</picklist>
+        <values>
+            <fullName>Acquisition and rehab</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New construction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Status__c</picklist>
+        <values>
+            <fullName>Abandoned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Available For Rent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Available for Rent - On Hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Available for Rent - part of group</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Available for Sale - part of group</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Available for Sale%2FResale</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Available for Sale%2FResale - On Hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank Owned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initial Lease up completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initial Sale of Units Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initial Sales in Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initial lease up in progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lease Purchase Occupancy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not in Affordable Portfolio %28Community Room%2C Model Unit%2C Sales Office%2C Etc%2E%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Owner Occupied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Planned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental deed restricted expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rented</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sale Pending%2FCert App%2FNo PA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sale Pending%2FIn Escrow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold Out of Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subdivided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Under Construction</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Style__c</picklist>
+        <values>
+            <fullName>Brown Shingle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bungalow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cabin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cape Cod</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Colonial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contemporary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cottage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Craftsman</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>English</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Farm House</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fixer-Handyman Special</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>French Country</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>French Provincial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manufactured Housing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mediterranean</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Normandy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prairie</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ranch%2FRambler</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spanish</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Traditional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tudor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Victorian</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Tenure_Type__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ownership with deed restriction%2Fcovenant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HOMEtracker__Water__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRIVATE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PUBLIC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Income_Level__c</picklist>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moderate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Low</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Initial_Rent_Date_Occupied_Verified__c</picklist>
+        <values>
+            <fullName>Initial Lease up in progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Needs Follow-up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Verified MB</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Initial_price_and_control_date_entered__c</picklist>
+        <values>
+            <fullName>All Entered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In process of filling first units</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partially Entered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ready to be Entered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_wait_list_closed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Kick_off_follow_up_neeed__c</picklist>
+        <values>
+            <fullName>AMP in progress%3A NEEDED Deed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AMP in progress%3A NEEDED POAs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MUNI AA %7C NOT DEV AA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SETUP%3A Enter CDS %2F Binder %2F Project Set-up</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LM_Extension_of_Controls_Status__c</picklist>
+        <values>
+            <fullName>Attended 1st meeting and did not check want more info</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Attended 1st meeting and want more information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Controls extended%2FCOMPLETE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did not attend 1st meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did not attend 1st meeting but Called and want more information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow-up meeting scheduled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inspected and repairs required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letter to owner returned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not eligible for program b%2Fc controls not expiring</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not eligible for program b%2Fc sold out of program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passed inspection and pending payment%2Fexecution of documents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred to construction official</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Signed commitment form</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LM_MOU_Status__c</picklist>
+        <values>
+            <fullName>MOU signed by homeowner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MOU signed by homeowner and Mayor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Laundry__c</picklist>
+        <values>
+            <fullName>In Unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shared</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Listing_Invoiced__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Listing_Stage__c</picklist>
+        <values>
+            <fullName>Bedroom%2Fhousehold size restricted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open Listing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reduced bedroom%2Fhousehold size restricted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Region and bedroom%2Fhousehold size restricted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Listing_Type__c</picklist>
+        <values>
+            <fullName>Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Local_Preference_Type__c</picklist>
+        <values>
+            <fullName>Hoboken</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Montclair</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Local_Preference__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Local_Preference_for_Priority__c</picklist>
+        <values>
+            <fullName>Alternate_Local%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General_Local%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lottery_Number_for_Priority__c</picklist>
+        <values>
+            <fullName>Centerplace_at_Edison%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Edison_Market_to_Affordable%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lottery_Number%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rivendell_Heights%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Village_Court_Seniors%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Woodmont_Station_at_Cranford%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Max_Income_Level__c</picklist>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moderate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Low</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Minimum_Lease_Term__c</picklist>
+        <values>
+            <fullName>1 Year</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Month-to-Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>NJHRC_Rental_Listing__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 1 and 2 complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 1 complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phase 1%2C 2 and 3 complete</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>New_Cabinet_Number__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>22</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>23</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>26</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>27</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>28</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2_1_2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>31</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>32</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>33</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requested</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Outreach_Applicant_Strategy__c</picklist>
+        <values>
+            <fullName>Aggressive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Minimal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Outreach_Stage__c</picklist>
+        <values>
+            <fullName>0%2E Waiting%2C Coming Soon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>0%2E5 Needs Manager Setup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E Applicants Needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E5 EA Page run</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3%2E Invitations to Submit Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4%2E Referred to Landlord</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5%2E Income Cert Begins</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6%2E Rental Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7%2E Rental %2F Sale Complete</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Bedroom_Preference__c</picklist>
+        <values>
+            <fullName>1 Bedroom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 Bedroom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 Bedroom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Studio</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Income_Level_Preference__c</picklist>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moderate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workforce</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Max_Calculation_Type__c</picklist>
+        <values>
+            <fullName>HUD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MTSP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Median</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Modified</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PHA__Min_Calculation_Type__c</picklist>
+        <values>
+            <fullName>AMI%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extremely Low-Income Limits</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Override</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pets_allowed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Possibly_Extend_Aff_Housing_Provisions__c</picklist>
+        <values>
+            <fullName>Maybe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Record_Ext_of_control_doc_recd__c</picklist>
+        <values>
+            <fullName>In file</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting for home owner to sign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting for muni to sign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting to come back from county</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rental_Process_Status__c</picklist>
+        <values>
+            <fullName>Full App Before Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prior Process</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rental_or_Sale_Development__c</picklist>
+        <values>
+            <fullName>Rental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sale</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Required_to_Send_Cert_K_After_Cert__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Smoking_Allowed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Special_Circumstances__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rehabilitation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Special Needs</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Stove_Type__c</picklist>
+        <values>
+            <fullName>Electric</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Natural Gas</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Terminated_Cabinet_Location__c</picklist>
+        <values>
+            <fullName>Corinne%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>David %26 Rick%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jim%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>John %26 JoEllen%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Katherine%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mary Alice %26 Noopur%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Michelle%2C Dan%2C %26 Mike%27s Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Files Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>O Drive %28Electronic Only%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Production Room %26 Hall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Server Room Area</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ximena%27s Office</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Terminated_Cabinet_Number__c</picklist>
+        <values>
+            <fullName>01</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>02</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>03</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>04</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>05</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>06</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>07</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>08</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>09</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19a</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19b</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>22</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>23</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>26</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>27</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>28</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Timeslips_entry__c</picklist>
+        <values>
+            <fullName>Admin Hourly %26 Set Fees</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>All time is billable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>All time is billable%2E Bill income certifications to development and all other time to municipality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>All time is no charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>All time is no charge except for income certifications which should be billable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retainer %26 Set Fees</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Setup Only %26 Set Fees</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Trash_Fee__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_Affordability_Controls__c</picklist>
+        <values>
+            <fullName>95%2F5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Round 3</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_Free_Parking__c</picklist>
+        <values>
+            <fullName>Garage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Off-Street</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Unit_List_Imported__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In-progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not started</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent to Tech team for import</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent to developer for review</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Unit_Mix__c</picklist>
+        <values>
+            <fullName>1 bedrooms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 bedrooms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 bedrooms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 bedrooms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Studios</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Unit_Type__c</picklist>
+        <values>
+            <fullName>Multi-family</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single-Family%3A Condo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single-Family%3A Freestanding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single-Family%3A Mobile Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single-Family%3A Townhome</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Utilities_Included__c</picklist>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sewer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trash</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Water</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Waiting_list_status__c</picklist>
+        <values>
+            <fullName>CGP%26H does not maintain waiting list%2E  Contact complex directly%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New project%2E Submit application now to be included in lottery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No units available %2E  Medium waiting list%2E  Estimated waiting time is 1-2 years</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No units available now%2E Units become available regularly%2E  Small or no waiting list</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No units available%2E  Long waiting list%2E  Estimated waiting time is 2 years or more</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Units available now and being filled from existing waiting list</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Units available now%2E  Small or no waiting list</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Water_Heater_Type__c</picklist>
+        <values>
+            <fullName>Electric</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Natural Gas</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>X2024_Monitoring_Status__c</picklist>
+        <values>
+            <fullName>CGP%26H Not Completing Unit Monitoring</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Need Lease Start Dates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supportive Housing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supportive Housing- Imported to AHMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unit Data Imported- Research Needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unit Data Not Imported- Research Needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unit Data Not Ready- Additional Research Needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unit Data Ready for Entry- Missing Initial Leases</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Yard_Maintenance_Fee__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>new_income_limits_resale_calc__c</picklist>
+        <values>
+            <fullName>No increase %E2%80%93 initial sale</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No increase - No eligible for new increase b%2Fc selling for lower</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No increase - Under contract or certified applicant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No increase - none this year</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No increase - sellers choice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not applicable - done</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Priority 1 increase %E2%80%93 apps under review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Priority 2 increase %E2%80%93 apps invited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Priority 3 increase %E2%80%93 invited to group showing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Priority 4 increase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Taking Increase -done</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

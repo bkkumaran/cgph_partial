@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_Ineligibility_Emails_R__c</fullName>
+    <description>Opens a view where you can send &quot;RTV Submitted, Ineligible Response - External Report&quot; emails to ten &quot;Ineligible, Pending Staff Action&quot; applicants at a time.</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;/ui/list/FilterEditPage?id=00B6O00000BV13K&quot;
+
++&quot;&amp;fval1=%22&quot;+
+
+IF(CONTAINS(Name,&quot;#&quot;)=TRUE, SUBSTITUTE(Name, &quot;#&quot;, &quot;%23&quot;), Name) 
+
++&quot;%22&quot;
++&quot;&amp;fval2=%22Ineligible%2C%20Pending%20Staff%20Action%22&quot;
++&quot;&amp;fval3=Pending&quot;
++&quot;&amp;fval4=Property%20Questionnaire&quot;+
+
+&quot;&amp;retURL=%2Fa1I%3Ffcf%00B6O00000BV13K&quot;
+
+, &quot;Click Here&quot;)</formula>
+    <inlineHelpText>Opens a view where you can send &quot;RTV Submitted, Ineligible Response - External Report&quot; emails to ten &quot;Ineligible, Pending Staff Action&quot; applicants at a time.</inlineHelpText>
+    <label>Send Ineligibility Emails, R</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

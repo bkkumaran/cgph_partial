@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>villages_at_Bridgwater</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Staff_Notes__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Village of Bridgewater</value>
+    </filters>
+    <filters>
+        <field>Income_Level__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>AAvill at Bridgwater - conversion to low</label>
+</ListView>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Green_Building_Features__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub.
+
+Check if the property has green features. This box will automatically be checked if Description of Green Features is filled in.</description>
+    <inlineHelpText>Check if the property has green features. This box will automatically be checked if Description of Green Features is filled in.</inlineHelpText>
+    <label>Green Building Features</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

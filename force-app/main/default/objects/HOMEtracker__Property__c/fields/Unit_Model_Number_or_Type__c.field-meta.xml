@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unit_Model_Number_or_Type__c</fullName>
+    <description>Unit model or type.  This can be used to link to floor plan.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Unit model or type.  This can be used to link to floor plan.</inlineHelpText>
+    <label>Unit Model Number or Type</label>
+    <length>200</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

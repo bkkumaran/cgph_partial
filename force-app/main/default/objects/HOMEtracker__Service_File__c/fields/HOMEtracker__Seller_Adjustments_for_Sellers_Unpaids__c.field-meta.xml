@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Seller_Adjustments_for_Sellers_Unpaids__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The data stored in this field is linked to the HomeKeeper National Data Hub. Sum of lines 510-519 on the HUD-1.</description>
+    <inlineHelpText>Sum of lines 510-519 on the HUD-1.</inlineHelpText>
+    <label>Seller Adjustments for Seller&apos;s Unpaids</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deposits_Google_Link__c</fullName>
+    <inlineHelpText>Link to the google drive deposits document for determining the classification of unreported or miscellaneous deposits during the income certification process.  This is the internal google drive file URL not the public URL sent to applicants</inlineHelpText>
+    <label>Deposits Google Link</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

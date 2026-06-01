@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>The_Cove_at_Howell_Units</fullName>
+    <columns>Building_Number__c</columns>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>HOMEtracker__List_Price__c</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Max_Income_Level__c</columns>
+    <columns>HOMEtracker__Monthly_Rent__c</columns>
+    <columns>Primary_Outreach_Coordintor__c</columns>
+    <columns>Date_Outreach_began__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>J Centra Burlington</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Under Construction,Available For Rent,Available for Rent - part of group,Available for Rent - On Hold</value>
+    </filters>
+    <label>AA The Cove at Howell Units</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

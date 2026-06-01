@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Google_Tracker_Review__c</fullName>
+    <inlineHelpText>Select the frequency the google tracker should be checked for this development.</inlineHelpText>
+    <label>Google Tracker Review</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No Review</fullName>
+                <default>false</default>
+                <label>No Review</label>
+            </value>
+            <value>
+                <fullName>Kicking off- Not yet started</fullName>
+                <default>false</default>
+                <label>Kicking off- Not yet started</label>
+            </value>
+            <value>
+                <fullName>Daily</fullName>
+                <default>false</default>
+                <label>Daily</label>
+            </value>
+            <value>
+                <fullName>2 Days</fullName>
+                <default>false</default>
+                <label>2 Days</label>
+            </value>
+            <value>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+                <label>Weekly</label>
+            </value>
+            <value>
+                <fullName>Completed- Leases Needed</fullName>
+                <default>false</default>
+                <label>Completed- Leases Needed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

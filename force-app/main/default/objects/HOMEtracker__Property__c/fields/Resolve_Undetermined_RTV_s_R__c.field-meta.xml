@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resolve_Undetermined_RTV_s_R__c</fullName>
+    <description>Opens a view where you can review and update the IF status of &quot;Undetermined, Pending Staff Action&quot; for up to ten applicants at a time.</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;/ui/list/FilterEditPage?id=00B3m000008xi4T&quot;
+
++&quot;&amp;fval1=%22&quot;+
+
+IF(CONTAINS(Name,&quot;#&quot;)=TRUE, SUBSTITUTE(Name, &quot;#&quot;, &quot;%23&quot;), Name) 
+
++&quot;%22&quot;
++&quot;&amp;fval2=%22Undetermined%2C%20Pending%20Staff%20Action%22&quot;
++&quot;&amp;fval3=Pending&quot;
++&quot;&amp;fval4=Property%20Questionnaire&quot;+
+
+&quot;&amp;retURL=%2Fa1I%3Ffcf%00B3m000008xi4T&quot;
+
+, &quot;Click Here&quot;)</formula>
+    <inlineHelpText>Opens a view where you can review and update the IF status of &quot;Undetermined, Pending Staff Action&quot; for up to ten applicants at a time.</inlineHelpText>
+    <label>Resolve Undetermined IF&apos;s, R</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

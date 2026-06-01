@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Record_Ext_of_control_doc_recd__c</fullName>
+    <inlineHelpText>use this field to track recording of extension of control documents</inlineHelpText>
+    <label>Record Ext of control doc recd</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>Waiting for home owner to sign</fullName>
+                <default>false</default>
+                <label>Waiting for home owner to sign</label>
+            </value>
+            <value>
+                <fullName>Waiting for muni to sign</fullName>
+                <default>false</default>
+                <label>Waiting for muni to sign</label>
+            </value>
+            <value>
+                <fullName>Waiting to come back from county</fullName>
+                <default>false</default>
+                <label>Waiting to come back from county</label>
+            </value>
+            <value>
+                <fullName>In file</fullName>
+                <default>false</default>
+                <label>In file</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

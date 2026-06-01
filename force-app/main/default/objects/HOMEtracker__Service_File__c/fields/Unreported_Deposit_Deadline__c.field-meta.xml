@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unreported_Deposit_Deadline__c</fullName>
+    <description>The date the applicant has to provide explanations for their unreported deposits. Autofills from the most recently set Unreported Deposit Deadline on an applicant&apos;s Unreported Deposit Income Source.</description>
+    <inlineHelpText>The date the applicant has to provide explanations for their unreported deposits. Autofills from the most recently set Unreported Deposit Deadline on an applicant&apos;s Unreported Deposit Income Source.</inlineHelpText>
+    <label>Unreported Deposit Deadline</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Reviewed_Sample_CCRs__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, the applicant reviewed sample Covenants, Conditions and Restrictions for the property.</description>
+    <inlineHelpText>If checked, the applicant reviewed sample Covenants, Conditions and Restrictions for the property.</inlineHelpText>
+    <label>Reviewed Sample CCRs</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

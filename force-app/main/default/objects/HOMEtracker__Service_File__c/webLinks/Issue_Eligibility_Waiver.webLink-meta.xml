@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Issue_Eligibility_Waiver</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Issue Eligibility Waiver</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://cgph--c.vf.force.com/flow/AA_Eligibility_Waiver?varID={!HOMEtracker__Service_File__c.Id}&amp;retURL=%2Flightning%2Fr%2FHOMEtracker__Service_File__c%2F{!HOMEtracker__Service_File__c.Id}%2Frelated%2FHOMEtracker__Monitoring_Events__r%2Fview</url>
+</WebLink>

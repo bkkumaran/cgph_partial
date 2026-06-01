@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bldg_Type_for_Utilities__c</fullName>
+    <description>The bldg type should match the original pricing.  If original pricing is not available choose best match.</description>
+    <inlineHelpText>The bldg type should match the original pricing.  If original pricing is not available choose best match.</inlineHelpText>
+    <label>Bldg Type for Utilities</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Single Family Detached</fullName>
+                <default>false</default>
+                <label>Single Family Detached</label>
+            </value>
+            <value>
+                <fullName>Two-Three Family/Duplex (Semi-Detached)</fullName>
+                <default>false</default>
+                <label>Semi-Detached</label>
+            </value>
+            <value>
+                <fullName>Row House/Garden Apt (Rowhouse/Townhouse)</fullName>
+                <default>false</default>
+                <label>Rowhouse/Townhouse</label>
+            </value>
+            <value>
+                <fullName>Older Multi-Family (Low Rise)</fullName>
+                <default>false</default>
+                <label>Low Rise</label>
+            </value>
+            <value>
+                <fullName>High-Rise with Elevator</fullName>
+                <default>false</default>
+                <label>High-Rise with Elevator</label>
+            </value>
+            <value>
+                <fullName>Mobile Home (Manufactured Home)</fullName>
+                <default>false</default>
+                <label>Manufactured Home</label>
+            </value>
+            <value>
+                <fullName>Older Home Converted (Semi Detached)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Older Home Converted (Semi Detached)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_Tracker_Public_Link</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Send Tracker Public Link</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>mailto:?subject={!HOMEtracker__Property__c.Name}+Applicant+Tracker&amp;body=Here is the unique link to the Applicant Tracker for {!HOMEtracker__Property__c.Name}.br()https://cgph.my.salesforce-sites.com/ot/?d={!HOMEtracker__Property__c.Id}</url>
+</WebLink>

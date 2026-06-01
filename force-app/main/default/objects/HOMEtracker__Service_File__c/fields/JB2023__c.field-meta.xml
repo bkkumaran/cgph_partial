@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JB2023__c</fullName>
+    <formula>IF(
+AND(
+OR(
+CONTAINS(TEXT(HOMEtracker__Property__r.HOMEtracker__Status__c ),&apos;Available&apos;),
+TEXT(HOMEtracker__Property__r.HOMEtracker__Status__c )=&apos;Rental Pending&apos;),
+Contains(TEXT(HOMEtracker__Status__c),&apos;Application in Process&apos;
+))
+,true,false)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>JB2023</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

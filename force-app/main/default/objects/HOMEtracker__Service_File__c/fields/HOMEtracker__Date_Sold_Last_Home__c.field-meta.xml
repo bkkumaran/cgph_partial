@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Date_Sold_Last_Home__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The date the applicant last sold a home (if applicable).</description>
+    <inlineHelpText>The date the applicant last sold a home (if applicable).</inlineHelpText>
+    <label>Date Sold Last Home</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

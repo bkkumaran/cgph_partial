@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Corrections_Reminder_Start_Date__c</fullName>
+    <description>Auto populates/updates whenever the &quot;Document Request Due&quot; field is changed. Triggers daily time-based reminder emails to be sent until a week has passed or the deadline has been reached.</description>
+    <inlineHelpText>Auto populates/updates whenever the &quot;Document Request Due&quot; field is changed. Triggers daily time-based reminder emails to be sent until a week has passed or the deadline has been reached.</inlineHelpText>
+    <label>Document Corrections Reminder Start Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

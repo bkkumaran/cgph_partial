@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Marital_Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>For the Primary Applicant, as reported at the time of application. Tip: If your program tracks this on the individual level, add a new custom field to the Application Household Member layout and remove this field from the Service File Layout. This field is required for 9902 reporting. Contact HomeKeeper Support before customizing to prevent errors when generating the 9902.</description>
+    <inlineHelpText>For the Primary Applicant, as reported at the time of application.
+
+Tip: If your program tracks this on the individual level, add a new custom field to the Application Household Member layout and remove this field from the Service File Layout.</inlineHelpText>
+    <label>Marital Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Divorced</fullName>
+                <default>false</default>
+                <label>Divorced</label>
+            </value>
+            <value>
+                <fullName>Married / Domestic Partnership</fullName>
+                <default>false</default>
+                <label>Married / Domestic Partnership</label>
+            </value>
+            <value>
+                <fullName>Separated</fullName>
+                <default>false</default>
+                <label>Separated</label>
+            </value>
+            <value>
+                <fullName>Single - Never Married</fullName>
+                <default>false</default>
+                <label>Single - Never Married</label>
+            </value>
+            <value>
+                <fullName>Widowed</fullName>
+                <default>false</default>
+                <label>Widowed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

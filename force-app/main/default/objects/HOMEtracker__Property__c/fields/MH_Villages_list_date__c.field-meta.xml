@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MH_Villages_list_date__c</fullName>
+    <description>Date listed on MH Village</description>
+    <inlineHelpText>Date listed on MH Village</inlineHelpText>
+    <label>MH Villages List Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

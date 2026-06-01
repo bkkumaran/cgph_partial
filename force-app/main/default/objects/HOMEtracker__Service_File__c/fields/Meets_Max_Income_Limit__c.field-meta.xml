@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Meets_Max_Income_Limit__c</fullName>
+    <description>Calculated when the service file is updated. If &quot;Yes&quot; the applicant makes less than the max income limit for this home.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Calculated when the service file is updated. If &quot;Yes&quot; the applicant makes less than the max income limit for this home.</inlineHelpText>
+    <label>Meets Max Income Limit?</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

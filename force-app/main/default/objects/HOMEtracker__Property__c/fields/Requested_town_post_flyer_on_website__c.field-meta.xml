@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Requested_town_post_flyer_on_website__c</fullName>
+    <inlineHelpText>Enter date requested that town post info on website at beginning of affirmative marketing period.</inlineHelpText>
+    <label>Requested town post flyer on website</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

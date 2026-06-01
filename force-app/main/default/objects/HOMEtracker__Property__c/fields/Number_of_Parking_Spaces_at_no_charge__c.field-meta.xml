@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_of_Parking_Spaces_at_no_charge__c</fullName>
+    <description>Number of parking spaces included in rent/or association fee for free</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Number of parking spaces included in rent/or association fee for free</inlineHelpText>
+    <label>Number of Parking Spaces at No Charge</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

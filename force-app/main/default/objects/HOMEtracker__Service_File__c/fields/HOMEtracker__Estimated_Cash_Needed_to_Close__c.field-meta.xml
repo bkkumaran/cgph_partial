@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Estimated_Cash_Needed_to_Close__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The estimated amount the buyer will need to close.</description>
+    <inlineHelpText>The estimated amount the buyer will need to close.</inlineHelpText>
+    <label>Estimated Cash Needed to Close</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

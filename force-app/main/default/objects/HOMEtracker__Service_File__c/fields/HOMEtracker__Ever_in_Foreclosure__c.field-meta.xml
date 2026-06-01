@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Ever_in_Foreclosure__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the national performance database. Do not change this field or manually update the data in it.</description>
+    <inlineHelpText>This box will automatically be checked if there are any Monitoring Events associated with this Service File with a Type of &quot;Notice of Foreclosure Proceedings&quot; or &quot;Program Foreclosure Initiated.&quot; Do not manually update this box.</inlineHelpText>
+    <label>Ever in Foreclosure</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

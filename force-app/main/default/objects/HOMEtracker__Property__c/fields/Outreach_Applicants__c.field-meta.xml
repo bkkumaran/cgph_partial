@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Outreach_Applicants__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;https://cgph--c.vf.force.com/apex/OutreachApplicantProcess?id=&quot;&amp; Id,&quot;Outreach Applicants&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Open this report after the application deadline has passed to begin processing applicants.</inlineHelpText>
+    <label>Outreach Applicants</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

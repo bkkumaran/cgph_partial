@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Public_Listing_Information</fullName>
+    <columns>Listing_Type__c</columns>
+    <columns>Municipality_Name__c</columns>
+    <columns>NAME</columns>
+    <columns>Development_address__c</columns>
+    <columns>HOMEtracker__List_Price__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>NJHRC_List_Date__c</columns>
+    <columns>Social_Media_List_Date__c</columns>
+    <columns>MH_Villages_list_date__c</columns>
+    <columns>MH_VIllage_N_A__c</columns>
+    <columns>Outreach_status_notes__c</columns>
+    <columns>Property_Web_Listing__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Available for Sale/Resale</value>
+    </filters>
+    <filters>
+        <field>Property_Web_Listing__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <filters>
+        <field>Listing_Type__c</field>
+        <operation>equals</operation>
+        <value>Public</value>
+    </filters>
+    <label>AA Ownership Public Listing Information</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

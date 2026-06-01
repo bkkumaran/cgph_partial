@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Utility_verification_Binder_project</fullName>
+    <columns>NAME</columns>
+    <columns>Utilities_Included__c</columns>
+    <columns>Bldg_Type_for_Utilities__c</columns>
+    <columns>Date_utility_info_verified__c</columns>
+    <columns>utility_verification_notes__c</columns>
+    <columns>HOMEtracker__Heating__c</columns>
+    <columns>Water_Heater_Type__c</columns>
+    <columns>Stove_Type__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Rental_or_Sale_Development__c</field>
+        <operation>equals</operation>
+        <value>Rental</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Initial lease up in progress,Initial Lease up completed</value>
+    </filters>
+    <label>AA Utility Verification Binder Project</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

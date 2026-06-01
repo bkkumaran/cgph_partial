@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Waiting_list_status__c</fullName>
+    <label>Waiting List Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New project. Submit application now to be included in lottery</fullName>
+                <default>false</default>
+                <label>New project. Submit application now to be included in lottery</label>
+            </value>
+            <value>
+                <fullName>Units available now.  Small or no waiting list</fullName>
+                <default>false</default>
+                <label>Units available now.  Small or no waiting list</label>
+            </value>
+            <value>
+                <fullName>Units available now and being filled from existing waiting list</fullName>
+                <default>false</default>
+                <label>Units available now and being filled from existing waiting list</label>
+            </value>
+            <value>
+                <fullName>No units available now. Units become available regularly.  Small or no waiting list</fullName>
+                <default>false</default>
+                <label>No units available now. Units become available regularly.  Small or no waiting list</label>
+            </value>
+            <value>
+                <fullName>No units available .  Medium waiting list.  Estimated waiting time is 1-2 years</fullName>
+                <default>false</default>
+                <label>No units available .  Medium waiting list.  Estimated waiting time is 1-2 years</label>
+            </value>
+            <value>
+                <fullName>No units available.  Long waiting list.  Estimated waiting time is 2 years or more</fullName>
+                <default>false</default>
+                <label>No units available.  Long waiting list.  Estimated waiting time is 2 years or more</label>
+            </value>
+            <value>
+                <fullName>CGP&amp;H does not maintain waiting list.  Contact complex directly.</fullName>
+                <default>false</default>
+                <label>CGP&amp;H does not maintain waiting list.  Contact complex directly.</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X3x_Rent_Requirement__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>NOTE: We are no longer using this field. It was including utilities in the 3x rent calculation, which was incorrect. Since it is not an AA rule and not a high priority, we unchecked all fields and removed form the layout. We may add back in the future if we have time to correct the calculation.
+
+If this box is checked, an applicant&apos;s monthly income must be at least three times the effective rent of this home (hardship waivers will not be considered). Default: No.</description>
+    <inlineHelpText>If this box is checked, an applicant&apos;s monthly income must be at least three times the effective rent of this home (hardship waivers will not be considered). Default: No.</inlineHelpText>
+    <label>3x Rent Requirement</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

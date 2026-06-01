@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Gross_Amount_Due_Accounted_For__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. Auto-calculated. This formula checks if all amounts due from buyer (lines 101-112 on the HUD-1) are recorded correctly. For files with a value in &quot;All Other Buyer Settlement Costs&quot; (a field made obsolete in version 1.10), the formula is: Gross Amount Due from Borrower equals Purchase Price plus All Other Buyer Settlement Costs plus Pre-Paids/Reserves. For all other files, the formula is: Gross Amount Due from Borrower equals Purchase Price plus Settlement Charges to Borrower plus Other Amounts Due from Buyer.</description>
+    <externalId>false</externalId>
+    <formula>IF(HOMEtracker__Gross_Amount_Due_from_Borrower__c &gt; 0, 
+IF(HOMEtracker__Settlement_Charges_to_Borrower__c &lt;= 0 &amp;&amp; HOMEtracker__Other_Amounts_Due_from_Buyer__c &lt;= 0, 
+IF((HOMEtracker__Gross_Amount_Due_from_Borrower__c - HOMEtracker__Purchase_Price__c - HOMEtracker__Prepaids_Reserves__c - HOMEtracker__All_Other_Buyers_Settlement_Costs__c == 0), 
+&quot;Yes&quot;, 
+&quot;No. Your numbers are off by $&quot; &amp; TEXT(ABS(HOMEtracker__Gross_Amount_Due_from_Borrower__c - HOMEtracker__Purchase_Price__c - HOMEtracker__Prepaids_Reserves__c - HOMEtracker__All_Other_Buyers_Settlement_Costs__c)) &amp; &quot;. Gross Amount Due from Borrower ($&quot; &amp; TEXT(HOMEtracker__Gross_Amount_Due_from_Borrower__c) &amp; &apos;) should equal Purchase Price ($&apos; &amp; TEXT(HOMEtracker__Purchase_Price__c) &amp; &apos;) plus Pre-Paids/Reserves ($&apos; &amp; TEXT(HOMEtracker__Prepaids_Reserves__c) &amp; &quot;) plus All Other Buyer&apos;s Settlement Costs (OLD) ($&quot; &amp; TEXT(HOMEtracker__All_Other_Buyers_Settlement_Costs__c) &amp; &apos;), which comes to $&apos; &amp; TEXT(HOMEtracker__Purchase_Price__c + HOMEtracker__Prepaids_Reserves__c + HOMEtracker__All_Other_Buyers_Settlement_Costs__c) &amp; &apos;. &apos;), 
+IF(HOMEtracker__Settlement_Charges_to_Borrower__c &gt; 0, 
+IF((HOMEtracker__Gross_Amount_Due_from_Borrower__c - HOMEtracker__Purchase_Price__c - HOMEtracker__Settlement_Charges_to_Borrower__c - HOMEtracker__Other_Amounts_Due_from_Buyer__c == 0), 
+&quot;Yes&quot;, 
+&quot;No. &quot; &amp; &quot;Your numbers are off by $&quot; &amp; TEXT(ABS(HOMEtracker__Gross_Amount_Due_from_Borrower__c - HOMEtracker__Purchase_Price__c - HOMEtracker__Settlement_Charges_to_Borrower__c - HOMEtracker__Other_Amounts_Due_from_Buyer__c)) &amp; &quot;. Gross Amount Due from Borrower ($&quot; &amp; TEXT(HOMEtracker__Gross_Amount_Due_from_Borrower__c) &amp; &quot;) should equal Purchase Price ($&quot; &amp; TEXT(HOMEtracker__Purchase_Price__c) &amp; &quot;) plus Settlement Charges to Borrower ($&quot; &amp; TEXT(HOMEtracker__Settlement_Charges_to_Borrower__c) &amp; &quot;) plus Other Amounts Due from Buyer ($&quot; &amp; TEXT(HOMEtracker__Other_Amounts_Due_from_Buyer__c) &amp; &quot;), which comes to $&quot; &amp; TEXT(HOMEtracker__Purchase_Price__c + HOMEtracker__Settlement_Charges_to_Borrower__c + HOMEtracker__Other_Amounts_Due_from_Buyer__c) &amp; &quot;. &quot;), &quot;&quot;)), 
+&quot;No, enter the itemized amounts due from the Borrower, and the Gross Amount Due (Total Amount Due from Borrower).&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This formula checks if all amounts due from buyer (lines 101-112 on the HUD-1) are recorded correctly. Formula is different for old files that don&apos;t have a positive value in Settlement Charges to Borrower or Other Amounts Due from Buyer.</inlineHelpText>
+    <label>Gross Amount Due Accounted For?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

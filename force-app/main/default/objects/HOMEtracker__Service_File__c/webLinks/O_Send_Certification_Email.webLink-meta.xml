@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>O_Send_Certification_Email</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Send Certification Email</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://composer.congamerge.com
+?SessionId={!API.Session_ID}
+&amp;ServerUrl={!API.Partner_Server_URL_290}
+&amp;Id={!HOMEtracker__Service_File__c.Id}
+&amp;CongaEmailTemplateId=a201N000001V6ar
+&amp;TemplateGroup=AA,Certification,Documents
+&amp;EmailSubject={!HOMEtracker__Service_File__c.Municipality__c}+Affordable+Housing+Program/{!HOMEtracker__Service_File__c.HOMEtracker__Property__c}/{!HOMEtracker__Service_File__c.IAW_Development_Name__c}/{!HOMEtracker__Service_File__c.HOMEtracker__Applicant__c}/Certification/{!HOMEtracker__Service_File__c.Case_Number__c}
+&amp;EmailBCC=noreply@cgph.net</url>
+</WebLink>

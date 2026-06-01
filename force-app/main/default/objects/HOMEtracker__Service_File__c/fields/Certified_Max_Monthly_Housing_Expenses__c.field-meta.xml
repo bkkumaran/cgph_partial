@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Certified_Max_Monthly_Housing_Expenses__c</fullName>
+    <description>Select and enter the appropriate value from the &quot;Max $&quot; fields in the &quot;Applicant &amp; Property Information&quot; subsection of the &quot;Income &amp; Asset Worksheet&quot; section above.</description>
+    <inlineHelpText>Select and enter the appropriate value from the &quot;Max $&quot; fields in the &quot;Applicant &amp; Property Information&quot; subsection of the &quot;Income &amp; Asset Worksheet&quot; section above.</inlineHelpText>
+    <label>Certified Max Monthly Housing Expenses</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

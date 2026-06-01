@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Use_Development_Primary_Contact_for_MM__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box to include the development&apos;s Primary Contact information in the ownership certification mail merge. If unchecked, the Current Owner information will be used instead.</description>
+    <inlineHelpText>Check this box to include the development&apos;s Primary Contact information in the ownership certification mail merge. If unchecked, the Current Owner information will be used instead.</inlineHelpText>
+    <label>Use Development Primary Contact for MM</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

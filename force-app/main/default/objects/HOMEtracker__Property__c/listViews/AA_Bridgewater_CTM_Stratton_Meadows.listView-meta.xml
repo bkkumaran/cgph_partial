@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_Bridgewater_CTM_Stratton_Meadows</fullName>
+    <columns>NAME</columns>
+    <columns>Original_Purchase_Price__c</columns>
+    <columns>Initial_affordability_of_Unit__c</columns>
+    <columns>HOMEtracker__Date_Placed_in_Program__c</columns>
+    <columns>of_years_in_initial_afford_peri__c</columns>
+    <columns>Date_Initial_Controls_Expire__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Max_Income_Level__c</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>Maximum_Household_Size__c</columns>
+    <columns>Type_of_Affordability_Controls__c</columns>
+    <columns>Controls_Extended__c</columns>
+    <columns>Date_controls_were_extended__c</columns>
+    <columns>of_years_in_new_affordability_period__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Stratton Meadows</value>
+    </filters>
+    <label>AA_Bridgewater_CTM_Stratton Meadows</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

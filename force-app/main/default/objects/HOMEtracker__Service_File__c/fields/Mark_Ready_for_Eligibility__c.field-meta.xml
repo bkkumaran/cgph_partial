@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mark_Ready_for_Eligibility__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+&quot;https://cgph--c.vf.force.com/flow/SF_Mark_As_Ready_For_Full_Income_Cert?varID=&quot;&amp;Id&amp;&quot;&amp;retURL=%2F&quot;&amp;Id
+,&quot;CLICK HERE&quot;,
+&quot;_top&quot;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Click link to mark this service file as ready for full income certification</inlineHelpText>
+    <label>Mark Ready for Eligibility</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application_Ineligibility_Reason_s__c</fullName>
+    <description>If ineligible, select at least one reason. These reasons will make bulleted explanations appear on the ineligibility email merge.</description>
+    <inlineHelpText>If ineligible, select at least one reason. These reasons will make bulleted explanations appear on the ineligibility email merge.</inlineHelpText>
+    <label>Application Ineligibility Reason(s)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Over Income - Specific Region or All Regions</fullName>
+                <default>false</default>
+                <label>Over Income - Specific Region or All Regions</label>
+            </value>
+            <value>
+                <fullName>Over Income - Income Level, May Qualify for Other Income Levels</fullName>
+                <default>false</default>
+                <label>Over Income - Income Level, May Qualify for Other Income Levels</label>
+            </value>
+            <value>
+                <fullName>Under Income</fullName>
+                <default>false</default>
+                <label>Under Income</label>
+            </value>
+            <value>
+                <fullName>Out of Region</fullName>
+                <default>false</default>
+                <label>Out of Region</label>
+            </value>
+            <value>
+                <fullName>Does Not Meet Local Preference</fullName>
+                <default>false</default>
+                <label>Does Not Meet Local Preference</label>
+            </value>
+            <value>
+                <fullName>Does Not Meet Veterans&apos; Preference</fullName>
+                <default>false</default>
+                <label>Does Not Meet Veterans&apos; Preference</label>
+            </value>
+            <value>
+                <fullName>Does Not Meet Age-Restriction Requirements</fullName>
+                <default>false</default>
+                <label>Does Not Meet Age-Restriction Requirements</label>
+            </value>
+            <value>
+                <fullName>Household Too Small</fullName>
+                <default>false</default>
+                <label>Household Too Small</label>
+            </value>
+            <value>
+                <fullName>Household Too Large</fullName>
+                <default>false</default>
+                <label>Household Too Large</label>
+            </value>
+            <value>
+                <fullName>Did Not Submit Supporting Documents - WL</fullName>
+                <default>false</default>
+                <label>Did Not Submit Supporting Documents - WL</label>
+            </value>
+            <value>
+                <fullName>Did Not Submit Supporting Documents - No WL</fullName>
+                <default>false</default>
+                <label>Did Not Submit Supporting Documents - No WL</label>
+            </value>
+            <value>
+                <fullName>Other - See Ineligibility Email</fullName>
+                <default>false</default>
+                <label>Other - See Ineligibility Email</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>8</visibleLines>
+</CustomField>

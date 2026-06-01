@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Fee_Simple_House_Value__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Auto-calculated. Appraised Unrestricted Market Value minus Appraised Fee Simple Lot Value.</description>
+    <formula>HOMEtracker__Appraised_Unrestricted_Market_Value__c -  HOMEtracker__Appraised_Fee_Simple_Lot_Value__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Auto-calculated. Appraised Unrestricted Market Value minus Appraised Fee Simple Lot Value.</inlineHelpText>
+    <label>Fee Simple House Value</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

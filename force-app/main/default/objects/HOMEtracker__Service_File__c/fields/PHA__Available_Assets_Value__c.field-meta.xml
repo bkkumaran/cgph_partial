@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PHA__Available_Assets_Value__c</fullName>
+    <deprecated>false</deprecated>
+    <label>Available Assets Value</label>
+    <summarizedField>HOMEtracker__Applicant_Asset__c.HOMEtracker__Value__c</summarizedField>
+    <summaryFilterItems>
+        <field>HOMEtracker__Applicant_Asset__c.HOMEtracker__Have_Access_Now__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryForeignKey>HOMEtracker__Applicant_Asset__c.HOMEtracker__Service_File__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

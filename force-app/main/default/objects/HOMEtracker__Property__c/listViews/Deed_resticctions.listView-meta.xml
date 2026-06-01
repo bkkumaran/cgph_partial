@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deed_resticctions</fullName>
+    <columns>NAME</columns>
+    <columns>Deed_Restriction_picklist__c</columns>
+    <columns>Kick_off_Coordinator__c</columns>
+    <columns>Deed_Restriction_Status__c</columns>
+    <columns>Date_to_follow_up_next_on_DR__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Deed_Restriction_picklist__c</field>
+        <operation>equals</operation>
+        <value>Drafted and sent to client,At CGP&amp;H - waiting for signature,Sent to muni for signature,Waiting for recorded doc to come back from county,Need - High priority,Drafted  and sent to developer and/or muni - follow-up needed</value>
+    </filters>
+    <label>Deed resticctions</label>
+</ListView>

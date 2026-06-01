@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Affordability_Controls_Stratton_Meadows</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Owner__c</columns>
+    <columns>Original_Purchase_Price__c</columns>
+    <columns>HOMEtracker__Date_Placed_in_Program__c</columns>
+    <columns>of_years_in_initial_afford_peri__c</columns>
+    <columns>Date_Initial_Controls_Expire__c</columns>
+    <columns>test_date_controls_expire__c</columns>
+    <columns>Controls_Extended__c</columns>
+    <columns>Date_controls_were_extended__c</columns>
+    <columns>Date_controls_extended_2__c</columns>
+    <columns>Extension_of_Controls_notes__c</columns>
+    <columns>Extension_of_control_verified__c</columns>
+    <columns>Deed_restriction_info_verified__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <filters>
+        <field>Municipality_Name__c</field>
+        <operation>equals</operation>
+        <value>Bridgewater</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Stratton Meadows</value>
+    </filters>
+    <label>_Affordability Controls Stratton Meadows</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

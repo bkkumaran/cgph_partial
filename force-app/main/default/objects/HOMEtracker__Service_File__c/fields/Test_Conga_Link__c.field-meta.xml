@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_Conga_Link__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+&quot;/apex/APXTConga4__Conga_Composer?serverUrl=&quot;+$Api.Enterprise_Server_URL_370
++&quot;&amp;Id=&quot;+Id
++&quot;&amp;TemplateId=a293m000004wjTW&quot;
++&quot;&amp;DxS7=3&quot;
++&quot;&amp;TemplateGroup=AA,Merges&quot;
++&quot;&amp;OFN=Purchase+Agreement+&quot;+HOMEtracker__Property__r.Name
++&quot;&amp;QueryId=[ITSProperty]a211N000001eGcY&quot;+&quot;?pv0=&quot;+HOMEtracker__Property__r.Id
++&quot;,[ITSMunicipality]a211N000001eGeG&quot;+&quot;?pv0=&quot;+Municipality_ID__c
++&quot;,[ITSApplicantContact]a211N000001eGfi&quot;+&quot;?pv0=&quot;+HOMEtracker__Applicant__r.Id
++&quot;,[CertProperty]a211N000001eJlW&quot;+&quot;?pv0=&quot;+HOMEtracker__Property__r.Id
++&quot;,[CertPreApplicant]a213m000003HBU4&quot;+&quot;?pv0=&quot;+Pre_Applicant__r.Id
++&quot;,[CertCaseManager]a211N000001eK7k&quot;+&quot;?pv0=&quot;+Application_Case_Manager_New__r.Id
++&quot;,[CertMunicipality]a211N000001eJlq&quot;+&quot;?pv0=&quot;+HOMEtracker__Property__r.Municipality_Name__r.Id
+, &quot;Conga Test&quot;, &quot;_blank&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Test Conga Link</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

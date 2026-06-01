@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PHA__Income_Level_Preference__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Filter candidates based on their income level preference.
+This will show only households with the corresponding Income Level preference on the screening campaign member.</description>
+    <inlineHelpText>Filter candidates based on their income level preference</inlineHelpText>
+    <label>Income Level Preference</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Very Low</fullName>
+                <default>false</default>
+                <label>Very Low</label>
+            </value>
+            <value>
+                <fullName>Low</fullName>
+                <default>false</default>
+                <label>Low</label>
+            </value>
+            <value>
+                <fullName>Moderate</fullName>
+                <default>false</default>
+                <label>Moderate</label>
+            </value>
+            <value>
+                <fullName>Workforce</fullName>
+                <default>false</default>
+                <label>Workforce</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

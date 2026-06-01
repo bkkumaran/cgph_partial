@@ -2,15 +2,17 @@ import { LightningElement, api, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
-import { CurrentPageReference } from 'lightning/navigation';
+import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
+import { RefreshEvent } from 'lightning/refresh';
 import Id from '@salesforce/user/Id';
 
 import getOutreachTrackingByProperty from '@salesforce/apex/OutreachControllerLWC.getOutreachTrackingByProperty';
+import getOutreachTrackingBySingleProperty from '@salesforce/apex/OutreachControllerLWC.getOutreachTrackingBySingleProperty';
 import saveOutreachTrackings from '@salesforce/apex/OutreachControllerLWC.saveOutreachTrackings';
 import saveSingleOutreachTracking from '@salesforce/apex/OutreachControllerLWC.saveSingleOutreachTracking';
-import assignUnitToApplicant from '@salesforce/apex/OutreachControllerLWC.assignUnitToApplicant';
 import cancelUnitAssignment from '@salesforce/apex/OutreachControllerLWC.cancelUnitAssignment';
-import getAvailableUnitsForDevelopment from '@salesforce/apex/OutreachControllerLWC.getAvailableUnitsForDevelopment';
+import confirmApplicantRemoval from '@salesforce/apex/OutreachControllerLWC.confirmApplicantRemoval';
+import isGroupProperty from '@salesforce/apex/OutreachControllerLWC.isGroupProperty';
 
 // Object and Field references
 import OUTREACH_TRACKING_OBJECT from '@salesforce/schema/Outreach_Tracking__c';
@@ -18,17 +20,25 @@ import TRACKER_STATUS_FIELD from '@salesforce/schema/Outreach_Tracking__c.Tracke
 import SF_PRIORITY_FIELD from '@salesforce/schema/Outreach_Tracking__c.SF_Priority__c';
 import CGPH_DETERMINATION_FIELD from '@salesforce/schema/Outreach_Tracking__c.CGPH_Determination__c';
 
-export default class RentalApplicantTrackerMockup extends LightningElement {
+export default class RentalApplicantTrackerMockup extends NavigationMixin(LightningElement) {
     @api developmentName;
     @api propertyId; // Property ID to fetch data for
     @api recordId;
-    
+
+    @track cardTitle = 'Applicant Tracker'; // Default title
     // TODO: Replace with actual property ID for testing
     testPropertyId = 'a0J1N00001cc8Nt'; // Replace with your actual property ID
-    
+
     @track propertyGroups = [];
     @track error = null;
     @track outreachTrackingData = null;
+
+    // Render key to force template re-render
+    @track dataRefreshKey = 0;
+
+    // Sorting state
+    @track sortField = null;
+    @track sortDirection = 'asc';
     
     // User permissions and field editability (matching Visualforce logic)
     userId = Id;
@@ -43,7 +53,17 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     @track priorityOptions = [];
     @track approvalOptions = [];
     @track determinationOptions = [];
-    
+
+    @track baseNameProperty;
+    @track developmentIdForInventory; // Store development ID for inventory navigation
+    @track isSinglePropertyMode = false;  // True when zoomed in on one property
+    @track zoomOutDevelopmentId = null;   // Development ID to return to on zoom out
+
+    // Getter for card title (matching OutreachTrackerStaff.page pattern)
+    get cardTitleFormatted() {
+        return this.baseNameProperty ? `${this.baseNameProperty} Applicant Tracker` : 'Applicant Tracker';
+    }
+
     // Wire to get object info (needed for picklist values)
     @wire(getObjectInfo, { objectApiName: OUTREACH_TRACKING_OBJECT })
     wiredObjectInfo({ error, data }) {
@@ -102,9 +122,14 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
         if (currentPageReference) {
             // Get URL parameters
             this.recordId = currentPageReference.state?.c__recordId || null;
-            console.log('Record ID from attribute:', this.recordId);
+            const devId = currentPageReference.state?.c__devId || null;
+            this.isSinglePropertyMode = !!devId;
+            this.zoomOutDevelopmentId = devId;
             this.propertyId = this.recordId ? this.recordId : this.propertyId;
+            console.log('Record ID from attribute:', this.recordId);
             console.log('Property ID from attribute:', this.propertyId);
+            console.log('Single property mode:', this.isSinglePropertyMode);
+            console.log('Zoom out development ID:', this.zoomOutDevelopmentId);
         }
     }
     
@@ -147,53 +172,211 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     //         this.determinationOptions = [...this._defaultDeterminationOptions];
     //     }
     // }
-    
+
     // Transform Salesforce data to component format
-    transformDataToPropertyGroups(data) {
+    async transformDataToPropertyGroups(data) {
         if (!data || typeof data !== 'object') {
             this.propertyGroups = [];
             return;
         }
-        
+
         const groups = [];
         let groupIndex = 0;
-        
+
         // Convert each property in the data map to a property group
-        Object.keys(data).forEach(propertyKey => {
+        // Use for...of to allow async/await
+        for (const propertyKey of Object.keys(data)) {
             const listWrapper = data[propertyKey];
-            if (!listWrapper || !listWrapper.otList) return;
-            
+            if (!listWrapper || !listWrapper.otList) continue;
+
             // Get property name from first record or use a default
             const firstRecord = listWrapper.otList[0];
-            const propertyName = firstRecord?.Outreach_Tracker_Property_Name__c || 
-                               firstRecord?.Property_Address__c || 
-                               `Property ${String.fromCharCode(65 + groupIndex)}`;
+            const baseName = firstRecord?.Outreach_Tracker_Property_Name__c ||
+                            firstRecord?.Property_Address__c ||
+                            `Property ${String.fromCharCode(65 + groupIndex)}`;
+
+            console.log('first record: '+JSON.stringify(firstRecord));
+
+            console.log('###########################################################################');
+            console.log('Base Name: ', firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Development_address__r.Name);
+            console.log('###########################################################################');
+
+            // Set baseNameProperty to the Development name (matching OutreachTrackerStaff.page line 288)
+            // This will be used as the card title
+            if (!this.baseNameProperty) {
+                this.baseNameProperty = firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Development_address__r?.Name || 'Property';
+            }
+
+            // Get the Property record ID for navigation
+            const propertyRecordId = firstRecord?.Property_Id__c || null;
+
+            // Get the Development ID for inventory navigation
+            const developmentId = firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Development_address__r?.Id || null;
+
+            // Call Apex method to check if this is a group property
+            // This queries HOMEtracker__Property__c directly for accurate data
+            let isGroupPropertyValue = false;
+            try {
+                if (propertyRecordId) {
+                    isGroupPropertyValue = await isGroupProperty({ propertyId: propertyRecordId });
+                    console.log('Property Record ID:', propertyRecordId);
+                    console.log('Is Group Property (from Apex):', isGroupPropertyValue);
+                }
+            } catch (error) {
+                console.error('Error checking group property status:', error);
+                // Fall back to checking the field value from the record
+                isGroupPropertyValue = !!firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Group_Property__c;
+                console.log('Is Group Property (fallback from record):', isGroupPropertyValue);
+            }
+
+            // Get bedroom count and rent information
+            const rent = firstRecord?.Property_Rent_or_List_Price__c;
+            const bedrooms = firstRecord?.Service_File__r?.HOMEtracker__Property__r?.HOMEtracker__Number_of_Bedrooms__c;
+
+            // Get income level
+            const incomeLevel = firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Income_Level__c || '';
+
+            // Get max application fee
+            const maxApplicationFee = firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Max_Application_Fee__c ||
+                                     firstRecord?.Property_Unit__r?.Max_Application_Fee__c ||
+                                     firstRecord?.Max_Application_Fee__c;
+
+            // Get tracker order for sorting
+            // Property_Id__c formula: use parent's ID for group properties, otherwise property's own ID
+            // So for sorting, use parent's Tracker_Order__c for group properties, otherwise property's Tracker_Order__c
+            const trackerOrder = firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Group_Property_Parent__r?.Tracker_Order__c ||
+                                firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Tracker_Order__c;
+
+            console.log(`Tracker_Order__c for property ${baseName}: ${trackerOrder}`);
+
+            // Build property name based on whether it's a group property
+            let propertyName = baseName;
+            if (isGroupPropertyValue) {
+                // For group properties, add bedroom and rent info
+                const bedroomText = bedrooms ? `${bedrooms}BR` : '';
+                const rentText = rent ? `$${rent}` : '';
+                const additionalInfo = [bedroomText, rentText].filter(Boolean).join(', ');
+                propertyName = additionalInfo ? `${baseName} - Group Property (${additionalInfo})` : `${baseName} - Group Property`;
+            } else {
+                // For individual properties, add bedrooms, income level, and rent
+                // Format: "{baseName} - {bedrooms} BR {incomeLevel} - ${rent}"
+                // Format "Moderate" as "Mod"
+                let incomeLevelDisplay = incomeLevel;
+                if (incomeLevel === 'Moderate') {
+                    incomeLevelDisplay = 'Mod';
+                }
+
+                const bedroomText = bedrooms ? `${bedrooms} BR` : '';
+                const incomeLevelText = incomeLevelDisplay || '';
+                const rentText = rent ? `$${rent}` : '';
+
+                // Build the property name parts
+                const parts = [baseName];
+
+                // Add bedrooms and income level together if available
+                const bedroomIncomeText = [bedroomText, incomeLevelText].filter(Boolean).join(' ');
+                if (bedroomIncomeText) {
+                    parts.push(bedroomIncomeText);
+                }
+
+                // Add rent if available
+                if (rentText) {
+                    parts.push(rentText);
+                }
+
+                propertyName = parts.join(' - ');
+            }
 
             console.table(listWrapper.otList);
 
             const applicants = listWrapper.otList.map(ot => this.transformOutreachTrackingToApplicant(ot));
             console.table(applicants);
-            
+
             groups.push({
                 id: propertyKey,
+                uniqueKey: `${propertyKey}-${this.dataRefreshKey}`,
                 name: propertyName,
-                applicants: applicants
+                applicants: applicants,
+                isGroupProperty: isGroupPropertyValue,
+                propertyRecordId: propertyRecordId,
+                maxApplicationFee: maxApplicationFee,
+                trackerOrder: trackerOrder,
+                developmentId: developmentId
             });
-            
+
             groupIndex++;
+        }
+
+        // Sort properties by Tracker_Order__c first (ascending), then by Name (ascending)
+        // Properties with Tracker_Order__c come first, then properties without it
+        console.log('=== BEFORE SORTING ===');
+        groups.forEach(g => console.log(`Property: ${g.name}, Tracker Order: ${g.trackerOrder}`));
+
+        groups.sort((a, b) => {
+            const aHasOrder = a.trackerOrder != null && a.trackerOrder !== undefined;
+            const bHasOrder = b.trackerOrder != null && b.trackerOrder !== undefined;
+
+            // If both have tracker order, sort by tracker order
+            if (aHasOrder && bHasOrder) {
+                return a.trackerOrder - b.trackerOrder;
+            }
+
+            // If only one has tracker order, that one comes first
+            if (aHasOrder && !bHasOrder) {
+                return -1;
+            }
+            if (!aHasOrder && bHasOrder) {
+                return 1;
+            }
+
+            // If neither has tracker order, sort by name
+            return (a.name || '').localeCompare(b.name || '');
         });
-        
+
+        console.log('=== AFTER SORTING ===');
+        groups.forEach(g => console.log(`Property: ${g.name}, Tracker Order: ${g.trackerOrder}`));
+
         this.propertyGroups = groups;
+
+        // Get development name and ID from first record
+        let developmentName = '';
+        let developmentIdFromRecord = '';
+        if (groups.length > 0 && groups[0].applicants.length > 0) {
+            const firstApplicant = groups[0].applicants[0];
+            developmentName = firstApplicant.__originalRecord?.Service_File__r?.HOMEtracker__Property__r?.Development_address__r?.Name || '';
+            developmentIdFromRecord = firstApplicant.__originalRecord?.Service_File__r?.HOMEtracker__Property__r?.Development_address__r?.Id || '';
+        }
+
+        // Store development ID for inventory button
+        if (developmentIdFromRecord) {
+            this.developmentIdForInventory = developmentIdFromRecord;
+        }
+
+        // Update card title with development name
+        if (developmentName) {
+            this.cardTitle = `${developmentName} Applicant Tracker`;
+        } else {
+            this.cardTitle = 'Applicant Tracker';
+        }
+
+        // Update page title with development name
+        if (developmentName) {
+            document.title = `${developmentName} Tracker`;
+        } else {
+            document.title = 'Applicant Tracker';
+        }
     }
     
     // Transform individual Outreach_Tracking__c record to applicant format
     transformOutreachTrackingToApplicant(ot) {
+        console.log('Type of ot.SF_Priority__c:', typeof ot.SF_Priority__c);
+        console.log('Out tracking record:', JSON.stringify(ot));
         const applicant = {
             id: ot.Id,
             unitType: this.buildUnitTypeString(ot),
             //status: this.mapTrackerStatusToStatus(ot.Tracker_Status__c) || 'Hidden',
             status: ot.Tracker_Status__c,
-            unit: ot.Property_Unit__r?.Unit_Number__c || ot.Property_Unit__r?.Name || ot.Unit__c || '',
+            unit: ot.Property_Unit__r?.Name || ot.Property_Unit__r?.Unit_Number__c || ot.Unit__c || '',
             //priority: ot.SF_Priority__c || this.mapPriorityCalc(ot.Priority_Calc__c),
             priority: ot.SF_Priority__c,
             applicantName: ot.Applicant_Name__c || '',
@@ -204,32 +387,52 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             dateMarkedPrimary: this.formatDate(ot.Date_Marked_Primary__c),
             //approvalDenial: ot.CGPH_Determination__c || 'Pending',
             approvalDenial: ot.Landlord_Developer_Determination__c,
-            approveDenyDate: this.formatDate(ot.CGPH_Approval_Denial_Date__c),
-            notes: ot.Landlord_Developer_Notes__c || '',
+            //approveDenyDate: this.formatDate(ot.CGPH_Approval_Denial_Date__c),
+            approveDenyDate: this.formatDate(ot.Landlord_Developer_Determination_Date__c),
+            notes: ot.Landlord_Developer_Notes__c,
+            // notesTruncated: this.truncateNotes(ot.Landlord_Developer_Notes__c, 100),
+            // hasMoreNotes: this.hasMoreNotes(ot.Landlord_Developer_Notes__c, 100),
             approvedForFullReview: this.isApprovedForFullReview(ot),
             approvedForFullReviewText: this.isApprovedForFullReview(ot) ? 'Yes' : 'No',
             fullReviewCGPHBegan: this.formatDate(ot.Date_Eligibility_Review_Began__c),
+            readyDate: this.formatDate(ot.Date_Ready_for_Eligibility_Review__c),
             //cgphDetermination: ot.CGPH_Determination__c || 'Pending',
             cgphDetermination: ot.CGPH_Determination__c,
             dateOfDetermination: this.formatDate(ot.CGPH_Approval_Denial_Date__c),
-            
+
             // Flagged applicant indicators (matching Visualforce functionality)
             isFlaggedForOutreach: ot.Service_File__r?.Pre_Applicant__r?.Flagged_for_Outreach__c || false,
             flaggedOutreachNotes: ot.Service_File__r?.Pre_Applicant__r?.Flagged_for_Outreach_Notes__c || '',
             preApplicantId: ot.Service_File__r?.Pre_Applicant__r?.Id || '',
-            
+
+            // Record IDs for navigation
+            serviceFileId: ot.Service_File__c || '',
+            propertyIdForReport: ot.Property_Id__c || '',
+
             // Unit assignment properties
             hasSpecificUnit: ot.Property_Unit__c != null,
             isGroupProperty: ot.Service_File__r?.HOMEtracker__Property__r?.Group_Property__c || false,
             propertyUnitId: ot.Property_Unit__c,
             developmentId: ot.Service_File__r?.HOMEtracker__Property__r?.Development_address__r?.Id,
-            canAssignUnit: (ot.Service_File__r?.HOMEtracker__Property__r?.Group_Property__c && 
-                           ot.Landlord_Developer_Determination__c === 'Approved' && 
-                           ot.Property_Unit__c == null),
-            
+            groupPropertyId: ot.Property_Id__c,
+            // canAssignUnit: (ot.Service_File__r?.HOMEtracker__Property__r?.Group_Property__c &&
+            //                ot.Landlord_Developer_Determination__c === 'Approved' &&
+            //                ot.Property_Unit__c == null),
+            canAssignUnit: ot.Service_File__r?.HOMEtracker__Property__r?.Group_Property__c,
+
+            // Removal confirmation properties
+            isRemoved: ot.Tracker_Status__c === 'Removed',
+            moveToRemovedReport: ot.Move_to_Removed_Report__c || false,
+
             // Store original SF record for updates
             __originalRecord: ot
         };
+
+        console.log('Transformed applicant record:', applicant.Name);
+        console.log('Applicant ready date:', applicant.readyDate);
+        console.log('*-*-*-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-*');
+        console.log('is Group Property:', applicant.isGroupProperty);
+        console.log('*-*-*-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-*');
         
         // Add dynamic styling classes
         applicant.rowCssClass = this.getRowCssClass(applicant);
@@ -242,7 +445,8 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     getRowCssClass(applicant) {
         const status = applicant.status;
         const approvalDenial = applicant.approvalDenial;
-        const isApproved = approvalDenial === 'Approved';
+        // Treat both "Approved" and "Approved Conditionally" as approved for styling
+        const isApproved = approvalDenial === 'Approved' || approvalDenial === 'Approved Conditionally';
         const baseClass = 'editable-row';
         
         let statusClass = '';
@@ -273,16 +477,17 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     getTextCssClass(applicant) {
         const determination = applicant.approvalDenial;
         const status = applicant.status;
-        
+
         // In Visualforce, all approved applicants get blue text (except removed which gets white)
-        if (determination === 'Approved') {
+        // Treat both "Approved" and "Approved Conditionally" as approved for styling
+        if (determination === 'Approved' || determination === 'Approved Conditionally') {
             if (status === 'Removed') {
                 return ''; // White text handled by status-removed-approved CSS class
             } else {
                 return 'approved-text'; // Blue text for all other approved applicants
             }
         }
-        
+
         return ''; // No special text styling for non-approved
     }
     
@@ -294,7 +499,8 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
         const cgphEditableFields = [
             'status',              // Tracker_Status__c
             'dateCGPHAdded',      // Date_CGPH_Added_Name__c  
-            'dateMarkedPrimary'   // Date_Marked_Primary__c
+            'dateMarkedPrimary',  // Date_Marked_Primary__c
+            'readyDate'          // Service_File__c.Ready_for_Full_Income_Cert_Date__c
         ];
         
         // Landlord/Developer editable fields (matching Visualforce <apex:inlineEditSupport>)
@@ -336,11 +542,27 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     get isApprovalDenialDisabled() { return !this.isFieldEditable('approvalDenial'); }
     get isApproveDenyDateDisabled() { return !this.isFieldEditable('approveDenyDate'); }
     get isNotesDisabled() { return !this.isFieldEditable('notes'); }
-    get isApprovedForFullReviewDisabled() { return !this.isFieldEditable('approvedForFullReview'); }
+    // get isApprovedForFullReviewDisabled() { return !this.isFieldEditable('approvedForFullReview'); }
+    get isReadyDateDisabled() { return !this.isFieldEditable('readyDate'); }
     get isFullReviewCGPHBeganDisabled() { return !this.isFieldEditable('fullReviewCGPHBegan'); }
     get isCgphDeterminationDisabled() { return !this.isFieldEditable('cgphDetermination'); }
     get isDateOfDeterminationDisabled() { return !this.isFieldEditable('dateOfDetermination'); }
     
+    // Error message getter for safe error display
+get errorMessage() {
+    if (!this.error) return '';
+    
+    if (this.error.body && this.error.body.message) {
+        return this.error.body.message;
+    } else if (this.error.message) {
+        return this.error.message;
+    } else if (typeof this.error === 'string') {
+        return this.error;
+    }
+    
+    return 'An unknown error occurred';
+}
+
     // Update CSS classes for a specific applicant after field changes
     updateApplicantStyling(recordId) {
         // Create a new array to trigger reactivity
@@ -694,7 +916,16 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
 
     @track isLoading = false;
     @track nextPropertyLetter = 'E';
-    
+    @track isFlowOpen = false;
+    @track flowInputs;
+    flowApiName = 'OT_Find_Available_Properties_By_Development';
+
+    // Notes Modal State
+    // @track isNotesModalOpen = false;
+    // @track selectedNotes = '';
+    // @track selectedApplicantName = '';
+    // @track selectedApplicantId = '';
+
     // Component lifecycle
     async connectedCallback() {
         console.log('connectedCallback called');
@@ -728,21 +959,54 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     }
     
     // Load outreach tracking data from Salesforce
-    async loadOutreachTrackingData() {
+    async loadOutreachTrackingData(showLoading = true) {
         try {
-            this.isLoading = true;
+            if (showLoading) {
+                this.isLoading = true;
+            }
             this.error = null;
-            
+
+            // Clear existing data to ensure reactivity
+            this.propertyGroups = [];
+
+            // Increment refresh key to force template re-render
+            this.dataRefreshKey++;
+
             console.log('Loading data for property ID:', this.propertyId);
-            
-            const data = await getOutreachTrackingByProperty({ propertyId: this.propertyId });
+            console.log('Data refresh key:', this.dataRefreshKey);
+
+            const data = this.isSinglePropertyMode
+                ? await getOutreachTrackingBySingleProperty({ propertyId: this.propertyId })
+                : await getOutreachTrackingByProperty({ propertyId: this.propertyId });
+
+            console.log('Raw data returned from Apex:', JSON.stringify(data));
+
+            // Log each property to check if it's a group property
+            console.log('=== PROPERTY GROUP CHECK ===');
+            Object.keys(data).forEach((propertyKey, index) => {
+                const listWrapper = data[propertyKey];
+                if (listWrapper && listWrapper.otList && listWrapper.otList.length > 0) {
+                    const firstRecord = listWrapper.otList[0];
+                    const isGroupProperty = !!firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Group_Property__c;
+                    const propertyName = firstRecord?.Outreach_Tracker_Property_Name__c || 'Unknown';
+                    console.log(`Property ${index + 1}: "${propertyName}"`);
+                    console.log(`  - Property Key: ${propertyKey}`);
+                    console.log(`  - Is Group Property: ${isGroupProperty}`);
+                    console.log(`  - Group_Property__c value: ${firstRecord?.Service_File__r?.HOMEtracker__Property__r?.Group_Property__c}`);
+                    console.log(`  - Property ID: ${firstRecord?.Property_Id__c}`);
+                    console.log(`  - Number of applicants: ${listWrapper.otList.length}`);
+                    console.log(`  - Sample applicant record:`, JSON.stringify(firstRecord));
+                }
+            });
+            console.log('=== END PROPERTY GROUP CHECK ===');
             
             if (data) {
                 console.log('Outreach Tracking Data received:', data);
                 console.table(data);
                 this.outreachTrackingData = data;
                 //this.populateDropdownOptions(data);
-                this.transformDataToPropertyGroups(data);
+                await this.transformDataToPropertyGroups(data);
+                console.log('Property groups updated with', this.propertyGroups.length, 'properties');
             } else {
                 console.log('No data returned from Apex method');
                 this.propertyGroups = [];
@@ -760,7 +1024,9 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
                 variant: 'error'
             }));
         } finally {
-            this.isLoading = false;
+            if (showLoading) {
+                this.isLoading = false;
+            }
         }
     }
     
@@ -798,12 +1064,12 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             }
         });
         
-        // Convert Sets to dropdown option arrays with defaults merged
-        this.statusOptions = this.createDropdownOptions(statusValues, this._defaultStatusOptions);
-        this.priorityOptions = this.createDropdownOptions(priorityValues, this._defaultPriorityOptions);
+        // Convert Sets to dropdown option arrays
+        this.statusOptions = this.createDropdownOptions(statusValues);
+        this.priorityOptions = this.createDropdownOptions(priorityValues);
         console.table(this.priorityOptions);
-        this.approvalOptions = this.createDropdownOptions(approvalValues, this._defaultApprovalOptions);
-        this.determinationOptions = this.createDropdownOptions(determinationValues, this._defaultDeterminationOptions);
+        this.approvalOptions = this.createDropdownOptions(approvalValues);
+        this.determinationOptions = this.createDropdownOptions(determinationValues);
         
         console.log('Populated dropdown options:', {
             status: this.statusOptions,
@@ -813,13 +1079,10 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
         });
     }
     
-    // Create dropdown options by merging unique values with defaults
-    createDropdownOptions(uniqueValues, defaultOptions) {
+    // Create dropdown options from unique values
+    createDropdownOptions(uniqueValues) {
         const allValues = new Set();
-        
-        // Add default options first
-        // defaultOptions.forEach(option => allValues.add(option.value));
-        
+
         // Add unique values from data
         uniqueValues.forEach(value => {
             if (value !== null && value !== undefined) {
@@ -830,7 +1093,7 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
                 }
             }
         });
-        
+
         // Convert to dropdown option format and sort
         return Array.from(allValues)
             .sort()
@@ -896,7 +1159,7 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
         const propertyId = event.target.dataset.property;
         const field = event.target.dataset.field;
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        
+
         // Check if user has permission to edit this field (matching Visualforce permissions)
         if (!this.isFieldEditable(field)) {
             console.warn(`User does not have permission to edit field: ${field}`);
@@ -907,59 +1170,98 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             }));
             return;
         }
-        
-        // Update the applicant record in the property group
+
+        // Find the applicant to get original record and name
         const propertyIndex = this.propertyGroups.findIndex(prop => prop.id === propertyId);
-        if (propertyIndex !== -1) {
-            const applicantIndex = this.propertyGroups[propertyIndex].applicants.findIndex(app => app.id === applicantId);
-            if (applicantIndex !== -1) {
-                // Create a new array to trigger reactivity
-                const updatedPropertyGroups = [...this.propertyGroups];
-                updatedPropertyGroups[propertyIndex].applicants[applicantIndex][field] = value;
-                
-                // Special handling for checkbox display text
-                if (field === 'approvedForFullReview') {
-                    updatedPropertyGroups[propertyIndex].applicants[applicantIndex].approvedForFullReviewText = value ? 'Yes' : 'No';
+        if (propertyIndex === -1) return;
+
+        const applicantIndex = this.propertyGroups[propertyIndex].applicants.findIndex(app => app.id === applicantId);
+        if (applicantIndex === -1) return;
+
+        const applicant = this.propertyGroups[propertyIndex].applicants[applicantIndex];
+        const applicantName = applicant.applicantName;
+
+        // Save to Salesforce if we have original record and propertyId (not using fallback data)
+        if (this.propertyId && applicant.__originalRecord) {
+            // Create a temporary updated applicant for calculating auto-populated fields
+            const tempApplicant = { ...applicant };
+            tempApplicant[field] = value;
+
+            // Automatic date population when Tracker_Status__c changes
+            if (field === 'status') {
+                const currentDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+
+                // Auto-populate Date_CGPH_Added_Name__c if blank and status is Primary or Backup
+                if ((value === 'Primary' || value === 'Backup') && !applicant.dateCGPHAdded) {
+                    tempApplicant.dateCGPHAdded = currentDate;
                 }
-                
-                // Automatic date population when Tracker_Status__c changes
-                if (field === 'status') {
-                    const applicant = updatedPropertyGroups[propertyIndex].applicants[applicantIndex];
-                    const currentDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
-                    
-                    // Auto-populate Date_CGPH_Added_Name__c if blank and status is Primary or Backup
-                    if ((value === 'Primary' || value === 'Backup') && !applicant.dateCGPHAdded) {
-                        updatedPropertyGroups[propertyIndex].applicants[applicantIndex].dateCGPHAdded = currentDate;
-                    }
-                    
-                    // Auto-populate Date_Marked_Primary__c if blank and status is Primary
-                    if (value === 'Primary' && !applicant.dateMarkedPrimary) {
-                        updatedPropertyGroups[propertyIndex].applicants[applicantIndex].dateMarkedPrimary = currentDate;
-                    }
+
+                // Auto-populate Date_Marked_Primary__c if blank and status is Primary
+                if (value === 'Primary' && !applicant.dateMarkedPrimary) {
+                    tempApplicant.dateMarkedPrimary = currentDate;
                 }
-                
-                // Update CSS classes immediately if status or approval fields changed
-                if (field === 'status' || field === 'approvalDenial') {
-                    const applicant = updatedPropertyGroups[propertyIndex].applicants[applicantIndex];
-                    applicant.rowCssClass = this.getRowCssClass(applicant);
-                    applicant.textCssClass = this.getTextCssClass(applicant);
-                }
-                
-                this.propertyGroups = updatedPropertyGroups;
-                
-                // Save to Salesforce if we have original record and propertyId (not using fallback data)
-                const applicant = updatedPropertyGroups[propertyIndex].applicants[applicantIndex];
-                if (this.propertyId && applicant.__originalRecord) {
-                    await this.saveFieldToSalesforce(applicant, field, value, updatedPropertyGroups[propertyIndex].applicants[applicantIndex]);
-                }
-                
-                // Show success message
-                this.dispatchEvent(new ShowToastEvent({
-                    title: 'Success',
-                    message: `${field} updated successfully for ${applicant.applicantName}`,
-                    variant: 'success'
-                }));
             }
+
+            await this.saveFieldToSalesforce(applicant, field, value, tempApplicant);
+
+            // Show success message
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Success',
+                message: `${field} updated successfully for ${applicantName}`,
+                variant: 'success'
+            }));
+
+            // Dispatch RefreshEvent to refresh the component and display updated values
+            console.log('Dispatching refresh event after field change...');
+            this.dispatchEvent(new RefreshEvent());
+            console.log('Refresh event dispatched');
+        } else {
+            // For local-only changes (fallback data), update the local state
+            const updatedPropertyGroups = [...this.propertyGroups];
+            const localApplicant = updatedPropertyGroups[propertyIndex].applicants[applicantIndex];
+
+            localApplicant[field] = value;
+
+            // Special handling for checkbox display text
+            if (field === 'approvedForFullReview') {
+                localApplicant.approvedForFullReviewText = value ? 'Yes' : 'No';
+            }
+
+            // Automatic date population when Tracker_Status__c changes
+            if (field === 'status') {
+                const currentDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+
+                // Auto-populate Date_CGPH_Added_Name__c if blank and status is Primary or Backup
+                if ((value === 'Primary' || value === 'Backup') && !localApplicant.dateCGPHAdded) {
+                    localApplicant.dateCGPHAdded = currentDate;
+                }
+
+                // Auto-populate Date_Marked_Primary__c if blank and status is Primary
+                if (value === 'Primary' && !localApplicant.dateMarkedPrimary) {
+                    localApplicant.dateMarkedPrimary = currentDate;
+                }
+            }
+
+            if (field === 'approvalDenial') {
+                // Allow unit assignment for both "Approved" and "Approved Conditionally"
+                localApplicant.canAssignUnit =
+                    localApplicant.isGroupProperty && (value === 'Approved' || value === 'Approved Conditionally') && !localApplicant.hasSpecificUnit;
+            }
+
+            // Update CSS classes immediately if status or approval fields changed
+            if (field === 'status' || field === 'approvalDenial') {
+                localApplicant.rowCssClass = this.getRowCssClass(localApplicant);
+                localApplicant.textCssClass = this.getTextCssClass(localApplicant);
+            }
+
+            this.propertyGroups = updatedPropertyGroups;
+
+            // Show success message for local-only changes (fallback data)
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Success',
+                message: `${field} updated successfully for ${applicantName}`,
+                variant: 'success'
+            }));
         }
     }
     
@@ -1055,13 +1357,14 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             'dateCGPHAdded': { 'Date_CGPH_Added_Name__c': value },
             'dateMarkedPrimary': { 'Date_Marked_Primary__c': value },
             'approvalDenial': { 'Landlord_Developer_Determination__c': value },
-            'approveDenyDate': { 'CGPH_Approval_Denial_Date__c': value },
+            'approveDenyDate': { 'Landlord_Developer_Determination_Date__c': value },
             'notes': { 'Landlord_Developer_Notes__c': value },
+            'readyDate': { 'Service_File__c.Ready_for_Full_Income_Cert_Date__c': value },
             'fullReviewCGPHBegan': { 'Date_Eligibility_Review_Began__c': value },
             'cgphDetermination': { 'CGPH_Determination__c': value },
             'dateOfDetermination': { 'CGPH_Approval_Denial_Date__c': value }
         };
-        
+
         return fieldMapping[field] || {};
     }
     
@@ -1086,11 +1389,52 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
     }
 
     handleInventoryClick() {
-        this.dispatchEvent(new ShowToastEvent({
-            title: 'Development Inventory',
-            message: 'This would show available units and inventory status',
-            variant: 'info'
-        }));
+        // Navigate to PropertyInventoryStaff_R Visualforce page with development ID
+        if (!this.developmentIdForInventory) {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: 'Development ID not available',
+                variant: 'error'
+            }));
+            return;
+        }
+
+        // Dynamically construct the Visualforce page URL based on current org
+        // Get current domain and convert to VF domain format
+        const currentUrl = window.location.hostname;
+        let vfDomain;
+
+        if (currentUrl.includes('.sandbox.lightning.force.com')) {
+            // Sandbox Lightning: mydomain--sandboxname.sandbox.lightning.force.com -> mydomain--sandboxname--c.sandbox.vf.force.com
+            vfDomain = currentUrl.replace('.sandbox.lightning.force.com', '--c.sandbox.vf.force.com');
+        } else if (currentUrl.includes('.lightning.force.com')) {
+            // Production Lightning: mydomain.lightning.force.com -> mydomain--c.vf.force.com
+            vfDomain = currentUrl.replace('.lightning.force.com', '--c.vf.force.com');
+        } else if (currentUrl.includes('.sandbox.my.salesforce.com')) {
+            // Sandbox My domain: mydomain--sandboxname.sandbox.my.salesforce.com -> mydomain--sandboxname--c.sandbox.vf.force.com
+            const domainPrefix = currentUrl.split('.sandbox.my.salesforce.com')[0];
+            vfDomain = `${domainPrefix}--c.sandbox.vf.force.com`;
+        } else if (currentUrl.includes('.my.salesforce.com')) {
+            // Production My domain: mydomain.my.salesforce.com -> mydomain--c.vf.force.com
+            const domainPrefix = currentUrl.split('.my.salesforce.com')[0];
+            vfDomain = `${domainPrefix}--c.vf.force.com`;
+        } else if (currentUrl.includes('--c.sandbox.visualforce.com')) {
+            // Already on sandbox VF: mydomain--c.sandbox.visualforce.com -> mydomain--c.sandbox.vf.force.com
+            vfDomain = currentUrl.replace('--c.sandbox.visualforce.com', '--c.sandbox.vf.force.com');
+        } else if (currentUrl.includes('--c.visualforce.com')) {
+            // Already on production VF: mydomain--c.visualforce.com -> mydomain--c.vf.force.com
+            vfDomain = currentUrl.replace('--c.visualforce.com', '--c.vf.force.com');
+        } else {
+            // Fallback to production URL if we can't determine the domain
+            vfDomain = 'cgph--c.vf.force.com';
+            console.warn('Could not determine VF domain, using production URL');
+        }
+
+        const vfPageUrl = `https://${vfDomain}/apex/PropertyInventoryStaff_R?id=${this.developmentIdForInventory}`;
+        console.log('Opening VF page:', vfPageUrl);
+
+        // Open in new window/tab
+        window.open(vfPageUrl, '_blank');
     }
 
     handleRemovedClick() {
@@ -1179,16 +1523,68 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
         }
     }
 
+    handleZoomIn(event) {
+        const propertyId = event.currentTarget.dataset.propertyId;
+        const devId = event.currentTarget.dataset.developmentId;
+        if (!propertyId || !devId) {
+            console.error('Zoom in missing IDs — propertyId:', propertyId, 'devId:', devId);
+            return;
+        }
+        const url = new URL(window.location.href);
+        url.searchParams.set('c__recordId', propertyId);
+        url.searchParams.set('c__devId', devId);
+        window.location.href = url.toString();
+    }
+
+    handleZoomOut() {
+        if (!this.zoomOutDevelopmentId) {
+            console.error('No development ID available for zoom out');
+            return;
+        }
+        const url = new URL(window.location.href);
+        url.searchParams.set('c__recordId', this.zoomOutDevelopmentId);
+        url.searchParams.delete('c__devId');
+        window.location.href = url.toString();
+    }
+
+        handleNavigateToProperty(event) {
+        const propertyRecordId = event.currentTarget.dataset.propertyRecordId;
+        console.log('Navigating to property record ID:', JSON.stringify(propertyRecordId));
+
+        if (!propertyRecordId) {
+            console.error('No property record ID provided for navigation');
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: 'Property record ID not available',
+                variant: 'error'
+            }));
+            return;
+        }
+
+        // Always navigate to HOMEtracker__Property__c record page
+        // This matches the Visualforce page behavior
+        // Generate the URL and open in a new tab
+        this[NavigationMixin.GenerateUrl]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: propertyRecordId,
+                objectApiName: 'HOMEtracker__Property__c',
+                actionName: 'view'
+            }
+        }).then(url => {
+            window.open(url, '_blank');
+        });
+}   
+
     // Unit Assignment Methods
 
     /**
      * Handle unit assignment button click
      * Opens unit selection modal for approved group property applicants
      */
-    async handleAssignUnit(event) {
+    handleAssignUnit(event) {
         const applicantId = event.target.dataset.applicantId;
-        const propertyId = event.target.dataset.propertyId;
-        
+
         // Find the applicant record
         const applicant = this.findApplicantById(applicantId);
         if (!applicant) {
@@ -1199,7 +1595,7 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             }));
             return;
         }
-        
+
         // Validate applicant is eligible for unit assignment
         if (!applicant.canAssignUnit) {
             this.dispatchEvent(new ShowToastEvent({
@@ -1209,81 +1605,43 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             }));
             return;
         }
-        
-        try {
-            // Get available units for the development
-            const availableUnits = await getAvailableUnitsForDevelopment({ 
-                developmentId: applicant.developmentId 
-            });
-            
-            if (!availableUnits || availableUnits.length === 0) {
-                this.dispatchEvent(new ShowToastEvent({
-                    title: 'No Units Available',
-                    message: 'No individual units are available for assignment in this development',
-                    variant: 'info'
-                }));
-                return;
-            }
-            
-            // Show unit selection dialog (would typically be a modal, but using simple prompt for now)
-            const unitOptions = availableUnits.map(unit => 
-                `${unit.Unit_Number__c || unit.Name} - $${unit.Rent_or_List_Price__c || 'Price TBD'}`
-            ).join('\n');
-            
-            const selectedIndex = parseInt(prompt(
-                `Select unit for ${applicant.applicantName}:\n\n${unitOptions}\n\nEnter number (0-${availableUnits.length - 1}) or cancel:`
-            ));
-            
-            if (selectedIndex >= 0 && selectedIndex < availableUnits.length) {
-                await this.confirmUnitAssignment(applicantId, availableUnits[selectedIndex].Id, availableUnits[selectedIndex]);
-            }
-            
-        } catch (error) {
-            console.error('Error in handleAssignUnit:', error);
+
+        if (!applicant.developmentId || !applicant.groupPropertyId) {
             this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: 'Failed to load available units: ' + error.body?.message || error.message,
+                title: 'Missing Data',
+                message: 'Cannot launch unit assignment flow because required property information is missing.',
                 variant: 'error'
             }));
+            return;
+        }
+
+        this.flowInputs = [
+            { name: 'varDevID', type: 'String', value: applicant.developmentId },
+            { name: 'varID', type: 'String', value: applicant.id },
+            { name: 'varPropID', type: 'String', value: applicant.groupPropertyId },
+            { name: 'varType', type: 'String', value: 'u' }
+        ];
+        this.isFlowOpen = true;
+    }
+
+    handleFlowStatus(event) {
+        const { status } = event.detail;
+        if (status === 'FINISHED') {
+            this.isFlowOpen = false;
+            this.flowInputs = null;
+            // Dispatch refresh event to ensure all data is up to date
+            this.dispatchEvent(new RefreshEvent());
+        } else if (status === 'PAUSED') {
+            this.isFlowOpen = false;
+            this.flowInputs = null;
+            // Dispatch refresh event to ensure all data is up to date
+            this.dispatchEvent(new RefreshEvent());
         }
     }
-    
-    /**
-     * Confirm unit assignment selection and update the record
-     */
-    async confirmUnitAssignment(applicantId, unitId, unitRecord) {
-        try {
-            // Confirm the assignment
-            const confirmMessage = `Assign ${unitRecord.Unit_Number__c || unitRecord.Name} to this applicant? This will update their unit association from the group property to this specific unit.`;
-            
-            if (!confirm(confirmMessage)) {
-                return;
-            }
-            
-            // Call Apex method to update the record
-            const result = await assignUnitToApplicant({
-                outreachTrackingId: applicantId,
-                propertyUnitId: unitId
-            });
-            
-            // Show success message
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Unit Assigned',
-                message: result,
-                variant: 'success'
-            }));
-            
-            // Refresh the data to show the updated unit information
-            await this.loadOutreachTrackingData();
-            
-        } catch (error) {
-            console.error('Error in confirmUnitAssignment:', error);
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Assignment Failed',
-                message: 'Failed to assign unit: ' + (error.body?.message || error.message),
-                variant: 'error'
-            }));
-        }
+
+    handleFlowClose() {
+        this.isFlowOpen = false;
+        this.flowInputs = null;
     }
     
     /**
@@ -1314,17 +1672,17 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
             const result = await cancelUnitAssignment({
                 outreachTrackingId: applicantId
             });
-            
+
             // Show success message
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Assignment Cancelled',
                 message: result,
                 variant: 'success'
             }));
-            
-            // Refresh the data to show the updated information
-            await this.loadOutreachTrackingData();
-            
+
+            // Dispatch refresh event to ensure all data is up to date
+            this.dispatchEvent(new RefreshEvent());
+
         } catch (error) {
             console.error('Error in handleCancelUnitAssignment:', error);
             this.dispatchEvent(new ShowToastEvent({
@@ -1347,4 +1705,424 @@ export default class RentalApplicantTrackerMockup extends LightningElement {
         }
         return null;
     }
+
+    /**
+     * Handle confirm removal button click
+     * Confirms removal of an applicant with "Removed" status and moves them to the removal report
+     */
+    async handleConfirmRemoval(event) {
+        const applicantId = event.target.dataset.applicantId;
+
+        // Find the applicant record
+        const applicant = this.findApplicantById(applicantId);
+        if (!applicant) {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: 'Applicant record not found',
+                variant: 'error'
+            }));
+            return;
+        }
+
+        // Validate applicant has "Removed" status
+        if (applicant.status !== 'Removed') {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Invalid Status',
+                message: 'Only applicants with "Removed" status can be confirmed for removal.',
+                variant: 'warning'
+            }));
+            return;
+        }
+
+        // Confirm the removal action with the user
+        const confirmMessage = `Are you sure you want to move ${applicant.applicantName} to the removal report? This will remove them from the tracker.`;
+
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+
+        try {
+            // Call Apex method to confirm the removal
+            const result = await confirmApplicantRemoval({
+                outreachTrackingId: applicantId
+            });
+
+            // Show success message
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Removal Confirmed',
+                message: result,
+                variant: 'success'
+            }));
+
+            // Dispatch refresh event to ensure all data is up to date
+            this.dispatchEvent(new RefreshEvent());
+
+        } catch (error) {
+            console.error('Error in handleConfirmRemoval:', error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Confirmation Failed',
+                message: 'Failed to confirm removal: ' + (error.body?.message || error.message),
+                variant: 'error'
+            }));
+        }
+    }
+
+    // Sorting Methods
+
+    /**
+     * Handle sorting when a table header is clicked
+     */
+    handleSort(event) {
+        const fieldName = event.currentTarget.dataset.fieldname;
+        const propertyId = event.currentTarget.dataset.propertyId;
+
+        if (!fieldName || !propertyId) {
+            console.warn('Missing fieldname or propertyId:', { fieldName, propertyId });
+            return;
+        }
+
+        // Toggle sort direction if same field, otherwise set to ascending
+        if (this.sortField === fieldName) {
+            this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            this.sortField = fieldName;
+            this.sortDirection = 'asc';
+        }
+
+        this.sortData(propertyId, fieldName, this.sortDirection);
+    }
+
+    /**
+     * Sort the data for a specific property
+     */
+    sortData(propertyId, fieldName, direction) {
+        console.log(`Sorting ${fieldName} in ${direction} order for property ${propertyId}`);
+
+        const propertyIndex = this.propertyGroups.findIndex(prop => prop.id === propertyId);
+        if (propertyIndex === -1) return;
+
+        // Create a new array to trigger reactivity
+        const updatedPropertyGroups = [...this.propertyGroups];
+        const applicants = [...updatedPropertyGroups[propertyIndex].applicants];
+
+        // Sort the applicants
+        applicants.sort((a, b) => {
+            const aVal = this.getFieldValue(a, fieldName);
+            const bVal = this.getFieldValue(b, fieldName);
+
+            if (fieldName === 'priority') {
+                console.log(`Comparing priorities: ${aVal} (${typeof aVal}) vs ${bVal} (${typeof bVal})`);
+            }
+
+            let result = 0;
+
+            // Handle different data types
+            if (this.isDateField(fieldName)) {
+                result = this.compareDates(aVal, bVal);
+            } else if (this.isNumericField(fieldName)) {
+                result = this.compareNumbers(aVal, bVal);
+            } else {
+                result = this.compareStrings(aVal, bVal);
+            }
+
+            if (fieldName === 'priority') {
+                console.log(`Comparison result: ${result}`);
+            }
+
+            return direction === 'desc' ? -result : result;
+        });
+
+        updatedPropertyGroups[propertyIndex].applicants = applicants;
+        this.propertyGroups = updatedPropertyGroups;
+    }
+
+    /**
+     * Get field value from applicant object
+     */
+    getFieldValue(applicant, fieldName) {
+        const fieldMap = {
+            'unit': applicant.unit || '',
+            'priority': applicant.priority || '',
+            'applicantName': applicant.applicantName || '',
+            'peopleInHousehold': applicant.peopleInHousehold || 0,
+            'dateCGPHAdded': applicant.dateCGPHAdded || '',
+            'dateMarkedPrimary': applicant.dateMarkedPrimary || '',
+            'approvalDenial': applicant.approvalDenial || '',
+            'approveDenyDate': applicant.approveDenyDate || '',
+            // 'approvedForFullReview': applicant.approvedForFullReview || false,
+            'readyDate': applicant.readyDate || '',
+            'fullReviewCGPHBegan': applicant.fullReviewCGPHBegan || '',
+            'cgphDetermination': applicant.cgphDetermination || '',
+            'dateOfDetermination': applicant.dateOfDetermination || ''
+        };
+
+        return fieldMap[fieldName] !== undefined ? fieldMap[fieldName] : '';
+    }
+
+    /**
+     * Check if field is a date field
+     */
+    isDateField(fieldName) {
+        return [
+            'dateCGPHAdded',
+            'dateMarkedPrimary',
+            'approveDenyDate',
+            'readyDate',
+            'fullReviewCGPHBegan',
+            'dateOfDetermination'
+        ].includes(fieldName);
+    }
+
+    /**
+     * Check if field is numeric
+     */
+    isNumericField(fieldName) {
+        return ['peopleInHousehold', 'priority'].includes(fieldName);
+    }
+
+    /**
+     * Compare dates
+     */
+    compareDates(a, b) {
+        if (!a && !b) return 0;
+        if (!a) return -1;
+        if (!b) return 1;
+
+        const dateA = new Date(a);
+        const dateB = new Date(b);
+        return dateA.getTime() - dateB.getTime();
+    }
+
+    /**
+     * Compare numbers
+     */
+    compareNumbers(a, b) {
+        const numA = parseFloat(a) || 0;
+        const numB = parseFloat(b) || 0;
+        return numA - numB;
+    }
+
+    /**
+     * Compare strings (case insensitive)
+     */
+    compareStrings(a, b) {
+        const strA = String(a || '').toLowerCase();
+        const strB = String(b || '').toLowerCase();
+        return strA.localeCompare(strB);
+    }
+
+
+    // Computed properties for each sortable field's icon visibility and direction
+
+    // Unit field
+    get isUnitSorted() { return this.sortField === 'unit'; }
+    get unitSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Priority field
+    get isPrioritySorted() { return this.sortField === 'priority'; }
+    get prioritySortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Applicant Name field
+    get isApplicantNameSorted() { return this.sortField === 'applicantName'; }
+    get applicantNameSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // People in Household field
+    get isPeopleInHouseholdSorted() { return this.sortField === 'peopleInHousehold'; }
+    get peopleInHouseholdSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Date CGPH Added field
+    get isDateCGPHAddedSorted() { return this.sortField === 'dateCGPHAdded'; }
+    get dateCGPHAddedSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Date Marked Primary field
+    get isDateMarkedPrimarySorted() { return this.sortField === 'dateMarkedPrimary'; }
+    get dateMarkedPrimarySortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Approval Denial field
+    get isApprovalDenialSorted() { return this.sortField === 'approvalDenial'; }
+    get approvalDenialSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Approve Deny Date field
+    get isApproveDenyDateSorted() { return this.sortField === 'approveDenyDate'; }
+    get approveDenyDateSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Approved for Full Review field
+    // get isApprovedForFullReviewSorted() { return this.sortField === 'approvedForFullReview'; }
+    // get approvedForFullReviewSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Ready Date field
+    get isReadyDateSorted() { return this.sortField === 'readyDate'; }
+    get readyDateSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Full Review CGPH Began field
+    get isFullReviewCGPHBeganSorted() { return this.sortField === 'fullReviewCGPHBegan'; }
+    get fullReviewCGPHBeganSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // CGPH Determination field
+    get isCgphDeterminationSorted() { return this.sortField === 'cgphDetermination'; }
+    get cgphDeterminationSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    // Date of Determination field
+    get isDateOfDeterminationSorted() { return this.sortField === 'dateOfDetermination'; }
+    get dateOfDeterminationSortIcon() { return this.sortDirection === 'asc' ? 'utility:arrowup' : 'utility:arrowdown'; }
+
+    /**
+     * Handle navigation to Outreach Tracking record page in a new tab
+     */
+    handleNavigateToRecord(event) {
+        const recordId = event.currentTarget.dataset.recordId;
+
+        if (!recordId) {
+            console.error('No record ID provided for navigation');
+            return;
+        }
+
+        // Generate the URL and open in a new tab
+        this[NavigationMixin.GenerateUrl]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: recordId,
+                objectApiName: 'Outreach_Tracking__c',
+                actionName: 'view'
+            }
+        }).then(url => {
+            window.open(url, '_blank');
+        });
+    }
+
+    /**
+     * Handle navigation to Service File record page in a new tab
+     */
+    handleNavigateToServiceFile(event) {
+        const serviceFileId = event.currentTarget.dataset.serviceFileId;
+
+        if (!serviceFileId) {
+            console.error('No Service File ID provided for navigation');
+            return;
+        }
+
+        // Generate the URL and open in a new tab
+        this[NavigationMixin.GenerateUrl]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: serviceFileId,
+                objectApiName: 'Service_File__c',
+                actionName: 'view'
+            }
+        }).then(url => {
+            window.open(url, '_blank');
+        });
+    }
+
+    /**
+     * Handle navigation to Report with Pre-Applicant and Property filters
+     */
+    handleNavigateToReport(event) {
+        const preApplicantId = event.currentTarget.dataset.preApplicantId;
+        const propertyId = event.currentTarget.dataset.propertyId;
+
+        if (!preApplicantId || !propertyId) {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: 'Pre-Applicant ID or Property ID not available',
+                variant: 'error'
+            }));
+            return;
+        }
+
+        // Dynamically construct the report URL based on current org
+        const currentDomain = window.location.hostname;
+        let lightningDomain;
+
+        if (currentDomain.includes('.sandbox.lightning.force.com')) {
+            // Sandbox: keep as-is
+            lightningDomain = currentDomain;
+        } else if (currentDomain.includes('.lightning.force.com')) {
+            // Production: keep as-is
+            lightningDomain = currentDomain;
+        } else if (currentDomain.includes('.sandbox.my.salesforce.com')) {
+            // Sandbox My Domain: convert to Lightning
+            const domainPrefix = currentDomain.split('.sandbox.my.salesforce.com')[0];
+            lightningDomain = `${domainPrefix}.sandbox.lightning.force.com`;
+        } else if (currentDomain.includes('.my.salesforce.com')) {
+            // Production My Domain: convert to Lightning
+            const domainPrefix = currentDomain.split('.my.salesforce.com')[0];
+            lightningDomain = `${domainPrefix}.lightning.force.com`;
+        } else if (currentDomain.includes('--c.sandbox.vf.force.com')) {
+            // Sandbox VF: convert to Lightning
+            const domainPrefix = currentDomain.replace('--c.sandbox.vf.force.com', '');
+            lightningDomain = `${domainPrefix}.sandbox.lightning.force.com`;
+        } else if (currentDomain.includes('--c.vf.force.com')) {
+            // Production VF: convert to Lightning
+            const domainPrefix = currentDomain.replace('--c.vf.force.com', '');
+            lightningDomain = `${domainPrefix}.lightning.force.com`;
+        } else {
+            // Fallback to production
+            lightningDomain = 'cgph.lightning.force.com';
+            console.warn('Could not determine Lightning domain, using production URL');
+        }
+
+        const reportUrl = `https://${lightningDomain}/lightning/r/Report/00OUq000004iXM9MAM/view?queryScope=userFolders&fv0=${preApplicantId}&fv1=${propertyId}`;
+        console.log('Opening report URL:', reportUrl);
+
+        // Open in new window/tab
+        window.open(reportUrl, '_blank');
+    }
+
+    /**
+     * Notes Modal Methods
+     */
+
+    /**
+     * Truncate notes to specified character limit
+     */
+    // truncateNotes(notes, maxLength) {
+    //     if (!notes) return '';
+    //     if (notes.length <= maxLength) return notes;
+    //     return notes.substring(0, maxLength);
+    // }
+
+    /**
+     * Check if notes exceed the character limit
+     */
+    // hasMoreNotes(notes, maxLength) {
+    //     if (!notes) return false;
+    //     return notes.length > maxLength;
+    // }
+
+    /**
+     * Handle click on notes cell to open modal
+     */
+    // handleNotesClick(event) {
+    //     const applicantId = event.currentTarget.dataset.applicantId;
+    //     const applicantName = event.currentTarget.dataset.applicantName;
+
+    //     if (!applicantId) {
+    //         console.error('No applicant ID provided for notes modal');
+    //         return;
+    //     }
+
+        // Find the applicant record
+        // const applicant = this.findApplicantById(applicantId);
+        // if (!applicant) {
+        //     console.error('Applicant not found:', applicantId);
+        //     return;
+        // }
+
+        // Set modal state
+    //     this.selectedApplicantId = applicantId;
+    //     this.selectedApplicantName = applicantName || 'Applicant';
+    //     this.selectedNotes = applicant.notes || '';
+    //     this.isNotesModalOpen = true;
+    // }
+
+    /**
+     * Close notes modal
+     */
+    // handleNotesModalClose() {
+    //     this.isNotesModalOpen = false;
+    //     this.selectedApplicantId = '';
+    //     this.selectedApplicantName = '';
+    //     this.selectedNotes = '';
+    // }
 }

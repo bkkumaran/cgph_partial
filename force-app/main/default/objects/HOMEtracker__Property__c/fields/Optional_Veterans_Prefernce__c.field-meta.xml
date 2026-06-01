@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Optional_Veterans_Prefernce__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Developer chose to adopt veterans preference allowed for in muni ordinance</description>
+    <inlineHelpText>Developer chose to adopt veterans preference allowed for in muni ordinance</inlineHelpText>
+    <label>Optional Veterans Prefernce</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

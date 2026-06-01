@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Percent_of_Rent_to_Income__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This auto-calculates. Current Monthly Rent divided by Gross Monthly Income.</description>
+    <formula>IF(AND(HOMEtracker__Gross_Monthly_Income__c &gt; 0,  HOMEtracker__Current_Monthly_Rent__c  &gt; 0), HOMEtracker__Current_Monthly_Rent__c / HOMEtracker__Gross_Monthly_Income__c , NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This auto-calculates. Current Monthly Rent divided by Gross Monthly Income.</inlineHelpText>
+    <label>Percent of Rent to Income</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

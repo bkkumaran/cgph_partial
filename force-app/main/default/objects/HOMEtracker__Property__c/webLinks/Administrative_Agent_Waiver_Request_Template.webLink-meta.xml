@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Administrative_Agent_Waiver_Request_Template</fullName>
+    <availability>online</availability>
+    <description>Template to generate a waiver request to see a unit to the next higher income level.</description>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>AA Waiver Request Template</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://composer.congamerge.com
+?SessionId={!API.Session_ID}
+&amp;ServerUrl={!API.Partner_Server_URL_290}
+&amp;Id={!HOMEtracker__Property__c.Id}
+&amp;TemplateId=00P3m00000zk9P2
+&amp;DS7=3</url>
+</WebLink>

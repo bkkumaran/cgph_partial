@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Accessibility_Features__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Check if the home has special accessibility features. This box will be automatically checked if Description of Accessibility Features is filled in.</description>
+    <inlineHelpText>Check if the home has special accessibility features. This box will be automatically checked if Description of Accessibility Features is filled in.</inlineHelpText>
+    <label>Accessibility Features</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

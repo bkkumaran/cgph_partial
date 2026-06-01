@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>primary_coord_for_homes_for_rent</fullName>
+    <columns>NAME</columns>
+    <columns>Development_address__c</columns>
+    <columns>Primary_Outreach_Coordintor__c</columns>
+    <columns>Municipality_Name__c</columns>
+    <columns>Date_Outreach_began__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Available For Rent,Available for Rent - part of group</value>
+    </filters>
+    <filters>
+        <field>Group_Property__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>primary coord for homes for rent</label>
+</ListView>

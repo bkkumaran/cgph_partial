@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Current_Monthly_Rent__c</fullName>
+    <deprecated>false</deprecated>
+    <description>&quot;Include all applicant housing expenses, including rent, HOA dues, mortgage payments, taxes and insurance. Do not include utilities unless they are included in the rent.&quot;</description>
+    <inlineHelpText>Applicants rent at the time of income certification.</inlineHelpText>
+    <label>Applicant Monthly Housing Costs</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ineligibility_Reason__c</fullName>
+    <description>Select the reason the applicant i snot eligible for the property. To add a new reason: ...</description>
+    <inlineHelpText>Select the reason the applicant is not eligible for the property. To add a new reason: ...</inlineHelpText>
+    <label>Ineligibility Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Moderate not Low</fullName>
+                <default>false</default>
+                <label>Moderate not Low</label>
+            </value>
+            <value>
+                <fullName>Moderate not Very Low</fullName>
+                <default>false</default>
+                <label>Moderate not Very Low</label>
+            </value>
+            <value>
+                <fullName>Low not Very Low</fullName>
+                <default>false</default>
+                <label>Low not Very Low</label>
+            </value>
+            <value>
+                <fullName>Applicant&apos;s Income Exceeds Maximum Limit</fullName>
+                <default>false</default>
+                <label>Applicant&apos;s Income Exceeds Maximum Limit</label>
+            </value>
+            <value>
+                <fullName>Applicant&apos;s Income Below Minimum</fullName>
+                <default>false</default>
+                <label>Applicant&apos;s Income Below Minimum</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

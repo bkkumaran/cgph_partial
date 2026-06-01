@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Cabinet_Numbers</fullName>
+    <columns>NAME</columns>
+    <columns>Active_Cabinet_Number__c</columns>
+    <columns>New_Cabinet_Number__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Active_Cabinet_Number__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>New Cabinet Numbers</label>
+</ListView>

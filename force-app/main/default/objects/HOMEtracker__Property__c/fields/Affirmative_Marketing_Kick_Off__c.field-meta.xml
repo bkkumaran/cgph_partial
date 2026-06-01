@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Affirmative_Marketing_Kick_Off__c</fullName>
+    <inlineHelpText>Do not use Old field used to track affirmative marketing (paid advertising placement dates and locations. date postcards will go out) has been replaced by date fields</inlineHelpText>
+    <label>Do not use Affirm Marketing Kick Off</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

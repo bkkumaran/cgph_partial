@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_Ocean_breeze</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>Maximum_Household_Size__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Max_Income_Level__c</columns>
+    <columns>Floor_unit_is_located_on__c</columns>
+    <columns>Utilities__c</columns>
+    <columns>Utilities_Comments__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Ocean Breeze</value>
+    </filters>
+    <filters>
+        <field>Campaign__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>AA Ocean breeze</label>
+</ListView>

@@ -1,76 +1,169 @@
 <template>
-    <lightning-card title="Luxury Downtown Apartments (Rental) Applicant Tracker" icon-name="standard:account">
-        <div slot="actions">
-            <lightning-button-group>
-                <lightning-button 
-                    label="Development Inventory" 
-                    variant="neutral"
-                    onclick={handleInventoryClick}
-                    class="slds-m-right_xx-small">
-                </lightning-button>
-                <lightning-button 
-                    label="Removed Applicants" 
-                    variant="neutral"
-                    onclick={handleRemovedClick}>
-                </lightning-button>
-            </lightning-button-group>
-            <lightning-button-icon 
-                icon-name="utility:refresh" 
-                variant="border-filled" 
-                alternative-text="Refresh"
-                onclick={handleRefresh}
-                class="slds-m-left_x-small">
-            </lightning-button-icon>
-        </div>
+    <lightning-card >
+        <!-- Custom Header -->
+        <div slot="title">
+            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-start">
+                <!-- Icon and Title -->
+                <lightning-icon icon-name="standard:account" size="small" class="slds-m-right_x-small"></lightning-icon>
+                <h2 class="slds-text-heading_medium slds-m-right_medium">{cardTitleFormatted}</h2>
 
-        <div class="slds-p-horizontal_medium">
-            <!-- Contact Information -->
-            <div class="slds-grid slds-gutters slds-m-bottom_medium">
-                <div class="slds-col slds-size_1-of-1">
-                    <lightning-button 
-                        label="✉ Development Contact" 
-                        variant="neutral"
+                <!-- Action Buttons -->
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <!-- Refresh button -->
+                    <lightning-button-icon
+                        icon-name="utility:refresh"
+                        variant="border-filled"
+                        alternative-text="Refresh"
+                        title="Refresh"
+                        onclick={handleRefresh}
+                        class="slds-m-right_small">
+                    </lightning-button-icon>
+
+                    <!-- Development Contact -->
+                    <!-- <lightning-button-icon
+                        icon-name="utility:email"
+                        variant="border-filled"
+                        alternative-text="Development Contact"
+                        title="Development Contact"
                         onclick={handleContactClick}
-                        class="contact-button">
+                        class="slds-m-right_small">
+                    </lightning-button-icon> -->
+
+                    <!-- Development Inventory button -->
+                    <lightning-button
+                        label="Development Inventory"
+                        variant="neutral"
+                        onclick={handleInventoryClick}
+                        class="slds-m-right_small">
                     </lightning-button>
+
+                    <!-- Removed Applicants button -->
+                    <lightning-button
+                        label="Removed Applicants"
+                        variant="neutral"
+                        onclick={handleRemovedClick}>
+                    </lightning-button>
+
+                    <!-- Zoom Out button — only shown when a single property is isolated -->
+                    <template if:true={isSinglePropertyMode}>
+                        <lightning-button-icon
+                            icon-name="utility:contract_alt"
+                            variant="border-filled"
+                            alternative-text="Back to Full Development View"
+                            title="Back to Full Development View"
+                            onclick={handleZoomOut}
+                            class="slds-m-left_small">
+                        </lightning-button-icon>
+                    </template>
                 </div>
             </div>
+        </div>
+
+        <div class="slds-p-around_medium">
+
+            <!-- Contact Information class="contact-button slds-m-bottom_medium"> -->
+                <!--<lightning-button 
+                    label="✉ Development Contact" 
+                    variant="neutral"
+                    onclick={handleContactClick}>
+                    
+                </lightning-button>
+                <div class="slds-m-bottom_medium"></div>-->
 
             <!-- Error Message -->
             <template if:true={error}>
                 <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-bottom_medium" role="alert">
                     <span class="slds-assistive-text">Error</span>
                     <h2>Error Loading Data</h2>
-                    <p>Unable to load outreach tracking data. {error.body.message}</p>
+                    <p>Unable to load outreach tracking data. {errorMessage}</p>
                 </div>
             </template>
 
             <!-- Property Sections -->
             <template for:each={propertyGroups} for:item="propertyGroup">
-                <div key={propertyGroup.id} class="property-section slds-m-bottom_large">
-                    <!-- Property Header -->
-                    <div class="property-header slds-m-bottom_small">
-                        <h3 class="slds-text-heading_medium slds-p-vertical_small slds-p-horizontal_medium">
-                            {propertyGroup.name}
-                        </h3>
-                        <div class="slds-text-align_right slds-p-right_medium">
-                            <lightning-button-icon 
-                                icon-name="utility:add" 
-                                variant="border-filled" 
-                                alternative-text="Add Property"
-                                data-property={propertyGroup.id}
-                                onclick={handleAddProperty}
-                                class="slds-m-right_xx-small">
-                            </lightning-button-icon>
-                            <lightning-button-icon 
-                                icon-name="utility:delete" 
-                                variant="border-filled" 
-                                alternative-text="Remove Property"
-                                data-property={propertyGroup.id}
-                                onclick={handleRemoveProperty}>
-                            </lightning-button-icon>
+                <div key={propertyGroup.uniqueKey} class="property-section slds-m-bottom_large">
+                    <!-- Property Header - Different color for group vs individual properties -->
+                <template if:true={propertyGroup.isGroupProperty}>
+                    <div class="property-header property-header-group slds-m-bottom_small">
+                        <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                            <div class="slds-col slds-p-vertical_small slds-p-horizontal_medium">
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <!-- Property Record Link Icon -->
+                                    <lightning-button-icon
+                                        icon-name="utility:home"
+                                        alternative-text="View Property Record"
+                                        title="Open Property Record in New Tab"
+                                        variant="bare-inverse"
+                                        size="Large"
+                                        data-property-record-id={propertyGroup.propertyRecordId}
+                                        onclick={handleNavigateToProperty}
+                                        class="slds-m-right_x-small">
+                                    </lightning-button-icon>
+                                    <h3 class="slds-text-heading_medium">
+                                        {propertyGroup.name}
+                                        <template if:true={propertyGroup.maxApplicationFee}>
+                                            <span class="max-fee-text">(max application fee ${propertyGroup.maxApplicationFee})</span>
+                                        </template>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-no-flex slds-p-right_medium">
+                                <template if:false={isSinglePropertyMode}>
+                                    <lightning-button-icon
+                                        icon-name="utility:expand_alt"
+                                        variant="border-filled"
+                                        alternative-text="Isolate This Property"
+                                        title="Isolate This Property"
+                                        data-property-id={propertyGroup.propertyRecordId}
+                                        data-development-id={propertyGroup.developmentId}
+                                        onclick={handleZoomIn}>
+                                    </lightning-button-icon>
+                                </template>
+                            </div>
                         </div>
                     </div>
+                </template>
+
+                <template if:false={propertyGroup.isGroupProperty}>
+                    <div class="property-header property-header-individual slds-m-bottom_small">
+                        <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                            <div class="slds-col slds-p-vertical_small slds-p-horizontal_medium">
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <!-- Property Record Link Icon -->
+                                    <lightning-button-icon
+                                        icon-name="utility:home"
+                                        alternative-text="View Property Record"
+                                        title="Open Property Record in New Tab"
+                                        variant="bare-inverse"
+                                        size="Large"
+                                        data-property-record-id={propertyGroup.propertyRecordId}
+                                        onclick={handleNavigateToProperty}
+                                        class="slds-m-right_x-small">
+                                    </lightning-button-icon>
+                                    <h3 class="slds-text-heading_medium">
+                                        {propertyGroup.name}
+                                        <template if:true={propertyGroup.maxApplicationFee}>
+                                            <span class="max-fee-text">(max application fee ${propertyGroup.maxApplicationFee})</span>
+                                        </template>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-no-flex slds-p-right_medium">
+                                <template if:false={isSinglePropertyMode}>
+                                    <lightning-button-icon
+                                        icon-name="utility:expand_alt"
+                                        alternative-text="Isolate This Property"
+                                        title="Isolate This Property"
+                                        variant="border-filled"
+                                        data-property-id={propertyGroup.propertyRecordId}
+                                        data-development-id={propertyGroup.developmentId}
+                                        onclick={handleZoomIn}>
+                                    </lightning-button-icon>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
 
                     <!-- Editable Data Table for this Property -->
                     <div class="table-container">
@@ -78,68 +171,201 @@
                             <thead>
                                 <tr class="slds-line-height_reset">
                                     <!-- Section Headers -->
-                                    <th class="slds-text-title_caps section-header filled-cgph" colspan="11">
+                                    <th class="slds-text-title_caps section-header filled-cgph" colspan="10">
                                         FILLED IN BY CGP&H
                                     </th>
                                     <th class="slds-text-title_caps section-header filled-landlord" colspan="3">
                                         FILLED IN BY LANDLORD / DEVELOPER
                                     </th>
-                                    <th class="slds-text-title_caps section-header filled-cgph" colspan="3">
+                                    <th class="slds-text-title_caps section-header filled-cgph" colspan="4">
                                         FILLED IN BY CGP&H
                                     </th>
                                 </tr>
                                 <tr class="slds-line-height_reset">
                                     <!-- Column Headers -->
                                     <th class="slds-text-title_caps column-header" scope="col">
-                                        <div title="Flagged Indicator">🚩 Flag</div>
+                                        <div title="Flagged Indicator"><span style="color: red; font-size: 18px;">⚠</span></div>
                                     </th>
                                     <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Status">Status</div>
+                                        <div title="Status">Status</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Unit"
+                                             data-fieldname="unit"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            Unit
+                                            <template if:true={isUnitSorted}>
+                                                <lightning-icon icon-name={unitSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Priority"
+                                             data-fieldname="priority"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            <!-- Priority -->
+                                             #
+                                            <template if:true={isPrioritySorted}>
+                                                <lightning-icon icon-name={prioritySortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Applicant Name"
+                                             data-fieldname="applicantName"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            Applicant Name
+                                            <template if:true={isApplicantNameSorted}>
+                                                <lightning-icon icon-name={applicantNameSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header sortable-header no-wrap-header" scope="col">
+                                        <div class="sortable-div" title="Household Size"
+                                             data-fieldname="peopleInHousehold"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                             HH
+                                            <template if:true={isPeopleInHouseholdSorted}>
+                                                <lightning-icon icon-name={peopleInHouseholdSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
                                     </th>
                                     <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Unit">Unit</div>
+                                        <div title="Email Address">Email Address</div>
                                     </th>
                                     <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Priority">Priority</div>
+                                        <div title="Phone Number">Phone Number</div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Date CGPH Added"
+                                             data-fieldname="dateCGPHAdded"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            Date CGPH Added
+                                            <template if:true={isDateCGPHAddedSorted}>
+                                                <lightning-icon icon-name={dateCGPHAddedSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Date Marked Primary"
+                                             data-fieldname="dateMarkedPrimary"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            Date Marked Primary
+                                            <template if:true={isDateMarkedPrimarySorted}>
+                                                <lightning-icon icon-name={dateMarkedPrimarySortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Approval / Denial"
+                                             data-fieldname="approvalDenial"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            Approval / Denial
+                                            <template if:true={isApprovalDenialSorted}>
+                                                <lightning-icon icon-name={approvalDenialSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Approve / Deny Date"
+                                             data-fieldname="approveDenyDate"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            Approve / Deny Date
+                                            <template if:true={isApproveDenyDateSorted}>
+                                                <lightning-icon icon-name={approveDenyDateSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
                                     </th>
                                     <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Applicant Name">Applicant Name</div>
+                                        <div title="Notes">Notes</div>
                                     </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Number of People in Household">Number of<br/>People in<br/>Household</div>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Ready Date"
+                                             data-fieldname="readyDate"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            Ready<br/> Date
+                                            <template if:true={isReadyDateSorted}>
+                                                <lightning-icon icon-name={readyDateSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
                                     </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Email Address">Email Address</div>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Full Review CGPH Began"
+                                             data-fieldname="fullReviewCGPHBegan"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            Full Review CGPH Began
+                                            <template if:true={isFullReviewCGPHBeganSorted}>
+                                                <lightning-icon icon-name={fullReviewCGPHBeganSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
                                     </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Phone Number">Phone Number</div>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="CGPH Status"
+                                             data-fieldname="cgphDetermination"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            CGPH<br/>Status
+                                            <template if:true={isCgphDeterminationSorted}>
+                                                <lightning-icon icon-name={cgphDeterminationSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
                                     </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Date CGPH Added">Date CGPH Added</div>
-                                    </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Date Marked Primary">Date Marked Primary</div>
-                                    </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Approval / Denial">Approval / Denial</div>
-                                    </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Approve / Deny Date">Approve / Deny Date</div>
-                                    </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Notes">Notes</div>
-                                    </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Approved for Full Review">Approved for Full Review</div>
-                                    </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Full Review CGPH Began">Full Review CGPH Began</div>
-                                    </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="CGPH Determination">CGPH Determination</div>
-                                    </th>
-                                    <th class="slds-text-title_caps column-header" scope="col">
-                                        <div class="slds-truncate" title="Date of Determination">Date of Determination</div>
+                                    <th class="slds-text-title_caps column-header sortable-header" scope="col">
+                                        <div class="sortable-div" title="Date of Determination"
+                                             data-fieldname="dateOfDetermination"
+                                             data-property-id={propertyGroup.id}
+                                             onclick={handleSort}>
+                                            Date of Determination
+                                            <template if:true={isDateOfDeterminationSorted}>
+                                                <lightning-icon icon-name={dateOfDeterminationSortIcon}
+                                                               size="xx-small"
+                                                               class="sort-icon">
+                                                </lightning-icon>
+                                            </template>
+                                        </div>
                                     </th>
                                 </tr>
                             </thead>
@@ -168,114 +394,178 @@
                                         </td>
                                         <!-- Status - EDITABLE BY CGP&H STAFF ONLY -->
                                         <td data-label="Status">
-                                            <lightning-combobox
-                                                value={applicant.status}
-                                                data-id={applicant.id}
-                                                data-property={propertyGroup.id}
-                                                data-field="status"
-                                                onchange={handleFieldChange}
-                                                options={statusOptions}
-                                                disabled={isStatusDisabled}
-                                                variant="label-hidden"
-                                                class="editable-field-standard">
-                                            </lightning-combobox>
+                                            <div class="status-container">
+                                                <lightning-combobox
+                                                    value={applicant.status}
+                                                    data-id={applicant.id}
+                                                    data-property={propertyGroup.id}
+                                                    data-field="status"
+                                                    onchange={handleFieldChange}
+                                                    options={statusOptions}
+                                                    disabled={isStatusDisabled}
+                                                    variant="label-hidden"
+                                                    class="editable-field-standard">
+                                                </lightning-combobox>
+
+                                                <!-- Show "Confirm Removal" icon button for applicants with "Removed" status -->
+                                                <template if:true={applicant.isRemoved}>
+                                                    <lightning-button-icon
+                                                        icon-name="utility:check"
+                                                        alternative-text="Confirm Removal"
+                                                        title="Confirm Removal - Move to Removal Report"
+                                                        variant="brand"
+                                                        size="small"
+                                                        data-applicant-id={applicant.id}
+                                                        onclick={handleConfirmRemoval}
+                                                        class="confirm-removal-icon slds-m-top_xx-small">
+                                                    </lightning-button-icon>
+                                                </template>
+                                            </div>
                                         </td>
                                         <!-- Unit - Shows current unit and assignment actions -->
                                         <td data-label="Unit">
                                             <div class="unit-assignment-container">
-                                                <!-- Current Unit Display -->
+                                                <!-- Current Unit Display No Link -->
                                                 <div class="unit-display">
                                                     <template if:true={applicant.hasSpecificUnit}>
                                                         <span class="specific-unit">{applicant.unit}</span>
+                                                        <template if:true={applicant.isGroupProperty}>
+                                                            <!-- <span class="group-property-pill">Group Property</span> -->
+                                                        </template>
                                                     </template>
                                                     <template if:false={applicant.hasSpecificUnit}>
-                                                        <span class="group-property">Group Property</span>
+                                                        <template if:true={applicant.isGroupProperty}>
+                                                            <!-- <span class="group-property">Group Property</span> -->
+                                                        </template>
+                                                        <template if:false={applicant.isGroupProperty}>
+                                                            <!-- <span class="specific-unit">—</span> -->
+                                                        </template>
                                                     </template>
                                                 </div>
                                                 
                                                 <!-- Unit Assignment Actions -->
                                                 <div class="unit-actions slds-m-top_xx-small">
-                                                    <!-- Show "Assign Unit" button for eligible applicants -->
+                                                    <!-- Show "Assign Unit" icon button for eligible applicants -->
                                                     <template if:true={applicant.canAssignUnit}>
-                                                        <lightning-button
-                                                            label="Assign Unit"
+                                                        <lightning-button-icon
+                                                            icon-name="utility:new"
+                                                            alternative-text="Assign Unit"
+                                                            title="Assign Unit"
                                                             variant="brand"
                                                             size="small"
                                                             data-applicant-id={applicant.id}
                                                             data-property-id={propertyGroup.id}
                                                             onclick={handleAssignUnit}
-                                                            class="assign-unit-btn">
-                                                        </lightning-button>
+                                                            class="assign-unit-icon">
+                                                        </lightning-button-icon>
                                                     </template>
-                                                    
-                                                    <!-- Show "Cancel Assignment" button for applicants with specific units -->
+
+                                                    <!-- Show "Cancel Assignment" icon button for applicants with specific units -->
                                                     <template if:true={applicant.hasSpecificUnit}>
-                                                        <lightning-button
-                                                            label="Cancel Assignment"
-                                                            variant="neutral"
+                                                        <lightning-button-icon
+                                                            icon-name="utility:close"
+                                                            alternative-text="Cancel Assignment"
+                                                            title="Cancel Unit Assignment"
+                                                            variant="border-filled"
                                                             size="small"
                                                             data-applicant-id={applicant.id}
                                                             onclick={handleCancelUnitAssignment}
-                                                            class="cancel-assignment-btn">
-                                                        </lightning-button>
+                                                            class="cancel-assignment-icon">
+                                                        </lightning-button-icon>
                                                     </template>
                                                 </div>
                                             </div>
                                         </td>
                                         <!-- Priority - READ ONLY (not editable in Visualforce) -->
                                         <td data-label="Priority">
-                                            <lightning-input
+                                            <div class="readonly-text-display readonly-text-priority">
+                                                {applicant.priority}
+                                            </div>
+                                            <!-- <lightning-input
                                                 type="text"
                                                 value={applicant.priority}
                                                 disabled={isPriorityDisabled}
                                                 readonly
                                                 variant="label-hidden"
-                                                class="editable-field-standard readonly-field">
-                                            </lightning-input>
+                                                class="editable-field-priority readonly-field">
+                                            </lightning-input> -->
                                         </td>
-                                        <!-- Applicant Name - READ ONLY (not editable in Visualforce) -->
-                                        <td data-label="Applicant Name">
-                                            <lightning-input 
-                                                type="text" 
-                                                value={applicant.applicantName}
-                                                disabled={isApplicantNameDisabled}
-                                                readonly
-                                                variant="label-hidden"
-                                                class="editable-field-wide readonly-field">
-                                            </lightning-input>
-                                        </td>
+                                                                             
+                                        <!-- NEW - Add icon to the left of name -->
+                                        <!-- Applicant Name - READ ONLY (not editable) -->
+                                         <td data-label="Applicant Name">
+                                            <div class="applicant-name-container">
+                                               <!-- Link to Outreach Tracking Record -->
+                                                 <lightning-button-icon
+                                                    icon-name="utility:open"
+                                                    alternative-text="View Record"
+                                                    title="View Outreach Tracking Record"
+                                                    variant="bare"
+                                                    size="small"
+                                                    data-record-id={applicant.id}
+                                                    onclick={handleNavigateToRecord}
+                                                    class="record-link-icon">
+                                                </lightning-button-icon>
+
+                                                <!-- Link to Report with Pre-Applicant and Property IDs -->
+                                                <lightning-button-icon
+                                                    icon-name="utility:file"
+                                                    alternative-text="View Report"
+                                                    title="View Report for this Applicant and Property"
+                                                    variant="bare"
+                                                    size="small"
+                                                    data-pre-applicant-id={applicant.preApplicantId}
+                                                    data-property-id={applicant.propertyIdForReport}
+                                                    onclick={handleNavigateToReport}
+                                                    class="record-link-icon">
+                                                </lightning-button-icon>
+
+                                                <div class="readonly-text-display readonly-text-name-with-icon">
+                                                  {applicant.applicantName}
+                                                   </div>
+                                            </div>
+                                         </td>
                                         <!-- Number of People in Household - READ ONLY (not editable in Visualforce) -->
                                         <td data-label="Number of People in Household">
-                                            <lightning-input 
-                                                type="number" 
+                                            <div class="readonly-text-display readonly-text-household">
+                                                {applicant.peopleInHousehold}
+                                            </div>
+                                            <!-- <lightning-input
+                                                type="number"
                                                 value={applicant.peopleInHousehold}
                                                 disabled={isPeopleInHouseholdDisabled}
                                                 readonly
                                                 variant="label-hidden"
                                                 class="editable-field-household readonly-field">
-                                            </lightning-input>
+                                            </lightning-input> -->
                                         </td>
                                         <!-- Email - READ ONLY (not editable in Visualforce) -->
                                         <td data-label="Email Address">
-                                            <lightning-input 
-                                                type="email" 
+                                            <div class="readonly-text-display readonly-text-email">
+                                                {applicant.email}
+                                            </div>
+                                            <!-- <lightning-input
+                                                type="email"
                                                 value={applicant.email}
                                                 disabled={isEmailDisabled}
                                                 readonly
                                                 variant="label-hidden"
                                                 class="editable-field-email readonly-field">
-                                            </lightning-input>
+                                            </lightning-input> -->
                                         </td>
                                         <!-- Phone - READ ONLY (not editable in Visualforce) -->
                                         <td data-label="Phone Number">
-                                            <lightning-input 
-                                                type="tel" 
+                                            <div class="readonly-text-display readonly-text-phone">
+                                                {applicant.phone}
+                                            </div>
+                                            <!-- <lightning-input
+                                                type="tel"
                                                 value={applicant.phone}
                                                 disabled={isPhoneDisabled}
                                                 readonly
                                                 variant="label-hidden"
                                                 class="editable-field-phone readonly-field">
-                                            </lightning-input>
+                                            </lightning-input> -->
                                         </td>
                                         <!-- Date CGPH Added - EDITABLE BY CGP&H STAFF ONLY -->
                                         <td data-label="Date CGPH Added">
@@ -333,57 +623,103 @@
                                                 class="editable-field-date">
                                             </lightning-input>
                                         </td>
-                                        <!-- Notes - READ ONLY (requires special flow in Visualforce) -->
-                                        <td class="slds-cell-wrap" data-label="Notes">
-                                            <lightning-textarea 
-                                                value={applicant.notes}
-                                                disabled={isNotesDisabled}
-                                                readonly
-                                                variant="label-hidden"
-                                                class="editable-field-notes readonly-field">
-                                            </lightning-textarea>
-                                        </td>
+                                        <!-- Notes - READ ONLY (click to view full notes) -->
+                                         <td class="slds-cell-wrap notes-cell" data-label="Notes">
+                                            <div class="notes-full-text">
+                                                {applicant.notes}
+                                            </div>
+                                         </td>
+                                        <!-- <td class="slds-cell-wrap" data-label="Notes"> -->
+                                            <!-- <div class="notes-cell-container"
+                                                 data-applicant-id={applicant.id}
+                                                 data-applicant-name={applicant.applicantName}
+                                                 onclick={handleNotesClick}
+                                                 title="Click to view full notes">
+                                                <div class="notes-truncated">
+                                                    {applicant.notesTruncated}
+                                                </div>
+                                                <template if:true={applicant.hasMoreNotes}>
+                                                    <span class="notes-more-indicator">...</span>
+                                                </template>
+                                            </div>
+                                        </td> -->
                                         <!-- Approved for Full Review - READ ONLY (not editable in Visualforce) -->
-                                        <td data-label="Approved for Full Review">
-                                            <lightning-input 
-                                                type="checkbox" 
+                                        <!-- <td data-label="Approved for Full Review">
+                                            <lightning-input
+                                                type="checkbox"
                                                 checked={applicant.approvedForFullReview}
                                                 disabled={isApprovedForFullReviewDisabled}
                                                 variant="label-hidden"
                                                 class="editable-field-checkbox readonly-field">
                                             </lightning-input>
+                                        </td> -->
+                                        <td data-label="Ready Date">
+                                            <lightning-input
+                                                type="date"
+                                                value={applicant.readyDate}
+                                                data-id={applicant.id}
+                                                data-property={propertyGroup.id}
+                                                data-field="readyDate"
+                                                onchange={handleFieldChange}
+                                                disabled={isReadyDateDisabled}
+                                                variant="label-hidden"
+                                                class="editable-field-date readonly-field">
+                                            </lightning-input>
                                         </td>
                                         <!-- Full Review CGPH Began - READ ONLY (not editable in Visualforce) -->
                                         <td data-label="Full Review CGPH Began">
-                                            <lightning-input 
-                                                type="date" 
+                                            <lightning-input
+                                                type="date"
                                                 value={applicant.fullReviewCGPHBegan}
                                                 disabled={isFullReviewCGPHBeganDisabled}
                                                 readonly
                                                 variant="label-hidden"
                                                 class="editable-field-date readonly-field">
                                             </lightning-input>
+                                            <!-- <div class="readonly-text-display readonly-text-date">
+                                                {applicant.fullReviewCGPHBegan}
+                                            </div> -->
                                         </td>
                                         <!-- CGPH Determination - READ ONLY (not editable in Visualforce) -->
                                         <td data-label="CGPH Determination">
-                                            <lightning-combobox
+                                            <div class="cgph-status-container">
+                                                <!-- Link to Service File Record -->
+                                                <lightning-button-icon
+                                                    icon-name="utility:open"
+                                                    alternative-text="View Service File"
+                                                    title="View Service File Record"
+                                                    variant="bare"
+                                                    size="small"
+                                                    data-service-file-id={applicant.serviceFileId}
+                                                    onclick={handleNavigateToServiceFile}
+                                                    class="record-link-icon">
+                                                </lightning-button-icon>
+
+                                                <div class="readonly-text-display readonly-text-standard readonly-text-with-icon">
+                                                    {applicant.cgphDetermination}
+                                                </div>
+                                            </div>
+                                            <!-- <lightning-combobox
                                                 value={applicant.cgphDetermination}
                                                 disabled={isCgphDeterminationDisabled}
                                                 options={determinationOptions}
                                                 variant="label-hidden"
                                                 class="editable-field-standard readonly-field">
-                                            </lightning-combobox>
+                                            </lightning-combobox> -->
                                         </td>
                                         <!-- Date of Determination - READ ONLY (not editable in Visualforce) -->
                                         <td data-label="Date of Determination">
-                                            <lightning-input 
-                                                type="date" 
+                                            <lightning-input
+                                                type="date"
                                                 value={applicant.dateOfDetermination}
                                                 disabled={isDateOfDeterminationDisabled}
                                                 readonly
                                                 variant="label-hidden"
                                                 class="editable-field-date readonly-field">
                                             </lightning-input>
+                                            <!-- <div class="readonly-text-display readonly-text-date">
+                                                {applicant.dateOfDetermination}
+                                            </div> -->
                                         </td>
                                     </tr>
                                 </template>
@@ -394,14 +730,14 @@
             </template>
 
             <!-- Add New Property Button -->
-            <div class="slds-text-align_center slds-m-top_large">
+            <!-- <div class="slds-text-align_center slds-m-top_large">
                 <lightning-button 
                     label="+ Add New Property" 
                     variant="brand-outline"
                     onclick={handleAddNewProperty}
                     class="add-property-button">
                 </lightning-button>
-            </div>
+            </div> -->
 
             <!-- Loading Spinner -->
             <template if:true={isLoading}>
@@ -415,4 +751,59 @@
             </template>
         </div>
     </lightning-card>
-</template>
+
+    <template if:true={isFlowOpen}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon icon-name="utility:close" variant="bare" alternative-text="Close" onclick={handleFlowClose} class="slds-modal__close" data-id="close-flow"></lightning-button-icon>
+                    <h2 class="slds-text-heading_medium">Assign Unit</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-flow
+                        flow-api-name={flowApiName}
+                        flow-input-variables={flowInputs}
+                        onstatuschange={handleFlowStatus}>
+                    </lightning-flow>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Notes Modal -->
+    <!-- <template if:true={isNotesModalOpen}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open notes-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        variant="bare"
+                        alternative-text="Close"
+                        onclick={handleNotesModalClose}
+                        class="slds-modal__close">
+                    </lightning-button-icon>
+                    <h2 class="slds-text-heading_medium">Notes - {selectedApplicantName}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="notes-modal-content">
+                        <template if:true={selectedNotes}>
+                            <p class="notes-text">{selectedNotes}</p>
+                        </template>
+                        <template if:false={selectedNotes}>
+                            <p class="notes-empty"><i>No notes available</i></p>
+                        </template>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        variant="brand"
+                        label="Close"
+                        onclick={handleNotesModalClose}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" onclick={handleNotesModalClose}></div>
+    </template>
+</template> -->

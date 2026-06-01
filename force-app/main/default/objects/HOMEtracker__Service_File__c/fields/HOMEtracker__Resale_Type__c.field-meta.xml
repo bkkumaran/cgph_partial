@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Resale_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Select the resale type that is the best fit. Do not edit these values. Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change the picklist values or hide the field from the layout.
+
+Updated in Fall 2013 Version: Changed Short Sale to Eligible Buyer, Added Short Sale to Ineligible Buyer in order to better identify lost units that were sold via a short sale to an ineligible buyer.</description>
+    <inlineHelpText>Select the resale type that is the best fit. 
+
+Administrators: Do not change the picklist options available in this list.</inlineHelpText>
+    <label>Resale Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sold to Program</fullName>
+                <default>false</default>
+                <label>Sold to Program</label>
+            </value>
+            <value>
+                <fullName>Sold to Eligible Buyer</fullName>
+                <default>false</default>
+                <label>Sold to Eligible Buyer</label>
+            </value>
+            <value>
+                <fullName>Sold to Ineligible Buyer</fullName>
+                <default>false</default>
+                <label>Sold to Ineligible Buyer</label>
+            </value>
+            <value>
+                <fullName>Sold to Program to Prevent Foreclosure</fullName>
+                <default>false</default>
+                <label>Sold to Program to Prevent Foreclosure</label>
+            </value>
+            <value>
+                <fullName>Sold to Eligible Buyer to Prevent Foreclosure</fullName>
+                <default>false</default>
+                <label>Sold to Eligible Buyer to Prevent Foreclosure</label>
+            </value>
+            <value>
+                <fullName>Short Sale to Eligible Buyer</fullName>
+                <default>false</default>
+                <label>Short Sale to Eligible Buyer</label>
+            </value>
+            <value>
+                <fullName>Short Sale to Ineligible Buyer</fullName>
+                <default>false</default>
+                <label>Short Sale to Ineligible Buyer</label>
+            </value>
+            <value>
+                <fullName>Deed In Lieu</fullName>
+                <default>false</default>
+                <label>Deed In Lieu</label>
+            </value>
+            <value>
+                <fullName>Foreclosure</fullName>
+                <default>false</default>
+                <label>Foreclosure</label>
+            </value>
+            <value>
+                <fullName>Foreclosure with Property Rescue</fullName>
+                <default>false</default>
+                <label>Foreclosure with Property Rescue</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

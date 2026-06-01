@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dev_RTV_Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(  RecordTypeId = &apos;012o00000003bU2&apos;,HYPERLINK(&apos;https://cgph.lightning.force.com/lightning/r/Report/00O6O000008Sd4eUAC/view?queryScope=userFolders&amp;fv2=&apos;&amp; Name ,&quot;CLICK HERE&quot;),
+HYPERLINK(&apos;https://cgph.lightning.force.com/lightning/r/Report/00O6O000008Sd4eUAC/view?queryScope=userFolders&amp;fv2=&apos;&amp;  Development_address__r.Name ,&quot;CLICK HERE&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>TEST Dev IF Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

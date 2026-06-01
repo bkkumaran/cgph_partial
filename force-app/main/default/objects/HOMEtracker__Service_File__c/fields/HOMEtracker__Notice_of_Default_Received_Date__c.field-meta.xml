@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Notice_of_Default_Received_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. The date of the most recent Monitoring Event with a type of &quot;90+ Days Delinquent.&quot;</description>
+    <inlineHelpText>The date of the most recent Monitoring Event with a type of &quot;90+ Days Delinquent.&quot;</inlineHelpText>
+    <label>90+ Days Delinquent Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

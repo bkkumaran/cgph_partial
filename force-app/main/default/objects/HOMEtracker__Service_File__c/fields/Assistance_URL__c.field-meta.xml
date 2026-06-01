@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assistance_URL__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+&quot;https://www.tfaforms.com/&quot;
++ Municipality_Lookup__r.Assistance_Form_ID__c 
++&quot;?tfa_4653=PROPERTY:+&quot;
++ HOMEtracker__Property__r.Name + &quot;,+&quot;
++ HOMEtracker__Property__r.HOMEtracker__City__c + &quot;,+&quot;
++ HOMEtracker__Property__r.HOMEtracker__State__c + &quot;+&quot;
++  HOMEtracker__Property__r.HOMEtracker__Postal_Code__c 
++&quot;&amp;tfa_4651=&quot;+Id
++&quot;&amp;tfa_4654=&quot;+IF( RecordTypeId =&quot;012o0000000gaaB&quot;,&quot;H&quot;,&quot;R&quot;)
+,&quot;assistance app&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Assistance URL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__National_HUB_Language__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Do NOT add field to layout or edit text. This stores the National Data Hub Language as mapped in HomeKeeper Custom Language Setting. Editing of text will result in errors in your National Data Hub rollup.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Do NOT add field to layout or edit text. This stores the National Data Hub Language as mapped in HomeKeeper Custom Language Setting. Editing of text will result in errors in your National Data Hub rollup.</inlineHelpText>
+    <label>National Hub Language (Do Not Use)</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

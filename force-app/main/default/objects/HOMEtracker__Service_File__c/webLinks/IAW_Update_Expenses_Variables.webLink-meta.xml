@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_Update_Expenses_Variables</fullName>
+    <availability>online</availability>
+    <description>Click to update the Expenses Variables fields on the Service File with current information.</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Update Expense Variables</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+
+var records = sforce.connection.query(&quot;SELECT Id, IAW_Update_Expenses_Variables_Counter__c FROM HOMEtracker__Service_File__c Where id = &apos;{!HOMEtracker__Service_File__c.Id}&apos;&quot;); 
+
+var serviceFileRec = records.getArray(&apos;records&apos;)[0]; 
+
+serviceFileRec.IAW_Update_Expenses_Variables_Counter__c = Number(serviceFileRec.IAW_Update_Expenses_Variables_Counter__c) + 1; 
+
+sforce.connection.update([serviceFileRec]); 
+
+window.location.reload();</url>
+</WebLink>

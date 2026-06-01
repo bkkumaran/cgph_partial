@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Total_Purchase_Loan_Principal_Retired__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the national performance database. This is the estimated amount of principal that the homeowner has paid down on all loans since they purchased their home. Auto-calculated. Original Loan Principal at Resale - (Total Payoff Amount of All Loans - Deferred Interest/Appreciation Repaid). May be incorrect if Funding Sources aren&apos;t entered correctly.</description>
+    <formula>IF((HOMEtracker__Total_Payoff_Amount_of_All_Loans__c &gt;= 0),
+IF(ISNULL( HOMEtracker__Original_Loan_Principal_at_Resale__c ), 0, HOMEtracker__Original_Loan_Principal_at_Resale__c) - (HOMEtracker__Total_Payoff_Amount_of_All_Loans__c - IF(ISNULL(HOMEtracker__Deferred_Interest_Appreciation_Repaid__c), 0, HOMEtracker__Deferred_Interest_Appreciation_Repaid__c)),
+NULL)</formula>
+    <inlineHelpText>Auto-calculated. Original Loan Principal at Resale - Total Payoff Amount of All Loans - Deferred Interest/Appreciation Repaid. May be incorrect if Funding Sources aren&apos;t entered correctly.</inlineHelpText>
+    <label>Total Purchase Loan Principal Retired</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

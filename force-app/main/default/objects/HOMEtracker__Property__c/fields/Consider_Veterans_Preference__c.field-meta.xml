@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Consider_Veterans_Preference__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If this field is checked, only applicants with the &quot;Veteran?&quot; field check on their Pre-Applicant will show on the EA Page.</description>
+    <inlineHelpText>If this field is checked, only applicants with the &quot;Veteran?&quot; field check on their Pre-Applicant will show on the EA Page.</inlineHelpText>
+    <label>Consider Veterans&apos; Preference</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

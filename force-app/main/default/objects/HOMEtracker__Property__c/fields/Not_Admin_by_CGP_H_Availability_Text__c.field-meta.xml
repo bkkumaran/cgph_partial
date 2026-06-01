@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_Admin_by_CGP_H_Availability_Text__c</fullName>
+    <description>Enter  availability text to appear on the development page of the AA Website for developments not administered by CGP&amp;H.</description>
+    <inlineHelpText>Enter  availability text to appear on the development page of the AA Website for developments not administered by CGP&amp;H.  website says: This location is not administered by CGP&amp;H. If you want to join the waiting list, contact the provider directly:</inlineHelpText>
+    <label>Not Admin by CGP&amp;H Availability Text</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

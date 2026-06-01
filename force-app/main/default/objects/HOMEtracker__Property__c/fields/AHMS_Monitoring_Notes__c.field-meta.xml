@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AHMS_Monitoring_Notes__c</fullName>
+    <inlineHelpText>Select any information that will need to be updated in AHMS.</inlineHelpText>
+    <label>AHMS Unit Monitoring Notes</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Number of Bedrooms</fullName>
+                <default>false</default>
+                <label>Number of Bedrooms</label>
+            </value>
+            <value>
+                <fullName>Family/Age Restricted</fullName>
+                <default>false</default>
+                <label>Family/Age Restricted</label>
+            </value>
+            <value>
+                <fullName>Income Level</fullName>
+                <default>false</default>
+                <label>Income Level</label>
+            </value>
+            <value>
+                <fullName>Affordability %</fullName>
+                <default>false</default>
+                <label>Affordability %</label>
+            </value>
+            <value>
+                <fullName>Effective Date of Controls</fullName>
+                <default>false</default>
+                <label>Effective Date of Controls</label>
+            </value>
+            <value>
+                <fullName>Perpetual Yes/No</fullName>
+                <default>false</default>
+                <label>Perpetual Yes/No</label>
+            </value>
+            <value>
+                <fullName>Length of Controls (Years)</fullName>
+                <default>false</default>
+                <label>Length of Controls (Years)</label>
+            </value>
+            <value>
+                <fullName>Housing Type</fullName>
+                <default>false</default>
+                <label>Housing Type</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

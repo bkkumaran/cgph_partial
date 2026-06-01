@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Age_of_Roof__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This formula calculates the age of roof based on the Year Roof Installed field.</description>
+    <externalId>false</externalId>
+    <formula>IF(VALUE( HOMEtracker__Year_Roof_Installed__c ) &lt;= YEAR(TODAY()), YEAR(TODAY()) - VALUE(HOMEtracker__Year_Roof_Installed__c ), NULL)</formula>
+    <inlineHelpText>This formula calculates the age of roof based on the Year Roof Installed field.</inlineHelpText>
+    <label>Age of Roof</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

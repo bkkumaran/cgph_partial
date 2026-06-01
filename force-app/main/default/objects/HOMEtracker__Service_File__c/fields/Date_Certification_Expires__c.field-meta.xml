@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Certification_Expires__c</fullName>
+    <description>Auto calculated: &quot;Eligibility Date&quot; + 180</description>
+    <formula>Eligibility_Date__c  + 180</formula>
+    <inlineHelpText>Auto calculated: &quot;Eligibility Date&quot; + 180</inlineHelpText>
+    <label>Date Certification Expires</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

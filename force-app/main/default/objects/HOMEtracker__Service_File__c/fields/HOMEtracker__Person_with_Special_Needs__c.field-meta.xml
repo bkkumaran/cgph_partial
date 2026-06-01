@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Person_with_Special_Needs__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout.
+
+This household contains one or more persons with special needs. For example, if someone in the household is visually impaired or required an accessible bathroom or kitchen. This does not auto-fill from the Application Household Member records.</description>
+    <inlineHelpText>This household contains one or more persons with special needs. For example, if someone in the household is visually impaired or required an accessible bathroom or kitchen. This does not auto-fill from the Application Household Member records.</inlineHelpText>
+    <label>Person with Special Needs In Household</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Initial_Seller_Description__c</fullName>
+    <description>If the initial seller would like an additional description added to the closing documents, add it here. The result will be between two commas. For example: &quot;a New Jersey limited liability company&quot; - enter without quotes.</description>
+    <inlineHelpText>If the initial seller would like an additional description added to the closing documents, add it here. The result will be between two commas. For example: &quot;a New Jersey limited liability company&quot; - enter without quotes.</inlineHelpText>
+    <label>Initial Seller Description</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

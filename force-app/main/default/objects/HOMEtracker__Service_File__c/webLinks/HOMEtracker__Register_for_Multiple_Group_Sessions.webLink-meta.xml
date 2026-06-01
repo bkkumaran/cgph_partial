@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Register_for_Multiple_Group_Sessions</fullName>
+    <availability>online</availability>
+    <description>In Classic, register one Application Household Member for multiple Group Sessions.</description>
+    <displayType>button</displayType>
+    <height>600</height>
+    <linkType>page</linkType>
+    <masterLabel>Register for Multiple Group Sessions</masterLabel>
+    <openType>sidebar</openType>
+    <page>HOMEtracker__RegisterForMultipleGroupSessions</page>
+    <protected>false</protected>
+</WebLink>

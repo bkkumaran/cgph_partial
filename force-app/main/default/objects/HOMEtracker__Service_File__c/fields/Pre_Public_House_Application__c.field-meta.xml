@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pre_Public_House_Application__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If checked, this is a service file that was submitted using the legacy process (pre public house). It could also be a service file that was certified by a previous AA.</description>
+    <inlineHelpText>If checked, this is a service file that was submitted using the legacy process (pre public house). It could also be a service file that was certified by a previous AA.</inlineHelpText>
+    <label>Non Public House Application</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

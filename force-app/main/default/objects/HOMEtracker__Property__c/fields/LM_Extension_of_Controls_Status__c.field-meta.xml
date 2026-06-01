@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LM_Extension_of_Controls_Status__c</fullName>
+    <description>Extension of Controls project - Status of extension of controls.</description>
+    <inlineHelpText>Extension of Controls project - Status of extension of controls.</inlineHelpText>
+    <label>Extension of Controls Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Attended 1st meeting and did not check want more info</fullName>
+                <default>true</default>
+                <label>Attended 1st meeting and did not check want more info</label>
+            </value>
+            <value>
+                <fullName>Attended 1st meeting and want more information</fullName>
+                <default>false</default>
+                <label>Attended 1st meeting and want more information</label>
+            </value>
+            <value>
+                <fullName>Controls extended/COMPLETE</fullName>
+                <default>false</default>
+                <label>Controls extended/COMPLETE</label>
+            </value>
+            <value>
+                <fullName>Did not attend 1st meeting</fullName>
+                <default>false</default>
+                <label>Did not attend 1st meeting</label>
+            </value>
+            <value>
+                <fullName>Did not attend 1st meeting but Called and want more information</fullName>
+                <default>false</default>
+                <label>Did not attend 1st meeting but Called and want more information</label>
+            </value>
+            <value>
+                <fullName>Follow-up meeting scheduled</fullName>
+                <default>false</default>
+                <label>Follow-up meeting scheduled</label>
+            </value>
+            <value>
+                <fullName>Inspected and repairs required</fullName>
+                <default>false</default>
+                <label>Inspected and repairs required</label>
+            </value>
+            <value>
+                <fullName>Letter to owner returned</fullName>
+                <default>false</default>
+                <label>Letter to owner returned</label>
+            </value>
+            <value>
+                <fullName>Not eligible for program b/c controls not expiring</fullName>
+                <default>false</default>
+                <label>Not eligible for program b/c controls not expiring</label>
+            </value>
+            <value>
+                <fullName>Not eligible for program b/c sold out of program</fullName>
+                <default>false</default>
+                <label>Not eligible for program b/c sold out of program</label>
+            </value>
+            <value>
+                <fullName>Passed inspection and pending payment/execution of documents</fullName>
+                <default>false</default>
+                <label>Passed inspection and pending payment/execution of documents</label>
+            </value>
+            <value>
+                <fullName>Referred to construction official</fullName>
+                <default>false</default>
+                <label>Referred to construction official</label>
+            </value>
+            <value>
+                <fullName>Signed commitment form</fullName>
+                <default>false</default>
+                <label>Signed commitment form</label>
+            </value>
+            <value>
+                <fullName>Owner does not want to extend controls</fullName>
+                <default>false</default>
+                <label>Owner does not want to extend controls</label>
+            </value>
+            <value>
+                <fullName>Met privately with homeowner and owner still deciding</fullName>
+                <default>false</default>
+                <label>Met privately with homeowner and owner still deciding</label>
+            </value>
+            <value>
+                <fullName>Township purchasing home</fullName>
+                <default>false</default>
+                <label>Township purchasing home</label>
+            </value>
+            <value>
+                <fullName>Owner is selling and extending controls</fullName>
+                <default>false</default>
+                <label>Owner is selling and extending controls</label>
+            </value>
+            <value>
+                <fullName>Mahwah - in progress</fullName>
+                <default>false</default>
+                <label>Mahwah - in progress</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

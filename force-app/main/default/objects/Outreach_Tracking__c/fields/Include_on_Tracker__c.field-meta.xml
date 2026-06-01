@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Include_on_Tracker__c</fullName>
+    <formula>AND(
+Service_File__r.HOMEtracker__Property__r.Include_on_Tracker__c=true,
+OR(
+TEXT(Tracker_Status__c) =&apos;Primary&apos;,
+TEXT(Tracker_Status__c)=&apos;Backup&apos;,
+TEXT(Tracker_Status__c)=&apos;Flagged&apos;,
+TEXT(Tracker_Status__c)=&apos;Hidden&apos;,
+AND(TEXT(Tracker_Status__c)=&apos;Removed&apos;, Move_to_Removed_Report__c = false)),
+Priority_Calc__c != 1000,
+NOT(TEXT( Service_File__r.HOMEtracker__Status__c )=&apos;Current Owner&apos;),
+NOT(TEXT( Service_File__r.HOMEtracker__Status__c )=&apos;Current Renter&apos;),
+NOT(TEXT( Service_File__r.HOMEtracker__Status__c )=&apos;Past Renter&apos;),
+NOT(TEXT( Service_File__r.HOMEtracker__Status__c )=&apos;&apos;),
+NOT(CONTAINS(TEXT( Service_File__r.HOMEtracker__Status__c ),&apos;Withdrawn&apos;))
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Calculated from Service File Status Fields.</inlineHelpText>
+    <label>Available for Tracker</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

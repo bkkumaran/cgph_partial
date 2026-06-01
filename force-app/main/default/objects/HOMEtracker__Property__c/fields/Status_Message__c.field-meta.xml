@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status_Message__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(HOMEtracker__Status__c,&quot;Under Construction&quot;),&quot;Under Construction&quot;,
+IF(ISPICKVAL(HOMEtracker__Status__c,&quot;Sale Pending/In Escrow&quot;),&quot;Sale Pending, No longer available for viewing&quot;,
+IF(ISPICKVAL(HOMEtracker__Status__c,&quot;Available For Rent - Immediate Occupancy&quot;),&quot;Immediate Occupancy&quot;,
+IF(ISPICKVAL(HOMEtracker__Status__c,&quot;Available For Rent - Vacancy in Next 30-60 Days&quot;),&quot;Vacancy in Next 30-60 Days&quot;,
+IF(ISPICKVAL(HOMEtracker__Status__c,&quot;Rental Pending&quot;),&quot;Rental Pending&quot;,&quot;&quot;)))))</formula>
+    <inlineHelpText>Status message to display in Profile Property Listing</inlineHelpText>
+    <label>Status Message</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

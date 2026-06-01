@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Date_Placed_on_Wait_List__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Auto-fills when Service File is set to &apos;Wait List.&apos; Edit the field to make any changes.</description>
+    <inlineHelpText>Auto-fills when Service File is set to &apos;Wait List.&apos; Edit the field to make any changes.</inlineHelpText>
+    <label>Date Placed on Wait List</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

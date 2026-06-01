@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deadline__c</fullName>
+    <description>The Request to Visit Deadline that will display on the property listing thumbnail.</description>
+    <inlineHelpText>The Request to Visit Deadline that will display on the property listing thumbnail.</inlineHelpText>
+    <label>Request to Visit Deadline</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

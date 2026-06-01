@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inc_Limit_Update_Manual_Variables</fullName>
+    <columns>NAME</columns>
+    <columns>TEMP_Manual_Variable_Update_Needed__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>PHA__Application_Status__c</columns>
+    <columns>Application_Workflow_Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>TEMP_Manual_Variable_Update_Needed__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Inc Limit Update - Manual Variables</label>
+</ListView>

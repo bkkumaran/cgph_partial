@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Zillow_NA_b_c_listed_by_other_party__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Check if CGP&amp;H cannot list b/c listed by another party.</inlineHelpText>
+    <label>Zillow NA b/c listed by other party</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

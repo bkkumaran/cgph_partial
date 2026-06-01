@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_listings_must_go_live_on_website__c</fullName>
+    <inlineHelpText>Date listings must go live on NJHRC and AFHNJ to meet 60 NJHRC rule</inlineHelpText>
+    <label>Date must go live on NJHRC/ website</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

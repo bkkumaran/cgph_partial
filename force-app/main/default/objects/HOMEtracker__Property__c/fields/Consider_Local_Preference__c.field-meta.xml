@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Consider_Local_Preference__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If checked, only applicants who meet the specified local preference criteria below will appear on the EA Page. See the applicant&apos;s municipality preference for more info.</description>
+    <inlineHelpText>If checked, only applicants who meet the specified local preference criteria below will appear on the EA Page. See the applicant&apos;s municipality preference for more info.</inlineHelpText>
+    <label>Consider Local Preference</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

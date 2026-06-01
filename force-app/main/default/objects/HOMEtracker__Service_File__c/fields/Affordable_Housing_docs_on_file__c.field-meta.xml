@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Affordable_Housing_docs_on_file__c</fullName>
+    <inlineHelpText>file audit for various programs</inlineHelpText>
+    <label>Affordable Housing docs on file</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Hamilton Park Complete (cert K and cert J, 95/5 mortgage note)</fullName>
+                <default>false</default>
+                <label>Hamilton Park Complete (cert K and cert J, 95/5 mortgage note)</label>
+            </value>
+            <value>
+                <fullName>No affordable housing documents on file</fullName>
+                <default>false</default>
+                <label>No affordable housing documents on file</label>
+            </value>
+            <value>
+                <fullName>Partial documents on file</fullName>
+                <default>false</default>
+                <label>Partial documents on file</label>
+            </value>
+            <value>
+                <fullName>Union - Affordable docs executed</fullName>
+                <default>false</default>
+                <label>Union - Affordable docs executed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

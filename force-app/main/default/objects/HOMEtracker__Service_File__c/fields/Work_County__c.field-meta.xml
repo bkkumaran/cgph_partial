@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Work_County__c</fullName>
+    <label>Work County</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Do not work in New Jersey</fullName>
+                <default>false</default>
+                <label>Do not work in New Jersey</label>
+            </value>
+            <value>
+                <fullName>Atlantic County</fullName>
+                <default>false</default>
+                <label>Atlantic County</label>
+            </value>
+            <value>
+                <fullName>Bergen County</fullName>
+                <default>false</default>
+                <label>Bergen County</label>
+            </value>
+            <value>
+                <fullName>Burlington County</fullName>
+                <default>false</default>
+                <label>Burlington County</label>
+            </value>
+            <value>
+                <fullName>Camden County</fullName>
+                <default>false</default>
+                <label>Camden County</label>
+            </value>
+            <value>
+                <fullName>Cape May County</fullName>
+                <default>false</default>
+                <label>Cape May County</label>
+            </value>
+            <value>
+                <fullName>Cumberland County</fullName>
+                <default>false</default>
+                <label>Cumberland County</label>
+            </value>
+            <value>
+                <fullName>Essex County</fullName>
+                <default>false</default>
+                <label>Essex County</label>
+            </value>
+            <value>
+                <fullName>Gloucester County</fullName>
+                <default>false</default>
+                <label>Gloucester County</label>
+            </value>
+            <value>
+                <fullName>Hudson County</fullName>
+                <default>false</default>
+                <label>Hudson County</label>
+            </value>
+            <value>
+                <fullName>Hunterdon County</fullName>
+                <default>false</default>
+                <label>Hunterdon County</label>
+            </value>
+            <value>
+                <fullName>Mercer County</fullName>
+                <default>false</default>
+                <label>Mercer County</label>
+            </value>
+            <value>
+                <fullName>Middlesex County</fullName>
+                <default>false</default>
+                <label>Middlesex County</label>
+            </value>
+            <value>
+                <fullName>Monmouth County</fullName>
+                <default>false</default>
+                <label>Monmouth County</label>
+            </value>
+            <value>
+                <fullName>Morris County</fullName>
+                <default>false</default>
+                <label>Morris County</label>
+            </value>
+            <value>
+                <fullName>Ocean County</fullName>
+                <default>false</default>
+                <label>Ocean County</label>
+            </value>
+            <value>
+                <fullName>Passaic County</fullName>
+                <default>false</default>
+                <label>Passaic County</label>
+            </value>
+            <value>
+                <fullName>Salem County</fullName>
+                <default>false</default>
+                <label>Salem County</label>
+            </value>
+            <value>
+                <fullName>Somerset County</fullName>
+                <default>false</default>
+                <label>Somerset County</label>
+            </value>
+            <value>
+                <fullName>Sussex County</fullName>
+                <default>false</default>
+                <label>Sussex County</label>
+            </value>
+            <value>
+                <fullName>Union County</fullName>
+                <default>false</default>
+                <label>Union County</label>
+            </value>
+            <value>
+                <fullName>Warren County</fullName>
+                <default>false</default>
+                <label>Warren County</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

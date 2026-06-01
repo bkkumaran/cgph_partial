@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Months_to_Financial_Readiness__c</fullName>
+    <deprecated>false</deprecated>
+    <description>&quot;How many months do you expect it to take before you are financial ready to purchase a home?&quot;</description>
+    <inlineHelpText>&quot;How many months do you expect it to take before you are financial ready to purchase a home?&quot;</inlineHelpText>
+    <label>Months to Financial Readiness</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Less than 1 month</fullName>
+                <default>false</default>
+                <label>Less than 1 month</label>
+            </value>
+            <value>
+                <fullName>2-4 months</fullName>
+                <default>false</default>
+                <label>2-4 months</label>
+            </value>
+            <value>
+                <fullName>5-7 months</fullName>
+                <default>false</default>
+                <label>5-7 months</label>
+            </value>
+            <value>
+                <fullName>7-9 months</fullName>
+                <default>false</default>
+                <label>7-9 months</label>
+            </value>
+            <value>
+                <fullName>10 or more months</fullName>
+                <default>false</default>
+                <label>10 or more months</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

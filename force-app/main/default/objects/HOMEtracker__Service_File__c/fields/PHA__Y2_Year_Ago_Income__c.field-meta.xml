@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PHA__Y2_Year_Ago_Income__c</fullName>
+    <deprecated>false</deprecated>
+    <label>2 Year Ago Income</label>
+    <summarizedField>HOMEtracker__Household_Member__c.PHA__Income_2_Years_Ago__c</summarizedField>
+    <summaryForeignKey>HOMEtracker__Household_Member__c.HOMEtracker__Service_File__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Sum_of_Improvements_Adjustments__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change the field or hide the field from the layout. This field auto calculates the total value of all related Improvements and Adjustments related to this Service File and Property.</description>
+    <inlineHelpText>This field auto calculates the total value of all related Improvements and Adjustments related to this Service File and Property.</inlineHelpText>
+    <label>Sum of Improvements/Adjustments</label>
+    <summarizedField>HOMEtracker__Improvements_Adjustments__c.HOMEtracker__Value__c</summarizedField>
+    <summaryForeignKey>HOMEtracker__Improvements_Adjustments__c.HOMEtracker__Service_File__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

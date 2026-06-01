@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_Monthly_Other_Assistance__c</fullName>
+    <description>If the applicant needs other monthly assistance to be eligible, enter the amount here after verifying with them.</description>
+    <inlineHelpText>If the applicant needs other monthly assistance to be eligible, enter the amount here after verifying with them.</inlineHelpText>
+    <label>Monthly Other Assistance</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

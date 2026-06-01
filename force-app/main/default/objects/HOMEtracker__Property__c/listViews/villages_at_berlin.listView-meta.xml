@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>villages_at_berlin</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Date_Placed_in_Program__c</columns>
+    <columns>Date_First_Occupied__c</columns>
+    <columns>Rent_when_First_Occupied__c</columns>
+    <columns>Initial_rental_pricing__c</columns>
+    <columns>Floor_unit_is_located_on__c</columns>
+    <columns>Property_Web_Listing__c</columns>
+    <columns>HOMEtracker__Interior__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Taylor Vose</value>
+    </filters>
+    <label>villages at berlin</label>
+</ListView>

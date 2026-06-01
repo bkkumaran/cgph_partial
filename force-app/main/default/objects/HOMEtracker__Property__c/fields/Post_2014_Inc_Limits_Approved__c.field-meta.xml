@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Post_2014_Inc_Limits_Approved__c</fullName>
+    <formula>if( TEXT(Municipality_Name__r.New_Income_Limit_Inc_Adoption_Status__c) = &quot;Completed&quot;,true,false)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This field is controlled by the &quot;New Income Limit/Inc. Adoption Status on the municipality. Mark as completed if the municipality is utilizing the current income limits</inlineHelpText>
+    <label>Post 2014 Inc Limits Approved</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

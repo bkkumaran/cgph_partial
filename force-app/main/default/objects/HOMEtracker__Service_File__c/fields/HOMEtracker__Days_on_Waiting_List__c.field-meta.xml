@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Days_on_Waiting_List__c</fullName>
+    <deprecated>false</deprecated>
+    <description>For applications, the number of days since the Application Complete date.  For completed home purchases or rentals, the number of days between the Application Complete date and the actual Close Date (or Move In Date).</description>
+    <externalId>false</externalId>
+    <formula>IF(ISNULL( HOMEtracker__Certified_Closed_Date__c ), Today(), HOMEtracker__Certified_Closed_Date__c) - HOMEtracker__Date_Placed_on_Wait_List__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>For applications, the number of days since the Application Complete date.  For completed home purchases or rentals, the number of days between the Application Complete date and the actual Close Date (or Move In Date).</inlineHelpText>
+    <label>Days on Waiting List</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PHA__Application_Flag__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Obstacles preventing successful completion of the application process.</description>
+    <externalId>false</externalId>
+    <formula>IF( /*if 0*/ NOT(ISPICKVAL( HOMEtracker__Status__c,&apos;Application in Process&apos; )), &apos;&apos;,
+IF(/*if 1*/
+AND(OR(ISPICKVAL( PHA__Application_Status__c,&apos;Invited&apos; ),ISPICKVAL( PHA__Application_Status__c,&apos;Incomplete&apos; )),  OR(ISBLANK(PHA__Application_Due_Date__c),ISNULL(PHA__Application_Due_Date__c)) ),
+&apos;Missing Application Due&apos;,
+IF(/*if 2*/
+OR(AND(OR(ISPICKVAL( PHA__Application_Status__c,&apos;Invited&apos; ),ISPICKVAL( PHA__Application_Status__c,&apos;Incomplete&apos; )), (PHA__Application_Due_Date__c + 1) &lt; TODAY() ),
+AND(ISPICKVAL( PHA__Application_Status__c,&apos;Document Corrections&apos; ), (PHA__Document_Request_Due__c + 1) &lt; TODAY())),
+&apos;Past Due&apos;,
+IF(/*if 3*/
+AND(ISPICKVAL( PHA__Application_Status__c,&apos;Document Corrections&apos; ), OR(ISBLANK(PHA__Document_Request_Due__c),ISNULL(PHA__Document_Request_Due__c)) ),
+&apos;Missing Document Request Due&apos;,
+IF(/*if 4*/
+AND(ISPICKVAL( PHA__Application_Status__c,&apos;Document Review&apos; ), (TODAY() - (PHA__Application_Submitted__c + 1)) &gt; 21 ),
+&apos;Stuck in Document Review&apos;,
+IF(/*if 5*/
+AND(ISPICKVAL( PHA__Application_Status__c,&apos;Complete&apos; ), (TODAY() - (PHA__Documents_Reviewed__c )) &gt; 21 ),
+&apos;Stuck in Eligibility Determination&apos;,
+&apos;&apos; /*no flag value */
+)/*if 5*/
+)/*if 4*/
+)/*if 3*/
+)/*if 2*/
+)/*if 1*/
+)/*if 0*/</formula>
+    <inlineHelpText>Obstacles preventing successful completion of the application process.</inlineHelpText>
+    <label>Application Flag</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Is_Current_Applicant__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This formula field equals &quot;Yes&quot; whenever Status indicates that the file is in the application phase and is not over a year old.  Useful for filtering records.</description>
+    <externalId>false</externalId>
+    <formula>IF( AND( OR(
+ISPICKVAL( HOMEtracker__Status__c , &quot;Application Submitted&quot;) , 
+ISPICKVAL( HOMEtracker__Status__c , &quot;Application Complete&quot;)),
+(TODAY() - DATEVALUE(LastModifiedDate) &lt;= 365)),
+&quot;Yes&quot;, &quot;No&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This formula field equals &quot;Yes&quot; whenever Status indicates that the file is in the application phase and is not over a year old.  Useful for filtering records. If an application is out of date, edit and save it to reset Current Application to Yes.</inlineHelpText>
+    <label>Current Applicant</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Household_of_Color__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The data stored in this field is linked to the HomeKeeper National Data Hub. This formula indicates whether this file is considered a Household of Color. It will show &quot;Yes&quot; if file&apos;s Race is something other than White, or Ethnicity is Hispanic. Based on the Ethnicity and Race fields on the Service File, not Household Members.</description>
+    <externalId>false</externalId>
+    <formula>IF((!ISPICKVAL(HOMEtracker__Race__c , &quot;White&quot;) &amp;&amp; !ISPICKVAL(HOMEtracker__Race__c , &quot;Chose Not to Respond&quot;) &amp;&amp; !ISBLANK(TEXT(HOMEtracker__Race__c))) || ISPICKVAL(HOMEtracker__Ethnicity__c, &quot;Hispanic&quot;), &quot;Yes&quot;, IF(ISBLANK(TEXT(HOMEtracker__Race__c)) || ISBLANK(TEXT(HOMEtracker__Ethnicity__c)) || ISPICKVAL(HOMEtracker__Race__c , &quot;Chose Not to Respond&quot;) || ISPICKVAL(HOMEtracker__Ethnicity__c , &quot;Chose Not to Respond&quot;), &quot;Insufficient Data&quot;, &quot;No&quot;))</formula>
+    <inlineHelpText>This formula indicates whether this file is considered a Household of Color. It will show &quot;Yes&quot; if file&apos;s Race is something other than White, or Ethnicity is Hispanic. Based on the Ethnicity and Race fields on the Service File, not Household Members.</inlineHelpText>
+    <label>Household of Color</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

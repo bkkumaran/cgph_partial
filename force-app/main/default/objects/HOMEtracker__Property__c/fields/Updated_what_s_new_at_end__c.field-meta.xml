@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Updated_what_s_new_at_end__c</fullName>
+    <inlineHelpText>Enter date updated What&apos;s New message on website after lottery deadline.</inlineHelpText>
+    <label>Updated what&apos;s new at end</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

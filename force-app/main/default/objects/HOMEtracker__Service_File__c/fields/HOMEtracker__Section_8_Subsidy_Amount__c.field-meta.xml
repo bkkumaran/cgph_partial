@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Section_8_Subsidy_Amount__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field is not included in Total Monthly Housing Cost. To include, enter as a credit in Other Monthly Housing Expense/Adjustment.</description>
+    <inlineHelpText>The monthly amount that section 8 or a similar housing voucher will provide. This amount is subtracted form the rent regardless of whether rental assistance is allowed.</inlineHelpText>
+    <label>Section 8 Subsidy Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

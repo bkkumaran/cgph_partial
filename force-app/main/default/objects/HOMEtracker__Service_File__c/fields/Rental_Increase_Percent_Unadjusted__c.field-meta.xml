@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rental_Increase_Percent_Unadjusted__c</fullName>
+    <formula>(IF(Post_2014_Inc_Limits_Adopted__c=false,1,(
+IF( MRRIYadj__c&lt; 2019, 1.026,1)*
+IF( MRRIYadj__c&lt; 2018, 1.022,1)*
+IF( MRRIYadj__c&lt; 2017, 1.017,1)*
+IF( MRRIYadj__c&lt; 2016, 1.011,1)*
+IF( MRRIYadj__c&lt; 2015, 1.023,1)))*
+IF( MRRIYadj__c&lt; 2014, 1.018,1)*
+IF( MRRIYadj__c&lt; 2013, 1.014,1)*
+IF( MRRIYadj__c&lt; 2012, 1.016,1)*
+IF( MRRIYadj__c&lt; 2011, 1.05,1)*
+IF( MRRIYadj__c&lt; 2010, 1.02,1)*
+IF( MRRIYadj__c&lt; 2009, 1.033,1)*
+IF( MRRIYadj__c&lt; 2008, 1.03,1)*
+IF( MRRIYadj__c&lt; 2007, 1.038,1)*
+IF( MRRIYadj__c&lt; 2006, 1.04,1)*
+IF( MRRIYadj__c&lt; 2005, 1.04,1)*
+IF( MRRIYadj__c&lt; 2004, 1.035,1)*
+IF( MRRIYadj__c&lt; 2003, 1.03,1)*
+IF( MRRIYadj__c&lt; 2002, 1.039,1)*
+IF( MRRIYadj__c&lt; 2001, 1.036,1)*
+IF( MRRIYadj__c&lt; 2000, 1.02,1)-1)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Rental Increase Percent Unadjusted</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

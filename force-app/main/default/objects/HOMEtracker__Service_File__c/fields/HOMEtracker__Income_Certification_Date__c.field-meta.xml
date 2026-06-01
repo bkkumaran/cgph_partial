@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Income_Certification_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The date the income was certified. Auto-fills when you click the Certify Income button. Before certifying, verify that you have entered all available information on the applicants.</description>
+    <inlineHelpText>The date the income was certified. Auto-fills when you click the Certify Income button. Before certifying, verify that you have entered all available information on the applicants.</inlineHelpText>
+    <label>Income Certification Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_Initial_Backup_Emails_R__c</fullName>
+    <description>Opens a view where you can mark applicants as &quot;Ready to Refer (Initial Backup), R&quot; and send &quot;RTV Submitted, Initial On Hold&quot; emails to ten applicants at a time.</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;/ui/list/FilterEditPage?id=00B3m000005PN7t&quot;
+
++&quot;&amp;fval1=%22&quot;+
+
+IF(CONTAINS(Name,&quot;#&quot;)=TRUE, SUBSTITUTE(Name, &quot;#&quot;, &quot;%23&quot;), Name) 
+
++&quot;%22&quot;
++&quot;&amp;fval2=%22Eligible%2C%20Pending%20Staff%20Action%22&quot;
++&quot;&amp;fval3=Pending&quot;
++&quot;&amp;fval4=Property%20Questionnaire&quot;
++&quot;&amp;fval5=False&quot;+
+
+&quot;&amp;retURL=%2Fa1I%3Ffcf%00B3m000005PN7t&quot;
+
+, &quot;Click Here&quot;)&amp;
+&quot;...........&quot;&amp;
+HYPERLINK(
+&quot;https://cgph.lightning.force.com/flow/Outreach_Send_Initial_Backup_Emails?varPropID=&quot;&amp; Id &amp;&quot;&amp;retURL=https%3A%2F%2Fcgph.lightning.force.com%2Flightning%2Fr%2FHOMEtracker__Property__c%2F&quot;&amp; Id &amp;&quot;%2Fview&quot;,
+&quot;NEW&quot;,&quot;_Top&quot;)</formula>
+    <inlineHelpText>Opens a view where you can mark applicants as &quot;Ready to Refer (Initial Backup), R&quot; and send &quot;RTV Submitted, Initial On Hold&quot; emails to ten applicants at a time.</inlineHelpText>
+    <label>Send Initial Backup Emails, R</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

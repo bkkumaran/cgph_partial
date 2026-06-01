@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Subsidized_Price__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. This formula shows Appraised Unrestricted Market Value minus Total Community Investment. Although this may be different from Purchase Price and Effective Purchase Price, it&apos;s one of the most important price points for National Data Hub analyses. It captures the impact of the total subsidy invested in the transaction, relative to market value. This allows a standardized comparison of post-subsidy buyer prices across the industry&apos;s diverse range of subsidy structuring methods. It is the basis for National Data Hub affordability calculations.</description>
+    <formula>HOMEtracker__Appraised_Unrestricted_Market_Value__c - HOMEtracker__Total_Community_Investment__c</formula>
+    <inlineHelpText>This formula shows Appraised Unrestricted Market Value minus Total Community Investment. An essential price point for National Data Hub analyses. Captures the impact of the total subsidy, relative to market value. See description for details.</inlineHelpText>
+    <label>Subsidized Price</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

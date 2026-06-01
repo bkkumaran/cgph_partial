@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Hurdles_to_Overcome__c</fullName>
+    <deprecated>false</deprecated>
+    <description>&quot;Which of the following, if any, is a barrier to buying a home?&quot; Select all that apply.</description>
+    <inlineHelpText>&quot;Which of the following, if any, is a barrier to buying a home?&quot; Select all that apply.</inlineHelpText>
+    <label>Hurdles to Overcome</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Residency</fullName>
+                <default>false</default>
+                <label>Residency</label>
+            </value>
+            <value>
+                <fullName>Insufficient income</fullName>
+                <default>false</default>
+                <label>Insufficient income</label>
+            </value>
+            <value>
+                <fullName>Over income</fullName>
+                <default>false</default>
+                <label>Over income</label>
+            </value>
+            <value>
+                <fullName>Too many assets</fullName>
+                <default>false</default>
+                <label>Too many assets</label>
+            </value>
+            <value>
+                <fullName>Poor credit history</fullName>
+                <default>false</default>
+                <label>Poor credit history</label>
+            </value>
+            <value>
+                <fullName>Insufficient savings for downpayment</fullName>
+                <default>false</default>
+                <label>Insufficient savings for downpayment</label>
+            </value>
+            <value>
+                <fullName>Debt</fullName>
+                <default>false</default>
+                <label>Debt</label>
+            </value>
+            <value>
+                <fullName>Lack of references</fullName>
+                <default>false</default>
+                <label>Lack of references</label>
+            </value>
+            <value>
+                <fullName>Pending divorce</fullName>
+                <default>false</default>
+                <label>Pending divorce</label>
+            </value>
+            <value>
+                <fullName>Pets</fullName>
+                <default>false</default>
+                <label>Pets</label>
+            </value>
+            <value>
+                <fullName>Own existing home</fullName>
+                <default>false</default>
+                <label>Own existing home</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

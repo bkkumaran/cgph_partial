@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Month_to_application_completion__c</fullName>
+    <description>This is the approximate number of months it took to income certify applicant.</description>
+    <externalId>false</externalId>
+    <formula>ROUND((  Eligibility_Date__c -HOMEtracker__Property__r.Date_Outreach_began__c)/30,1)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This is the approximate number of months it took to income certify applicant.</inlineHelpText>
+    <label>Month to rental certification</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

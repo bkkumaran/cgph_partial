@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tentative_Move_In_Date__c</fullName>
+    <description>Enter the tentative move in date. Can be a date or short phrase like &quot;Immediately&quot; or &quot;Mid November&quot;. Make sure to capitalize.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter the tentative move in date. Can be a date or short phrase like &quot;Immediately&quot; or &quot;Mid November&quot;. Make sure to capitalize.</inlineHelpText>
+    <label>Tentative Move In Date</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

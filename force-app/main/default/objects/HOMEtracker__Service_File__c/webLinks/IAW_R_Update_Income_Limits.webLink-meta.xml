@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_R_Update_Income_Limits</fullName>
+    <availability>online</availability>
+    <description>Click to update the Income Limit fields on the Service File with current information (rentals).</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Update Income Limits &amp; Expense Variables</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+
+var records = sforce.connection.query(&quot;SELECT Id, IAW_R_Update_Income_Limits_Counter__c FROM HOMEtracker__Service_File__c Where id = &apos;{!HOMEtracker__Service_File__c.Id}&apos;&quot;);
+
+var serviceFileRec = records.getArray(&apos;records&apos;)[0];
+
+serviceFileRec.IAW_R_Update_Income_Limits_Counter__c = Number(serviceFileRec.IAW_R_Update_Income_Limits_Counter__c) + 1;
+
+sforce.connection.update([serviceFileRec]);
+
+window.location.reload();
+
+if(serviceFileRec.IAW_R_Update_Income_Limits_Counter__c!=0){
+
+alert(&apos;Warning! This button will only work once. If you need to make additional changes to the Income Limit fields, you must update them manually.&apos;);
+
+}</url>
+</WebLink>

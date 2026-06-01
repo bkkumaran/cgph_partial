@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Local_Pref_Website_Text__c</fullName>
+    <description>Enter text to explain the local preference criteria for this development. This text will override the regional preference text on the development page on our website for this development.</description>
+    <inlineHelpText>Enter text to explain the local preference criteria for this development. This text will override the regional preference text on the development page on our website for this development.</inlineHelpText>
+    <label>Local Pref Website Text</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Certified_4_Person_AMI__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the national performance database. Do not enter data in this field manually.</description>
+    <inlineHelpText>This is the 4 person AMI for the AMI selected. It should be a locked field. (Do not enter values for this field. It is populated automatically when income is certified.)</inlineHelpText>
+    <label>Certified 4-Person AMI</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

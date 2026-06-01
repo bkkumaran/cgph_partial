@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Special_Circumstances__c</fullName>
+    <label>Special Circumstances</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Special Needs</fullName>
+                <default>false</default>
+                <label>Special Needs</label>
+            </value>
+            <value>
+                <fullName>Rehabilitation</fullName>
+                <default>false</default>
+                <label>Rehabilitation</label>
+            </value>
+            <value>
+                <fullName>RCA</fullName>
+                <default>false</default>
+                <label>RCA</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Accessory Apartments</fullName>
+                <default>false</default>
+                <label>Accessory Apartments</label>
+            </value>
+            <value>
+                <fullName>Assisted Living Residences</fullName>
+                <default>false</default>
+                <label>Assisted Living Residences</label>
+            </value>
+            <value>
+                <fullName>Credits Without Controls- Prior Cycle</fullName>
+                <default>false</default>
+                <label>Credits Without Controls- Prior Cycle</label>
+            </value>
+            <value>
+                <fullName>ECHO Units</fullName>
+                <default>false</default>
+                <label>ECHO Units</label>
+            </value>
+            <value>
+                <fullName>Market to Affordable</fullName>
+                <default>false</default>
+                <label>Market to Affordable</label>
+            </value>
+            <value>
+                <fullName>Redevelopment</fullName>
+                <default>false</default>
+                <label>Redevelopment</label>
+            </value>
+            <value>
+                <fullName>Unmet Need</fullName>
+                <default>false</default>
+                <label>Unmet Need</label>
+            </value>
+            <value>
+                <fullName>Boarding Homes</fullName>
+                <default>false</default>
+                <label>Boarding Homes</label>
+            </value>
+            <value>
+                <fullName>Off Site</fullName>
+                <default>false</default>
+                <label>Off Site</label>
+            </value>
+            <value>
+                <fullName>On Site</fullName>
+                <default>false</default>
+                <label>On Site</label>
+            </value>
+            <value>
+                <fullName>Trans Facility for Homeless</fullName>
+                <default>false</default>
+                <label>Trans Facility for Homeless</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

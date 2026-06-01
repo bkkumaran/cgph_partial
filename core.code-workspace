@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "path": "/Users/balaskandhan/CGPH_PARTIAL"
+    }
+  ],
+  "settings": {
+    "eslint.workingDirectories": [
+      "/Users/balaskandhan/CGPH_PARTIAL"
+    ],
+    "eslint.validate": [
+      "javascript",
+      "typescript"
+    ],
+    "eslint.options": {
+      "overrideConfigFile": "/Users/balaskandhan/CGPH_PARTIAL/.eslintrc.json"
+    }
+  }
+}

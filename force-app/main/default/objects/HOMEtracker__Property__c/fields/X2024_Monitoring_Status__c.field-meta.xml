@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X2024_Monitoring_Status__c</fullName>
+    <description>Status of unit data entered into AHMS</description>
+    <inlineHelpText>Status of unit data entered into AHMS</inlineHelpText>
+    <label>AHMS Unit Data</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Imported from CTM – not reviewed</fullName>
+                <default>false</default>
+                <label>Units in AHMS- Imported from CTM</label>
+            </value>
+            <value>
+                <fullName>Imported to AHMS</fullName>
+                <default>false</default>
+                <label>Units in AHMS</label>
+            </value>
+            <value>
+                <fullName>Supportive Housing- Imported to AHMS</fullName>
+                <default>false</default>
+                <label>Units in AHMS- Supportive Housing</label>
+            </value>
+            <value>
+                <fullName>Unit Data Imported- Research Needed</fullName>
+                <default>false</default>
+                <label>Units in AHMS- Updates Needed</label>
+            </value>
+            <value>
+                <fullName>UNIT DATA READY FOR ENTRY</fullName>
+                <default>false</default>
+                <label>Units Ready for Entry</label>
+            </value>
+            <value>
+                <fullName>Unit Data Ready for Entry- Missing Initial Leases</fullName>
+                <default>false</default>
+                <label>Units Ready for Entry- Missing Control Start Date</label>
+            </value>
+            <value>
+                <fullName>No Response from Dev AA</fullName>
+                <default>false</default>
+                <label>Not Completing- No AA or Non-Responsive AA</label>
+            </value>
+            <value>
+                <fullName>NOT MUNI AA - Ready &amp; sent to MHL</fullName>
+                <default>false</default>
+                <label>Not Completing- Unit Data sent to MHL/Planner/AA</label>
+            </value>
+            <value>
+                <fullName>CGP&amp;H Not Completing Unit Monitoring</fullName>
+                <default>false</default>
+                <label>Not Completing- CGP&amp;H Not Responsible</label>
+            </value>
+            <value>
+                <fullName>Sent Request- 1st Attempt</fullName>
+                <default>false</default>
+                <label>Unit Monitoring Needed- 1st Request to AA</label>
+            </value>
+            <value>
+                <fullName>Sent Request- 2nd Attempt</fullName>
+                <default>false</default>
+                <label>Unit Monitoring Needed- 2nd Request to AA</label>
+            </value>
+            <value>
+                <fullName>Unit Data Not Imported- Research Needed</fullName>
+                <default>false</default>
+                <label>Unit Monitoring Needed- Research Needed</label>
+            </value>
+            <value>
+                <fullName>Supportive Housing</fullName>
+                <default>false</default>
+                <label>Unit Monitoring Needed- Supportive Housing</label>
+            </value>
+            <value>
+                <fullName>Need Lease Start Dates</fullName>
+                <default>false</default>
+                <label>Unit Data Not Ready- Lease Up In Progress</label>
+            </value>
+            <value>
+                <fullName>Unit Data Not Ready- Additional Research Needed</fullName>
+                <default>false</default>
+                <label>Unit Data Not Ready- Planned</label>
+            </value>
+            <value>
+                <fullName>Beta Batch Upload Completed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Beta Batch Upload Completed</label>
+            </value>
+            <value>
+                <fullName>Complete</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Completed by App Services</label>
+            </value>
+            <value>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Data Entry In Progress</label>
+            </value>
+            <value>
+                <fullName>Finish in 2025</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finish in 2025</label>
+            </value>
+            <value>
+                <fullName>Missing initial leases</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Missing initial leases</label>
+            </value>
+            <value>
+                <fullName>NOT MUNI AA - Ready for Import</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>NOT MUNI AA - Ready for Import</label>
+            </value>
+            <value>
+                <fullName>NOT MUNI AA – NEED CONTROL START ONLY</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>NOT MUNI AA – NEED CONTROL START ONLY</label>
+            </value>
+            <value>
+                <fullName>Not fully occupied</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Not Fully Occupied</label>
+            </value>
+            <value>
+                <fullName>Not Needed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Not Needed</label>
+            </value>
+            <value>
+                <fullName>Planner research needed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Planner research needed</label>
+            </value>
+            <value>
+                <fullName>Ready for Beta Batch Upload</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Ready for Beta Batch Upload</label>
+            </value>
+            <value>
+                <fullName>Need Controls Start only</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Ready for Import  - Need Controls Start only</label>
+            </value>
+            <value>
+                <fullName>Ready for Import- Phase II ML</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Ready for Import- Phase II ML</label>
+            </value>
+            <value>
+                <fullName>Ready to Start</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Ready to Start</label>
+            </value>
+            <value>
+                <fullName>Request from dev AA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Request from Dev AA</label>
+            </value>
+            <value>
+                <fullName>Unit Data Ready for Entry- Missing Initial Pricing</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Unit Data Ready for Entry- Missing Initial Pricing</label>
+            </value>
+            <value>
+                <fullName>Use CTM</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Use CTM</label>
+            </value>
+            <value>
+                <fullName>Waiting for Dev AA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Waiting for Dev AA</label>
+            </value>
+            <value>
+                <fullName>XC done - ready for planner review</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>XC done - ready for planner review</label>
+            </value>
+            <value>
+                <fullName>XC says landlord will not provide</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>XC says landlord will not provide</label>
+            </value>
+            <value>
+                <fullName>_In progress</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>_In progress</label>
+            </value>
+            <value>
+                <fullName>_Need to Check AHMS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>_Need to Check AHMS</label>
+            </value>
+            <value>
+                <fullName>_Need to start</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>_Need to start</label>
+            </value>
+            <value>
+                <fullName>_Ready for import</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>_Ready for import</label>
+            </value>
+            <value>
+                <fullName>_imported to AHMS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>_imported to AHMS</label>
+            </value>
+            <value>
+                <fullName>_sent to town for import</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>_sent to town for import</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__City__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub.
+
+If you enter a zip code contained in the Postal Code lookup table, the City will fill in automatically.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If you enter a zip code contained in the Postal Code lookup table, the City will fill in automatically.</inlineHelpText>
+    <label>City</label>
+    <length>30</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

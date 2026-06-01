@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_Meets_3x_Rent_Requirement__c</fullName>
+    <description>If 3x Rent is Required, the applicant&apos;s monthly income must be greater than or equal to three times the unit&apos;s rent to proceed (waivers are not applicable, section 8 will allow them to proceed).</description>
+    <externalId>false</externalId>
+    <formula>IF(TEXT(IAW_R_3x_Rent_Requirement_z__c) = &quot;&quot;,
+&quot;Missing Expense Variable&quot;,
+
+IF(TEXT(IAW_R_3x_Rent_Requirement_z__c) = &quot;No&quot;,
+&quot;Not Applicable&quot;,
+
+IF(IAW_Monthly_Income_Eligibility__c &gt;= (3 * IAW_Rent__c),
+&quot;Yes&quot;,
+
+&quot;No&quot;)))</formula>
+    <inlineHelpText>If 3x Rent is Required, the applicant&apos;s monthly income must be greater than or equal to three times the unit&apos;s rent to proceed (waivers are not applicable, section 8 will allow them to proceed).</inlineHelpText>
+    <label>Meets 3x Rent Requirement?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

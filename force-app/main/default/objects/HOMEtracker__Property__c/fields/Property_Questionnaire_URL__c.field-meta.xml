@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Property_Questionnaire_URL__c</fullName>
+    <externalId>false</externalId>
+    <formula>&quot;https://www.affordablehomesnewjersey.com/request-to-visit-a-home/?&quot; + 
+&quot;tfa_507=&quot; + Id +
+&quot;&amp;tfa_509=&quot; + SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( Name, &quot; &quot;, &quot;%20&quot;) ,&quot;&amp;&quot;,&quot;%26&quot;),&quot;@&quot;,&quot;%40&quot;),&quot;#&quot;,&quot;%23&quot;) +
+&quot;&amp;tfa_511=&quot; +  RecordType.DeveloperName +
+&quot;&amp;tfa_505=&quot; + TEXT(Minimum_Credit_Score_to_be_Eligible__c) + 
+IF(RecordType.DeveloperName = &quot;Rental_Unit&quot;,&quot;&amp;tfa_229=tfa_230&quot;,&quot;&quot;) +
+IF(RecordType.DeveloperName = &quot;Homeownership&quot;,&quot;&amp;tfa_524=&quot; +  TEXT(HOMEtracker__List_Price__c) + &quot;&amp;tfa_298=tfa_299&quot; + &quot;&amp;tfa_528=&quot; + TEXT(HOMEtracker__List_Price__c * 0.05),&quot;&quot;)</formula>
+    <label>Property Questionnaire URL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Update_R_Inc_Limits_Lock</fullName>
+    <active>false</active>
+    <description>Doesn&apos;t allow the Update Income Limits button to be clicked more than once without a manual update.</description>
+    <errorConditionFormula>AND(
+PRIORVALUE(IAW_R_Update_Income_Limits_Counter__c)&lt;&gt;0,
+ISCHANGED(IAW_R_Update_Income_Limits_Counter__c),
+IAW_R_Update_Income_Limits_Counter__c&lt;&gt;0)</errorConditionFormula>
+    <errorMessage>Warning! This will overwrite the data used to perform the income certification. Do not click after an applicant has been certified. If the applicant has not been certified, you can push through by setting the &quot;Update Income Limits Counter&quot; field to &quot;0&quot;).</errorMessage>
+</ValidationRule>

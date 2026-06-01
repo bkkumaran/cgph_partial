@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_O_of_Inc_Spent_on_Housing_Expenses__c</fullName>
+    <description>Total Monthly Expenses / Monthly Income (Eligibility)</description>
+    <formula>IAW_O_Total_Monthly_Expenses__c /  IAW_Monthly_Income_Eligibility__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Total Monthly Expenses / Monthly Income (Eligibility)</inlineHelpText>
+    <label>% of Income Spent on Housing Expenses</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Real_Estate_Value__c</fullName>
+    <description>The market value of the applicant&apos;s owned real estate. If the applicant does not own real estate, this field should be $0.</description>
+    <inlineHelpText>The market value of the applicant&apos;s owned real estate. If the applicant does not own real estate, this field should be $0.</inlineHelpText>
+    <label>Real Estate Value</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

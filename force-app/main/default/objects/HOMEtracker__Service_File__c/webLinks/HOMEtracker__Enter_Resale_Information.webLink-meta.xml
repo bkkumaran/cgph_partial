@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Enter_Resale_Information</fullName>
+    <availability>online</availability>
+    <description>Custom link to launch the resale information wizard.</description>
+    <displayType>link</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Enter Resale Information</masterLabel>
+    <openType>replace</openType>
+    <page>HOMEtracker__Resale_Summary_Wizard_Start</page>
+    <protected>false</protected>
+</WebLink>

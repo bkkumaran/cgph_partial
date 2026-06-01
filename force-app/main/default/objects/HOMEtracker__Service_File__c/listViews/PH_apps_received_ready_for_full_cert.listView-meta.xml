@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PH_apps_received_ready_for_full_cert</fullName>
+    <columns>NAME</columns>
+    <columns>Municipality__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>Priority__c</columns>
+    <columns>PHA__Application_Due_Date__c</columns>
+    <columns>HOMEtracker__Property__c</columns>
+    <columns>PHA__Application_Submitted__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Application in Process</value>
+    </filters>
+    <filters>
+        <field>Application_Workflow_Status__c</field>
+        <operation>contains</operation>
+        <value>Application Received - Ready for Full Income Certification</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Service_File__c.HOMEtracker__Homeownership</value>
+    </filters>
+    <label>PH apps received ready for full cert</label>
+</ListView>

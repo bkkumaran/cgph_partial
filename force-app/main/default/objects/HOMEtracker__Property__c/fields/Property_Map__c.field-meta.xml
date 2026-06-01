@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Property_Map__c</fullName>
+    <externalId>false</externalId>
+    <formula>&quot;http://maps.google.com/maps?f=q&amp;hl=en&amp;q=&quot; + SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( Name , &quot; &quot;, &quot;%20&quot;) ,&quot;&amp;&quot;,&quot;%26&quot;),&quot;@&quot;,&quot;%40&quot;) + &quot;+&quot; + SUBSTITUTE(HOMEtracker__City__c,&quot; &quot;, &quot;%20&quot;) + &quot;+&quot; + SUBSTITUTE(HOMEtracker__State__c,&quot; &quot;, &quot;%20&quot;) + &quot;+&quot; + HOMEtracker__Postal_Code__c + &quot;+&amp;btnG=Search&quot;</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Property Map</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

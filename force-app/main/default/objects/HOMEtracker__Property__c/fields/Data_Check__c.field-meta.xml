@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_Check__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Development_address__c),&quot;-Add Development&quot; &amp;BR(),&quot;&quot;) &amp;
+
+IF(TEXT(Income_Level__c) &lt;&gt; TEXT(Max_Income_Level__c),&quot;-Income Level Does Not Match Max Income Level&quot; &amp;BR(),&quot;&quot;)&amp;  
+
+IF(AND(TEXT(HOMEtracker__Number_of_Bedrooms__c)=&quot;0&quot;,Maximum_Household_Size__c=2),&quot;&quot;,
+IF((VALUE(TEXT(HOMEtracker__Number_of_Bedrooms__c))*2) &lt;&gt; Maximum_Household_Size__c,&quot;-Max Household Size is Not Two People Per Bedroom&quot; &amp;BR(),&quot;&quot;))&amp;
+
+IF(AND(OR(RecordType.DeveloperName = &quot;Rental_Unit&quot;, RecordType.DeveloperName = &quot;Homeownership&quot;), TEXT(HOMEtracker__Property_Type__c) = &quot;&quot;),&quot;-Add Property Type&quot; &amp;BR(),&quot;&quot;) &amp;
+
+IF(ISBLANK(HOMEtracker__City__c),&quot;-Add City&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(TEXT(HOMEtracker__Number_of_Bedrooms__c)=&quot;&quot;,&quot;-Add Number of Bedrooms&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(TEXT(HOMEtracker__Number_of_Bathrooms__c)=&quot;&quot;,&quot;-Add Number of Bathrooms&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(AND(RecordType.DeveloperName = &quot;Homeownership&quot;, OR(HOMEtracker__List_Price__c = 0,ISBLANK(HOMEtracker__List_Price__c))),&quot;-Add List Price&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(AND(RecordType.DeveloperName = &quot;Rental_Unit&quot;, OR (HOMEtracker__Monthly_Rent__c = 0, ISBLANK(HOMEtracker__Monthly_Rent__c))),&quot;-Add Monthly Rent&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(OR(AND(RecordType.DeveloperName = &quot;Homeownership&quot;, HOMEtracker__Current_HOA_Condo_Fees__c &gt; 0),RecordType.DeveloperName = &quot;Rental_Unit&quot;),&quot;&quot;,&quot;-Add Current HOA/Condo Fee or Lot Rent&quot; &amp;BR() )&amp;
+IF(TEXT(Max_Income_Level__c)=&quot;&quot;,&quot;-Add Max Income Level&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(TEXT(Floor_unit_is_located_on__c)=&quot;&quot;,&quot;-Add Floor Unit is Located On&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(TEXT(Age_Restriction__c)=&quot;&quot;,&quot;-Add Age-Restriction&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(TEXT(Pets_allowed__c)=&quot;&quot;,&quot;-Add Pets Allowed&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(AND(TEXT(Pets_allowed__c)=&quot;Yes&quot;,ISBLANK(Pet_fee__c)),&quot;-Add Pet Listing Info &amp; Fees&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(ISBLANK(Additional_Parking_Fee__c),&quot;-Add Parking Listing Info &amp; Fees&quot; &amp;BR(),&quot;&quot;) &amp;
+
+IF(TEXT(Lottery_Number_for_Priority__c)=&quot;&quot;,&quot;-Add Lottery Number for Priority&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(TEXT(Listing_Type__c)=&quot;&quot;,&quot;-Add Listing Type&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(TEXT(Listing_Stage__c)=&quot;&quot;,&quot;-Add Listing Stage&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(Maximum_Household_Size__c=0,&quot;-Add Maximum Household Size&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(AND(RecordType.DeveloperName = &quot;Rental_Unit&quot;,ISBLANK(Utilities__c)),&quot;-Add Utilities Amount&quot; &amp;BR(),&quot;&quot;) &amp;
+IF(Property_Images__c = 0,&quot;-Add Property Images&quot; &amp;BR(),&quot;&quot;) &amp;
+
+IF(AND(Municipality_Live_Work_Preference__c = FALSE, ISPICKVAL(Listing_Stage__c, &quot;Region and bedroom/household size restricted&quot;) = TRUE),&quot;-No Regional Pref, Listing Stage Cannot be Region Restricted&quot; &amp;BR(),&quot;&quot;) &amp;
+
+IF(Development_address__r.Municipality_Name__c != Municipality_Name__c,&quot;-Development Municipality is Different from Property Municipality&quot; &amp;BR(),&quot;&quot;)</formula>
+    <label>Data Check</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

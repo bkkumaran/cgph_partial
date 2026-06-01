@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_Monthly_Taxes__c</fullName>
+    <description>Sale Price * General Tax Rate * Equalization Ratio / 12</description>
+    <formula>IF( IAW_Property_Type__c = &quot;Mobile or Manufactured Home&quot;, 0.00,
+
+
+IAW_Sale_Price__c *  IAW_General_Tax_Rate__c * IAW_Equalization_Ratio__c / 12
+
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Sale Price * General Tax Rate * Equalization Ratio / 12</inlineHelpText>
+    <label>Monthly Taxes</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

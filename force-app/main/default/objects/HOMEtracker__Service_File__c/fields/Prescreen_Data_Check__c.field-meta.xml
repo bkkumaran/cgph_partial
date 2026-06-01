@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prescreen_Data_Check__c</fullName>
+    <description>Checks whether the appropriate fields have been completed in the &quot;Application Prescreen&quot; section.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Application_Case_Manager_New__c), &quot;- Add Primary Reviewer&quot; &amp; BR(), &quot;&quot;) &amp;
+
+IF(ISBLANK(Case_Number__c), &quot;- Add Case Number&quot; &amp; BR(), &quot;&quot;) &amp;
+
+IF(ISBLANK(Application_Deadline__c), &quot;- Add Application Deadline&quot; &amp; BR(), &quot;&quot;) &amp;
+
+IF(ISBLANK(HOMEtracker__Initial_Contact_Date__c), &quot;- Add Initial Contact Date&quot; &amp; BR(), &quot;&quot;) &amp;
+
+IF(ISPICKVAL(Household_Member_Currently_Owns_Real_Est__c,&quot;&quot;), &quot;- Add if HH Member Currently Owns Real Estate&quot; &amp; BR(), &quot;&quot;) &amp;
+
+IF(ISBLANK(Real_Estate_Value__c), &quot;- Add Real Estate Value (if none, put $0).&quot; &amp; BR(), &quot;&quot;)</formula>
+    <inlineHelpText>Checks whether the appropriate fields have been completed in the &quot;Application Prescreen&quot; section.</inlineHelpText>
+    <label>Data Check</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

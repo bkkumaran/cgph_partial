@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Maximum_Refinance_Amount_CALC__c</fullName>
+    <description>This field grabs the Maximum Refinance Amount from the property to use for the conga merge</description>
+    <externalId>false</externalId>
+    <formula>TEXT(HOMEtracker__Property__r.Maximum_Refinance_Amount__c )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Maximum Refinance Amount CALC</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

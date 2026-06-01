@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Development_Allows_Rental_Assistance__c</fullName>
+    <defaultValue>&quot;Yes&quot;</defaultValue>
+    <description>Shows if development allows rental asst from other sources. If &quot;Yes&quot;, the &quot;Rental Asst Permitted&quot; field will be auto-checked on all properties in this development. If &quot;No&quot;, it will be auto-unchecked. Default: Yes. Reset when new properties are created.</description>
+    <inlineHelpText>Shows if development allows rental asst from other sources. If &quot;Yes&quot;, the &quot;Rental Asst Permitted&quot; field will be auto-checked on all properties in this development. If &quot;No&quot;, it will be auto-unchecked. Default: Yes. Reset when new properties are created.</inlineHelpText>
+    <label>Development Allows Rental Assistance?</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>true</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

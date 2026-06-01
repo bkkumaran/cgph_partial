@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Development_Listing_Criteria_P</fullName>
+    <columns>NAME</columns>
+    <columns>Municipality_Name__c</columns>
+    <columns>HOMEtracker__Property_Type__c</columns>
+    <columns>Elevator__c</columns>
+    <columns>Background_Check_Required__c</columns>
+    <columns>Minimum_Credit_Score_to_be_Eligible__c</columns>
+    <columns>Co_Signers_Allowed__c</columns>
+    <columns>Credit_Background_Check_Fee__c</columns>
+    <columns>Credit_Background_Check_Fee_Notes__c</columns>
+    <columns>Pets_allowed__c</columns>
+    <columns>Pet_Policy__c</columns>
+    <columns>Pet_fee__c</columns>
+    <columns>Smoking_Allowed__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Rental_or_Sale_Development__c</field>
+        <operation>equals</operation>
+        <value>Sale</value>
+    </filters>
+    <label>AA_Development List Criteria: P</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

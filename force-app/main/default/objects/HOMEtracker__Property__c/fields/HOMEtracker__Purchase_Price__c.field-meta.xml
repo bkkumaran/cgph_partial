@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Purchase_Price__c</fullName>
+    <deprecated>false</deprecated>
+    <description>If the Program purchased this property, the Contracted Sales Price. This is the price the program first paid to acquire this property. If a buyer-driven homeownership program, leave blank. Note: This field is not linked to Development Cost records.</description>
+    <inlineHelpText>If the Program purchased this property, the Contracted Sales Price. This is the price the program first paid to acquire this property. If a buyer-driven homeownership program, leave blank. Note: This field is not linked to Development Cost records.</inlineHelpText>
+    <label>Purchase Price</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

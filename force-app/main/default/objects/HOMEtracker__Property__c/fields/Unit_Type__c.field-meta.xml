@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unit_Type__c</fullName>
+    <label>Unit Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Single-Family: Freestanding</fullName>
+                <default>false</default>
+                <label>Single-Family: Freestanding</label>
+            </value>
+            <value>
+                <fullName>Single-Family: Mobile Home</fullName>
+                <default>false</default>
+                <label>Single-Family: Mobile Home</label>
+            </value>
+            <value>
+                <fullName>Single-Family: Condo</fullName>
+                <default>false</default>
+                <label>Single-Family: Condo</label>
+            </value>
+            <value>
+                <fullName>Single-Family: Townhome</fullName>
+                <default>false</default>
+                <label>Single-Family: Townhome</label>
+            </value>
+            <value>
+                <fullName>Multi-family</fullName>
+                <default>false</default>
+                <label>Multi-Family</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

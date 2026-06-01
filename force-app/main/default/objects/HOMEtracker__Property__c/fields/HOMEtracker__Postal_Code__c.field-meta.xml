@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Postal_Code__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub but programs are not required to use this field.
+
+ZIP code of property. If you save a record with the zip filled in, the city and state are filled in automatically.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ZIP code of property. If you save a record with the zip filled in, the city and state are filled in automatically.</inlineHelpText>
+    <label>Zip/Postal Code</label>
+    <length>10</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

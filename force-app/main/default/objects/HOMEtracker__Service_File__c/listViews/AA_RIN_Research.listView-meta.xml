@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_RIN_Research</fullName>
+    <columns>HOMEtracker__Property__c</columns>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Service_File__c.HOMEtracker__Homeownership</value>
+    </filters>
+    <filters>
+        <field>IAW_Development_Name__c</field>
+        <operation>equals</operation>
+        <value>Timberbrooke</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Current Owner</value>
+    </filters>
+    <label>AA RIN Research</label>
+</ListView>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dev_Income_Limit__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The income limit for the region this development is located in.</description>
+    <inlineHelpText>The income limit for the region this development is located in.</inlineHelpText>
+    <label>Income Limit</label>
+    <referenceTo>Income_Limits__c</referenceTo>
+    <relationshipLabel>Properties</relationshipLabel>
+    <relationshipName>Properties</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

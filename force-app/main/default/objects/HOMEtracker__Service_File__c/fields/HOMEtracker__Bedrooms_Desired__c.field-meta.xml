@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Bedrooms_Desired__c</fullName>
+    <deprecated>false</deprecated>
+    <description>As reported during the intake process, or on the application, in response to the question,&quot;What is your ideal number of bedrooms?&quot; Tip: This field can be used to better understand the market demand or match households to available units.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>As reported during the intake process, or on the application, in response to the question,&quot;What is your ideal number of bedrooms?&quot;
+
+Tip: This field can be used to better understand the market demand or match households to available units.</inlineHelpText>
+    <label>Number of Bedrooms Desired</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

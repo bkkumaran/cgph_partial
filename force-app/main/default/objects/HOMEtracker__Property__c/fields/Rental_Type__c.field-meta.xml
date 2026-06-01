@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rental_Type__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(TEXT( Development_address__r.HOMEtracker__Status__c )
+,&quot;Planned&quot;,&quot;New Rental&quot;,
+&quot;Under Construction&quot;,&quot;New Rental&quot;,
+&quot;Initial Rental/Sale On-hold bc nonresponsive&quot;,&quot;New Rental&quot;,
+&quot;Initial lease up in progress&quot;,&quot;New Rental&quot;,
+&quot;Initial Lease up completed&quot;,&quot;Re-Rental&quot;,
+&quot;?&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Rental Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Date_Listed__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The date the property was most recently listed in the MLS.</description>
+    <inlineHelpText>This is the date the property was made public.</inlineHelpText>
+    <label>Date Listed</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

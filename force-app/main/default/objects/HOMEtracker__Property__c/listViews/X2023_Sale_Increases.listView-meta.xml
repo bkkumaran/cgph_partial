@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X2023_Sale_Increases</fullName>
+    <columns>Municipality_Name__c</columns>
+    <columns>NAME</columns>
+    <columns>new_income_limits_resale_calc__c</columns>
+    <columns>new_income_limits_resale_notes__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>notEqual</operation>
+        <value>Planned,Under Construction,Owner Occupied,Not Owner Occupied - Leased to Tenant,Estate,Bank Owned,Abandoned,Sold Out of Program,&quot;Not in Affordable Portfolio (Community Room, Model Unit, Sales Office, Etc.)&quot;</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>notEqual</operation>
+        <value>Available for Sale - part of group</value>
+    </filters>
+    <filters>
+        <field>new_income_limits_resale_calc__c</field>
+        <operation>notContain</operation>
+        <value>No increase - none this year,No increase - sellers choice,No increase - No eligible for new increase b/c selling for lower,No increase – initial sale,No increase - Under contract or certified applicant</value>
+    </filters>
+    <label>2024 Sale Increases</label>
+</ListView>

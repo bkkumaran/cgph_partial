@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Update_Status</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Update Status</masterLabel>
+    <openType>replace</openType>
+    <page>HOMEtracker__Status_Update</page>
+    <protected>false</protected>
+</WebLink>

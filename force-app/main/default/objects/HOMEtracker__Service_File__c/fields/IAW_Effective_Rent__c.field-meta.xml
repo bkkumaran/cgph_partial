@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_Effective_Rent__c</fullName>
+    <description>If rental assistance is allowed: Rent - Section 8 Subsidy Amount - Monthly Other Assistance. Otherwise this will be: Rent - Section 8 Subsidy Amount.</description>
+    <formula>IF(TEXT(IAW_R_Rental_Assistance_Permitted_z__c) = &quot;Yes&quot; ,  (IAW_Rent__c - HOMEtracker__Section_8_Subsidy_Amount__c - IAW_Monthly_Other_Assistance__c),
+(IAW_Rent__c - HOMEtracker__Section_8_Subsidy_Amount__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>If rental assistance is allowed: Rent - Section 8 Subsidy Amount - Monthly Other Assistance. Otherwise this will be: Rent - Section 8 Subsidy Amount.</inlineHelpText>
+    <label>Effective Rent</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

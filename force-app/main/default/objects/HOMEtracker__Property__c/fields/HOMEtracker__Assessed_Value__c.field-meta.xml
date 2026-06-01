@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Assessed_Value__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The Total Assessed Value from the most recent Assessed Value - Property Taxes record. Value copies automatically.
+
+Tip: For past assessment values for this Property, see Field History list. You made need to turn on Field History Tracking for this field.</description>
+    <inlineHelpText>The Total Assessed Value from the most recent Assessed Value - Property Taxes record. Value copies automatically.
+
+Tip: For past assessment values for this Property, see Field History list. You made need to turn on Field History Tracking for this field.</inlineHelpText>
+    <label>Assessed Value</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

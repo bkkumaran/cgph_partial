@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status_limit_without_priority</fullName>
+    <active>true</active>
+    <description>If no priority is assigned, status cannot be changed to Primary, Backup, or Flagged.</description>
+    <errorConditionFormula>AND(
+OR(
+SF_Priority__c = 0,
+SF_Priority__c = NULL),
+OR(
+TEXT(Tracker_Status__c)=&apos;Primary&apos;,
+TEXT(Tracker_Status__c)=&apos;Backup&apos;,
+TEXT(Tracker_Status__c)=&apos;Flagged&apos;
+)
+)</errorConditionFormula>
+    <errorMessage>Tracker Status cannot be &apos;Primary&apos;, &apos;Backup&apos;, or &apos;Flagged&apos; when priority is missing.</errorMessage>
+</ValidationRule>

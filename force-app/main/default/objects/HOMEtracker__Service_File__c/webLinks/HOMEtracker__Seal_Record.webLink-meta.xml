@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Seal_Record</fullName>
+    <availability>online</availability>
+    <description>Clicking this will seal this service file and prevent editing. It also makes changes to properties and contacts.</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Seal File</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)}
+
+var valid = true; 
+var message = &apos;The following fields must be filled out before the record can be sealed: \n\n&apos;; 
+
+if ( {!ISBLANK(   HOMEtracker__Service_File__c.HOMEtracker__Income_Certification_Date__c   )} ) { 
+valid = false; 
+message += &apos;* Income Certification Date (Click Certify Income button)\n&apos;; 
+} 
+
+if ( {!ISBLANK(   HOMEtracker__Service_File__c.HOMEtracker__Purchase_Certification_Date__c   )} ) { 
+valid = false; 
+message += &apos;* Purchase Certification Date (Click Certify Purchase button)\n&apos;; 
+} 
+
+if ( {!ISBLANK(  HOMEtracker__Service_File__c.HOMEtracker__Resale_Close_Date__c  )} ) { 
+valid = false; 
+message += &apos;* Resale Close Date\n&apos;; 
+} 
+
+if ( {!ISBLANK(   HOMEtracker__Service_File__c.HOMEtracker__Contract_Sale_Price__c   )} ) { 
+valid = false; 
+message += &apos;* Contract Sales Price\n&apos;; 
+} 
+
+if ( {!ISPICKVAL(  HOMEtracker__Service_File__c.HOMEtracker__Resale_Type__c, &apos;&apos; )} ) { 
+valid = false; 
+message += &apos;* Resale Type\n&apos;; 
+}
+
+var confirmationMessage = &quot;You should Seal a Homeownership File ONLY if a completed resale has taken place, you have entered all of the data, and you are ready to make all the fields read-only. The purpose of sealing a file is to make all the fields on the Service File read-only so that they cannot be easily changed. Note that you can still change related records.\n\nSealing a Service File updates the following:\n- The File Sealed Date is set to today&apos;s date.\n- The Service File Record Type will be changed to Sealed Homeownership, which will make the fields read-only.\n- If any address on the applicant or co-applicant&apos;s Contact record matches the Property address, those address fields will be cleared on the Contact record.\n\nBefore proceeding, remember to: \n* Click the Copy Addresses to Contacts link to copy the resale address from the Service File to the Contact record(s). \n* Click on the Update Status button to simultaneously update the Property, Applicant Contact and Service File status. \n* If this is a resale, click the Sync Buyer/Seller Data button to update the Statuses and sync transaction information.\n\nAre you ready to continue?&quot;;
+
+if (valid) {
+confirmed = window.confirm(confirmationMessage);
+
+if (confirmed) {
+// run the webservice
+var serviceFileID = sforce.apex.execute(&quot;HOMEtracker.ServiceFileWebServices&quot;,&quot;sealServiceFile&quot;, {serviceFileID: &quot;{!CASESAFEID(HOMEtracker__Service_File__c.Id)}&quot;});
+
+// redirect to the new task
+top.location.replace(&quot;/&quot; + serviceFileID);
+} 
+
+} else {
+alert (message);
+}</url>
+</WebLink>

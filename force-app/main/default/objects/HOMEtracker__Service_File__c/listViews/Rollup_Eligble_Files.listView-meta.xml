@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rollup_Eligble_Files</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Property__c</columns>
+    <columns>HOMEtracker__Program__c</columns>
+    <columns>HOMEtracker__Funding_Source_Total__c</columns>
+    <columns>HOMEtracker__Certified_Closed_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>HOMEtracker__Certified_Closed_Date__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Program__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Property__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>AA HK Rollup Eligble Files</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

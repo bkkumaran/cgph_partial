@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>erin_test</fullName>
+    <columns>NAME</columns>
+    <columns>Income_Level__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Municipality_Name__c</field>
+        <operation>equals</operation>
+        <value>bedminster</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>The Hills- Village Green</value>
+    </filters>
+    <label>AA erin test</label>
+</ListView>

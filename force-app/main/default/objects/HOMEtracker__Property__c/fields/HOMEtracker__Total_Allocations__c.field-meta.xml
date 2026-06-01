@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Total_Allocations__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub.
+
+The total net amount of Housing Opportunity Allocations made to this Property. Only includes those Allocations with a record type of Property Allocation, not Service File Allocations that reference this Property.</description>
+    <inlineHelpText>The total net amount of Housing Opportunity Allocations made to this Property. Only includes those Allocations with a record type of Property Allocation.</inlineHelpText>
+    <label>Total Allocations</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X180_Days_Before_Controls_Expire__c</fullName>
+    <formula>IF( ISBLANK( Date_Initial_Controls_Expire__c ) = FALSE, Date_Initial_Controls_Expire__c - 180,  test_date_controls_expire__c - 180)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Date initial controls expire minus 180 days, or Date Controls Expire (Calculated) minus 180 days.</inlineHelpText>
+    <label>180 Days Before Controls Expire</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

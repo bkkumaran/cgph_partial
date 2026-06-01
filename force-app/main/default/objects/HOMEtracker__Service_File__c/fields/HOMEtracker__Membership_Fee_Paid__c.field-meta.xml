@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Membership_Fee_Paid__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The date the membership fee was paid</description>
+    <inlineHelpText>The date the membership fee was paid</inlineHelpText>
+    <label>Membership Fee Paid</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Increase_Check__c</fullName>
+    <inlineHelpText>If 0, no increases have been taken</inlineHelpText>
+    <label>No Increase Check</label>
+    <summarizedField>Leases__c.Increase_Year_Calc__c</summarizedField>
+    <summaryForeignKey>Leases__c.Service_file__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Sellers_Gain__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. This formula shows the Seller&apos;s Proceeds minus the Buyer&apos;s Total Investment at Closing.</description>
+    <formula>HOMEtracker__Sellers_Proceeds__c - HOMEtracker__Buyers_Total_Investment_at_Closing__c</formula>
+    <inlineHelpText>This formula shows the Seller&apos;s Proceeds minus the Buyer&apos;s Total Investment at Closing.</inlineHelpText>
+    <label>Seller&apos;s Gain</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

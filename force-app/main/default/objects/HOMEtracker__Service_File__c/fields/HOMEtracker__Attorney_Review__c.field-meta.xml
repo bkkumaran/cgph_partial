@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Attorney_Review__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Date Homebuyer met with attorney to review docs.</description>
+    <inlineHelpText>Date Homebuyer met with attorney to review docs.</inlineHelpText>
+    <label>Attorney Review</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

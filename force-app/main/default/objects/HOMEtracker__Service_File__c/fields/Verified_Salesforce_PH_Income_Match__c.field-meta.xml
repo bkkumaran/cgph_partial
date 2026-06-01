@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Verified_Salesforce_PH_Income_Match__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box after you approve the app in Public House and verify that the &quot;Annual Income (Eligibility)&quot; in Salesforce matches the &quot;Income/Employment&quot; income in Public House. Once verified, you can send the certification merge.</description>
+    <inlineHelpText>Check this box after you approve the app in Public House and verify that the &quot;Annual Income (Eligibility)&quot; in Salesforce matches the &quot;Income/Employment&quot; income in Public House. Once verified, you can send the certification merge.</inlineHelpText>
+    <label>Verified Salesforce &amp; PH Income Match</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

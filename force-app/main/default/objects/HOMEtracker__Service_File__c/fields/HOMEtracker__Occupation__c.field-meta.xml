@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Occupation__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. This field is being copied from the related Income Source with the highest Gross Annual Income (where &quot;Do Not Include in Eligibility Income&quot; is not checked). Tip: Edit the largest related Income Source record to make changes.</description>
+    <inlineHelpText>This field is being copied from the related Income Source with the highest Gross Annual Income (where &quot;Do Not Include in Eligibility Income&quot; is not checked).
+
+Tip: Edit the largest related Income Source record to make changes.</inlineHelpText>
+    <label>Occupation</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Administrative Assistant</fullName>
+                <default>false</default>
+                <label>Administrative Assistant</label>
+            </value>
+            <value>
+                <fullName>Artist</fullName>
+                <default>false</default>
+                <label>Artist</label>
+            </value>
+            <value>
+                <fullName>Attorney</fullName>
+                <default>false</default>
+                <label>Attorney</label>
+            </value>
+            <value>
+                <fullName>Automotive</fullName>
+                <default>false</default>
+                <label>Automotive</label>
+            </value>
+            <value>
+                <fullName>Bank Teller</fullName>
+                <default>false</default>
+                <label>Bank Teller</label>
+            </value>
+            <value>
+                <fullName>Carpenter</fullName>
+                <default>false</default>
+                <label>Carpenter</label>
+            </value>
+            <value>
+                <fullName>Casino</fullName>
+                <default>false</default>
+                <label>Casino</label>
+            </value>
+            <value>
+                <fullName>Construction</fullName>
+                <default>false</default>
+                <label>Construction</label>
+            </value>
+            <value>
+                <fullName>Cook</fullName>
+                <default>false</default>
+                <label>Cook</label>
+            </value>
+            <value>
+                <fullName>Custodian</fullName>
+                <default>false</default>
+                <label>Custodian</label>
+            </value>
+            <value>
+                <fullName>Customer Service Representative</fullName>
+                <default>false</default>
+                <label>Customer Service Representative</label>
+            </value>
+            <value>
+                <fullName>Day Care Provider</fullName>
+                <default>false</default>
+                <label>Day Care Provider</label>
+            </value>
+            <value>
+                <fullName>Driver - Delivery</fullName>
+                <default>false</default>
+                <label>Driver - Delivery</label>
+            </value>
+            <value>
+                <fullName>Driver - Bus</fullName>
+                <default>false</default>
+                <label>Driver - Bus</label>
+            </value>
+            <value>
+                <fullName>Driver - Truck</fullName>
+                <default>false</default>
+                <label>Driver - Truck</label>
+            </value>
+            <value>
+                <fullName>Electrician</fullName>
+                <default>false</default>
+                <label>Electrician</label>
+            </value>
+            <value>
+                <fullName>Engineer</fullName>
+                <default>false</default>
+                <label>Engineer</label>
+            </value>
+            <value>
+                <fullName>Farmer</fullName>
+                <default>false</default>
+                <label>Farmer</label>
+            </value>
+            <value>
+                <fullName>Grocery</fullName>
+                <default>false</default>
+                <label>Grocery</label>
+            </value>
+            <value>
+                <fullName>Group home Provide</fullName>
+                <default>false</default>
+                <label>Group home Provide</label>
+            </value>
+            <value>
+                <fullName>Health Care - Support Staff</fullName>
+                <default>false</default>
+                <label>Health Care - Support Staff</label>
+            </value>
+            <value>
+                <fullName>Health Care Provider</fullName>
+                <default>false</default>
+                <label>Health Care Provider</label>
+            </value>
+            <value>
+                <fullName>Hospitality</fullName>
+                <default>false</default>
+                <label>Hospitality</label>
+            </value>
+            <value>
+                <fullName>House Keeper</fullName>
+                <default>false</default>
+                <label>House Keeper</label>
+            </value>
+            <value>
+                <fullName>IT/Technology</fullName>
+                <default>false</default>
+                <label>IT/Technology</label>
+            </value>
+            <value>
+                <fullName>Landscaping</fullName>
+                <default>false</default>
+                <label>Landscaping</label>
+            </value>
+            <value>
+                <fullName>Maintenance/Janitor</fullName>
+                <default>false</default>
+                <label>Maintenance/Janitor</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+                <label>Manufacturing</label>
+            </value>
+            <value>
+                <fullName>Newspaper</fullName>
+                <default>false</default>
+                <label>Newspaper</label>
+            </value>
+            <value>
+                <fullName>Non-Profit Employee</fullName>
+                <default>false</default>
+                <label>Non-Profit Employee</label>
+            </value>
+            <value>
+                <fullName>Office Administrator</fullName>
+                <default>false</default>
+                <label>Office Administrator</label>
+            </value>
+            <value>
+                <fullName>Painter</fullName>
+                <default>false</default>
+                <label>Painter</label>
+            </value>
+            <value>
+                <fullName>Plumber</fullName>
+                <default>false</default>
+                <label>Plumber</label>
+            </value>
+            <value>
+                <fullName>Postal Worker</fullName>
+                <default>false</default>
+                <label>Postal Worker</label>
+            </value>
+            <value>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+                <label>Public Service</label>
+            </value>
+            <value>
+                <fullName>Restaurant</fullName>
+                <default>false</default>
+                <label>Restaurant</label>
+            </value>
+            <value>
+                <fullName>Retail Clerk</fullName>
+                <default>false</default>
+                <label>Retail Clerk</label>
+            </value>
+            <value>
+                <fullName>Retired</fullName>
+                <default>false</default>
+                <label>Retired</label>
+            </value>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+            <value>
+                <fullName>School Administrator</fullName>
+                <default>false</default>
+                <label>School Administrator</label>
+            </value>
+            <value>
+                <fullName>Social Services</fullName>
+                <default>false</default>
+                <label>Social Services</label>
+            </value>
+            <value>
+                <fullName>Teacher/Aide</fullName>
+                <default>false</default>
+                <label>Teacher/Aide</label>
+            </value>
+            <value>
+                <fullName>Tourism</fullName>
+                <default>false</default>
+                <label>Tourism</label>
+            </value>
+            <value>
+                <fullName>Veterinarian</fullName>
+                <default>false</default>
+                <label>Veterinarian</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Municipality_Acct__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This is the portfolio that this unit is a part of and may be different than the City in the mailing address.</description>
+    <inlineHelpText>This is the portfolio that this unit is a part of and may be different than the City in the mailing address.</inlineHelpText>
+    <label>Municipality_Acct</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.Type</field>
+            <operation>equals</operation>
+            <value>Municipality</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Properties (Municipality)</relationshipLabel>
+    <relationshipName>Properties1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

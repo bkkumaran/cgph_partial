@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expected_Leave_of_Absence_in_Next_Year__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Is any member of your household expecting to take a leave of absence from work due to lay-off, medical, maternity or military leave in the next year?</inlineHelpText>
+    <label>Expected Leave of Absence in Next Year</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

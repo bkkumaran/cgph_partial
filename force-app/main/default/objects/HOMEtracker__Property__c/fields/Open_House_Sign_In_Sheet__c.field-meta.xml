@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_House_Sign_In_Sheet__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+
+&quot;/apex/APXTConga4__Conga_Composer?serverUrl=&quot;+$Api.Enterprise_Server_URL_370+
+&quot;&amp;Id=&quot;+Id+
+&quot;&amp;OFN=&quot;+Next_Open_House__c+&quot;,&quot;+SUBSTITUTE(Name,&quot;#&quot;,&quot;%23&quot;)+
+&quot;&amp;TemplateId=00P3m00000zk780&quot;+
+&quot;&amp;DS7=3&quot;+
+&quot;&amp;TemplateGroup=AA,Outreach,Documents&quot;+
+&quot;&amp;ReportId=[OHD]00O1N0000064Eh8&quot;+
+&quot;?pv0=&quot;+Id+
+&quot;~pv1=Pending&quot;+
+&quot;~pv2=1&quot;+
+&quot;~pv3=1&quot;+
+&quot;~pv4=1&quot;+
+
+&quot;&amp;ExcelAutoFitColumns=1&quot;
+
+
+, &quot;Click to Generate&quot;, &quot;_blank&quot;)</formula>
+    <label>Open House Sign In Sheet</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

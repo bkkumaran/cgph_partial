@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__List_Price__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The listed sales price, which may be lower than the Purchase Option Price, depending on the market conditions. Does not sync with List Price on the Property.</description>
+    <inlineHelpText>The listed sales price, which may be lower than the Purchase Option Price, depending on the market conditions. Does not sync with List Price on the Property.</inlineHelpText>
+    <label>List Price</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Monthly_Principal_Interest_Payments__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. Sum of monthly principal &amp; interest payments listed in related Funding Sources that have a Funding Source Type of &quot;Loan (Purchase).&quot;</description>
+    <inlineHelpText>Sum of monthly principal &amp; interest payments listed in related Funding Sources that have a Funding Source Type of &quot;Loan (Purchase).&quot;</inlineHelpText>
+    <label>Monthly Principal &amp; Interest Payments</label>
+    <summarizedField>HOMEtracker__Funding_Source__c.HOMEtracker__Monthly_Principal_Interest__c</summarizedField>
+    <summaryFilterItems>
+        <field>HOMEtracker__Funding_Source__c.HOMEtracker__Funding_Source_Type__c</field>
+        <operation>equals</operation>
+        <value>Loan (Purchase)</value>
+    </summaryFilterItems>
+    <summaryForeignKey>HOMEtracker__Funding_Source__c.HOMEtracker__Service_File__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Enter_Purchase_Information</fullName>
+    <availability>online</availability>
+    <description>Custom link to launch the new purchase transaction certification wizard.</description>
+    <displayType>link</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Enter Purchase Information</masterLabel>
+    <openType>replace</openType>
+    <page>HOMEtracker__Certify_Purchase_Wizard_Start</page>
+    <protected>false</protected>
+</WebLink>

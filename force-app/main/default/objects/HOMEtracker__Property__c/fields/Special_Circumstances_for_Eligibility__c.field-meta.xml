@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Special_Circumstances_for_Eligibility__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter brief text that explains any unique circumstances that the income certification team needs to take into consideration.</inlineHelpText>
+    <label>Unique Circumstances for Eligibility</label>
+    <length>250</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

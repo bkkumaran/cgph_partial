@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PHA__Application_Status__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>Tracks the status of the Public House application.
+
+Generally, auto updated by Public House. Applicants can only access Public House during the &quot;Invited&quot;, &quot;Incomplete&quot;, and &quot;Document Corrections&quot; statuses.</inlineHelpText>
+    <label>Application Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Invited</fullName>
+                <default>true</default>
+                <label>Invited</label>
+            </value>
+            <value>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+                <label>Incomplete</label>
+            </value>
+            <value>
+                <fullName>Document Review</fullName>
+                <default>false</default>
+                <label>Document Review</label>
+            </value>
+            <value>
+                <fullName>Document Corrections</fullName>
+                <default>false</default>
+                <label>Document Corrections</label>
+            </value>
+            <value>
+                <fullName>Complete</fullName>
+                <default>false</default>
+                <label>Complete</label>
+            </value>
+            <value>
+                <fullName>Declined</fullName>
+                <default>false</default>
+                <label>Declined</label>
+            </value>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <label>Approved</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

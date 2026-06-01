@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Discount_Relative_to_Market_Value__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. Auto-calculated. The difference between market value and the actual costs covered by buyer funding sources. This discount is considered Long-Term Community Investment. For files with a value in All Other Buyer&apos;s Settlement Costs (OLD), the formula is: Appraised Unrestricted Market Value plus Pre-Paids/Reserves plus All Other Buyer&apos;s Settlement Costs (OLD) minus Funding Source Total. For all other files, the formula is: Appraised Unrestricted Market Value plus Settlement Charges to Borrower plus Other Amounts Due From Buyer minus Funding Source Total. Note: In order for this formula field to populate, you must enter at a minimum:
+- A Buyer&apos;s Purchase Loan appraisal
+- At least one Funding Source
+- A date in Close Date
+- A value in Settlement Charges to Borrower (unless All Other Buyer&apos;s Settlement Costs (OLD) has a value)</description>
+    <formula>IF((ISNULL( HOMEtracker__Appraised_Unrestricted_Market_Value__c ) ||
+HOMEtracker__Funding_Source_Total__c == 0 ||
+(ISNULL(HOMEtracker__Close_Date__c) &amp;&amp; ISNULL(HOMEtracker__Certified_Closed_Date__c ))), 
+null, 
+
+IF(!ISNULL(HOMEtracker__All_Other_Buyers_Settlement_Costs__c),
+
+(HOMEtracker__Appraised_Unrestricted_Market_Value__c + 
+IF(ISNULL(HOMEtracker__Prepaids_Reserves__c), 0, HOMEtracker__Prepaids_Reserves__c) + 
+HOMEtracker__All_Other_Buyers_Settlement_Costs__c - 
+HOMEtracker__Funding_Source_Total__c), 
+
+(HOMEtracker__Appraised_Unrestricted_Market_Value__c + HOMEtracker__Settlement_Charges_to_Borrower__c + IF(ISNULL(HOMEtracker__Other_Amounts_Due_from_Buyer__c), 0, HOMEtracker__Other_Amounts_Due_from_Buyer__c) - HOMEtracker__Funding_Source_Total__c)))</formula>
+    <inlineHelpText>Auto-calculated. The difference between market value and the actual costs covered by buyer funding sources. This discount is considered Long-Term Community Investment.</inlineHelpText>
+    <label>Discount Relative to Market Value</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

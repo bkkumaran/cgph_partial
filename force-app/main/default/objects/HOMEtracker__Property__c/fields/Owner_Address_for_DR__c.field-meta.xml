@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Owner_Address_for_DR__c</fullName>
+    <inlineHelpText>Enter Developer street, state, city, zip for merge into Deed restriction (10 North Street, Cranbury, New Jersey 09098</inlineHelpText>
+    <label>&quot;Owner Address&quot; for DR</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

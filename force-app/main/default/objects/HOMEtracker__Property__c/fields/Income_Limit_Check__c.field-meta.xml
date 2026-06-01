@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Income_Limit_Check__c</fullName>
+    <description>Checks to see if the income limit on the development matches the income limit on the municipality. They should be the same.</description>
+    <externalId>false</externalId>
+    <formula>IF(Dev_Income_Limit__c = Municipality_Name__r.Income_Limit__c , &quot;OK&quot; , IF(Dev_Income_Limit__r.Manual_Override__c = TRUE, &quot;OK - MANUAL OVERRIDE&quot;, IF(Id = &quot;a0J3m00001icjbW&quot;, &quot;OK - NO INCOME LIMIT&quot;, &quot;ERROR&quot;)))</formula>
+    <inlineHelpText>Checks to see if the income limit on the development matches the income limit on the municipality. They should be the same.</inlineHelpText>
+    <label>Income Limit Check</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

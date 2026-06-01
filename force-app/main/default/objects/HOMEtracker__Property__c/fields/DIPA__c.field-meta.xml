@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DIPA__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Add or subtract a year to the initial rental pricing date in order to make adjustments for increases that should or should not be included in the vacancy price. (To subtract a year, enter &quot;-1&quot;)</inlineHelpText>
+    <label>Date of Initial Pricing Adjustment</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

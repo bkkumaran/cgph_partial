@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_of_Purchase_Contact_Lists__c</fullName>
+    <description>Auto counts the number of Purchase Contact Lists that are associated with this Service File.</description>
+    <inlineHelpText>Auto counts the number of Purchase Contact Lists that are associated with this Service File.</inlineHelpText>
+    <label>Number of Purchase Contact Lists</label>
+    <summaryForeignKey>Contact_List__c.Buyers_Service_File__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Rec_d_Complete_ITS__c</fullName>
+    <description>Enter date received completed ITS from seller</description>
+    <inlineHelpText>Enter date received completed ITS from seller</inlineHelpText>
+    <label>Date Rec&apos;d Complete ITS</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

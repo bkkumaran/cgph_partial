@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hobart_bayonne</fullName>
+    <columns>NAME</columns>
+    <columns>Income_Level__c</columns>
+    <columns>Bedroom_Count__c</columns>
+    <columns>Date_unit_will_be_availalbe__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>Initial_affordability_of_Unit__c</columns>
+    <columns>Initial_rental_pricing__c</columns>
+    <columns>Rent_when_First_Occupied__c</columns>
+    <columns>Pet_fee__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Hobart Housing</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>notEqual</operation>
+        <value>&quot;Not in Affordable Portfolio (Community Room, Model Unit, Sales Office, Etc.)&quot;</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <label>AA Hobart Bayonne</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

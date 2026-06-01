@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Clone_1_Clone_Record</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Clone 1: Clone Record</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>https://cgph--c.vf.force.com/flow/SF_Clone_SF_for_Eligibility?varID={!HOMEtracker__Service_File__c.Id}&amp;retURL={!HOMEtracker__Service_File__c.Id}</url>
+</WebLink>

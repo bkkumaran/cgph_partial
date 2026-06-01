@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>controls_extended_NO_NEW_CREDIT__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>check if this if previous AA extended controls at a resale for 30 new years but it does not count as a new credit b/c the original period did not expire.  ie, 30 year control period started on 1/1/2000, it sold on 1/1/2010 and controls were extended 30 years to 1/1/2040.    The total control period is only 40 years even though it was extended.</inlineHelpText>
+    <label>controls extended NO NEW CREDIT?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

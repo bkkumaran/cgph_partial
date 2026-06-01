@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Resale_Formula_Method__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Choose which resale formula is being used for this transaction.</description>
+    <inlineHelpText>Choose which resale formula is being used for this transaction.</inlineHelpText>
+    <label>Resale Formula Method</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>2014 Owner Inc Region 1</fullName>
+                <default>false</default>
+                <label>2014 Owner Inc Region 1</label>
+            </value>
+            <value>
+                <fullName>2014 Owner Inc Region 2</fullName>
+                <default>false</default>
+                <label>2014 Owner Inc Region 2</label>
+            </value>
+            <value>
+                <fullName>2014 Owner Inc Region 3</fullName>
+                <default>false</default>
+                <label>2014 Owner Inc Region 3</label>
+            </value>
+            <value>
+                <fullName>2014 Owner Inc Region 4</fullName>
+                <default>false</default>
+                <label>2014 Owner Inc Region 4</label>
+            </value>
+            <value>
+                <fullName>2014 Owner Inc Region 5</fullName>
+                <default>false</default>
+                <label>2014 Owner Inc Region 5</label>
+            </value>
+            <value>
+                <fullName>2014 Owner Inc Region 6</fullName>
+                <default>false</default>
+                <label>2014 Owner Inc Region 6</label>
+            </value>
+            <value>
+                <fullName>2014 Owner Inc Region 7</fullName>
+                <default>false</default>
+                <label>2014 Owner Inc Region 7</label>
+            </value>
+            <value>
+                <fullName>2014 Owner Inc Region 8</fullName>
+                <default>false</default>
+                <label>2014 Owner Inc Region 8</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Race__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. The race associated with this Service File, primarily for reporting purposes. This field value for the Primary Applicant will auto-copy to Race field on the Service File, unless the process to default to Service File has been deactivated. This field is required for 9902 reporting. Contact HomeKeeper Support before customizing to prevent errors when generating the 9902.</description>
+    <inlineHelpText>The race associated with this Service File, primarily for reporting purposes. This does not auto-fill from the Application Household Members and must be selected manually.</inlineHelpText>
+    <label>Race</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>American Indian or Alaska Native</fullName>
+                <default>false</default>
+                <label>American Indian or Alaska Native</label>
+            </value>
+            <value>
+                <fullName>Asian</fullName>
+                <default>false</default>
+                <label>Asian</label>
+            </value>
+            <value>
+                <fullName>Black or African American</fullName>
+                <default>false</default>
+                <label>Black or African American</label>
+            </value>
+            <value>
+                <fullName>Native Hawaiian or Pacific Islander</fullName>
+                <default>false</default>
+                <label>Native Hawaiian or Pacific Islander</label>
+            </value>
+            <value>
+                <fullName>White</fullName>
+                <default>false</default>
+                <label>White</label>
+            </value>
+            <value>
+                <fullName>American Indian AND White</fullName>
+                <default>false</default>
+                <label>American Indian AND White</label>
+            </value>
+            <value>
+                <fullName>Asian AND White</fullName>
+                <default>false</default>
+                <label>Asian AND White</label>
+            </value>
+            <value>
+                <fullName>Black or African American AND White</fullName>
+                <default>false</default>
+                <label>Black or African American AND White</label>
+            </value>
+            <value>
+                <fullName>American Indian AND Black</fullName>
+                <default>false</default>
+                <label>American Indian AND Black</label>
+            </value>
+            <value>
+                <fullName>Other multiple race</fullName>
+                <default>false</default>
+                <label>Other multiple race</label>
+            </value>
+            <value>
+                <fullName>Chose Not to Respond</fullName>
+                <default>false</default>
+                <label>Chose Not to Respond</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

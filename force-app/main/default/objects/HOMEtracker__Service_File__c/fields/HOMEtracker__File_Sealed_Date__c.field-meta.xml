@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__File_Sealed_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Auto-fills with the date that the Seal File button was clicked. Before sealing, verify that you have entered all available applicant, purchase and resale information. Sealing the file changes the layout to the read-only Sealed Homeownership layout.</description>
+    <inlineHelpText>Auto-fills with the date that the Seal File button was clicked. Before sealing, verify that you have entered all available applicant, purchase and resale information. Sealing the file changes the layout to the read-only Sealed Homeownership layout.</inlineHelpText>
+    <label>File Sealed Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

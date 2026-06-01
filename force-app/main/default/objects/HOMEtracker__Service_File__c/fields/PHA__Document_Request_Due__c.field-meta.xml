@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PHA__Document_Request_Due__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>This is the most recent deadline date updated via Public House or manually by staff if checking the &quot;2nd&quot; or &quot;Final&quot; extension email checkboxes. See the &quot;Document Request Deadline Log&quot; for a history of deadlines.</inlineHelpText>
+    <label>Document Request Due</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

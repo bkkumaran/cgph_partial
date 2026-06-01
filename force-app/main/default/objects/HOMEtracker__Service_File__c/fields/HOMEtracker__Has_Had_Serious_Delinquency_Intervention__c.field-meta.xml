@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Has_Had_Serious_Delinquency_Intervention__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. The box will automatically be checked if there is a Monitoring Event of type &quot;90+ Days Delinquent&quot; or &quot;Notice of Foreclosure Proceedings&quot; in which Intervention with Homeowner is not blank or &quot;Program did not intervene or refer homeowner to services.&quot;</description>
+    <inlineHelpText>The box will automatically be checked if there is a Monitoring Event of type &quot;90+ Days Delinquent&quot; or &quot;Notice of Foreclosure Proceedings&quot; in which Intervention with Homeowner is not blank or &quot;Program did not intervene or refer homeowner to services.&quot;</inlineHelpText>
+    <label>Has Had Serious Delinquency Intervention</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

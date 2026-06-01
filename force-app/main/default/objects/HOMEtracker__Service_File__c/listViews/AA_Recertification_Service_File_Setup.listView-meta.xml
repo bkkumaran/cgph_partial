@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_Recertification_Service_File_Setup</fullName>
+    <columns>NAME</columns>
+    <columns>Pre_Applicant__c</columns>
+    <columns>HOMEtracker__Applicant__c</columns>
+    <columns>HOMEtracker__Program__c</columns>
+    <columns>Municipality_Lookup__c</columns>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>Application_Workflow_Status__c</columns>
+    <columns>PHA__Application_Status__c</columns>
+    <columns>Not_Using_PH_for_Doc_Requests__c</columns>
+    <columns>Special_Application_Type__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Special_Application_Type__c</field>
+        <operation>equals</operation>
+        <value>Recertification</value>
+    </filters>
+    <label>AA Recertification Service File Setup</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

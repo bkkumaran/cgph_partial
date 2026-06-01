@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Del_Webb</fullName>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Current_HOA_Condo_Fees__c</columns>
+    <columns>HOMEtracker__HOA_Dues_Include__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Del Webb at Florham Park</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Homeownership</value>
+    </filters>
+    <label>Del Webb</label>
+</ListView>

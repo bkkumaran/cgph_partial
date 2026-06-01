@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this picklist or hide this field from the layout.
+
+Select the status that best describes this Property. Note: The Status does not automatically sync with related Contacts or Service Files.</description>
+    <inlineHelpText>Select the status that best describes this Property. Note: The Status does not automatically sync with related Contacts or Service Files.</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Planned</fullName>
+                <default>false</default>
+                <label>Planned</label>
+            </value>
+            <value>
+                <fullName>Under Construction</fullName>
+                <default>false</default>
+                <label>Under Construction</label>
+            </value>
+            <value>
+                <fullName>Available for Sale/Resale - ITS Received</fullName>
+                <default>false</default>
+                <label>Available for Sale/Resale - ITS Received</label>
+            </value>
+            <value>
+                <fullName>Available for Sale/Resale</fullName>
+                <default>false</default>
+                <label>Available for Sale/Resale</label>
+            </value>
+            <value>
+                <fullName>Available for Sale - part of group</fullName>
+                <default>false</default>
+                <label>Available for Sale/Resale - Part of Group</label>
+            </value>
+            <value>
+                <fullName>Available for Sale/Resale - On Hold</fullName>
+                <default>false</default>
+                <label>Available for Sale/Resale - On Hold</label>
+            </value>
+            <value>
+                <fullName>Available for Sale - in Queue</fullName>
+                <default>false</default>
+                <label>Available for Sale - in Queue</label>
+            </value>
+            <value>
+                <fullName>Applications in Progress</fullName>
+                <default>false</default>
+                <label>Applications in Progress</label>
+            </value>
+            <value>
+                <fullName>Sale Pending</fullName>
+                <default>false</default>
+                <label>Sale Pending</label>
+            </value>
+            <value>
+                <fullName>Sale Pending/Cert App/No PA</fullName>
+                <default>false</default>
+                <label>Sale Pending/Cert App/No PA</label>
+            </value>
+            <value>
+                <fullName>Sale Pending/Cert App/PA/No Contract</fullName>
+                <default>false</default>
+                <label>Sale Pending/Cert App/PA/No Contract</label>
+            </value>
+            <value>
+                <fullName>Sale Pending/In Escrow</fullName>
+                <default>false</default>
+                <label>Sale Pending/In Escrow with Contract</label>
+            </value>
+            <value>
+                <fullName>Owner Occupied</fullName>
+                <default>false</default>
+                <label>Owner Occupied</label>
+            </value>
+            <value>
+                <fullName>Not Owner Occupied - Leased to Tenant</fullName>
+                <default>false</default>
+                <label>Not Owner Occupied - Leased to Tenant</label>
+            </value>
+            <value>
+                <fullName>Available For Rent</fullName>
+                <default>false</default>
+                <label>Available for Rent</label>
+            </value>
+            <value>
+                <fullName>Available for Rent - part of group</fullName>
+                <default>false</default>
+                <label>Available for Rent - Part of Group</label>
+            </value>
+            <value>
+                <fullName>Available for Rent - On Hold</fullName>
+                <default>false</default>
+                <label>Available for Rent - On Hold</label>
+            </value>
+            <value>
+                <fullName>Available for Rent - in Queue</fullName>
+                <default>false</default>
+                <label>Available for Rent - in Queue</label>
+            </value>
+            <value>
+                <fullName>Rental Pending</fullName>
+                <default>false</default>
+                <label>Rental Pending</label>
+            </value>
+            <value>
+                <fullName>Rented</fullName>
+                <default>false</default>
+                <label>Rented</label>
+            </value>
+            <value>
+                <fullName>Lease Purchase Occupancy</fullName>
+                <default>false</default>
+                <label>Lease Purchase Occupancy</label>
+            </value>
+            <value>
+                <fullName>Estate</fullName>
+                <default>false</default>
+                <label>Estate</label>
+            </value>
+            <value>
+                <fullName>Bank Owned</fullName>
+                <default>false</default>
+                <label>Bank Owned</label>
+            </value>
+            <value>
+                <fullName>Abandoned</fullName>
+                <default>false</default>
+                <label>Abandoned</label>
+            </value>
+            <value>
+                <fullName>Initial Sales in Progress</fullName>
+                <default>false</default>
+                <label>Initial Sales - In Progress</label>
+            </value>
+            <value>
+                <fullName>Initial Sale of Units Completed</fullName>
+                <default>false</default>
+                <label>Initial Sales - Completed</label>
+            </value>
+            <value>
+                <fullName>Initial Rental/Sale On-hold bc nonresponsive</fullName>
+                <default>false</default>
+                <label>Initial Rental/Sale On-hold bc nonresponsive</label>
+            </value>
+            <value>
+                <fullName>Sold Out of Program</fullName>
+                <default>false</default>
+                <label>Sold Out of Program</label>
+            </value>
+            <value>
+                <fullName>Subdivided</fullName>
+                <default>false</default>
+                <label>Subdivided</label>
+            </value>
+            <value>
+                <fullName>Initial lease up in progress</fullName>
+                <default>false</default>
+                <label>Initial Lease Up - In Progress</label>
+            </value>
+            <value>
+                <fullName>Initial Lease up completed</fullName>
+                <default>false</default>
+                <label>Initial Lease Up - Completed</label>
+            </value>
+            <value>
+                <fullName>Rental deed restricted expired</fullName>
+                <default>false</default>
+                <label>Rental Deed Restriction Expired</label>
+            </value>
+            <value>
+                <fullName>Not in Affordable Portfolio (Community Room, Model Unit, Sales Office, Etc.)</fullName>
+                <default>false</default>
+                <label>Not in Affordable Portfolio (Community Room, Model Unit, Sales Office, Etc.)</label>
+            </value>
+            <value>
+                <fullName>New Client</fullName>
+                <default>false</default>
+                <label>New Client</label>
+            </value>
+            <value>
+                <fullName>Not administered directly by CGP&amp;H</fullName>
+                <default>false</default>
+                <label>Not Administered Directly by CGP&amp;H</label>
+            </value>
+            <value>
+                <fullName>No Affordable units in development</fullName>
+                <default>false</default>
+                <label>No Affordable units in development</label>
+            </value>
+            <value>
+                <fullName>Housing Rehabilitation Program</fullName>
+                <default>false</default>
+                <label>Housing Rehabilitation Program</label>
+            </value>
+            <value>
+                <fullName>Available for rent/sale - on hold by finance</fullName>
+                <default>false</default>
+                <label>Available for rent/sale - on hold by finance</label>
+            </value>
+            <value>
+                <fullName>Initial Rental/Sale On-hold bc cgph staffing</fullName>
+                <default>false</default>
+                <label>Initial Rental/Sale On-hold bc cgph staffing</label>
+            </value>
+            <value>
+                <fullName>Owner Occupied - Controls Expired</fullName>
+                <default>false</default>
+                <label>Owner Occupied - Controls Expired</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

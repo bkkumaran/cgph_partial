@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Please contact support if you want to add a new status. Select the current Status of this Service File. Tip: To update the status of the Service File, Property and Applicant Contact records at the same time, click the Update Status button.</description>
+    <inlineHelpText>Tracks the status of the Service File. 
+
+Tip: To update the status of the Service File, Property and Applicant Contact records at the same time, click the Update Status button.</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pending Direct Application Invitation</fullName>
+                <default>false</default>
+                <label>Pending Direct Application Invitation</label>
+            </value>
+            <value>
+                <fullName>Application In Process - Alternate Property</fullName>
+                <default>false</default>
+                <label>Application in Process - Alternate Property</label>
+            </value>
+            <value>
+                <fullName>Application in Process - Docs Old</fullName>
+                <default>false</default>
+                <label>Application in Process - Docs Old</label>
+            </value>
+            <value>
+                <fullName>Application in Process</fullName>
+                <default>false</default>
+                <label>Application in Process</label>
+            </value>
+            <value>
+                <fullName>Failed Pre-Screen</fullName>
+                <default>false</default>
+                <label>Failed Pre-Screen</label>
+            </value>
+            <value>
+                <fullName>Failed Income Certification - Pending Appeal</fullName>
+                <color>#FF0000</color>
+                <default>false</default>
+                <label>Failed Income Certification - Pending Appeal</label>
+            </value>
+            <value>
+                <fullName>Failed Income Certification</fullName>
+                <color>#CC0000</color>
+                <default>false</default>
+                <label>Failed Income Certification</label>
+            </value>
+            <value>
+                <fullName>Withdrawn / No Longer Interested</fullName>
+                <color>#CC33CC</color>
+                <default>false</default>
+                <label>Withdrawn - No Longer Interested</label>
+            </value>
+            <value>
+                <fullName>Withdrawn - Backup (Did Not Start Certification)</fullName>
+                <default>false</default>
+                <label>Withdrawn - Did Not Start Certification (Backup, Duplicate, Switched Unit, No Supporting Docs)</label>
+            </value>
+            <value>
+                <fullName>Withdrawn, Did Not Submit Application</fullName>
+                <default>false</default>
+                <label>Withdrawn, Did Not Submit Application</label>
+            </value>
+            <value>
+                <fullName>Certified - Pending Final Documents</fullName>
+                <color>#FFCC33</color>
+                <default>false</default>
+                <label>Certified - Pending Final Documents</label>
+            </value>
+            <value>
+                <fullName>Certified - Pending Closing</fullName>
+                <color>#33CC00</color>
+                <default>false</default>
+                <label>Certified - Pending Closing</label>
+            </value>
+            <value>
+                <fullName>Certified - Backup</fullName>
+                <default>false</default>
+                <label>Certified - Backup</label>
+            </value>
+            <value>
+                <fullName>Certified - On Hold</fullName>
+                <color>#6666CC</color>
+                <default>false</default>
+                <label>Certified - On Hold</label>
+            </value>
+            <value>
+                <fullName>Certified - Expired</fullName>
+                <color>#6633FF</color>
+                <default>false</default>
+                <label>Certified - Expired</label>
+            </value>
+            <value>
+                <fullName>Current Owner</fullName>
+                <color>#33CC00</color>
+                <default>false</default>
+                <label>Current Owner</label>
+            </value>
+            <value>
+                <fullName>Current Renter</fullName>
+                <color>#FFCC33</color>
+                <default>false</default>
+                <label>Current Renter</label>
+            </value>
+            <value>
+                <fullName>Past Owner</fullName>
+                <color>#33CC00</color>
+                <default>false</default>
+                <label>Past Owner</label>
+            </value>
+            <value>
+                <fullName>Past Renter</fullName>
+                <color>#FFCC33</color>
+                <default>false</default>
+                <label>Past Renter</label>
+            </value>
+            <value>
+                <fullName>Application Complete</fullName>
+                <default>false</default>
+                <label>Application Complete</label>
+            </value>
+            <value>
+                <fullName>Assistance Complete</fullName>
+                <default>false</default>
+                <label>Assistance Complete</label>
+            </value>
+            <value>
+                <fullName>Ineligible</fullName>
+                <default>false</default>
+                <label>Ineligible</label>
+            </value>
+            <value>
+                <fullName>Wait List</fullName>
+                <default>false</default>
+                <label>Wait List</label>
+            </value>
+            <value>
+                <fullName>Active</fullName>
+                <default>false</default>
+                <label>Active</label>
+            </value>
+            <value>
+                <fullName>Recertification - Certified</fullName>
+                <default>false</default>
+                <label>Recertification - Certified</label>
+            </value>
+            <value>
+                <fullName>Recertification - Ineligible</fullName>
+                <default>false</default>
+                <label>Recertification - Ineligible</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

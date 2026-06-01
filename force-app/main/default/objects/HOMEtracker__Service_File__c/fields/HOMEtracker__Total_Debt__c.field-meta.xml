@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Total_Debt__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The sum of the Balance Due of all related Debt records. Tip: To make changes, create or update a related Debt record.</description>
+    <inlineHelpText>The sum of the Balance Due of all related Debt records. 
+
+Tip: To make changes, create or update a related Asset record.</inlineHelpText>
+    <label>Total Debt</label>
+    <summarizedField>HOMEtracker__Debt__c.HOMEtracker__Balance_Due__c</summarizedField>
+    <summaryForeignKey>HOMEtracker__Debt__c.HOMEtracker__Service_File__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

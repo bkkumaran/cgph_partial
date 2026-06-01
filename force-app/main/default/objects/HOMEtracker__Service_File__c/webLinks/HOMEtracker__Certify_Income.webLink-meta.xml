@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Certify_Income</fullName>
+    <availability>online</availability>
+    <description>Copies info into certified fields, including: Income Certification Date, Certified AMI, Certified Close Date, Certified Gross Annual Income, Applicant Zip Code, and Certified Income Calculation</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Certify Income</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+
+var message = &quot;Certifying the income for Service File will copy information into certified fields in this file, and will overwrite any previously certified values.\n\n- Income Certification Date is set to the current date\n- Certified AMI for Household Size is copied from AMI for Household Size\n- Certified Annual Income (Gross) is copied from Annual Income (Gross)\n- Certified Annual Income (Eligibility) is copied from Annual Income (Eligibility)\n- Certified Eligibility Income Calculation is copied from Eligibility Income Calculation\n- Certified Household Size is copied from Household Size\n- Certified 4-Person AMI is calculated\n\nYou cannot un-certify the income, but if you need to make a correction, you can recertify. The uncertified fields will always copy over the certified fields.\n\nAre you ready to continue?&quot;
+
+confirmed = window.confirm(message); 
+
+if (confirmed) 
+{ 
+// run the webservice 
+var serviceFileID = sforce.apex.execute(&quot;HOMEtracker.ServiceFileWebServices&quot;,&quot;certifyIncome&quot;, {serviceFileID: &quot;{!CASESAFEID(HOMEtracker__Service_File__c.Id)}&quot;}); 
+
+// redirect to the new task 
+top.location.replace(&quot;/&quot; + serviceFileID); 
+}</url>
+</WebLink>

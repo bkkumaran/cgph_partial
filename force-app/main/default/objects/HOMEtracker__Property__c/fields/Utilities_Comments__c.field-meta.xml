@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Utilities_Comments__c</fullName>
+    <description>Notes to explain the &quot;Utilities&quot; field amount (date, who determined it, how it was calculated, if we are ignoring to broaden outreach, etc.). This field does not appear on listings.</description>
+    <inlineHelpText>Notes to explain the &quot;Utilities&quot; field amount (date, who determined it, how it was calculated, if we are ignoring to broaden outreach, etc.). This field does not appear on listings.</inlineHelpText>
+    <label>Utilities Comments</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

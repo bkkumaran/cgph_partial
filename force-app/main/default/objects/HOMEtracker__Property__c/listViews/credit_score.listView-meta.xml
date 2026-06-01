@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>credit_score</fullName>
+    <columns>NAME</columns>
+    <columns>Credit_Background_Check_Fee_Notes__c</columns>
+    <columns>Minimum_Credit_Score_to_be_Eligible__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Rental_or_Sale_Development__c</field>
+        <operation>equals</operation>
+        <value>Sale</value>
+    </filters>
+    <label>credit score</label>
+</ListView>

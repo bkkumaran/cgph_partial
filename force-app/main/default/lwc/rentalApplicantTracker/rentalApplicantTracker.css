@@ -1,16 +1,52 @@
 /* rentalApplicantTrackerMockup.css */
 
-/* Property Section Styling */
+.card {
+    display: flex;
+}
+
+/* Center the lightning-card header actions slot */
+:host {
+    --slds-c-card-header-spacing-block-start: 1rem;
+    --slds-c-card-header-spacing-block-end: 1rem;
+    /* Allow dropdown to escape component boundaries */
+    overflow: visible !important;
+    contain: none !important;
+}
+
+/* Override SLDS card header to center actions */
+lightning-card {
+    --slds-c-card-header-text-align: left;
+}
+
+/* Center the actions slot within the card header */
+::slotted([slot="actions"]) {
+    margin-left: 0 !important;
+    
+}
+
+/* Ensure card header is flex and left aligment */
+.slds-card__header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    gap: 1rem !important;
+}
+
+
+/* Property Section Styling - Prevent horizontal page scroll */
 .property-section {
     border: 2px solid #e5e5e5;
     border-radius: 8px;
     background-color: #fafafa;
     margin-bottom: 2rem;
+    /* width: fit-content; */
     width: 100%;
+    overflow: visible; /* Changed from hidden to visible */
 }
 
 .property-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border-radius: 6px 6px 0 0;
     display: flex;
@@ -18,13 +54,97 @@
     align-items: center;
     padding: 1rem;
     margin-bottom: 0;
-    width: 100%;
+    /* width: 100%;
+    min-width: 100%;  */
+   }
+
+/* Group Property Header - Purple/Violet gradient */
+.property-header-group {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* width: 100%;
+    min-width: max-content; */
+}
+
+/* Individual Property Header - Blue/Teal gradient */
+.property-header-individual {
+    background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+    /* width: 100%;
+    min-width: max-content; */
 }
 
 .property-header h3 {
     margin: 0;
     font-size: 1.2rem;
     font-weight: 600;
+}
+
+/* Max Application Fee - smaller font */
+.max-fee-text {
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-left: 0.5rem;
+}
+
+/* Contact Button Container - Remove grid layout issues */
+.contact-button-container {
+    padding-bottom: 1rem;
+    border: none !important;
+    background: transparent !important;
+}
+
+/* Contact Button Styling - Fixed */
+.contact-button {
+    background-color: #ffffff !important;
+    color: #0176d3 !important;
+    border: 1px solid #0176d3 !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    display: inline-block !important;
+}
+
+.contact-button:hover {
+    background-color: #f3f3f3 !important;
+    border-color: #005fb2 !important;
+}
+
+.header-buttons-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 0;
+}
+
+.header-action-button,
+.header-action-button .slds-button {
+    border: 1px solid #c9c9c9 !important;
+    border-radius: 4px !important;
+    background-color: white !important;
+    margin: 0 !important;
+}
+
+.header-action-button:hover,
+.header-action-button .slds-button:hover {
+    background-color: #f3f3f3 !important;
+    border-color: #0176d3 !important;
+}
+
+/* Override Salesforce button group styles if still present */
+.slds-button-group .slds-button {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-radius: 4px !important;
+    border: 1px solid #c9c9c9 !important;
+}
+
+.slds-button-group .slds-button:not(:first-child) {
+    border-left: 1px solid #c9c9c9 !important;
+}
+
+.slds-button-group .slds-button:hover {
+    background-color: #f3f3f3 !important;
+    border-color: #0176d3 !important;
 }
 
 /* Section Headers */
@@ -52,33 +172,89 @@
     background-color: #fafaf9;
     font-weight: bold;
     text-align: left;
-    padding: 10px 8px;
+    padding: 6px 4px;
     border: 1px solid #d8dde6;
-    font-size: 11px;
+    font-size: 10px;
     white-space: normal;
     line-height: 1.2;
+    max-width: 120px;
+    word-wrap: break-word;
 }
 
-/* Table Container with improved scrolling */
+/* Prevent text from breaking in headers */
+.no-wrap-header {
+    white-space: nowrap !important;
+}
+
+
+/* Table Container with improved scrolling - Each property scrolls independently */
+
+/* Table Container - Use browser scrollbars for natural scrolling */
 .table-container {
-    overflow-x: auto;
-    overflow-y: auto;
-    max-height: 80vh;
-    min-height: 500px;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
     border: 1px solid #d8dde6;
     border-radius: 0 0 6px 6px;
     background-color: white;
     width: 100%;
-    position: relative;
+    /* Remove position relative to avoid blocking dropdowns */
 }
 
-/* Custom scrollbar for webkit browsers - Enhanced visibility */
-.table-container::-webkit-scrollbar {
+/* Simplified dropdown CSS - let Lightning handle positioning */
+
+/* Ensure table cells allow overflow for dropdowns */
+.editable-table tbody tr td {
+    overflow: visible !important;
+}
+
+/* Basic positioning for combobox containers */
+.status-container,
+td[data-label="Status"],
+td[data-label="Approval / Denial"] {
+    position: static;
+}
+
+.table-container table {
+    min-width: 100%;
+    width: max-content;
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+
+/*.table-container {
+    /*overflow-x: visible; 
+    overflow-y: visible;  /* No vertical scroll */
+    /*max-height: none; /* No max-height constraint */
+    /*min-height: auto;
+    border: 1px solid #d8dde6;
+    border-radius: 0 0 6px 6px;
+    background-color: white;
+    width: fit-content;
+    min-width: 100%; 
+    position: relative;
+    /* Prevent the entire page from scrolling horizontally */
+
+/*}*/
+
+/* Custom scrollbar for webkit browsers - Always visible with enhanced visibility */
+/*.table-container {
+    /* Force scrollbars to always be visible */
+    /*scrollbar-width: auto; /* For Firefox 64+ */
+    /*scrollbar-color: #6c757d #f8f9fa; /* For Firefox 64+ - thumb and track colors */
+    /* Note: scrollbar-width and scrollbar-color have limited support in Safari/older Chrome */
+    /* Webkit scrollbar styles below provide better cross-browser support */
+/*}*/
+
+/*.table-container::-webkit-scrollbar {
     width: 16px;
     height: 16px;
-}
+    /* Always show scrollbar */
+    /*-webkit-appearance: none;
+/*}*/
 
-.table-container::-webkit-scrollbar-track {
+/*.table-container::-webkit-scrollbar-track {
     background: #f8f9fa;
     border-radius: 8px;
     border: 1px solid #e9ecef;
@@ -89,6 +265,7 @@
     border-radius: 8px;
     border: 2px solid #f8f9fa;
     min-height: 30px;
+    min-width: 30px;
 }
 
 .table-container::-webkit-scrollbar-thumb:hover {
@@ -102,45 +279,48 @@
 .table-container::-webkit-scrollbar-corner {
     background: #f8f9fa;
 }
-
 .table-container table {
-    min-width: 2800px;
+    min-width: min-content;
     width: max-content;
     table-layout: auto;
     border-collapse: separate;
     border-spacing: 0;
 }
 
-/* Improved Email Field Width */
+/* ALL INPUT FIELDS - Ultra-compact for maximum space efficiency */
+
+/* Email Field */
 .editable-field-email {
-    width: 100%;
-    min-width: 180px;
+    width: fit-content;
+    min-width: min-content;
+    max-width: fit-content;
 }
 
 .editable-field-email .slds-input {
     border: 2px solid #d8dde6 !important;
-    padding: 6px 12px;
-    font-size: 12px;
-    min-height: 32px;
-    width: 100%;
-    min-width: 180px;
-    background-color: white;
-    box-sizing: border-box;
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    min-height: 28px !important;
+    width: 180px !important;
+    max-width: 200px !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
 }
 
-/* Improved Name Field Width - Single line with proper borders */
+/* Name/Text Field - Compact */
 .editable-field-wide {
-    width: 100%;
-    min-width: 200px;
+    width: fit-content;
+    min-width: min-content;
+    max-width: fit-content;
 }
 
 .editable-field-wide .slds-input {
     border: 2px solid #d8dde6 !important;
-    padding: 6px 12px !important;
-    font-size: 12px !important;
-    min-height: 32px !important;
-    width: 100% !important;
-    min-width: 200px !important;
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    min-height: 28px !important;
+    width: 120px !important;
+    max-width: 120px !important;
     background-color: white !important;
     box-sizing: border-box !important;
     white-space: nowrap !important;
@@ -148,115 +328,145 @@
     text-overflow: ellipsis !important;
 }
 
+/* Priority Field */
+.editable-field-priority {
+    width: fit-content;
+    /* min-width: min-content; */
+    max-width: 50px;
+}
+
+.editable-field-priority .slds-input {
+    border: 2px solid #d8dde6 !important;
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    min-height: 28px !important;
+    width: 30px !important;
+    max-width: 30px !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+}
+
 /* Number of People in Household Field */
 .editable-field-household {
-    width: 100%;
-    min-width: 80px;
+    width: fit-content;
+    max-width: 50px;
 }
 
 .editable-field-household .slds-input {
     border: 2px solid #d8dde6 !important;
-    padding: 6px 12px;
-    font-size: 12px;
-    min-height: 32px;
-    width: 100%;
-    min-width: 80px;
-    background-color: white;
-    box-sizing: border-box;
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    min-height: 28px !important;
+    width: 30px !important;
+    max-width: 30px !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
 }
 
+/* Phone Field */
 .editable-field-phone {
-    width: 100%;
-    min-width: 150px;
+    width: fit-content;
+    min-width: min-content;
 }
 
 .editable-field-phone .slds-input {
     border: 2px solid #d8dde6 !important;
-    padding: 6px 12px;
-    font-size: 12px;
-    min-height: 32px;
-    width: 100%;
-    background-color: white;
-    box-sizing: border-box;
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    min-height: 28px !important;
+    width: 110px !important;
+    max-width: 110px !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
 }
 
+/* Standard Field - Dropdowns/Comboboxes */
 .editable-field-standard {
-    width: 100%;
-    min-width: 120px;
+    width: fit-content;
+    min-width: min-content;
 }
 
 .editable-field-standard .slds-combobox,
 .editable-field-standard .slds-input,
 .editable-field-standard .slds-select {
     border: 2px solid #d8dde6 !important;
-    padding: 6px 12px;
-    font-size: 12px;
-    min-height: 32px;
-    width: 100%;
-    background-color: white;
-    box-sizing: border-box;
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    min-height: 28px !important;
+    width: 90px !important;
+    max-width: 90px !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
 }
 
+/* Date Fields - Dynamic width */
 .editable-field-date {
-    width: 100%;
-    min-width: 150px;
+    width: fit-content;
+    min-width: 110px;
+    max-width: 150px;
 }
 
 .editable-field-date .slds-input {
     border: 2px solid #d8dde6 !important;
-    padding: 6px 12px;
-    font-size: 12px;
-    min-height: 32px;
-    width: 100%;
-    min-width: 150px;
-    background-color: white;
-    box-sizing: border-box;
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    min-height: 28px !important;
+    width: auto !important;
+    min-width: 110px !important;
+    max-width: 130px !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
 }
 
+/* Narrow Fields */
 .editable-field-narrow {
-    width: 100%;
-    min-width: 80px;
+    width: fit-content;
+    min-width: min-content;
 }
 
 .editable-field-narrow .slds-input {
-    border: 1px solid #d8dde6;
-    padding: 6px 12px;
-    font-size: 12px;
-    min-height: 32px;
-    width: 100%;
+    border: 2px solid #d8dde6 !important;
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+    min-height: 32px !important;
+    width: auto !important;
+    min-width: min-content !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
 }
 
+/* Notes/Textarea Fields */
 .editable-field-notes {
-    width: 100%;
-    min-width: 80px;
+    width: fit-content;
+    min-width: min-content;
 }
 
 .editable-field-notes .slds-textarea {
     border: 2px solid #d8dde6 !important;
-    padding: 6px 12px;
-    font-size: 12px;
-    min-height: 60px;
-    width: 100%;
-    resize: vertical;
-    background-color: white;
-    box-sizing: border-box;
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+    min-height: 60px !important;
+    width: 150px !important;
+    min-width: 100px !important;
+    resize: vertical !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
 }
 
+/* Checkbox Fields */
 .editable-field-checkbox {
-    width: 100%;
+    width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 110px;
+    min-width: min-content;
     border: 2px solid #d8dde6 !important;
-    background-color: white !important;
-    padding: 6px 12px !important;
+    /* background-color: white !important; */
+    padding: 6px 8px !important;
     min-height: 32px !important;
     box-sizing: border-box !important;
-    border-top: 2px solid #d8dde6 !important;
-    border-bottom: 2px solid #d8dde6 !important;
-    border-left: 2px solid #d8dde6 !important;
-    border-right: 2px solid #d8dde6 !important;
 }
 
 .editable-field-checkbox .slds-checkbox {
@@ -275,6 +485,7 @@
 .editable-field-wide .slds-input:focus,
 .editable-field-email .slds-input:focus,
 .editable-field-phone .slds-input:focus,
+.editable-field-priority .slds-input:focus,
 .editable-field-household .slds-input:focus,
 .editable-field-standard .slds-input:focus,
 .editable-field-standard .slds-combobox:focus,
@@ -287,10 +498,11 @@
     box-shadow: 0 0 3px rgba(1, 118, 211, 0.3) !important;
 }
 
-/* All Input Fields - Unified Border Styling */
+/* All Input Fields - Unified Border Styling - Ultra Compact */
 .editable-field-wide .slds-input,
 .editable-field-email .slds-input,
 .editable-field-phone .slds-input,
+.editable-field-priority .slds-input,
 .editable-field-household .slds-input,
 .editable-field-standard .slds-input,
 .editable-field-standard .slds-combobox,
@@ -299,278 +511,425 @@
 .editable-field-narrow .slds-input,
 .editable-field-notes .slds-textarea {
     border: 2px solid #d8dde6 !important;
-    padding: 6px 12px !important;
-    font-size: 12px !important;
-    min-height: 32px !important;
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    min-height: 28px !important;
     background-color: white !important;
     box-sizing: border-box !important;
-    width: 100% !important;
 }
 
 /* Specific field adjustments */
 .editable-field-wide .slds-input {
-    min-height: 40px !important;
-    white-space: normal !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
 
-/* Sticky table headers for better navigation */
+/* Sticky table headers DISABLED temporarily to fix dropdown positioning */
 .editable-table thead {
-    position: sticky;
+    position: static; /* Changed from sticky to static */
     top: 0;
-    z-index: 10;
+    z-index: 2;
     background-color: white;
+    word-break: break-word;
 }
 
 .editable-table thead th {
-    position: sticky;
+    position: static; /* Changed from sticky to static */
     top: 0;
     background-color: inherit;
-    z-index: 11;
+    z-index: 2;
 }
 
-/* Section headers sticky positioning */
+/* Section headers - static instead of sticky */
 .section-header {
-    position: sticky;
+    position: static; /* Changed from sticky to static */
     top: 0;
-    z-index: 12;
+    z-index: 2;
     background-color: inherit;
 }
 
-/* Column headers sticky positioning - ensure always visible */
+/* Column headers - static instead of sticky */
 .column-header {
-    position: sticky;
-    top: 41px; /* Height of section header */
-    z-index: 11;
+    position: static; /* Changed from sticky to static */
+    /* top: 41px; Height of section header */
+    z-index: 2;
     background-color: #fafaf9 !important; /* Ensure background color is set */
 }
 
-/* Ensure flag column header stays visible */
+/* Flag column - static instead of sticky */
 .editable-table th:nth-child(1).column-header {
-    position: sticky;
-    top: 41px;
-    z-index: 15; /* Higher z-index for flag column */
+    position: static; /* Changed from sticky to static */
+    /* top: 41px; */
+    z-index: 3;
     background-color: #fafaf9 !important;
 }
 
-/* Improved column widths for better data visibility */
-.editable-table th:nth-child(1) { 
-    min-width: 80px !important; 
-    width: 80px !important;
+/* Improved column widths - use min-content to avoid unnecessary scrolling */
+.editable-table th {
+    min-width: min-content !important;
+    width: fit-content !important;
+    border: 2px solid #d8dde6 !important;
+    white-space: normal !important;  /* Allow wrapping */
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    padding: 4px 6px !important;
+    line-height: 1.3 !important;
+    font-size: 10px !important;  /* Slightly smaller for compact headers */
+    vertical-align: top !important;
+    max-width: fit-content !important;
+}
+
+/* Flag column - special sizing */
+.editable-table th:nth-child(1) {
+    min-width: 30px !important;
+    width: 30px !important;
+    max-width: 30px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 4px 2px !important;
+}
+
+/* Specific column width constraints for optimal spacing */
+/* Column 2: Status */
+.editable-table th:nth-child(2),
+.editable-table td:nth-child(2) {
+    max-width: 120px !important;
+}
+
+/* Column 3: Unit */
+.editable-table th:nth-child(3),
+.editable-table td:nth-child(3) {
+    min-width: 150px !important;
+    max-width: 250px !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    
+}
+
+/* Column 4: Priority */
+.editable-table th:nth-child(4),
+.editable-table td:nth-child(4) {
+    width: 30px !important;
+    max-width: 50px !important;
+    text-align: center !important;
+}
+
+/* Column 5: Applicant Name */
+.editable-table th:nth-child(5),
+.editable-table td:nth-child(5) {
+    max-width: 120px !important;
+}
+
+/* Column 6: Number of People in Household */
+.editable-table th:nth-child(6),
+.editable-table td:nth-child(6) {
+    width: 30px !important;
+    max-width: 50px !important;
+    text-align: center !important;
+}
+
+/* Column 7: Email Address */
+.editable-table th:nth-child(7),
+.editable-table td:nth-child(7) {
+    max-width: 200px !important;
+    min-width: 180px !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+/* Column 8: Phone Number */
+.editable-table th:nth-child(8),
+.editable-table td:nth-child(8) {
+    max-width: 110px !important;
+}
+
+/* Column 9: Date CGPH Added */
+.editable-table th:nth-child(9),
+.editable-table td:nth-child(9) {
+    max-width: 150px !important;
+}
+
+/* Column 10: Date Marked Primary */
+.editable-table th:nth-child(10),
+.editable-table td:nth-child(10) {
+    max-width: 150px !important;
+}
+
+/* Column 11: Approval/Denial */
+.editable-table th:nth-child(11),
+.editable-table td:nth-child(11) {
+    max-width: 160px !important;
+}
+
+/* Column 12: Approve/Deny Date */
+.editable-table th:nth-child(12),
+.editable-table td:nth-child(12) {
+    max-width: 150px !important;
+}
+
+/* Column 13: Notes - Compact for truncated display with click-to-expand */
+/* Specific column width defined below in notes modal section */
+
+/* Column 14: Ready Date (was Approved for Full Review) */
+.editable-table th:nth-child(14),
+.editable-table td:nth-child(14) {
+    max-width: 180px !important;
+}
+
+/* Column 15: Full Review CGPH Began */
+.editable-table th:nth-child(15),
+.editable-table td:nth-child(15) {
+    max-width: 180px !important;
+}
+
+/* Column 16: CGPH Determination */
+.editable-table th:nth-child(16),
+.editable-table td:nth-child(16) {
+    /* current - max-width: 100px !important; */
     max-width: 80px !important;
+}
+
+/* Column 17: Date of Determination */
+.editable-table th:nth-child(17),
+.editable-table td:nth-child(17) {
+    max-width: 150px !important;
+}
+
+/* OLD COLUMN WIDTH STYLES - COMMENTED OUT */
+/*
+.editable-table th:nth-child(1) {
+    min-width: 30px !important;
+    width: 30px !important;
+    max-width: 30px !important;
     text-align: center !important;
     border: 2px solid #d8dde6 !important;
-    white-space: nowrap !important; /* Prevent text wrapping */
-} /* Flag column */
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+    padding: 4px 2px !important;
+}
 
-.editable-table th:nth-child(2) { 
-    min-width: 130px; 
-    width: 130px;
-    border: 2px solid #d8dde6 !important; 
-} /* Status */
-
-.editable-table th:nth-child(3) { 
-    min-width: 100px; 
-    width: 100px;
-    border: 2px solid #d8dde6 !important; 
-} /* Unit */
-
-.editable-table th:nth-child(4) { 
-    min-width: 110px; 
-    width: 110px;
-    border: 2px solid #d8dde6 !important; 
-} /* Priority */
-
-.editable-table th:nth-child(5) { 
-    min-width: 200px; 
-    width: 200px;
-    max-width: 250px;
-    border: 2px solid #d8dde6 !important; 
-} /* Applicant Name */
-
-.editable-table th:nth-child(6) { 
-    min-width: 90px; 
-    width: 90px;
-    border: 2px solid #d8dde6 !important; 
-} /* Number of People in Household */
-
-.editable-table th:nth-child(7) { 
-    min-width: 200px; 
-    width: 200px;
-    max-width: 250px;
-    border: 2px solid #d8dde6 !important; 
-} /* Email */
-
-.editable-table th:nth-child(8) { 
-    min-width: 160px; 
-    width: 160px;
-    border: 2px solid #d8dde6 !important; 
-} /* Phone */
-
-.editable-table th:nth-child(9) { 
-    min-width: 150px; 
-    width: 150px;
-    border: 2px solid #d8dde6 !important; 
-} /* Date CGPH Added */
-
-.editable-table th:nth-child(10) { 
-    min-width: 150px; 
-    width: 150px;
-    border: 2px solid #d8dde6 !important; 
-} /* Date Marked Primary */
-
-.editable-table th:nth-child(11) { 
-    min-width: 140px; 
-    width: 140px;
-    border: 2px solid #d8dde6 !important; 
-} /* Approval/Denial */
-
-.editable-table th:nth-child(12) { 
-    min-width: 150px; 
-    width: 150px;
-    border: 2px solid #d8dde6 !important; 
-} /* Approve/Deny Date */
-
-.editable-table th:nth-child(13) { 
-    min-width: 120px; 
-    width: 120px;
-    border: 2px solid #d8dde6 !important; 
-} /* Notes */
-
-.editable-table th:nth-child(14) { 
-    min-width: 130px; 
-    width: 130px;
-    border: 2px solid #d8dde6 !important; 
-} /* Approved for Full Review */
-
-.editable-table th:nth-child(15) { 
-    min-width: 160px; 
-    width: 160px;
-    border: 2px solid #d8dde6 !important; 
-} /* Full Review CGPH Began */
-
-.editable-table th:nth-child(16) { 
-    min-width: 140px; 
-    width: 140px;
-    border: 2px solid #d8dde6 !important; 
-} /* CGPH Determination */
-
-.editable-table th:nth-child(17) { 
-    min-width: 160px; 
-    width: 160px;
-    border: 2px solid #d8dde6 !important; 
-} /* Date of Determination */
-
-/* Corresponding TD widths - Match TH widths exactly */
-.editable-table td:nth-child(1) { 
-    min-width: 80px !important; 
+.editable-table th:nth-child(3) {
+    min-width: 80px !important;
     width: 80px !important;
-    max-width: 80px !important;
-    text-align: center !important;
-    border: 2px solid #d8dde6 !important; 
-} /* Flag column */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(2) { 
-    min-width: 130px; 
-    width: 130px;
-    border: 2px solid #d8dde6 !important; 
-} /* Status */
+.editable-table th:nth-child(4) {
+    min-width: 50px !important;
+    width: 50px !important;
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(3) { 
-    min-width: 100px; 
-    width: 100px;
-    border: 2px solid #d8dde6 !important; 
-} /* Unit */
-
-.editable-table td:nth-child(4) { 
-    min-width: 110px; 
-    width: 110px;
-    border: 2px solid #d8dde6 !important; 
-} /* Priority */
-
-.editable-table td:nth-child(5) { 
-    min-width: 200px; 
-    width: 200px;
+.editable-table th:nth-child(5) {
+    min-width: 180px;
+    width: 180px;
     max-width: 250px;
-    border: 2px solid #d8dde6 !important; 
-} /* Applicant Name */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(6) { 
-    min-width: 90px; 
+.editable-table th:nth-child(6) {
+    min-width: 90px;
     width: 90px;
-    border: 2px solid #d8dde6 !important; 
-} /* Number of People in Household */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(7) { 
-    min-width: 200px; 
+.editable-table th:nth-child(7) {
+    min-width: 200px;
     width: 200px;
     max-width: 250px;
-    border: 2px solid #d8dde6 !important; 
-} /* Email */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(8) { 
-    min-width: 160px; 
+.editable-table th:nth-child(8) {
+    min-width: 160px;
     width: 160px;
-    border: 2px solid #d8dde6 !important; 
-} /* Phone */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(9) { 
-    min-width: 150px; 
+.editable-table th:nth-child(9) {
+    min-width: 150px;
     width: 150px;
-    border: 2px solid #d8dde6 !important; 
-} /* Date CGPH Added */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(10) { 
-    min-width: 150px; 
+.editable-table th:nth-child(10) {
+    min-width: min-content !important;
     width: 150px;
-    border: 2px solid #d8dde6 !important; 
-} /* Date Marked Primary */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(11) { 
-    min-width: 140px; 
+.editable-table th:nth-child(11) {
+    min-width: 140px;
     width: 140px;
-    border: 2px solid #d8dde6 !important; 
-} /* Approval/Denial */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(12) { 
-    min-width: 150px; 
+.editable-table th:nth-child(12) {
+    min-width: 150px;
     width: 150px;
-    border: 2px solid #d8dde6 !important; 
-} /* Approve/Deny Date */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(13) { 
-    min-width: 120px; 
-    width: 120px;
-    border: 2px solid #d8dde6 !important; 
-} /* Notes */
+.editable-table th:nth-child(13) {
+    min-width: 100px !important;
+    width: 100px !important;
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(14) { 
-    min-width: 130px; 
+.editable-table th:nth-child(14) {
+    min-width: 130px;
     width: 130px;
-    border: 2px solid #d8dde6 !important; 
-} /* Approved for Full Review */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(15) { 
-    min-width: 160px; 
+.editable-table th:nth-child(15) {
+    min-width: 160px;
     width: 160px;
-    border: 2px solid #d8dde6 !important; 
-} /* Full Review CGPH Began */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(16) { 
-    min-width: 140px; 
+.editable-table th:nth-child(16) {
+    min-width: 140px;
     width: 140px;
-    border: 2px solid #d8dde6 !important; 
-} /* CGPH Determination */
+    border: 2px solid #d8dde6 !important;
+}
 
-.editable-table td:nth-child(17) { 
-    min-width: 160px; 
+.editable-table th:nth-child(17) {
+    min-width: 160px;
     width: 160px;
-    border: 2px solid #d8dde6 !important; 
-} /* Date of Determination */
+    border: 2px solid #d8dde6 !important;
+}
+*/
 
-/* Scroll indicators */
+/* Corresponding TD widths - use fit-content to match TH widths */
+.editable-table td {
+    min-width: min-content !important;
+    width: fit-content !important;
+    max-width: fit-content !important;
+    border: 2px solid #d8dde6 !important;
+    white-space: nowrap !important;
+    padding: 2px 4px !important;  /* Tighter padding */
+    vertical-align: middle !important;
+}
+
+/* Flag column - special sizing */
+.editable-table td:nth-child(1) {
+    min-width: 30px !important;
+    width: 30px !important;
+    max-width: 30px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 4px 2px !important;
+}
+
+/* OLD TD WIDTH STYLES - COMMENTED OUT */
+/*
+.editable-table td:nth-child(1) {
+    min-width: 30px !important;
+    width: 30px !important;
+    max-width: 30px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border: 2px solid #d8dde6 !important;
+    padding: 4px 2px !important;
+}
+
+.editable-table td:nth-child(3) {
+    min-width: 80px !important;
+    width: 80px !important;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(4) {
+    min-width: 50px !important;
+    width: 50px !important;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(5) {
+    min-width: 180px;
+    width: 180px;
+    max-width: 250px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(6) {
+    min-width: 90px;
+    width: 90px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(7) {
+    min-width: 200px;
+    width: 200px;
+    max-width: 250px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(8) {
+    min-width: 160px;
+    width: 160px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(9) {
+    min-width: 150px;
+    width: 150px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(10) {
+    min-width: min-content;
+    width: 150px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(11) {
+    min-width: 140px;
+    width: 140px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(12) {
+    min-width: 150px;
+    width: 150px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(13) {
+    min-width: 100px !important;
+    width: 100px !important;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(14) {
+    min-width: 130px;
+    width: 130px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(15) {
+    min-width: 160px;
+    width: 160px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(16) {
+    min-width: 140px;
+    width: 140px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(17) {
+    min-width: 160px;
+    width: 160px;
+    border: 2px solid #d8dde6 !important;
+}
+*/
+
+/* Scroll indicators 
 .table-container::before {
     content: '';
     position: absolute;
@@ -601,7 +960,7 @@
     z-index: 5;
     opacity: 0;
     transition: opacity 0.3s ease;
-}
+}*/
 
 /* Table Cells - Enhanced for better data visibility */
 .editable-table td {
@@ -716,7 +1075,7 @@
 .status-removed {
     background-color: #FF00FF !important; /* Magenta for Removed */
     font-weight: bold !important;
-    color: white !important;
+    color: black !important;
 }
 
 .status-removed td {
@@ -726,7 +1085,7 @@
 .status-removed-approved {
     background-color: #FF00FF !important; /* Magenta for Removed + Approved */
     font-weight: bold !important;
-    color: white !important;
+    color: blue !important;
 }
 
 .status-removed-approved td {
@@ -757,10 +1116,114 @@
 .status-removed .slds-textarea,
 .status-removed input,
 .status-removed textarea {
-    color: white !important; /* White text for removed status */
+    color: black !important; /* White text for removed status */
 }
 
-/* Read-only field styling (matching Visualforce permissions) */
+/* Read-only text display styling */
+.readonly-text-display {
+    padding: 4px 6px;
+    font-size: 11px;
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    color: #181818;
+    background-color: transparent;
+}
+
+/* Specific readonly text display classes */
+.readonly-text-priority {
+    width: 30px;
+    max-width: 30px;
+    text-align: center;
+    justify-content: center;
+}
+
+.readonly-text-name {
+    width: 120px;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.readonly-text-household {
+    width: 30px;
+    max-width: 30px;
+    text-align: center;
+    justify-content: center;
+}
+
+.readonly-text-email {
+    width: 180px;
+    max-width: 200px;
+    white-space: nowrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+}
+
+.readonly-text-phone {
+    width: 110px;
+    max-width: 110px;
+}
+
+.readonly-text-date {
+    width: 50px;
+    max-width: 50px;
+    font-size: 10px;
+}
+
+/* Notes cell styling moved to notes modal section below */
+
+.readonly-text-checkbox {
+    width: 90px;
+    max-width: 90px;
+    text-align: center;
+    justify-content: center;
+}
+
+.readonly-text-standard {
+    width: 90px;
+    max-width: 90px;
+}
+
+.applicant-name-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+}
+
+.readonly-text-name-with-icon {
+    width: auto;
+    max-width: 100px;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 4px 6px;
+    font-size: 11px;
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    color: #181818;
+    background-color: transparent;
+}
+
+/* CGPH Status container with link icon */
+.cgph-status-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+}
+
+.readonly-text-with-icon {
+    width: auto;
+    flex: 1;
+}
+/* Read-only field styling (matching Visualforce permissions) - for commented out inputs */
 .readonly-field .slds-input,
 .readonly-field .slds-combobox,
 .readonly-field .slds-textarea,
@@ -781,7 +1244,7 @@
 .readonly-field textarea:focus,
 .readonly-field select:focus {
     border-color: #c9cccf !important;
-    box-shadow: none !important;
+    /*box-shadow: none !important;*/
 }
 
 /* Special handling for readonly checkboxes */
@@ -797,6 +1260,7 @@
     align-items: center;
     min-height: 32px;
     width: 100%;
+    padding: 0;
 }
 
 .flagged-indicator {
@@ -891,18 +1355,19 @@
 }
 
 /* Contact Button Styling */
-.contact-button {
+/* .contact-button {
     background-color: #ffffff;
     color: #0176d3;
     border: 1px solid #0176d3;
     padding: 12px 24px;
     border-radius: 6px;
     font-weight: 600;
+    margin-bottom: 0;
 }
 
 .contact-button:hover {
     background-color: #f3f2f2;
-}
+} */
 
 .add-property-button {
     min-width: 200px;
@@ -916,15 +1381,281 @@
     word-wrap: break-word;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-    .table-container table {
-        min-width: 3000px;
+/* Responsive adjustments for different screen sizes */
+
+/* Small Laptop (1024px - 1366px) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .editable-table th {
+        font-size: 9px !important;
+        padding: 3px 4px !important;
+        line-height: 1.2 !important;
     }
-    
-    .column-header {
-        min-width: 130px;
-        font-size: 10px;
+
+    .editable-table td {
+        padding: 2px 3px !important;
+        font-size: 10px !important;
+    }
+
+    /* Reduce column widths for small laptops */
+    .editable-table th:nth-child(2),
+    .editable-table td:nth-child(2) {
+        max-width: 100px !important;
+    }
+
+    .editable-table th:nth-child(3),
+    .editable-table td:nth-child(3) {
+        max-width: 120px !important;
+    }
+
+    .editable-table th:nth-child(5),
+    .editable-table td:nth-child(5) {
+        max-width: 100px !important;
+    }
+
+    .editable-table th:nth-child(7),
+    .editable-table td:nth-child(7) {
+        max-width: 160px !important;
+        min-width: 140px !important;
+    }
+
+    .editable-table th:nth-child(8),
+    .editable-table td:nth-child(8) {
+        max-width: 95px !important;
+    }
+
+    .editable-table th:nth-child(11),
+    .editable-table td:nth-child(11) {
+        max-width: 140px !important;
+    }
+
+    .readonly-text-name {
+        width: 100px;
+        max-width: 100px;
+    }
+
+    .readonly-text-email {
+        width: 140px;
+        max-width: 160px;
+    }
+
+    .readonly-text-phone {
+        width: 95px;
+        max-width: 95px;
+    }
+
+    .editable-field-wide .slds-input {
+        width: 100px !important;
+        max-width: 100px !important;
+    }
+
+    .editable-field-email .slds-input {
+        width: 140px !important;
+        max-width: 160px !important;
+    }
+
+    .editable-field-phone .slds-input {
+        width: 95px !important;
+        max-width: 95px !important;
+    }
+}
+
+/* Standard Laptop (1367px - 1599px) */
+@media (min-width: 1367px) and (max-width: 1599px) {
+    .editable-table th {
+        font-size: 10px !important;
+        padding: 4px 5px !important;
+    }
+
+    .editable-table td {
+        padding: 2px 4px !important;
+    }
+
+    /* Standard laptop column widths - already set in base styles */
+}
+
+/* Large Desktop (1600px - 1919px) */
+@media (min-width: 1600px) and (max-width: 1919px) {
+    .editable-table th {
+        font-size: 11px !important;
+        padding: 5px 7px !important;
+        line-height: 1.4 !important;
+    }
+
+    .editable-table td {
+        padding: 3px 5px !important;
+        font-size: 12px !important;
+    }
+
+    /* Increase column widths for large desktops */
+    .editable-table th:nth-child(2),
+    .editable-table td:nth-child(2) {
+        max-width: 140px !important;
+    }
+
+    .editable-table th:nth-child(3),
+    .editable-table td:nth-child(3) {
+        max-width: 170px !important;
+    }
+
+    .editable-table th:nth-child(5),
+    .editable-table td:nth-child(5) {
+        max-width: 140px !important;
+    }
+
+    .editable-table th:nth-child(7),
+    .editable-table td:nth-child(7) {
+        max-width: 220px !important;
+        min-width: 200px !important;
+    }
+
+    .editable-table th:nth-child(8),
+    .editable-table td:nth-child(8) {
+        max-width: 130px !important;
+    }
+
+    .editable-table th:nth-child(11),
+    .editable-table td:nth-child(11) {
+        max-width: 180px !important;
+    }
+
+    .editable-table th:nth-child(13),
+    .editable-table td:nth-child(13) {
+        max-width: 65px !important;
+    }
+
+    .editable-table th:nth-child(14),
+    .editable-table td:nth-child(14) {
+        max-width: 180px !important;
+    }
+
+    .readonly-text-name {
+        width: 140px;
+        max-width: 140px;
+    }
+
+    .readonly-text-email {
+        width: 200px;
+        max-width: 220px;
+    }
+
+    .readonly-text-phone {
+        width: 130px;
+        max-width: 130px;
+    }
+
+    /* Notes styling now in notes modal section */
+
+    .editable-field-wide .slds-input {
+        width: 140px !important;
+        max-width: 140px !important;
+    }
+
+    .editable-field-email .slds-input {
+        width: 200px !important;
+        max-width: 220px !important;
+    }
+
+    .editable-field-phone .slds-input {
+        width: 130px !important;
+        max-width: 130px !important;
+    }
+
+    .editable-field-notes .slds-textarea {
+        width: 150px !important;
+        min-width: 150px !important;
+    }
+}
+
+/* Extra Large Desktop (1920px+) */
+@media (min-width: 1920px) {
+    .editable-table th {
+        font-size: 12px !important;
+        padding: 6px 8px !important;
+        line-height: 1.5 !important;
+    }
+
+    .editable-table td {
+        padding: 4px 6px !important;
+        font-size: 13px !important;
+    }
+
+    /* Maximum column widths for extra large screens */
+    .editable-table th:nth-child(2),
+    .editable-table td:nth-child(2) {
+        max-width: 160px !important;
+    }
+
+    .editable-table th:nth-child(3),
+    .editable-table td:nth-child(3) {
+        max-width: 200px !important;
+    }
+
+    .editable-table th:nth-child(5),
+    .editable-table td:nth-child(5) {
+        max-width: 160px !important;
+    }
+
+    .editable-table th:nth-child(7),
+    .editable-table td:nth-child(7) {
+        max-width: 240px !important;
+        min-width: 220px !important;
+    }
+
+    .editable-table th:nth-child(8),
+    .editable-table td:nth-child(8) {
+        max-width: 150px !important;
+    }
+
+    .editable-table th:nth-child(11),
+    .editable-table td:nth-child(11) {
+        max-width: 200px !important;
+    }
+
+    .editable-table th:nth-child(13),
+    .editable-table td:nth-child(13) {
+        max-width: 70px !important;
+    }
+
+    .editable-table th:nth-child(14),
+    .editable-table td:nth-child(14) {
+        max-width: 180px !important;
+    }
+
+    .readonly-text-name {
+        width: 160px;
+        max-width: 160px;
+    }
+
+    .readonly-text-email {
+        width: 220px;
+        max-width: 240px;
+    }
+
+    .readonly-text-phone {
+        width: 150px;
+        max-width: 150px;
+    }
+
+    /* Notes styling now in notes modal section */
+
+    .editable-field-wide .slds-input {
+        width: 160px !important;
+        max-width: 160px !important;
+    }
+
+    .editable-field-email .slds-input {
+        width: 220px !important;
+        max-width: 240px !important;
+    }
+
+    .editable-field-phone .slds-input {
+        width: 150px !important;
+        max-width: 150px !important;
+    }
+
+    .editable-field-notes .slds-textarea {
+        width: 150px !important;
+        min-width: 150px !important;
     }
 }
 
@@ -975,36 +1706,105 @@
 }
 
 /* Full page width for property sections */
+
+/* Full page width for property sections - Use browser scrollbars */
 .slds-p-horizontal_medium {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
 
-/* Ensure property headers span full width */
+
+/*.slds-p-horizontal_medium {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    overflow-x: auto; /* Changed to auto - enables page-level horizontal scroll */
+    /*overflow-y: auto !important;
+}*/
+
+/* Make scrollbars larger and always visible */
+/*.slds-p-horizontal_medium::-webkit-scrollbar {
+    width: 16px !important;
+    height: 16px !important;
+    -webkit-appearance: none;
+}
+
+.slds-p-horizontal_medium::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border: 1px solid #d8dde6;
+}
+
+.slds-p-horizontal_medium::-webkit-scrollbar-thumb {
+    background: #6c757d;
+    border-radius: 8px;
+    border: 2px solid #f8f9fa;
+}
+
+.slds-p-horizontal_medium::-webkit-scrollbar-thumb:hover {
+    background: #495057;
+}
+
+.slds-p-horizontal_medium::-webkit-scrollbar-corner {
+    background: #f8f9fa;
+}*/
+
+/* Ensure property sections fit within container */
+/* Property sections with full-width backgrounds */
 .property-section {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-    width: calc(100% + 1rem);
+    margin-left: 0;
+    margin-right: 0;
+    /* width: 100%;
+    min-width: fit-content; */
 }
 
 .property-header {
-    width: 100%;
+    /* width: 100%; */
     margin-left: 0;
     margin-right: 0;
 }
+
+
+/* .property-section {
+    margin-left: 0;
+    margin-right: 0;
+    width: fit-content !important;
+    min-width: 100% !important;
+    max-width: none !important;
+}
+
+.property-header {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    margin-left: 0;
+    margin-right: 0;
+} */
 
 /* Unit Assignment Styles */
 .unit-assignment-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    min-width: 140px;
+    min-width: min-content;
     width: 100%;
 }
 
 .unit-display {
     margin-bottom: 0.25rem;
     width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Record Link Icon Styles */
+.record-link-icon {
+    flex-shrink: 0;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+.record-link-icon:hover {
+    background-color: rgba(1, 118, 211, 0.1);
 }
 
 .specific-unit {
@@ -1019,53 +1819,221 @@
     font-size: 0.8125rem;
 }
 
+.group-property-pill {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.0625rem 0.5rem;
+    border-radius: 12px;
+    background-color: #e0dce6;
+    color: #4b4a48;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
 .unit-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 0.25rem;
+    width: 100%;
+    align-items: center;
+}
+
+/* Icon button styles for unit assignment */
+.assign-unit-icon,
+.cancel-assignment-icon {
+    flex-shrink: 0;
+}
+
+.assign-unit-icon:hover {
+    background-color: #005fb2;
+}
+
+.cancel-assignment-icon:hover {
+    background-color: #e5e5e5;
+}
+
+/* OLD UNIT COLUMN WIDTH STYLES - COMMENTED OUT */
+/*
+.editable-table th:nth-child(3) {
+    min-width: 140px;
+    width: 140px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(3) {
+    min-width: 140px;
+    width: 140px;
+    border: 2px solid #d8dde6 !important;
+}
+*/
+
+/* Sortable Header Styling */
+.sortable-header {
+    position: relative;
+}
+
+.sortable-div {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    flex-wrap: wrap;
+}
+
+.sortable-div:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sortable-div:active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sort-icon {
+    margin-left: 4px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.sortable-div:hover .sort-icon {
+    opacity: 1;
+}
+
+/* Visual feedback for sorted column */
+.sortable-header.sorted {
+    background-color: rgba(1, 118, 211, 0.1);
+}
+
+.sortable-header.sorted .sortable-div {
+    font-weight: bold;
+}
+
+.sortable-header.sorted .sort-icon {
+    opacity: 1;
+    color: #0176d3;
+}
+
+/* Status Container Styles */
+.status-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 0.25rem;
     width: 100%;
 }
 
-.assign-unit-btn,
-.cancel-assignment-btn {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    min-height: 1.5rem;
-    white-space: nowrap;
-    width: 100%;
+/* Confirm Removal Icon Button Styles */
+.confirm-removal-icon {
+    flex-shrink: 0;
 }
 
-.assign-unit-btn {
-    background-color: #0070d2;
-    border-color: #0070d2;
-    color: white;
-}
-
-.assign-unit-btn:hover {
+.confirm-removal-icon:hover {
     background-color: #005fb2;
-    border-color: #005fb2;
 }
 
-.cancel-assignment-btn {
-    background-color: #f3f3f3;
-    border-color: #d8dde6;
-    color: #080707;
+/* Notes Modal and Cell Styles */
+
+/* Notes cell container - clickable */
+/* Notes Cell Styles - Full text with wrapping */
+.notes-cell {
+    white-space: normal !important;
+    word-wrap: break-word !important;
 }
 
-.cancel-assignment-btn:hover {
-    background-color: #e5e5e5;
-    border-color: #c9ccd4;
+.notes-full-text {
+    padding: 4px 8px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #181818;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
-/* Update Unit column width to accommodate new functionality */
-.editable-table th:nth-child(3) { 
-    min-width: 140px; 
-    width: 140px;
-    border: 2px solid #d8dde6 !important; 
-} /* Unit */
+/* Notes column width - allow expansion for wrapped text */
+.editable-table th:nth-child(13),
+.editable-table td:nth-child(13) {
+    width: 200px !important;
+    min-width: 200px !important;
+    max-width: 200px !important;
+    white-space: normal !important;
+}
 
-.editable-table td:nth-child(3) { 
-    min-width: 140px; 
-    width: 140px;
-    border: 2px solid #d8dde6 !important; 
-} /* Unit */
+
+/* Property header home icon - remove all backgrounds */
+.property-header .slds-m-right_x-small,
+.property-header lightning-button-icon.slds-m-right_x-small {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.property-header .slds-m-right_x-small .slds-button,
+.property-header .slds-m-right_x-small .slds-button_icon,
+.property-header lightning-button-icon.slds-m-right_x-small .slds-button,
+.property-header lightning-button-icon.slds-m-right_x-small .slds-button_icon {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Hover state - just slight opacity change, no background */
+.property-header .slds-m-right_x-small:hover .slds-button,
+.property-header lightning-button-icon.slds-m-right_x-small:hover .slds-button {
+    background: transparent !important;
+    background-color: transparent !important;
+    opacity: 0.8;
+}
+
+/* Make sure icon color is white */
+.property-header .slds-m-right_x-small .slds-icon,
+.property-header lightning-button-icon.slds-m-right_x-small .slds-icon {
+    fill: white !important;
+}
+
+
+/* OLD STATUS COLUMN WIDTH STYLES - COMMENTED OUT */
+/*
+.editable-table th:nth-child(2) {
+    min-width: 150px;
+    width: 150px;
+    border: 2px solid #d8dde6 !important;
+}
+
+.editable-table td:nth-child(2) {
+    min-width: 150px;
+    width: 150px;
+    border: 2px solid #d8dde6 !important;
+}
+*/
+
+/* Full Width Card Styling - 150vw */
+:host {
+    display: block;
+    width: 150vw !important;
+}
+
+lightning-card {
+    width: 100% !important;
+}
+
+.slds-card {
+    width: 100% !important;
+}
+
+.slds-card__body {
+    padding: 0 !important;
+}
+
+.slds-card__header {
+    width: 100% !important;
+}

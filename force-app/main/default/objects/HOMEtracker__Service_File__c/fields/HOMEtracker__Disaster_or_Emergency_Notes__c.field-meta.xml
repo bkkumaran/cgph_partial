@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Disaster_or_Emergency_Notes__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Use with field &quot;Disaster or Emergency&quot;. Comments about how this household was impacted by indicated disaster or emergency, and the services provided by program. Tip: HomeKeeper best practice is to create new Service File if household impacted by multiple incidents, over time. See HomeKeeper Support.</description>
+    <inlineHelpText>Comments about how this household was impacted by indicated disaster or emergency, and the services provided by program. Tip: HomeKeeper best practice is to create new Service File if household impacted by multiple incidents, over time.</inlineHelpText>
+    <label>Disaster or Emergency Notes</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

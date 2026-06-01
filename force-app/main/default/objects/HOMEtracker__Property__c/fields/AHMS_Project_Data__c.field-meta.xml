@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AHMS_Project_Data__c</fullName>
+    <inlineHelpText>Status of entering project level data into state on-line monitoring (AHMS)</inlineHelpText>
+    <label>AHMS Project Data</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Imported from CTM – not reviewed</fullName>
+                <default>false</default>
+                <label>Project Entered in AHMS- Imported from CTM</label>
+            </value>
+            <value>
+                <fullName>Project Entered in AHMS</fullName>
+                <default>false</default>
+                <label>Project Entered in AHMS</label>
+            </value>
+            <value>
+                <fullName>Project Entered in AHMS- Updates Needed</fullName>
+                <default>false</default>
+                <label>Project Entered in AHMS- Updates Needed</label>
+            </value>
+            <value>
+                <fullName>CGP&amp;H not completing Project Monitoring</fullName>
+                <default>false</default>
+                <label>Not Completing/Not Responsible</label>
+            </value>
+            <value>
+                <fullName>New Project- Ready for AHMS</fullName>
+                <default>false</default>
+                <label>Project Ready for Entry</label>
+            </value>
+            <value>
+                <fullName>Project Monitoring Needed</fullName>
+                <default>false</default>
+                <label>Project Monitoring Needed</label>
+            </value>
+            <value>
+                <fullName>Waiting for AHMS Access</fullName>
+                <default>false</default>
+                <label>Waiting for AHMS Access</label>
+            </value>
+            <value>
+                <fullName>Not Entered- Planned Project</fullName>
+                <default>false</default>
+                <label>Not Entered- Planned Project</label>
+            </value>
+            <value>
+                <fullName>Beta Batch Upload Complete</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Beta Batch Upload Complete</label>
+            </value>
+            <value>
+                <fullName>Imported from CTM –imported from CTM – reviewed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Imported from CTM –imported from CTM – reviewed</label>
+            </value>
+            <value>
+                <fullName>In progress</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>In progress</label>
+            </value>
+            <value>
+                <fullName>Need to Check AHMS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Need to Check AHMS</label>
+            </value>
+            <value>
+                <fullName>Need to start</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Need to start</label>
+            </value>
+            <value>
+                <fullName>Not Included in Prior Round Plan</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Not Included in Prior Round Plan</label>
+            </value>
+            <value>
+                <fullName>Planner Research Needed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Planner Research Needed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

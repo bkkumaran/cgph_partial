@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Include_Ineligibility_Appeal__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box if you want the Ineligibility Appeal text to show in the Ineligibility Email Text.</description>
+    <inlineHelpText>Check this box if you want the Ineligibility Appeal text to show in the Ineligibility Email Text.</inlineHelpText>
+    <label>Include Ineligibility Appeal?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Type_of_Assistance_Requested__c</fullName>
+    <deprecated>false</deprecated>
+    <inlineHelpText>Service types selected in the application.</inlineHelpText>
+    <label>Type of Assistance Requested</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Emergency Loan / Grant</fullName>
+                <default>false</default>
+                <label>Emergency Loan / Grant</label>
+            </value>
+            <value>
+                <fullName>Home Improvement Loan / Grant</fullName>
+                <default>false</default>
+                <label>Home Improvement Loan / Grant</label>
+            </value>
+            <value>
+                <fullName>Rental Assistance</fullName>
+                <default>false</default>
+                <label>Rental Assistance</label>
+            </value>
+            <value>
+                <fullName>Conservation / Energy Assistance</fullName>
+                <default>false</default>
+                <label>Conservation / Energy Assistance</label>
+            </value>
+            <value>
+                <fullName>Education / Group Workshop</fullName>
+                <default>false</default>
+                <label>Education / Group Workshop</label>
+            </value>
+            <value>
+                <fullName>Pre-Purchase Homebuyer Counseling</fullName>
+                <default>false</default>
+                <label>Pre-Purchase Homebuyer Counseling</label>
+            </value>
+            <value>
+                <fullName>Mortgage Delinquency Counseling</fullName>
+                <default>false</default>
+                <label>Mortgage Delinquency Counseling</label>
+            </value>
+            <value>
+                <fullName>Home Maintenance Counseling</fullName>
+                <default>false</default>
+                <label>Home Maintenance Counseling</label>
+            </value>
+            <value>
+                <fullName>Financial Management Counseling</fullName>
+                <default>false</default>
+                <label>Financial Management Counseling</label>
+            </value>
+            <value>
+                <fullName>Rental Housing Counseling</fullName>
+                <default>false</default>
+                <label>Rental Housing Counseling</label>
+            </value>
+            <value>
+                <fullName>Counseling Services for the Homeless</fullName>
+                <default>false</default>
+                <label>Counseling Services for the Homeless</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

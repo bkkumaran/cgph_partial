@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_Ownership_Available_On_Hold</fullName>
+    <columns>NAME</columns>
+    <columns>Primary_Outreach_Coordintor__c</columns>
+    <columns>Date_Rec_d_Complete_ITS__c</columns>
+    <columns>Outreach_status_notes__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Available for Sale/Resale - ITS Received</value>
+    </filters>
+    <label>Available for Sale/Resale - ITS Received</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

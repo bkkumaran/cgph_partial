@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AA_lease_renewals</fullName>
+    <columns>Municipality_Name__c</columns>
+    <columns>NAME</columns>
+    <columns>Number_of_units__c</columns>
+    <columns>Development_Lease_Notes__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Development</value>
+    </filters>
+    <filters>
+        <field>Rental_or_Sale_Development__c</field>
+        <operation>equals</operation>
+        <value>Rental</value>
+    </filters>
+    <filters>
+        <field>HOMEtracker__Status__c</field>
+        <operation>equals</operation>
+        <value>Initial lease up in progress,Initial Lease up completed</value>
+    </filters>
+    <label>AA lease renewals</label>
+</ListView>

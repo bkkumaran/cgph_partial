@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Disaster_or_Emergency__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Use with field &quot;Disaster or Emergency Notes&quot;. If your program is providing service in response to a national or other disaster/emergency, indicate here. Tip: Discuss how your program defines service related to a disaster/emergency, then update this help text or add picklist options for specific events.</description>
+    <inlineHelpText>If your program is providing service in response to a national or other disaster/emergency, indicate here. Tip: Discuss how your program defines service related to a disaster/emergency, then update this help text or add picklist options for specific event</inlineHelpText>
+    <label>Disaster or Emergency</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>HOMEtracker__Disaster_or_Emergency</valueSetName>
+    </valueSet>
+</CustomField>

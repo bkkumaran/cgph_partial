@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>windsor_castle</fullName>
+    <columns>HOMEtracker__Status__c</columns>
+    <columns>NAME</columns>
+    <columns>HOMEtracker__Number_of_Bathrooms__c</columns>
+    <columns>HOMEtracker__Number_of_Bedrooms__c</columns>
+    <columns>Income_Level__c</columns>
+    <columns>HOMEtracker__Monthly_Rent__c</columns>
+    <columns>Initial_rental_pricing__c</columns>
+    <columns>Utilities__c</columns>
+    <columns>Utilities_Comments__c</columns>
+    <columns>Floor_unit_is_located_on__c</columns>
+    <columns>HOMEtracker__Exterior__c</columns>
+    <columns>HOMEtracker__Interior__c</columns>
+    <columns>Additional_Parking_Fee__c</columns>
+    <columns>Date_unit_will_be_availalbe__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HOMEtracker__Property__c.Rental_Unit</value>
+    </filters>
+    <filters>
+        <field>Development_address__c</field>
+        <operation>equals</operation>
+        <value>Station at Lyndhurst</value>
+    </filters>
+    <label>AA Windsor Castle</label>
+    <sharedTo>
+        <group>AA_Group</group>
+    </sharedTo>
+</ListView>

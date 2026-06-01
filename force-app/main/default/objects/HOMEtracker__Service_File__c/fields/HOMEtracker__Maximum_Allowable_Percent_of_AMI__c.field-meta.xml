@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOMEtracker__Maximum_Allowable_Percent_of_AMI__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Please note: The data stored in this field is linked to the HomeKeeper National Data Hub. Do not change this field or hide it from the layout. The maximum allowable percent of AMI for the program and/or the identified property. Required in order to compare the difference between the maximum allowable and the actual percent of AMI (Gross).</description>
+    <inlineHelpText>The maximum allowable percent of AMI for the program and/or the identified property. Required in order to compare the difference between the maximum allowable and the actual percent of AMI (Gross).</inlineHelpText>
+    <label>Maximum Allowable Percent of AMI</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

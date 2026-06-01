@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>App_Review_Checklist__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+&quot;/apex/APXTConga4__Conga_Composer?serverUrl=&quot;+$Api.Enterprise_Server_URL_370
++&quot;&amp;Id=&quot;+Id
++&quot;&amp;OFN=APP+CHECKLIST &quot;+Name+&quot;&amp;TemplateId=a293m000004m9X7&amp;DS7=3&amp;FP0=1&quot;
+, &quot;CLICK HERE&quot;, &apos;_blank&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Click here to download the most current application review checklist before beginning an income certification</inlineHelpText>
+    <label>App Review Checklist</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

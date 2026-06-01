@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cert_K_Sent_to_Development_By__c</fullName>
+    <description>The coordinator who sent the Certificate K to the development. Will default autofill to the first user who saves after a date is entered in the &quot;Date Cert K Sent to Development&quot; field.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The coordinator who sent the Certificate K to the development. Will default autofill to the first user who saves after a date is entered in the &quot;Date Cert K Sent to Development&quot; field.</inlineHelpText>
+    <label>Cert K Sent to Development By</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

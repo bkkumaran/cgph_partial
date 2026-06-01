@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IAW_PMI_Rate_90__c</fullName>
+    <description>The PMI Rate &gt;90% at the time of Certification. Click the Update Expenses Variables button to populate with Current information.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The PMI Rate &gt;90% at the time of Certification. Click the Update Expenses Variables button to populate with Current information.</inlineHelpText>
+    <label>PMI Rate &gt;90%</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>6</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
